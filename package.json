@@ -1,27 +1,71 @@
 {
-  "name": "next-digital-campus_client",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.3"
-  },
-  "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "autoprefixer": "^10.0.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.3"
-  }
+	"name": "next-digital-campus_client",
+	"version": "0.1.0",
+	"private": true,
+	"engines": {
+		"node": ">=18.17"
+	},
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@dicebear/adventurer": "^7.0.1",
+		"@dicebear/core": "^7.0.1",
+		"@nextui-org/react": "^2.2.9",
+		"@radix-ui/react-dialog": "^1.0.5",
+		"@radix-ui/react-label": "^2.0.2",
+		"@radix-ui/react-navigation-menu": "^1.1.4",
+		"@radix-ui/react-slot": "^1.0.2",
+		"@radix-ui/react-toast": "^1.1.5",
+		"@theme-toggles/react": "^4.1.0",
+		"autoprefixer": "10.4.16",
+		"axios": "^1.6.2",
+		"canvas-confetti": "^1.9.2",
+		"class-variance-authority": "^0.7.0",
+		"clsx": "^2.0.0",
+		"crypto-js": "^4.2.0",
+		"date-fns": "^2.30.0",
+		"echarts-for-react": "^3.0.2",
+		"form-data": "^4.0.0",
+		"framer-motion": "^10.16.5",
+		"immer": "^10.0.3",
+		"intl-messageformat": "^10.5.8",
+		"lodash": "^4.17.21",
+		"lucide-react": "^0.293.0",
+		"memoize-one": "^6.0.0",
+		"next": "^14",
+		"next-auth": "5.0.0-beta.3",
+		"next-themes": "^0.2.1",
+		"qs": "^6.11.2",
+		"react": "^18",
+		"react-animated-cursor": "^2.11.2",
+		"react-day-picker": "^8.9.1",
+		"react-dom": "^18",
+		"react-hot-toast": "^2.4.1",
+		"swiper": "^11.0.5",
+		"swr": "^2.2.4",
+		"tailwind-merge": "^2.0.0",
+		"tailwindcss-animate": "^1.0.7",
+		"usehooks-ts": "^2.9.1",
+		"zustand": "^4.4.6"
+	},
+	"devDependencies": {
+		"@iconify/react": "^4.1.1",
+		"@types/crypto-js": "^4.2.1",
+		"@types/lodash": "^4.14.202",
+		"@types/node": "20.5.7",
+		"@types/qs": "^6.9.10",
+		"@types/react": "^18.2.21",
+		"@types/react-dom": "^18.2.7",
+		"eslint": "8.48.0",
+		"eslint-config-next": "^14",
+		"eslint-config-prettier": "^9.0.0",
+		"postcss": "8.4.31",
+		"tailwind-variants": "^0.1.18",
+		"tailwindcss": "3.3.5",
+		"typescript": "^5"
+	}
 }
