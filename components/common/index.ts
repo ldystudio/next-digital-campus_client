@@ -1,7 +1,7 @@
 export * from "./iconify";
 export * from "./icons";
 export * from "./listbox-wrapper";
-// export * from "./menu";
+export * from "./menu";
 export * from "./progress";
 export * from "./theme-switch";
 export * from "./password-input";

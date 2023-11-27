@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 
-// import fetch from "isomorphic-unfetch";
 import { motion } from "framer-motion";
 
 // Our custom easing
