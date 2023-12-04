@@ -1,6 +1,9 @@
 "use client";
+import { useState } from "react";
+
 import toast from "react-hot-toast";
 import { Icon } from "@iconify/react";
+
 import {
 	Avatar,
 	Button,
@@ -14,14 +17,16 @@ import {
 } from "@nextui-org/react";
 
 import { Col, Link, ListBoxWrapper, PasswordInput, Row } from "@/components/common";
-import { useEmailCaptchaCountdown } from "~/hooks/business";
-import { useAuthForm } from "~/hooks/business";
+import { useAsyncStore } from "@/src/utils/store";
+import { useEmailCaptchaCountdown, useAuthForm } from "~/hooks/business";
+import { useCounterState, useCounterAction } from "~/store";
+import { useAuthStore, useAuthActions } from "~/store/auth";
 import ImageCaptcha from "./image-captcha";
 
-export default function LoginTabs(props: any) {
+export default function LoginTabs() {
 	const {
-		isLoading,
-		setIsLoading,
+		// isLoading,
+		// setIsLoading,
 		rememberMe,
 		setRememberMe,
 		verificationFailed,
@@ -44,6 +49,10 @@ export default function LoginTabs(props: any) {
 	} = useAuthForm();
 
 	const { count, startCountdown, resetCountdown, CountdownText } = useEmailCaptchaCountdown(120);
+
+	const generateTraceId = () => `${Math.random().toString(36).slice(-8)}${Date.now()}`;
+	const [traceId, setTraceId] = useState(generateTraceId());
+	const captchaURL = `${process.env.SERVER_URL}/auth/image_captcha/?traceId=${traceId}`;
 
 	const handleCountdownButtonClick = () => {
 		if (!email) {
@@ -68,6 +77,11 @@ export default function LoginTabs(props: any) {
 		{ id: 2, icon: "/images/微信.png", name: "微信登录", link: "#" },
 		{ id: 3, icon: "/images/Github.svg", name: "Github登录", link: "#" }
 	];
+
+	const isLoading = useAuthStore((state) => state.isLoading);
+	const { setIsLoading } = useAuthActions();
+	const model: Auth.LoginForm = { username, password, captcha, traceId };
+	const { login } = useAuthActions();
 
 	return (
 		<Tabs
@@ -136,7 +150,11 @@ export default function LoginTabs(props: any) {
 						/>
 						<Tooltip content='点击切换验证码' placement='bottom'>
 							<div className='h-full border-8 border-default-100 bg-default-100 rounded-xl cursor-pointer'>
-								<ImageCaptcha />
+								<ImageCaptcha
+									generateTraceId={generateTraceId}
+									setTraceId={setTraceId}
+									captchaURL={captchaURL}
+								/>
 							</div>
 						</Tooltip>
 					</Row>
@@ -164,24 +182,8 @@ export default function LoginTabs(props: any) {
 									return;
 								}
 
-								try {
-									setIsLoading(true);
-									setVerificationFailed(false);
-
-									console.log(
-										"username: ",
-										username,
-										"password:",
-										password,
-										"captcha:",
-										captcha,
-										"rememberMe: ",
-										rememberMe
-									);
-								} catch {
-								} finally {
-									setIsLoading(false);
-								}
+								setVerificationFailed(false);
+								login(model);
 							}}
 							isLoading={isLoading}
 						>

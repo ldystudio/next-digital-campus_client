@@ -1,16 +1,22 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 
 import { Image, Popover, PopoverContent, PopoverTrigger, Skeleton } from "@nextui-org/react";
 
-export default function ImageCaptcha() {
+interface ImageCaptchaProps {
+	generateTraceId: () => string;
+	setTraceId: Dispatch<SetStateAction<string>>;
+	captchaURL: string;
+}
+
+export default function ImageCaptcha({
+	generateTraceId,
+	setTraceId,
+	captchaURL
+}: ImageCaptchaProps) {
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [showPopover, setShowPopover] = useState(false);
 	const [firstLoad, setFirstLoad] = useState(true);
-
-	const generateTraceId = () => `${Math.random().toString(36).slice(-8)}${Date.now()}`;
-	const [traceId, setTraceId] = useState(generateTraceId());
-	const captchaURL = `${process.env.SERVER_URL}/auth/image_captcha/?traceId=${traceId}`;
 
 	const timerIdRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -50,7 +56,7 @@ export default function ImageCaptcha() {
 					/>
 				</PopoverTrigger>
 				<PopoverContent>
-					<span className='text-danger'>验证码更新频率过快，请您稍后再试。</span>
+					<span className='text-danger'>验证码刷新频率过快</span>
 				</PopoverContent>
 			</Popover>
 		</Skeleton>

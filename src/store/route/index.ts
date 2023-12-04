@@ -1,58 +1,85 @@
-// import { create } from "zustand";
-// import { immer } from "zustand/middleware/immer";
+import { create } from "zustand";
+import { immer } from "zustand/middleware/immer";
 
-// import { useAuthStore } from "~/store/auth";
-// import {
-// 	localStg,
-// 	filterAuthRoutesByUserPermission,
-// 	getCacheRoutes,
-// 	getConstantRouteNames,
-// 	transformAuthRouteToVueRoutes,
-// 	transformAuthRouteToVueRoute,
-// 	transformAuthRouteToMenu,
-// 	transformAuthRouteToSearchMenus,
-// 	transformRouteNameToRoutePath,
-// 	transformRoutePathToRouteName,
-// 	sortRoutes
-// } from "~/utils";
-// import { useAsyncStore } from "~/utils/store";
+import { routes as staticRoutes } from "~/router/modules";
+import { useAuthStore } from "~/store/auth";
+import {
+	filterAuthRoutesByUserPermission,
+	transformAuthRouteToMenu,
+	transformAuthRouteToSearchMenus
+} from "~/utils/router";
+import { useAsyncStore } from "~/utils/store";
 
-// // import { useTabStore } from "../tab";
+interface RouteState {
+	/** 是否初始化了权限路由 */
+	isInitAuthRoute: boolean;
+	/** 路由首页name(前端静态路由时生效，后端动态路由该值会被后端返回的值覆盖) */
+	routeHomeName: AuthRoute.AllRouteKey;
+	/** 菜单 */
+	menus: App.GlobalMenuOption[];
+	/** 搜索的菜单 */
+	searchMenus: AuthRoute.Route[];
+}
 
-// const initialRouteState = {
-// 	/** 是否初始化了权限路由 */
-// 	isInitAuthRoute: false,
-// 	/** 缓存的路由名称 */
-// 	cacheRoutes: []
-// };
+const initialRouteState: RouteState = {
+	isInitAuthRoute: false,
+	routeHomeName: "/",
+	menus: [],
+	searchMenus: []
+};
 
-// export const useRouteStore = create<typeof initialRouteState>()(immer(() => initialRouteState));
+export const useRouteStore = create<RouteState>()(immer(() => initialRouteState));
 
-// export function resetRouteStore() {
-// 	useRouteStore.setState(() => ({
-// 		...initialRouteState
-// 	}));
-// }
+export function resetRouteStore() {
+	useRouteStore.setState(() => ({
+		...initialRouteState
+	}));
+}
 
-// // export function handleAuthRoute(routes: AuthRoute.Route[]) {
-// // 	(this.menus as App.GlobalMenuOption[]) = transformAuthRouteToMenu(routes);
-// // 	this.searchMenus = transformAuthRouteToSearchMenus(routes);
+export function setIsInitAuthRoute(isInitAuthRoute: boolean) {
+	useRouteStore.setState((state) => {
+		state.isInitAuthRoute = isInitAuthRoute;
+	});
+}
 
-// // 	const vueRoutes = transformAuthRouteToVueRoutes(routes);
+export function setMenus(menus: App.GlobalMenuOption[]) {
+	useRouteStore.setState((state) => {
+		state.menus = menus;
+	});
+}
 
-// // 	vueRoutes.forEach(route => {
-// // 		router.addRoute(route);
-// // 	});
-// // 	this.cacheRoutes = getCacheRoutes(vueRoutes);
-// // },
-// /** 初始化静态路由 */
-// async function useInitStaticRoute() {
-// 	const userRole = useAsyncStore(useAuthStore, (state) => state.userInfo.userRole);
+export function setSearchMenus(searchMenus: AuthRoute.Route[]) {
+	useRouteStore.setState((state) => {
+		state.searchMenus = searchMenus;
+	});
+}
 
-// 	const routes = filterAuthRoutesByUserPermission(staticRoutes, userRole);
-// 	handleAuthRoute(routes);
+export function useRouteActions() {
+	const userRole = useAuthStore((state) => state.userInfo.userRole);
 
-// 	useRouteStore.setState((state) => {
-// 		state.isInitAuthRoute = true;
-// 	});
-// }
+	/** 初始化权限路由 */
+	async function initAuthRoute() {
+		await initStaticRoute();
+	}
+
+	/** 初始化静态路由 */
+	async function initStaticRoute() {
+		const routes = filterAuthRoutesByUserPermission(staticRoutes, userRole);
+		handleAuthRoute(routes);
+
+		setIsInitAuthRoute(true);
+	}
+
+	/**
+	 * 处理权限路由
+	 * @param routes - 权限路由
+	 */
+	function handleAuthRoute(routes: AuthRoute.Route[]) {
+		setMenus(transformAuthRouteToMenu(routes));
+		setSearchMenus(transformAuthRouteToSearchMenus(routes));
+	}
+
+	return {
+		initAuthRoute
+	};
+}
