@@ -96,6 +96,7 @@ export function useAuthAction() {
 
 			// 登录成功弹出欢迎提示
 			if (isInitAuthRoute) {
+				console.log("登录成功");
 				toast.success("登录成功");
 				// window.$notification?.success({
 				// 	title: "登录成功!",
@@ -151,10 +152,13 @@ export function useAuthAction() {
 	 */
 	async function login(model: Auth.LoginForm) {
 		setIsLoading(true);
+
 		const { data } = await fetchLogin(model);
+
 		if (data) {
 			await handleActionAfterLogin(data);
 		}
+
 		setIsLoading(false);
 	}
 	return {

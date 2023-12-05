@@ -4,11 +4,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { Icon } from "@iconify/react";
+
 import { Button, Input, RadioGroup, Tab, Tabs, Image } from "@nextui-org/react";
 
 import { CardRadio, Col, Link, PasswordInput, Row } from "@/components/common";
 import { useAvatarList, useEmailCaptchaCountdown } from "~/hooks/business";
 import { useAuthForm } from "~/hooks/business";
+
 import { colorfulFlag } from "~/utils/toys";
 
 type tabValue = "EmailRegister" | "FillInTheInformation" | "ChooseAnAvatar";

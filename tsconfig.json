@@ -23,6 +23,12 @@
 			"~/*": ["./src/*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-	"exclude": ["node_modules", "src/utils/toys/colorful-flag.js"]
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"src/utils/toys/colorful-flag.js"
+	],
+	"exclude": ["node_modules"]
 }

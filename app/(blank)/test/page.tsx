@@ -1,8 +1,10 @@
 "use client";
 import { Button } from "@nextui-org/react";
 
-import { fetchTest } from "~/service/api";
+import { localStg } from "@/src/utils/storage";
+import { fetchUpdateToken } from "~/service/api";
 import { useAuthState, useAuthAction } from "~/store/modules/auth";
+import Motion from "./motion";
 
 export default function Test() {
 	const { userInfo } = useAuthState();
@@ -23,7 +25,8 @@ export default function Test() {
 				<p>{userInfo.userRole}</p>
 			</section>
 			<section>
-				<Button onPress={() => fetchTest()}>测试</Button>
+				{/* <Button onPress={() => fetchUpdateToken(refresh)}>测试</Button> */}
+				<Motion />
 			</section>
 		</>
 	);

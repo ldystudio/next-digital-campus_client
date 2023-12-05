@@ -1,9 +1,9 @@
 "use client";
-import { useRouter } from "next/navigation";
-
 import { Button, Code } from "@nextui-org/react";
 
 import { Col, Row, Image } from "@/components/common";
+
+import { useRouterPush } from "~/utils/router";
 
 interface ErrorProps {
 	error: Error & { digest?: string };
@@ -11,7 +11,7 @@ interface ErrorProps {
 }
 
 export default function Error({ error, reset }: ErrorProps) {
-	const router = useRouter();
+	const { routerBack } = useRouterPush();
 
 	return (
 		<Col fullWidth justify='center' className='h-screen gap-4 select-none'>
@@ -35,7 +35,7 @@ export default function Error({ error, reset }: ErrorProps) {
 					variant='solid'
 					radius='full'
 					color='secondary'
-					onPress={() => router.back()}
+					onPress={() => routerBack()}
 				>
 					返回
 				</Button>
