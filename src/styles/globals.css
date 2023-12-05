@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 模式切换的动画效果设置 */
+.dark::view-transition-old(root),
+.dark::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: hue;
+}
+
+.dark::view-transition-new(root),
+::view-transition-new(root) {
+    z-index: 9999;
+}
+
+.dark::view-transition-old(root),
+::view-transition-old(root) {
+    z-index: 1;
+}
+
+/*去除浏览器密码框默认出现的小眼睛，与本项目的style不符~*/
+input[type="password"]::-webkit-credentials-cramble-button {
+    appearance: none;
+}
+
+input[type="password"]::-ms-reveal {
+    display: none;
+}
+
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+input[type="password"]::-o-clear {
+    display: none;
+}
+
+input[type="password"] {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.theme-toggle__expand {
+    height: 24px;
+    width: 24px;
+}
