@@ -1,12 +1,12 @@
 import { Card, CardBody } from "@nextui-org/react";
 
+
 import { Col, ThemeSwitch, Link, Image } from "@/components/common";
 import LoginTabs from "./login-tabs";
 
+
 export default function LoginPage() {
-	// const isLoading = useAsyncStore(useAuthStore, (state) => state.isLoading);
-	// const userInfo = useAsyncStore(useAuthStore, (state) => state.userInfo);
-	// const model: Auth.LoginForm = { username, password, captcha, traceId };
+
 
 	return (
 		<Card className='h-full lg:h-3/4 container px-0 relative'>

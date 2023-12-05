@@ -3,18 +3,19 @@ import { useEffect } from "react";
 
 import { Progress as NextUIProgress } from "@nextui-org/react";
 
-import { useProgressStore, setValueHandler } from "~/store/progress";
+import { useProgressState, useProgressAction } from "~/store/modules/progress";
 
 export function Progress(): JSX.Element {
-	const value = useProgressStore((state) => state.value);
-	const color = useProgressStore((state) => state.color);
+	const { color, value } = useProgressState();
+	const { setValue } = useProgressAction();
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setValueHandler(value >= 100 ? 100 : value + 1);
+			value < 100 && setValue(value + 1);
 		}, 50);
 
 		return () => clearInterval(interval);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [value]);
 
 	return (

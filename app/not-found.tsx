@@ -1,12 +1,13 @@
 "use client";
-import { useRouter } from "next/navigation";
-
 import { Button, Code } from "@nextui-org/react";
 
+
 import { Col, Row, Image } from "@/components/common";
+import { useRouterPush } from "~/utils/router";
+
 
 export default function NotFound() {
-	const router = useRouter();
+	const { routerBack, toHome } = useRouterPush();
 
 	return (
 		<Col fullWidth justify='center' className='h-screen px-5 gap-4 select-none'>
@@ -27,7 +28,7 @@ export default function NotFound() {
 					radius='full'
 					color='primary'
 					onClick={() => {
-						router.back();
+						routerBack();
 					}}
 				>
 					返回
@@ -36,7 +37,7 @@ export default function NotFound() {
 					variant='solid'
 					radius='full'
 					color='secondary'
-					onClick={() => router.push("/")}
+					onClick={() => toHome()}
 				>
 					首页
 				</Button>

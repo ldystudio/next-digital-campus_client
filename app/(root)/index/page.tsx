@@ -1,7 +1,4 @@
-import { notFound } from "next/navigation";
-
-import clsx from "clsx";
-import { Button, Card, CardBody, button as buttonStyles } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, button as buttonStyles } from "@nextui-org/react";
 
 import { GithubIcon, Iconify, Row, Image, Link } from "@/components/common";
 import { subtitle, title } from "@/components/custom";
@@ -36,7 +33,7 @@ const introduce = [
 	{
 		icon: "solar:chat-round-line-bold-duotone",
 		title: "在线沟通",
-		desc: "提供实时的在线聊天和讨论功能，可通过系统内部的消息系统进行交流和协作，方便快捷地解决问题和分享信息。"
+		desc: "提供在线聊天和讨论功能，通过系统内部的消息系统进行交流和协作，方便快捷地解决问题和分享信息。"
 	}
 ];
 
@@ -84,10 +81,18 @@ export default function HomePage() {
 			</section>
 			<section className={`grid grid-cols-2 gap-4 lg:grid-cols-3 ${NotoSansSC.className}`}>
 				{introduce.map((item, index) => (
-					<Card isBlurred isPressable shadow='none' key={`introduce - ${index}`}>
-						<CardBody className='gap-2 bg-default-100'>
+					<Card
+						isBlurred
+						isPressable
+						shadow='none'
+						key={`introduce - ${index}`}
+						className='bg-default-100'
+					>
+						<CardHeader className='space-x-2'>
 							<Iconify icon={item.icon} height={30} color='#006FEE' />
-							<p className='flex font-bold'>{item.title}</p>
+							<p className='font-bold'>{item.title}</p>
+						</CardHeader>
+						<CardBody className='pt-0'>
 							<p>{item.desc}</p>
 						</CardBody>
 					</Card>

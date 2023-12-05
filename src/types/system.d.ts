@@ -147,3 +147,16 @@ declare namespace I18nType {
 		};
 	}
 }
+
+declare namespace App {
+	/** 菜单项配置 */
+	type GlobalMenuOption = {
+		key: string;
+		label: string;
+		routeName: string;
+		routePath: string;
+		icon?: string;
+		children?: GlobalMenuOption[];
+		i18nTitle?: string;
+	};
+}

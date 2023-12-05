@@ -25,6 +25,10 @@ export const siteConfig = {
 		{
 			label: "文章",
 			href: "/docs"
+		},
+		{
+			label: "测试",
+			href: "/test"
 		}
 	],
 	navMenuItems: [

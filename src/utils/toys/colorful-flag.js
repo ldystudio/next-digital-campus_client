@@ -1,30 +1,30 @@
-import confetti from "canvas-confetti";
+const confetti = require("canvas-confetti").default;
 
-// confetti.Promise = new Promise(() => {});
 export function colorfulFlag() {
 	var scalar = 2;
+
 	var emoji_1 = confetti.shapeFromText({ text: "✨", scalar });
 	var emoji_2 = confetti.shapeFromText({ text: "🍬", scalar });
 	var emoji_3 = confetti.shapeFromText({ text: "🎉", scalar });
 
-	var defaults = {
+	var attribute = {
 		spread: 180,
 		particleCount: 30,
-		origin: { y: -0.1 },
-		startVelocity: -35,
+		origin: { y: 0 },
+		startVelocity: -30,
 		scalar
 	};
 
 	confetti({
-		...defaults,
+		...attribute,
 		shapes: [emoji_1]
-	}).defaults;
+	});
 	confetti({
-		...defaults,
+		...attribute,
 		shapes: [emoji_2]
-	}).defaults;
+	});
 	confetti({
-		...defaults,
+		...attribute,
 		shapes: [emoji_3]
-	}).defaults;
+	});
 }

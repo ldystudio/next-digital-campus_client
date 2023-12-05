@@ -6,8 +6,8 @@ import clsx from "clsx";
 import { Card, CardBody, CardFooter, CardHeader, Divider, Tab, Tabs } from "@nextui-org/react";
 
 import { Iconify } from "@/components/common";
-import { useMenuItem } from "~/hooks/common";
-import { successProgress, errorProgress } from "~/store/progress";
+import { useMenuItemState } from "~/store/modules/menu";
+import { useProgressAction } from "~/store/modules/progress";
 
 interface contentProps {
 	children: React.ReactNode;
@@ -15,10 +15,12 @@ interface contentProps {
 
 export default function Content({ children }: contentProps) {
 	const pathname = usePathname();
-	const { menuItem } = useMenuItem();
+	const { menuItem } = useMenuItemState();
+	const { successProgress } = useProgressAction();
 
 	useEffect(() => {
 		successProgress();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [pathname]);
 
 	return (
