@@ -17,10 +17,8 @@ import {
 } from "@nextui-org/react";
 
 import { Col, Link, ListBoxWrapper, PasswordInput, Row } from "@/components/common";
-import { useAsyncStore } from "@/src/utils/store";
 import { useEmailCaptchaCountdown, useAuthForm } from "~/hooks/business";
-import { useCounterState, useCounterAction } from "~/store";
-import { useAuthStore, useAuthActions } from "~/store/auth";
+import { useAuthState, useAuthAction } from "~/store/modules/auth";
 import ImageCaptcha from "./image-captcha";
 
 export default function LoginTabs() {
@@ -78,10 +76,10 @@ export default function LoginTabs() {
 		{ id: 3, icon: "/images/Github.svg", name: "Github登录", link: "#" }
 	];
 
-	const isLoading = useAuthStore((state) => state.isLoading);
-	const { setIsLoading } = useAuthActions();
+	const { isLoading } = useAuthState();
+	const { setIsLoading, login } = useAuthAction();
 	const model: Auth.LoginForm = { username, password, captcha, traceId };
-	const { login } = useAuthActions();
+	// const { login } = useAuthAction();
 
 	return (
 		<Tabs

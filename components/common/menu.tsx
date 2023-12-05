@@ -5,7 +5,7 @@ import { Accordion, AccordionItem, Link, ScrollShadow } from "@nextui-org/react"
 
 import { Iconify } from "@/components/common";
 import { siteConfig } from "~/config";
-import { useMenuItem } from "~/hooks/common";
+import { useMenuItemState, useMenuItemAction } from "~/store/modules/menu";
 
 export function AdminMenu() {
 	const router = useRouter();
@@ -16,7 +16,8 @@ export function AdminMenu() {
 		trigger: "px-2 py-0 hover:bg-default-100 rounded-lg h-10 flex items-center",
 		indicator: "text-medium"
 	};
-	const { menuItem, setMenuItem } = useMenuItem();
+	const { menuItem } = useMenuItemState();
+	const { setMenuItem } = useMenuItemAction();
 
 	function handlePress(item: any) {
 		setMenuItem(item);

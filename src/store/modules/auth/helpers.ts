@@ -12,9 +12,8 @@ export function getUserInfo() {
 		userName: "",
 		userRole: "student"
 	};
-	const userInfo: Auth.UserInfo = localStg.get("userInfo") || emptyInfo;
 
-	return userInfo;
+	return localStg.get("userInfo") || emptyInfo;
 }
 
 /** 去除用户相关缓存 */

@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { useAppSelector, useAppDispatch } from "~/hooks/common";
 
@@ -27,6 +27,7 @@ const counterSlice = createSlice({
 });
 
 export default counterSlice.reducer;
+
 export function useCounterState() {
 	const count = useAppSelector((state) => state.counter.count);
 	return { count };

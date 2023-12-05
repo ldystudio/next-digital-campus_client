@@ -1,24 +1,30 @@
 "use client";
 import { Button } from "@nextui-org/react";
 
-import { routes } from "~/router/modules";
-import { useCounterState, useCounterAction } from "~/store";
+import { fetchTest } from "~/service/api";
+import { useAuthState, useAuthAction } from "~/store/modules/auth";
 
 export default function Test() {
-	const { count } = useCounterState();
-	const { increment, decrement, incrementByAmount } = useCounterAction();
+	const { userInfo } = useAuthState();
+	const { setUserInfo, resetAuthStore } = useAuthAction();
 	return (
 		<>
-			<div>
-				<Button onPress={() => increment()}>{count}</Button>
-				<Button onPress={() => decrement()}>{count}</Button>
-				<Button onPress={() => incrementByAmount(5)}>{count}</Button>
-			</div>
-			<div className='mt-5'>
-				<Button onPress={() => increment()}>{count}</Button>
-				<Button onPress={() => decrement()}>{count}</Button>
-				<Button onPress={() => incrementByAmount(10)}>{count}</Button>
-			</div>
+			<section>
+				<Button
+					onPress={() =>
+						setUserInfo({ userId: "100", userName: "test", userRole: "admin" })
+					}
+				>
+					设置
+				</Button>
+				<Button onPress={() => resetAuthStore()}>重置</Button>
+				<p>{userInfo.userId}</p>
+				<p>{userInfo.userName}</p>
+				<p>{userInfo.userRole}</p>
+			</section>
+			<section>
+				<Button onPress={() => fetchTest()}>测试</Button>
+			</section>
 		</>
 	);
 }

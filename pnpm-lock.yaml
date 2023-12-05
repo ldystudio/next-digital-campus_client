@@ -65,9 +65,6 @@ dependencies:
   framer-motion:
     specifier: ^10.16.5
     version: 10.16.5(react-dom@18.2.0)(react@18.2.0)
-  immer:
-    specifier: ^10.0.3
-    version: 10.0.3
   intl-messageformat:
     specifier: ^10.5.8
     version: 10.5.8
@@ -125,9 +122,6 @@ dependencies:
   usehooks-ts:
     specifier: ^2.9.1
     version: 2.9.1(react-dom@18.2.0)(react@18.2.0)
-  zustand:
-    specifier: ^4.4.7
-    version: 4.4.7(@types/react@18.2.41)(immer@10.0.3)(react@18.2.0)
 
 devDependencies:
   '@iconify/react':
@@ -6134,25 +6128,4 @@ packages:
     resolution: {integrity: sha512-0VxCNJ7AGOMCWeHVyTrGzUgrK4asT4ml9PEkeGirAkKNYXYzoPJCLvmyfdoOXcjTHPs10OZVMfD1Rwg16AZyYw==}
     dependencies:
       tslib: 2.3.0
-    dev: false
-
-  /zustand@4.4.7(@types/react@18.2.41)(immer@10.0.3)(react@18.2.0):
-    resolution: {integrity: sha512-QFJWJMdlETcI69paJwhSMJz7PPWjVP8Sjhclxmxmxv/RYI7ZOvR5BHX+ktH0we9gTWQMxcne8q1OY8xxz604gw==}
-    engines: {node: '>=12.7.0'}
-    peerDependencies:
-      '@types/react': '>=16.8'
-      immer: '>=9.0'
-      react: '>=16.8'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      immer:
-        optional: true
-      react:
-        optional: true
-    dependencies:
-      '@types/react': 18.2.41
-      immer: 10.0.3
-      react: 18.2.0
-      use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
