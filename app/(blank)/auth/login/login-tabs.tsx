@@ -18,7 +18,7 @@ import {
 
 import { Col, Link, ListBoxWrapper, PasswordInput, Row } from "@/components/common";
 import { useEmailCaptchaCountdown, useAuthForm } from "~/hooks/business";
-import { useAuthState, useAuthAction } from "~/store/modules/auth";
+import { useAuthStateInComponent, useAuthAction } from "~/store/modules/auth";
 import ImageCaptcha from "./image-captcha";
 
 export default function LoginTabs() {
@@ -76,10 +76,9 @@ export default function LoginTabs() {
 		{ id: 3, icon: "/images/Github.svg", name: "Github登录", link: "#" }
 	];
 
-	const { isLoading } = useAuthState();
+	const { isLoading } = useAuthStateInComponent();
 	const { setIsLoading, login } = useAuthAction();
 	const model: Auth.LoginForm = { username, password, captcha, traceId };
-	// const { login } = useAuthAction();
 
 	return (
 		<Tabs

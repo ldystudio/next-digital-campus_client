@@ -1,9 +1,10 @@
-import toast from "react-hot-toast";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { notice } from "@/components/common";
 import { useAppSelector, useAppDispatch } from "~/hooks/common";
 import { fetchLogin } from "~/service/api";
-import { useRouteState, useRouteAction } from "~/store/modules/route";
+import store from "~/store";
+import { useRouteStateInFunction, useRouteAction } from "~/store/modules/route";
 import { parseJwtPayload } from "~/utils/common";
 import { useRouterPush } from "~/utils/router";
 import { localStg } from "~/utils/storage";
@@ -28,10 +29,8 @@ const authSlice = createSlice({
 	name: "auth",
 	initialState,
 	reducers: {
-		resetAuthStore(state) {
-			state.userInfo = initialState.userInfo;
-			state.token = initialState.token;
-			state.isLoading = initialState.isLoading;
+		resetAuthStore() {
+			return initialState;
 		},
 		setIsLoading(state, action: PayloadAction<boolean>) {
 			state.isLoading = action.payload;
@@ -47,18 +46,18 @@ const authSlice = createSlice({
 
 export default authSlice.reducer;
 
-export function useAuthState() {
-	const isLoading = useAppSelector((state) => state.auth.isLoading);
-	const userInfo = useAppSelector((state) => state.auth.userInfo);
-	const token = useAppSelector((state) => state.auth.token);
-	return { isLoading, userInfo, token };
+export function useAuthStateInComponent() {
+	return { ...useAppSelector((state) => state.auth) };
+}
+
+export function useAuthStateInFunction() {
+	return { ...store.getState().auth };
 }
 
 export function useAuthAction() {
 	const { routerPush, routerBack, toHome, toLogin, toRegister, toRedirect } = useRouterPush();
 	const { initAuthRoute } = useRouteAction();
-	const { isInitAuthRoute } = useRouteState();
-	const { token } = useAuthState();
+	const { token, userInfo } = useAuthStateInFunction();
 	const dispatch = useAppDispatch();
 
 	function resetAuthStore() {
@@ -94,19 +93,19 @@ export function useAuthAction() {
 			// 跳转登录后的地址
 			toRedirect();
 
+			const isInitAuthRoute = store.getState().route.isInitAuthRoute;
 			// 登录成功弹出欢迎提示
 			if (isInitAuthRoute) {
-				console.log("登录成功");
-				toast.success("登录成功");
-				// window.$notification?.success({
-				// 	title: "登录成功!",
-				// 	content: `欢迎回来，${this.userInfo.userName}!`,
-				// 	duration: 3000
-				// });
+				notice.success({
+					title: "登录成功!",
+					description: `欢迎回来，${userInfo.userName}!`
+				});
 			}
 
 			return;
 		}
+
+		notice.error({ title: "登录失败", description: "请稍后再试~" });
 		// 不成功则重置状态
 		resetAuthStore();
 	}
@@ -155,12 +154,11 @@ export function useAuthAction() {
 
 		const { data } = await fetchLogin(model);
 
-		if (data) {
-			await handleActionAfterLogin(data);
-		}
+		if (data) await handleActionAfterLogin(data);
 
 		setIsLoading(false);
 	}
+
 	return {
 		resetAuthStore,
 		setIsLoading,

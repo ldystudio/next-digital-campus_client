@@ -2,13 +2,14 @@ import _ from "lodash";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { useAppSelector, useAppDispatch } from "~/hooks/common";
+import store from "~/store";
 import {
 	filterAuthRoutesByUserPermission,
 	transformAuthRouteToMenu,
 	transformAuthRouteToSearchMenus,
 	sortRoutes
 } from "~/utils/router";
-import { useAuthState } from "./auth";
+import { useAuthStateInFunction } from "./auth";
 
 interface RouteState {
 	/** 是否初始化了权限路由 */
@@ -32,11 +33,8 @@ const routeSlice = createSlice({
 	name: "route",
 	initialState,
 	reducers: {
-		resetRoute(state) {
-			state.isInitAuthRoute = initialState.isInitAuthRoute;
-			state.routeHomeName = initialState.routeHomeName;
-			state.menus = initialState.menus;
-			state.searchMenus = initialState.searchMenus;
+		resetRouteStore() {
+			return initialState;
 		},
 		setIsInitAuthRoute(state, action: PayloadAction<boolean>) {
 			state.isInitAuthRoute = action.payload;
@@ -52,29 +50,29 @@ const routeSlice = createSlice({
 
 export default routeSlice.reducer;
 
-export function useRouteState() {
-	const isInitAuthRoute = useAppSelector((state) => state.route.isInitAuthRoute);
-	const routeHomeName = useAppSelector((state) => state.route.routeHomeName);
-	const menus = useAppSelector((state) => state.route.menus);
-	const searchMenus = useAppSelector((state) => state.route.searchMenus);
-	return { isInitAuthRoute, routeHomeName, menus, searchMenus };
+export function useRouteStateInComponent() {
+	return { ...useAppSelector((state) => state.route) };
+}
+
+export function useRouteStateInFunction() {
+	return { ...store.getState().route };
 }
 
 export function useRouteAction() {
-	const { userInfo } = useAuthState();
+	const { userInfo } = useAuthStateInFunction();
 	const dispatch = useAppDispatch();
 
-	function resetRoute() {
-		return dispatch(routeSlice.actions.resetRoute());
+	function resetRouteStore() {
+		dispatch(routeSlice.actions.resetRouteStore());
 	}
 	function setIsInitAuthRoute(isInitAuthRoute: boolean) {
-		return dispatch(routeSlice.actions.setIsInitAuthRoute(isInitAuthRoute));
+		dispatch(routeSlice.actions.setIsInitAuthRoute(isInitAuthRoute));
 	}
 	function setMenus(menus: App.GlobalMenuOption[]) {
-		return dispatch(routeSlice.actions.setMenus(menus));
+		dispatch(routeSlice.actions.setMenus(menus));
 	}
 	function setSearchMenus(searchMenus: AuthRoute.Route[]) {
-		return dispatch(routeSlice.actions.setSearchMenus(searchMenus));
+		dispatch(routeSlice.actions.setSearchMenus(searchMenus));
 	}
 
 	/** 初始化权限路由 */
@@ -91,7 +89,7 @@ export function useRouteAction() {
 
 		const routes = filterAuthRoutesByUserPermission(staticRoutes, userInfo.userRole);
 
-		handleAuthRoute(routes);
+		await handleAuthRoute(routes);
 
 		setIsInitAuthRoute(true);
 	}
@@ -100,13 +98,13 @@ export function useRouteAction() {
 	 * 处理权限路由
 	 * @param routes - 权限路由
 	 */
-	function handleAuthRoute(routes: AuthRoute.Route[]) {
+	async function handleAuthRoute(routes: AuthRoute.Route[]) {
 		setMenus(transformAuthRouteToMenu(routes));
 		setSearchMenus(transformAuthRouteToSearchMenus(routes));
 	}
 
 	return {
-		resetRoute,
+		resetRouteStore,
 		setIsInitAuthRoute,
 		setMenus,
 		setSearchMenus,

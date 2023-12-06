@@ -17,14 +17,10 @@ const menuItemSlice = createSlice({
 	initialState,
 	reducers: {
 		setMenuItem(state, action: PayloadAction<typeof initialState>) {
-			state.name = action.payload.name;
-			state.path = action.payload.path;
-			state.meta = action.payload.meta;
+			return action.payload;
 		},
-		resetMenuItem(state) {
-			state.name = initialState.name;
-			state.path = initialState.path;
-			state.meta = initialState.meta;
+		resetMenuItem() {
+			return initialState;
 		}
 	}
 });

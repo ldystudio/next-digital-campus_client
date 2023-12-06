@@ -1,13 +1,17 @@
 import { Metadata, Viewport } from "next";
 
-import clsx from "clsx";
-import { Toaster as Notice } from "react-hot-toast";
 
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "react-hot-toast";
+import { ToastContainer as Notice, Slide } from "react-toastify";
+
+
 import { fontSans } from "~/config/fonts";
 import { Providers } from "./providers";
 
+
+import "react-toastify/dist/ReactToastify.css";
 import "~/styles/globals.css";
+
 
 export const metadata: Metadata = {
 	title: {
@@ -47,9 +51,14 @@ export default function Layout({ children }: LayoutProps) {
 						disableTransitionOnChange: true
 					}}
 				>
-					<Notice />
-					<main>{children}</main>
 					<Toaster />
+					<main>{children}</main>
+					<Notice
+						autoClose={3000}
+						transition={Slide}
+						limit={3}
+						pauseOnFocusLoss={false}
+					/>
 				</Providers>
 			</body>
 		</html>

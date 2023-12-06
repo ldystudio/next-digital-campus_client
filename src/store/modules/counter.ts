@@ -37,13 +37,13 @@ export function useCounterAction() {
 	const dispatch = useAppDispatch();
 
 	function increment() {
-		return dispatch(counterSlice.actions.increment());
+		dispatch(counterSlice.actions.increment());
 	}
 	function decrement() {
-		return dispatch(counterSlice.actions.decrement());
+		dispatch(counterSlice.actions.decrement());
 	}
 	function incrementByAmount(number: number) {
-		return dispatch(counterSlice.actions.incrementByAmount(number));
+		dispatch(counterSlice.actions.incrementByAmount(number));
 	}
 
 	return {
