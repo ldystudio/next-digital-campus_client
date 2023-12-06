@@ -4,7 +4,7 @@ import { notice } from "@/components/common";
 import { useAppSelector, useAppDispatch } from "~/hooks/common";
 import { fetchLogin } from "~/service/api";
 import store from "~/store";
-import { useRouteStateInFunction, useRouteAction } from "~/store/modules/route";
+import { getRouteState, useRouteAction } from "~/store/modules/route";
 import { parseJwtPayload } from "~/utils/common";
 import { useRouterPush } from "~/utils/router";
 import { localStg } from "~/utils/storage";
@@ -33,37 +33,36 @@ const authSlice = createSlice({
 			return initialState;
 		},
 		setIsLoading(state, action: PayloadAction<boolean>) {
-			state.isLoading = action.payload;
+			return { ...state, isLoading: action.payload };
 		},
 		setUserInfo(state, action: PayloadAction<Auth.UserInfo>) {
-			state.userInfo = action.payload;
+			return { ...state, userInfo: action.payload };
 		},
 		setToken(state, action: PayloadAction<string>) {
-			state.token = action.payload;
+			return { ...state, token: action.payload };
 		}
 	}
 });
 
 export default authSlice.reducer;
 
-export function useAuthStateInComponent() {
-	return { ...useAppSelector((state) => state.auth) };
+export function useAuthState() {
+	return useAppSelector((state) => state.auth);
 }
 
-export function useAuthStateInFunction() {
-	return { ...store.getState().auth };
+export function getAuthState() {
+	return store.getState().auth;
 }
 
 export function useAuthAction() {
 	const { routerPush, routerBack, toHome, toLogin, toRegister, toRedirect } = useRouterPush();
-	const { initAuthRoute } = useRouteAction();
-	const { token, userInfo } = useAuthStateInFunction();
+	const { initStaticRoute } = useRouteAction();
 	const dispatch = useAppDispatch();
 
 	function resetAuthStore() {
 		clearAuthStorage();
 		dispatch(authSlice.actions.resetAuthStore());
-		routerPush("/");
+		toHome();
 	}
 	function setIsLoading(isLoading: boolean) {
 		dispatch(authSlice.actions.setIsLoading(isLoading));
@@ -77,6 +76,7 @@ export function useAuthAction() {
 
 	/** 是否登录 */
 	function isLogin() {
+		const { token } = getAuthState();
 		return Boolean(token);
 	}
 
@@ -88,12 +88,14 @@ export function useAuthAction() {
 		const loginSuccess = await loginByToken(backendToken);
 
 		if (loginSuccess) {
-			await initAuthRoute();
+			await initStaticRoute();
 
 			// 跳转登录后的地址
 			toRedirect();
 
-			const isInitAuthRoute = store.getState().route.isInitAuthRoute;
+			const { isInitAuthRoute } = getRouteState();
+			const { userInfo } = getAuthState();
+
 			// 登录成功弹出欢迎提示
 			if (isInitAuthRoute) {
 				notice.success({
@@ -135,7 +137,7 @@ export function useAuthAction() {
 
 				// 更新状态
 				setUserInfo(userInfo);
-				setToken(token);
+				setToken(`Bearer ${token}`);
 
 				successFlag = true;
 			}

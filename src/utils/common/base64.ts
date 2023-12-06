@@ -12,9 +12,9 @@ export function parseJwtPayload(token: string): JwtPayload | null {
 	try {
 		const payloadJson = atob(jwtParts[1]);
 		const payloadObj = JSON.parse(payloadJson);
-		const { iat, exp, userId, userName, userRole } = payloadObj;
+		const { iat, exp, userId, userName, userRole, avatar } = payloadObj;
 		if (typeof iat === "number" && typeof exp === "number") {
-			return { iat, exp, userInfo: { userId, userName, userRole } };
+			return { iat, exp, userInfo: { userId, userName, userRole, avatar } };
 		}
 		return null;
 	} catch (e) {

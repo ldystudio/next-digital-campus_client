@@ -169,7 +169,7 @@ export default function RegisterTabs() {
 							fullWidth
 							radius='full'
 							color='secondary'
-							onPress={() => {
+							onClick={() => {
 								// 如果输入为空，弹出提示
 								if (!email || !emailCaptcha) {
 									toast.error("请输入完整信息");
@@ -285,7 +285,7 @@ export default function RegisterTabs() {
 								fullWidth
 								radius='full'
 								color='secondary'
-								onPress={() => {
+								onClick={() => {
 									// 如果输入为空，弹出提示
 									if (!username || !password || !confirmPassword) {
 										toast.error("请输入完整信息");
@@ -359,7 +359,7 @@ export default function RegisterTabs() {
 							radius='full'
 							color='secondary'
 							variant='bordered'
-							onPress={() => {
+							onClick={() => {
 								setAvatarList(generateAvatars());
 							}}
 						>
@@ -378,7 +378,7 @@ export default function RegisterTabs() {
 								fullWidth
 								radius='full'
 								color='secondary'
-								onPress={() => {
+								onClick={() => {
 									try {
 										setIsLoading(true);
 

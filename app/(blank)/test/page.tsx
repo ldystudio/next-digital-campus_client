@@ -5,33 +5,33 @@ import { notice } from "@/components/common";
 
 import { localStg } from "@/src/utils/storage";
 import { fetchUpdateToken } from "~/service/api";
-import { useAuthStateInComponent, useAuthAction } from "~/store/modules/auth";
-import { useRouteStateInComponent, useRouteAction } from "~/store/modules/route";
+import { useAuthState, useAuthAction } from "~/store/modules/auth";
+import { useRouteState, useRouteAction } from "~/store/modules/route";
 
 export default function Test() {
-	const { userInfo, isLoading, token } = useAuthStateInComponent();
+	const { userInfo, isLoading, token } = useAuthState();
 	const { setUserInfo, resetAuthStore } = useAuthAction();
-	const { isInitAuthRoute, menus, searchMenus } = useRouteStateInComponent();
+	const { isInitAuthRoute, menus, searchMenus } = useRouteState();
 	const { setIsInitAuthRoute, resetRouteStore } = useRouteAction();
 
 	return (
 		<>
-			<section>
+			<section className='mt-2 p-2 space-x-2 bg-red-200'>
 				<Button
-					onPress={() =>
+					onClick={() =>
 						setUserInfo({ userId: "100", userName: "test", userRole: "admin" })
 					}
 				>
 					设置
 				</Button>
-				<Button onPress={() => resetAuthStore()}>重置</Button>
+				<Button onClick={() => resetAuthStore()}>重置</Button>
 				<p>userInfo: {JSON.stringify(userInfo)}</p>
 				<p>isLoading: {`${isLoading}`}</p>
 				<p>token: {token}</p>
 			</section>
-			<section>
+			<section className='mt-2 p-2 space-x-2 bg-zinc-400'>
 				<Button
-					onPress={() =>
+					onClick={() =>
 						notice.info({
 							title: "欢迎回来",
 							description: "Admin"
@@ -41,34 +41,34 @@ export default function Test() {
 					info消息
 				</Button>
 				<Button
-					onPress={() => {
+					onClick={() => {
 						notice.success({ description: "success" });
 					}}
 				>
 					success消息
 				</Button>
 				<Button
-					onPress={() => {
+					onClick={() => {
 						notice.warning({ description: "warning" });
 					}}
 				>
 					warning消息
 				</Button>
 				<Button
-					onPress={() => {
+					onClick={() => {
 						notice.error({ description: "error" });
 					}}
 				>
 					error消息
 				</Button>
 			</section>
-			{/* <section>
+			<section>
 				<p>isInitAuthRoute: {`${isInitAuthRoute}`}</p>
 				<p>menus: {`${JSON.stringify(menus)}`}</p>
 				<p>searchMenus: {`${JSON.stringify(searchMenus)}`}</p>
-				<Button onPress={() => setIsInitAuthRoute(!isInitAuthRoute)}>转换</Button>
-				<Button onPress={() => resetRouteStore()}>重置</Button>
-			</section> */}
+				<Button onClick={() => setIsInitAuthRoute(!isInitAuthRoute)}>转换</Button>
+				<Button onClick={() => resetRouteStore()}>重置</Button>
+			</section>
 		</>
 	);
 }

@@ -1,15 +1,13 @@
-import _ from "lodash";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { useAppSelector, useAppDispatch } from "~/hooks/common";
 import store from "~/store";
+import { getAuthState } from "~/store/modules/auth";
 import {
 	filterAuthRoutesByUserPermission,
 	transformAuthRouteToMenu,
-	transformAuthRouteToSearchMenus,
-	sortRoutes
+	transformAuthRouteToSearchMenus
 } from "~/utils/router";
-import { useAuthStateInFunction } from "./auth";
 
 interface RouteState {
 	/** 是否初始化了权限路由 */
@@ -37,29 +35,28 @@ const routeSlice = createSlice({
 			return initialState;
 		},
 		setIsInitAuthRoute(state, action: PayloadAction<boolean>) {
-			state.isInitAuthRoute = action.payload;
+			return { ...state, isInitAuthRoute: action.payload };
 		},
 		setMenus(state, action: PayloadAction<App.GlobalMenuOption[]>) {
-			state.menus = action.payload;
+			return { ...state, menus: action.payload };
 		},
 		setSearchMenus(state, action: PayloadAction<AuthRoute.Route[]>) {
-			state.searchMenus = action.payload;
+			return { ...state, searchMenus: action.payload };
 		}
 	}
 });
 
 export default routeSlice.reducer;
 
-export function useRouteStateInComponent() {
-	return { ...useAppSelector((state) => state.route) };
+export function useRouteState() {
+	return useAppSelector((state) => state.route);
 }
 
-export function useRouteStateInFunction() {
-	return { ...store.getState().route };
+export function getRouteState() {
+	return store.getState().route;
 }
 
 export function useRouteAction() {
-	const { userInfo } = useAuthStateInFunction();
 	const dispatch = useAppDispatch();
 
 	function resetRouteStore() {
@@ -75,18 +72,13 @@ export function useRouteAction() {
 		dispatch(routeSlice.actions.setSearchMenus(searchMenus));
 	}
 
-	/** 初始化权限路由 */
-	async function initAuthRoute() {
-		await initStaticRoute();
-	}
-
 	/** 初始化静态路由 */
 	async function initStaticRoute() {
-		const modules = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/route`, {
+		const staticRoutes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/route`, {
 			cache: "no-store"
 		}).then((res) => res.json());
-		const staticRoutes = sortRoutes(_.compact(modules));
 
+		const { userInfo } = getAuthState();
 		const routes = filterAuthRoutesByUserPermission(staticRoutes, userInfo.userRole);
 
 		await handleAuthRoute(routes);
@@ -108,6 +100,6 @@ export function useRouteAction() {
 		setIsInitAuthRoute,
 		setMenus,
 		setSearchMenus,
-		initAuthRoute
+		initStaticRoute
 	};
 }

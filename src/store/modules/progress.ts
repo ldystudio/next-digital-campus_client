@@ -15,33 +15,27 @@ const progressSlice = createSlice({
 	initialState,
 	reducers: {
 		setValue(state, action: PayloadAction<number>) {
-			state.value = action.payload;
+			return { ...state, value: action.payload };
 		},
 		showProgress(state) {
-			state.isShow = true;
-			state.color = "primary";
-			state.value = 0;
+			return { isShow: true, color: "primary", value: 0 };
 		},
 		hideProgress(state) {
-			state.isShow = false;
+			return { ...state, isShow: false };
 		},
 		successProgress(state) {
-			state.color = "success";
-			state.value = 100;
+			return { ...state, color: "success", value: 100 };
 		},
 		errorProgress(state) {
-			state.color = "danger";
-			state.value = 100;
+			return { ...state, color: "danger", value: 100 };
 		}
 	}
 });
 
 export default progressSlice.reducer;
+
 export function useProgressState() {
-	const isShow = useAppSelector((state) => state.progress.isShow);
-	const color = useAppSelector((state) => state.progress.color);
-	const value = useAppSelector((state) => state.progress.value);
-	return { isShow, color, value };
+	return useAppSelector((state) => state.progress);
 }
 
 export function useProgressAction() {

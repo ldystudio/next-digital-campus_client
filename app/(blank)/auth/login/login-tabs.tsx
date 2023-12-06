@@ -18,13 +18,11 @@ import {
 
 import { Col, Link, ListBoxWrapper, PasswordInput, Row } from "@/components/common";
 import { useEmailCaptchaCountdown, useAuthForm } from "~/hooks/business";
-import { useAuthStateInComponent, useAuthAction } from "~/store/modules/auth";
+import { useAuthState, useAuthAction } from "~/store/modules/auth";
 import ImageCaptcha from "./image-captcha";
 
 export default function LoginTabs() {
 	const {
-		// isLoading,
-		// setIsLoading,
 		rememberMe,
 		setRememberMe,
 		verificationFailed,
@@ -76,7 +74,7 @@ export default function LoginTabs() {
 		{ id: 3, icon: "/images/Github.svg", name: "Github登录", link: "#" }
 	];
 
-	const { isLoading } = useAuthStateInComponent();
+	const { isLoading } = useAuthState();
 	const { setIsLoading, login } = useAuthAction();
 	const model: Auth.LoginForm = { username, password, captcha, traceId };
 
@@ -166,7 +164,7 @@ export default function LoginTabs() {
 							fullWidth
 							color='secondary'
 							radius='full'
-							onPress={() => {
+							onClick={() => {
 								// 如果输入为空，弹出提示
 								if (!username || !password || !captcha) {
 									toast.error("请输入完整信息");
@@ -235,7 +233,7 @@ export default function LoginTabs() {
 						fullWidth
 						radius='full'
 						color='secondary'
-						onPress={() => {
+						onClick={() => {
 							// 如果输入为空，弹出提示
 							if (!email || !emailCaptcha) {
 								toast.error("请输入完整信息");

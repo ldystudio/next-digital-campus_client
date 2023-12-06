@@ -2,6 +2,7 @@ import { Card, CardBody, CardHeader, button as buttonStyles } from "@nextui-org/
 
 import { GithubIcon, Iconify, Row, Image, Link } from "@/components/common";
 import { subtitle, title } from "@/components/custom";
+import { Navbar } from "@/components/layout";
 import { NotoSansSC, siteConfig } from "~/config";
 
 const introduce = [

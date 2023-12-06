@@ -28,14 +28,14 @@ export default function Error({ error, reset }: ErrorProps) {
 				Error: {error.message}
 			</Code>
 			<Row>
-				<Button variant='bordered' radius='full' color='primary' onPress={() => reset()}>
+				<Button variant='bordered' radius='full' color='primary' onClick={() => reset()}>
 					重试
 				</Button>
 				<Button
 					variant='solid'
 					radius='full'
 					color='secondary'
-					onPress={() => routerBack()}
+					onClick={() => routerBack()}
 				>
 					返回
 				</Button>

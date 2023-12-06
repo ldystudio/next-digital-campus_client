@@ -49,7 +49,7 @@ export function AdminMenu() {
 						classNames={{
 							content: item.children ? "" : "hidden"
 						}}
-						onPress={() => {
+						onClick={() => {
 							!item.children && handlePress(item);
 						}}
 					>
@@ -72,7 +72,7 @@ export function AdminMenu() {
 										}
 										hideIndicator
 										classNames={{ content: "hidden" }}
-										onPress={() => {
+										onClick={() => {
 											handlePress(subItem);
 										}}
 									/>

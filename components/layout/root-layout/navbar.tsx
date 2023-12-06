@@ -15,6 +15,7 @@ import {
 
 import { GithubIcon, Link, Logo, SearchIcon, ThemeSwitch } from "@/components/common";
 import { siteConfig } from "~/config";
+import AuthNavbarItem from "./auth-button";
 
 export default function Navbar() {
 	const searchInput = (
@@ -76,17 +77,7 @@ export default function Navbar() {
 					<ThemeSwitch />
 				</NavbarItem>
 				<NavbarItem className='hidden lg:flex'>{searchInput}</NavbarItem>
-				<NavbarItem className='hidden md:flex gap-4'>
-					<Link href='/auth/login' className={buttonStyles({ variant: "flat" })}>
-						登录
-					</Link>
-					<Link
-						href='/auth/register'
-						className={buttonStyles({ variant: "flat", color: "primary" })}
-					>
-						注册
-					</Link>
-				</NavbarItem>
+				<AuthNavbarItem />
 			</NavbarContent>
 
 			<NavbarContent className='sm:hidden basis-1 pl-4' justify='end'>

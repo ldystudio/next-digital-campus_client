@@ -16,6 +16,8 @@ declare namespace Auth {
 		userName: string;
 		/** 用户角色类型 */
 		userRole: RoleType;
+		/** 用户头像 */
+		avatar?: string;
 	}
 
 	interface LoginForm {

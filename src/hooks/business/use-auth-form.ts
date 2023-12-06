@@ -19,12 +19,12 @@ export function useAuthForm() {
 		field: email,
 		setField: setEmail,
 		isInvalidField: isInvalidEmail
-	} = useFormValidation(REGEXP_EMAIL);
+	} = useFormValidation(REGEXP_EMAIL, "1187551003@qq.com");
 	const {
 		field: password,
 		setField: setPassword,
 		isInvalidField: isInvalidPassword
-	} = useFormValidation(REGEXP_PWD);
+	} = useFormValidation(REGEXP_PWD, "admin123");
 	const {
 		field: captcha,
 		setField: setCaptcha,
@@ -39,7 +39,7 @@ export function useAuthForm() {
 		field: username,
 		setField: setUsername,
 		isInvalidField: isInvalidUsername
-	} = useFormValidation(REGEXP_USERNAME);
+	} = useFormValidation(REGEXP_USERNAME, "admin");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const isInvalidConfirmPassword = confirmPassword !== "" && password !== confirmPassword;
 
