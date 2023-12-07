@@ -5,19 +5,25 @@ interface ContentProps {
 	description: string;
 }
 
-class notice {
-	static info(message: ContentProps) {
+function createNotice() {
+	function info(message: ContentProps) {
 		toast.info(createContent(message));
 	}
-	static success(message: ContentProps) {
+	function success(message: ContentProps) {
 		toast.success(createContent(message));
 	}
-	static warning(message: ContentProps) {
+	function warning(message: ContentProps) {
 		toast.warning(createContent(message));
 	}
-	static error(message: ContentProps) {
+	function error(message: ContentProps) {
 		toast.error(createContent(message));
 	}
+	return {
+		info,
+		success,
+		warning,
+		error
+	};
 }
 
 const createContent = (message: ContentProps): ToastContent => {
@@ -29,4 +35,4 @@ const createContent = (message: ContentProps): ToastContent => {
 	);
 };
 
-export default notice;
+export const notice = createNotice();

@@ -1,5 +1,3 @@
-import notice from "./notice";
-
 export * from "./iconify";
 export * from "./icons";
 export * from "./listbox-wrapper";
@@ -11,5 +9,4 @@ export * from "./dimension";
 export * from "./card-radio";
 export * from "./image";
 export * from "./link";
-
-export { notice };
+export * from "./notice";

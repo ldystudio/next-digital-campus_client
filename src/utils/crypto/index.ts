@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 
-const CryptoSecret = "__NextCampus_Secret__";
+const CryptoSecret = process.env.NEXT_PUBLIC_CRYPTO_SECRET!;
 
 /**
  * 加密数据

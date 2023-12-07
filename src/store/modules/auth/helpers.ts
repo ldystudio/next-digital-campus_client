@@ -17,7 +17,7 @@ export function getUserInfo() {
 }
 
 /** 去除用户相关缓存 */
-export function clearAuthStorage() {
+export async function clearAuthStorage() {
 	localStg.remove("token");
 	localStg.remove("refreshToken");
 	localStg.remove("userInfo");

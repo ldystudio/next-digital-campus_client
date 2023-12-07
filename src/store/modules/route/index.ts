@@ -8,6 +8,8 @@ import {
 	transformAuthRouteToMenu,
 	transformAuthRouteToSearchMenus
 } from "~/utils/router";
+import { localStg } from "~/utils/storage";
+import { getMenus, getSearchMenus, clearRouteStorage } from "./helpers";
 
 interface RouteState {
 	/** 是否初始化了权限路由 */
@@ -23,8 +25,8 @@ interface RouteState {
 const initialState: RouteState = {
 	isInitAuthRoute: false,
 	routeHomeName: "/",
-	menus: [],
-	searchMenus: []
+	menus: getMenus(),
+	searchMenus: getSearchMenus()
 };
 
 const routeSlice = createSlice({
@@ -59,7 +61,8 @@ export function getRouteState() {
 export function useRouteAction() {
 	const dispatch = useAppDispatch();
 
-	function resetRouteStore() {
+	async function resetRouteStore() {
+		await clearRouteStorage();
 		dispatch(routeSlice.actions.resetRouteStore());
 	}
 	function setIsInitAuthRoute(isInitAuthRoute: boolean) {
@@ -67,9 +70,11 @@ export function useRouteAction() {
 	}
 	function setMenus(menus: App.GlobalMenuOption[]) {
 		dispatch(routeSlice.actions.setMenus(menus));
+		localStg.set("menus", menus);
 	}
 	function setSearchMenus(searchMenus: AuthRoute.Route[]) {
 		dispatch(routeSlice.actions.setSearchMenus(searchMenus));
+		localStg.set("searchMenus", searchMenus);
 	}
 
 	/** 初始化静态路由 */

@@ -59,8 +59,8 @@ export function useAuthAction() {
 	const { initStaticRoute } = useRouteAction();
 	const dispatch = useAppDispatch();
 
-	function resetAuthStore() {
-		clearAuthStorage();
+	async function resetAuthStore() {
+		await clearAuthStorage();
 		dispatch(authSlice.actions.resetAuthStore());
 		toHome();
 	}
@@ -160,6 +160,18 @@ export function useAuthAction() {
 
 		setIsLoading(false);
 	}
+
+	// /**
+	//  * 注册
+	//  * @param userName - 用户名
+	//  * @param password - 密码
+	//  */
+	// async register(model: Auth.RegisterForm) {
+	// 	this.loginLoading = true;
+	// 	const { error } = await fetchRegister(model);
+	// 	this.loginLoading = false;
+	// 	return error === null;
+	// }
 
 	return {
 		resetAuthStore,

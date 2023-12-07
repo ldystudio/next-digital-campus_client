@@ -69,6 +69,9 @@ export default function Test() {
 				<Button onClick={() => setIsInitAuthRoute(!isInitAuthRoute)}>转换</Button>
 				<Button onClick={() => resetRouteStore()}>重置</Button>
 			</section>
+			<section>
+				<p>{process.env.NEXT_PUBLIC_CRYPTO_SECRET}</p>
+			</section>
 		</>
 	);
 }
