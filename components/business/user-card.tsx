@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import toast from "react-hot-toast";
 import { Avatar, Button, Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 
@@ -20,10 +18,16 @@ export function UserCard({ avatar, name, description, role }: UserCardProps) {
 
 	async function logout() {
 		const refreshToken = localStg.get("refreshToken") || "";
-		await fetchLogout(refreshToken);
+		const { error } = await fetchLogout(refreshToken);
+
+		if (error && error.type === "axios") {
+			toast.error("退出失败");
+			return;
+		}
 
 		resetRouteStore();
 		resetAuthStore();
+		toast.success("退出成功");
 	}
 
 	return (
@@ -57,7 +61,6 @@ export function UserCard({ avatar, name, description, role }: UserCardProps) {
 					variant='solid'
 					onClick={async () => {
 						await logout();
-						toast.success("退出成功");
 					}}
 				>
 					退出

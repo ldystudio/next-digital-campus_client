@@ -9,7 +9,7 @@ import {
 	transformAuthRouteToSearchMenus
 } from "~/utils/router";
 import { localStg } from "~/utils/storage";
-import { getMenus, getSearchMenus, clearRouteStorage } from "./helpers";
+import { getIsInitAuthRoute, getMenus, getSearchMenus, clearRouteStorage } from "./helpers";
 
 interface RouteState {
 	/** 是否初始化了权限路由 */
@@ -23,7 +23,7 @@ interface RouteState {
 }
 
 const initialState: RouteState = {
-	isInitAuthRoute: false,
+	isInitAuthRoute: getIsInitAuthRoute(),
 	routeHomeName: "/",
 	menus: getMenus(),
 	searchMenus: getSearchMenus()
