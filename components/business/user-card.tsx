@@ -25,8 +25,8 @@ export function UserCard({ avatar, name, description, role }: UserCardProps) {
 			return;
 		}
 
-		resetRouteStore();
-		resetAuthStore();
+		await resetRouteStore();
+		await resetAuthStore();
 		toast.success("退出成功");
 	}
 
