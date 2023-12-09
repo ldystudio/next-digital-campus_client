@@ -8,7 +8,7 @@ import { getRouteState, useRouteAction } from "~/store/modules/route";
 import { parseJwtPayload } from "~/utils/common";
 import { useRouterPush } from "~/utils/router";
 import { localStg } from "~/utils/storage";
-import { getToken, getUserInfo, clearAuthStorage } from "./helpers";
+import { getToken, getUserInfo, clearAuthStorage, emptyInfo } from "./helpers";
 
 interface AuthState {
 	/** 用户信息 */
@@ -30,7 +30,11 @@ const authSlice = createSlice({
 	initialState,
 	reducers: {
 		resetAuthStore() {
-			return initialState;
+			return {
+				...initialState,
+				userInfo: emptyInfo,
+				token: ""
+			};
 		},
 		setIsLoading(state, action: PayloadAction<boolean>) {
 			return { ...state, isLoading: action.payload };

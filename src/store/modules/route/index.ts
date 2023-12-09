@@ -34,7 +34,12 @@ const routeSlice = createSlice({
 	initialState,
 	reducers: {
 		resetRouteStore() {
-			return initialState;
+			return {
+				...initialState,
+				isInitAuthRoute: false,
+				menus: [],
+				searchMenus: []
+			};
 		},
 		setIsInitAuthRoute(state, action: PayloadAction<boolean>) {
 			return { ...state, isInitAuthRoute: action.payload };
@@ -62,8 +67,10 @@ export function useRouteAction() {
 	const dispatch = useAppDispatch();
 
 	async function resetRouteStore() {
-		await clearRouteStorage();
-		dispatch(routeSlice.actions.resetRouteStore());
+		clearRouteStorage().then(() => {
+			console.log("clearRouteStorage完成");
+			dispatch(routeSlice.actions.resetRouteStore());
+		});
 	}
 	function setIsInitAuthRoute(isInitAuthRoute: boolean) {
 		dispatch(routeSlice.actions.setIsInitAuthRoute(isInitAuthRoute));

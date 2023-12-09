@@ -11,8 +11,10 @@ interface UserCardProps {
 	name: string;
 	description: string;
 	role: string;
+	realName?: string;
+	email?: string;
 }
-export function UserCard({ avatar, name, description, role }: UserCardProps) {
+export function UserCard({ avatar, name, description, role, realName, email }: UserCardProps) {
 	const { resetAuthStore } = useAuthAction();
 	const { resetRouteStore } = useRouteAction();
 
@@ -46,12 +48,13 @@ export function UserCard({ avatar, name, description, role }: UserCardProps) {
 								? "primary"
 								: "default"
 						}
+						name={name}
 					/>
 					<div className='flex flex-col items-start justify-center'>
 						<h4 className='text-small font-semibold leading-none text-default-600'>
-							{name}
+							{realName}
 						</h4>
-						<h5 className='text-small tracking-tight text-default-500'>@zoeylang</h5>
+						<h5 className='text-small tracking-tight text-default-500'>{email}</h5>
 					</div>
 				</div>
 				<Button

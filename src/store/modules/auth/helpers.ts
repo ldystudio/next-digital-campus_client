@@ -5,14 +5,17 @@ export function getToken() {
 	return localStg.get("token") || "";
 }
 
+export const emptyInfo: Auth.UserInfo = {
+	userId: "",
+	userName: "",
+	userRole: "student",
+	avatar: undefined,
+	realName: undefined,
+	email: undefined
+};
+
 /** 获取用户信息 */
 export function getUserInfo() {
-	const emptyInfo: Auth.UserInfo = {
-		userId: "",
-		userName: "",
-		userRole: "student"
-	};
-
 	return localStg.get("userInfo") || emptyInfo;
 }
 

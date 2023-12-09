@@ -22,7 +22,7 @@ import { useRouterPush } from "~/utils/router";
 export default function AuthNavbarItem() {
 	const { toLogin, toRegister } = useRouterPush();
 	const { isLogin } = useAuthAction();
-	const { avatar, userName, userRole } = useAuthState().userInfo;
+	const { avatar, userName, userRole, realName, email } = useAuthState().userInfo;
 	const isClient = useIsClient();
 
 	const avatarImage = useMemo(() => {
@@ -72,6 +72,8 @@ export default function AuthNavbarItem() {
 							role={userRole}
 							description='Full-stack developer, @getnextui lover she/her'
 							avatar={avatarImage}
+							realName={realName}
+							email={email}
 						/>
 					</PopoverContent>
 				</Popover>
