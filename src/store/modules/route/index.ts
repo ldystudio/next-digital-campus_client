@@ -67,10 +67,8 @@ export function useRouteAction() {
 	const dispatch = useAppDispatch();
 
 	async function resetRouteStore() {
-		clearRouteStorage().then(() => {
-			console.log("clearRouteStorage完成");
-			dispatch(routeSlice.actions.resetRouteStore());
-		});
+		await clearRouteStorage();
+		dispatch(routeSlice.actions.resetRouteStore());
 	}
 	function setIsInitAuthRoute(isInitAuthRoute: boolean) {
 		dispatch(routeSlice.actions.setIsInitAuthRoute(isInitAuthRoute));

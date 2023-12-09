@@ -12,7 +12,7 @@ import { useFormValidation } from "~/hooks/common";
 export function useAuthForm() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [verificationFailed, setVerificationFailed] = useState(false);
-	const [roleType, setRoleType] = useState("student");
+	const [roleType, setRoleType] = useState<Auth.RoleType>("student");
 	const [rememberMe, setRememberMe] = useState(false);
 
 	const {

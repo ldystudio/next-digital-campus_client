@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { notice } from "@/components/common";
 import { useAppSelector, useAppDispatch } from "~/hooks/common";
-import { fetchLogin } from "~/service/api";
+import { fetchEmailLogin, fetchLogin, fetchRegister } from "~/service/api";
 import store from "~/store";
 import { getRouteState, useRouteAction } from "~/store/modules/route";
 import { parseJwtPayload } from "~/utils/common";
@@ -165,17 +165,25 @@ export function useAuthAction() {
 		setIsLoading(false);
 	}
 
-	// /**
-	//  * 注册
-	//  * @param userName - 用户名
-	//  * @param password - 密码
-	//  */
-	// async register(model: Auth.RegisterForm) {
-	// 	this.loginLoading = true;
-	// 	const { error } = await fetchRegister(model);
-	// 	this.loginLoading = false;
-	// 	return error === null;
-	// }
+	async function emailLogin(model: Auth.EmailLoginForm) {
+		setIsLoading(true);
+		const { data, error } = await fetchEmailLogin(model);
+		if (data) await handleActionAfterLogin(data);
+		setIsLoading(false);
+		return error === null;
+	}
+
+	/**
+	 * 注册
+	 * @param userName - 用户名
+	 * @param password - 密码
+	 */
+	async function register(model: Auth.RegisterForm) {
+		setIsLoading(true);
+		const { error } = await fetchRegister(model);
+		setIsLoading(false);
+		return error === null;
+	}
 
 	return {
 		resetAuthStore,
@@ -183,6 +191,8 @@ export function useAuthAction() {
 		setUserInfo,
 		setToken,
 		login,
-		isLogin
+		emailLogin,
+		isLogin,
+		register
 	};
 }

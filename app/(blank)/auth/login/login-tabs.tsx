@@ -18,6 +18,7 @@ import {
 
 import { Col, Link, ListBoxWrapper, PasswordInput, Row } from "@/components/common";
 import { useEmailCaptchaCountdown, useAuthForm } from "~/hooks/business";
+import { fetchSmtpCode } from "~/service/api";
 import { useAuthState, useAuthAction } from "~/store/modules/auth";
 import ImageCaptcha from "./image-captcha";
 
@@ -50,7 +51,7 @@ export default function LoginTabs() {
 	const [traceId, setTraceId] = useState(generateTraceId());
 	const captchaURL = `${process.env.SERVER_URL}/auth/image_captcha/?traceId=${traceId}`;
 
-	const handleCountdownButtonClick = () => {
+	async function handleCountdownButtonClick() {
 		if (!email) {
 			toast.error("邮箱不能为空");
 			return;
@@ -65,8 +66,15 @@ export default function LoginTabs() {
 			resetCountdown();
 		}
 
+		const { error } = await fetchSmtpCode(email, traceId);
+		if (error) {
+			toast.error("验证码发送失败，请稍后再试~");
+			return;
+		}
+
+		toast.success("验证码发送成功，有效期30分钟~");
 		startCountdown();
-	};
+	}
 
 	const otherLoginList = [
 		{ id: 1, icon: "/images/QQ.png", name: "QQ登录", link: "#" },
@@ -75,7 +83,7 @@ export default function LoginTabs() {
 	];
 
 	const { isLoading } = useAuthState();
-	const { setIsLoading, login } = useAuthAction();
+	const { login, emailLogin } = useAuthAction();
 	const model: Auth.LoginForm = { username, password, captcha, traceId };
 
 	return (
@@ -224,7 +232,12 @@ export default function LoginTabs() {
 							}
 						/>
 						<div className='border-8 border-default-100 rounded-xl bg-default-100'>
-							<Button variant='light' onClick={handleCountdownButtonClick}>
+							<Button
+								variant='light'
+								onClick={() => {
+									handleCountdownButtonClick();
+								}}
+							>
 								<CountdownText />
 							</Button>
 						</div>
@@ -233,7 +246,7 @@ export default function LoginTabs() {
 						fullWidth
 						radius='full'
 						color='secondary'
-						onClick={() => {
+						onClick={async () => {
 							// 如果输入为空，弹出提示
 							if (!email || !emailCaptcha) {
 								toast.error("请输入完整信息");
@@ -246,16 +259,17 @@ export default function LoginTabs() {
 								return;
 							}
 
-							try {
-								setIsLoading(true);
-								setVerificationFailed(false);
+							setVerificationFailed(false);
 
-								console.log("email:", email, "emailCaptcha: ", emailCaptcha);
-							} catch {
-							} finally {
-								setIsLoading(false);
+							const res = await emailLogin({ email, emailCaptcha, traceId });
+							setTraceId(generateTraceId());
+
+							if (!res) {
+								toast.error("登录失败");
+								return;
 							}
 						}}
+						isLoading={isLoading}
 					>
 						登录
 					</Button>

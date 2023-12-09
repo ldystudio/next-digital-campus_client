@@ -52,7 +52,7 @@ export function UserCard({ avatar, name, description, role, realName, email }: U
 					/>
 					<div className='flex flex-col items-start justify-center'>
 						<h4 className='text-small font-semibold leading-none text-default-600'>
-							{realName}
+							{realName ? realName : name}
 						</h4>
 						<h5 className='text-small tracking-tight text-default-500'>{email}</h5>
 					</div>

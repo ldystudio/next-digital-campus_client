@@ -4,13 +4,14 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { Icon } from "@iconify/react";
-
 import { Button, Input, RadioGroup, Tab, Tabs, Image } from "@nextui-org/react";
 
 import { CardRadio, Col, Link, PasswordInput, Row } from "@/components/common";
 import { useAvatarList, useEmailCaptchaCountdown } from "~/hooks/business";
 import { useAuthForm } from "~/hooks/business";
-
+import { fetchSmtpCode } from "~/service/api";
+import { useAuthAction, useAuthState } from "~/store/modules/auth";
+import { useRouterPush } from "~/utils/router";
 import { colorfulFlag } from "~/utils/toys";
 
 type tabValue = "EmailRegister" | "FillInTheInformation" | "ChooseAnAvatar";
@@ -23,8 +24,6 @@ export default function RegisterTabs() {
 	);
 
 	const {
-		isLoading,
-		setIsLoading,
 		verificationFailed,
 		setVerificationFailed,
 		roleType,
@@ -51,7 +50,10 @@ export default function RegisterTabs() {
 
 	const { count, startCountdown, resetCountdown, CountdownText } = useEmailCaptchaCountdown(120);
 
-	function handleCountdownButtonClick() {
+	const generateTraceId = () => `${Math.random().toString(36).slice(-8)}${Date.now()}`;
+	const [traceId, setTraceId] = useState(generateTraceId());
+
+	async function handleCountdownButtonClick() {
 		if (!email) {
 			toast.error("邮箱不能为空");
 			return;
@@ -66,6 +68,14 @@ export default function RegisterTabs() {
 			resetCountdown();
 		}
 
+		const { error } = await fetchSmtpCode(email, traceId);
+		if (error) {
+			toast.error("验证码发送失败，请稍后再试~");
+			return;
+		}
+
+		toast.success("验证码发送成功，有效期30分钟~");
+
 		startCountdown();
 	}
 
@@ -73,6 +83,19 @@ export default function RegisterTabs() {
 		setDisabledKeysList(tabList.filter((tab) => tab !== name));
 		setSelectedTab(name);
 	}
+
+	const { isLoading } = useAuthState();
+	const { register } = useAuthAction();
+	const model: Auth.RegisterForm = {
+		username,
+		password,
+		email,
+		emailCaptcha,
+		traceId,
+		roleType,
+		avatar
+	};
+	const { toRedirect } = useRouterPush();
 
 	return (
 		<>
@@ -124,7 +147,10 @@ export default function RegisterTabs() {
 								}
 							/>
 							<div className='border-8 border-default-100 rounded-xl bg-default-100'>
-								<Button variant='light' onClick={handleCountdownButtonClick}>
+								<Button
+									variant='light'
+									onClick={() => handleCountdownButtonClick()}
+								>
 									<CountdownText />
 								</Button>
 							</div>
@@ -134,7 +160,7 @@ export default function RegisterTabs() {
 							orientation='horizontal'
 							defaultValue='student'
 							value={roleType}
-							onValueChange={setRoleType}
+							onValueChange={(value) => setRoleType(value as Auth.RoleType)}
 						>
 							<div className='grid grid-cols-2 gap-10'>
 								<CardRadio
@@ -182,24 +208,8 @@ export default function RegisterTabs() {
 									return;
 								}
 
-								try {
-									setIsLoading(true);
-									setVerificationFailed(false);
-
-									moveTab("FillInTheInformation");
-
-									console.log(
-										"email:",
-										email,
-										"emailCaptcha: ",
-										emailCaptcha,
-										"roleType: ",
-										roleType
-									);
-								} catch {
-								} finally {
-									setIsLoading(false);
-								}
+								setVerificationFailed(false);
+								moveTab("FillInTheInformation");
 							}}
 						>
 							下一步
@@ -302,17 +312,8 @@ export default function RegisterTabs() {
 										return;
 									}
 
-									try {
-										setIsLoading(true);
-										setVerificationFailed(false);
-
-										moveTab("ChooseAnAvatar");
-
-										console.log("username:", username, "password:", password);
-									} catch {
-									} finally {
-										setIsLoading(false);
-									}
+									setVerificationFailed(false);
+									moveTab("ChooseAnAvatar");
 								}}
 							>
 								下一步
@@ -378,18 +379,17 @@ export default function RegisterTabs() {
 								fullWidth
 								radius='full'
 								color='secondary'
-								onClick={() => {
-									try {
-										setIsLoading(true);
+								onClick={async () => {
+									const res = await register(model);
+									setTraceId(generateTraceId());
 
-										console.log("avatar: ", avatar);
-
-										toast.success("注册成功");
-										colorfulFlag();
-									} catch {
-									} finally {
-										setIsLoading(false);
+									if (!res) {
+										toast.error("注册失败");
+										return;
 									}
+									toast.success("注册成功");
+									colorfulFlag();
+									toRedirect();
 								}}
 								isLoading={isLoading}
 							>
