@@ -51,3 +51,10 @@ input[type="password"] {
     height: 24px;
     width: 24px;
 }
+
+:root {
+    --toastify-color-info: #006FEE;
+    --toastify-color-success: #17c964;
+    --toastify-color-warning: #f5a524;
+    --toastify-color-error: #f31260;
+}

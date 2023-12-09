@@ -1,8 +1,8 @@
 "use client";
 import { useState, useCallback, useMemo } from "react";
 
-export function useFormValidation(regexp: RegExp) {
-	const [field, setField] = useState("");
+export function useFormValidation(regexp: RegExp, defaultValue: string = "") {
+	const [field, setField] = useState(defaultValue);
 	const validateField = useCallback((value: string) => value.match(regexp), [regexp]);
 
 	const isInvalidField = useMemo(() => {

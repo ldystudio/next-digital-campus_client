@@ -12,19 +12,19 @@ import { useFormValidation } from "~/hooks/common";
 export function useAuthForm() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [verificationFailed, setVerificationFailed] = useState(false);
-	const [roleType, setRoleType] = useState("student");
+	const [roleType, setRoleType] = useState<Auth.RoleType>("student");
 	const [rememberMe, setRememberMe] = useState(false);
 
 	const {
 		field: email,
 		setField: setEmail,
 		isInvalidField: isInvalidEmail
-	} = useFormValidation(REGEXP_EMAIL);
+	} = useFormValidation(REGEXP_EMAIL, "1187551003@qq.com");
 	const {
 		field: password,
 		setField: setPassword,
 		isInvalidField: isInvalidPassword
-	} = useFormValidation(REGEXP_PWD);
+	} = useFormValidation(REGEXP_PWD, "Liudy123456");
 	const {
 		field: captcha,
 		setField: setCaptcha,
@@ -39,7 +39,7 @@ export function useAuthForm() {
 		field: username,
 		setField: setUsername,
 		isInvalidField: isInvalidUsername
-	} = useFormValidation(REGEXP_USERNAME);
+	} = useFormValidation(REGEXP_USERNAME, "Liudy");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const isInvalidConfirmPassword = confirmPassword !== "" && password !== confirmPassword;
 

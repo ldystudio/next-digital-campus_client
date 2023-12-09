@@ -2,6 +2,7 @@ import { Card, CardBody, CardHeader, button as buttonStyles } from "@nextui-org/
 
 import { GithubIcon, Iconify, Row, Image, Link } from "@/components/common";
 import { subtitle, title } from "@/components/custom";
+import { Navbar } from "@/components/layout";
 import { NotoSansSC, siteConfig } from "~/config";
 
 const introduce = [
@@ -46,7 +47,7 @@ export default function HomePage() {
 					<p className={title({ size: "xs", color: "foreground" })}>
 						现代化信息技术的全新型校园管理系统
 					</p>
-					<p className={subtitle()}>基于React + Zustand + Next.js + NextUI</p>
+					<p className={subtitle()}>基于React + Redux + Next.js + NextUI</p>
 					<Row space={3} className='mt-3 md:mt-10'>
 						<Link
 							href='/about'

@@ -18,6 +18,16 @@ export function fetchLogin(model: Auth.LoginForm) {
 	return request.post<ApiAuth.Token>("auth/login/", { ...model });
 }
 
+export function fetchEmailLogin(model: Auth.EmailLoginForm) {
+	return request.post<ApiAuth.Token>("auth/login/", {
+		...model,
+		type: "emailLogin",
+		// Django登录占位符，随机生成用户名和密码，后续不使用
+		username: `${Math.random().toString(36).slice(-8)}`,
+		password: `${Math.random().toString(36).slice(-8)}`
+	});
+}
+
 /**
  * 退出登录
  * @param refresh 刷新token

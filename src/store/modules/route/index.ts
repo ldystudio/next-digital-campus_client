@@ -1,14 +1,15 @@
-import _ from "lodash";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { useAppSelector, useAppDispatch } from "~/hooks/common";
+import store from "~/store";
+import { getAuthState } from "~/store/modules/auth";
 import {
 	filterAuthRoutesByUserPermission,
 	transformAuthRouteToMenu,
-	transformAuthRouteToSearchMenus,
-	sortRoutes
+	transformAuthRouteToSearchMenus
 } from "~/utils/router";
-import { useAuthState } from "./auth";
+import { localStg } from "~/utils/storage";
+import { getIsInitAuthRoute, getMenus, getSearchMenus, clearRouteStorage } from "./helpers";
 
 interface RouteState {
 	/** 是否初始化了权限路由 */
@@ -22,30 +23,32 @@ interface RouteState {
 }
 
 const initialState: RouteState = {
-	isInitAuthRoute: false,
+	isInitAuthRoute: getIsInitAuthRoute(),
 	routeHomeName: "/",
-	menus: [],
-	searchMenus: []
+	menus: getMenus(),
+	searchMenus: getSearchMenus()
 };
 
 const routeSlice = createSlice({
 	name: "route",
 	initialState,
 	reducers: {
-		resetRoute(state) {
-			state.isInitAuthRoute = initialState.isInitAuthRoute;
-			state.routeHomeName = initialState.routeHomeName;
-			state.menus = initialState.menus;
-			state.searchMenus = initialState.searchMenus;
+		resetRouteStore() {
+			return {
+				...initialState,
+				isInitAuthRoute: false,
+				menus: [],
+				searchMenus: []
+			};
 		},
 		setIsInitAuthRoute(state, action: PayloadAction<boolean>) {
-			state.isInitAuthRoute = action.payload;
+			return { ...state, isInitAuthRoute: action.payload };
 		},
 		setMenus(state, action: PayloadAction<App.GlobalMenuOption[]>) {
-			state.menus = action.payload;
+			return { ...state, menus: action.payload };
 		},
 		setSearchMenus(state, action: PayloadAction<AuthRoute.Route[]>) {
-			state.searchMenus = action.payload;
+			return { ...state, searchMenus: action.payload };
 		}
 	}
 });
@@ -53,45 +56,42 @@ const routeSlice = createSlice({
 export default routeSlice.reducer;
 
 export function useRouteState() {
-	const isInitAuthRoute = useAppSelector((state) => state.route.isInitAuthRoute);
-	const routeHomeName = useAppSelector((state) => state.route.routeHomeName);
-	const menus = useAppSelector((state) => state.route.menus);
-	const searchMenus = useAppSelector((state) => state.route.searchMenus);
-	return { isInitAuthRoute, routeHomeName, menus, searchMenus };
+	return useAppSelector((state) => state.route);
+}
+
+export function getRouteState() {
+	return store.getState().route;
 }
 
 export function useRouteAction() {
-	const { userInfo } = useAuthState();
 	const dispatch = useAppDispatch();
 
-	function resetRoute() {
-		return dispatch(routeSlice.actions.resetRoute());
+	async function resetRouteStore() {
+		await clearRouteStorage();
+		dispatch(routeSlice.actions.resetRouteStore());
 	}
 	function setIsInitAuthRoute(isInitAuthRoute: boolean) {
-		return dispatch(routeSlice.actions.setIsInitAuthRoute(isInitAuthRoute));
+		dispatch(routeSlice.actions.setIsInitAuthRoute(isInitAuthRoute));
 	}
 	function setMenus(menus: App.GlobalMenuOption[]) {
-		return dispatch(routeSlice.actions.setMenus(menus));
+		dispatch(routeSlice.actions.setMenus(menus));
+		localStg.set("menus", menus);
 	}
 	function setSearchMenus(searchMenus: AuthRoute.Route[]) {
-		return dispatch(routeSlice.actions.setSearchMenus(searchMenus));
-	}
-
-	/** 初始化权限路由 */
-	async function initAuthRoute() {
-		await initStaticRoute();
+		dispatch(routeSlice.actions.setSearchMenus(searchMenus));
+		localStg.set("searchMenus", searchMenus);
 	}
 
 	/** 初始化静态路由 */
 	async function initStaticRoute() {
-		const modules = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/route`, {
+		const staticRoutes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/route`, {
 			cache: "no-store"
 		}).then((res) => res.json());
-		const staticRoutes = sortRoutes(_.compact(modules));
 
+		const { userInfo } = getAuthState();
 		const routes = filterAuthRoutesByUserPermission(staticRoutes, userInfo.userRole);
 
-		handleAuthRoute(routes);
+		await handleAuthRoute(routes);
 
 		setIsInitAuthRoute(true);
 	}
@@ -100,16 +100,16 @@ export function useRouteAction() {
 	 * 处理权限路由
 	 * @param routes - 权限路由
 	 */
-	function handleAuthRoute(routes: AuthRoute.Route[]) {
+	async function handleAuthRoute(routes: AuthRoute.Route[]) {
 		setMenus(transformAuthRouteToMenu(routes));
 		setSearchMenus(transformAuthRouteToSearchMenus(routes));
 	}
 
 	return {
-		resetRoute,
+		resetRouteStore,
 		setIsInitAuthRoute,
 		setMenus,
 		setSearchMenus,
-		initAuthRoute
+		initStaticRoute
 	};
 }

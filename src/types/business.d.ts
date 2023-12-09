@@ -16,6 +16,12 @@ declare namespace Auth {
 		userName: string;
 		/** 用户角色类型 */
 		userRole: RoleType;
+		/** 用户头像 */
+		avatar?: string;
+		/** 真实姓名 */
+		realName?: string;
+		/** 邮箱 */
+		email?: string;
 	}
 
 	interface LoginForm {
@@ -29,17 +35,30 @@ declare namespace Auth {
 		traceId: string;
 	}
 
+	interface EmailLoginForm {
+		/** 邮箱 */
+		email: string;
+		/** 邮箱验证码 */
+		emailCaptcha: string;
+		/** 验证码的唯一标识 */
+		traceId: string;
+	}
+
 	interface RegisterForm {
 		/** 用户名 */
 		username: string;
 		/** 密码 */
 		password: string;
 		/** 验证码 */
-		captcha: string;
+		emailCaptcha: string;
 		/** 验证码的唯一标识 */
 		traceId: string;
 		/** 邮箱 */
 		email: string;
+		/** 用户角色 */
+		roleType?: RoleType;
+		/** 用户头像 */
+		avatar?: string;
 	}
 }
 

@@ -9,3 +9,4 @@ export * from "./dimension";
 export * from "./card-radio";
 export * from "./image";
 export * from "./link";
+export * from "./notice";

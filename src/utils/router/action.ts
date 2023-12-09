@@ -56,11 +56,7 @@ export function useRouterPush() {
 	function toRedirect() {
 		const redirect = searchParams?.get("redirect");
 
-		if (redirect) {
-			routerPush(redirect);
-		} else {
-			toHome();
-		}
+		redirect ? routerPush(redirect) : toHome();
 	}
 
 	return {

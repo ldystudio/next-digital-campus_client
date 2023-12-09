@@ -1,13 +1,14 @@
-import toast from "react-hot-toast";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { notice } from "@/components/common";
 import { useAppSelector, useAppDispatch } from "~/hooks/common";
-import { fetchLogin } from "~/service/api";
-import { useRouteState, useRouteAction } from "~/store/modules/route";
+import { fetchEmailLogin, fetchLogin, fetchRegister } from "~/service/api";
+import store from "~/store";
+import { getRouteState, useRouteAction } from "~/store/modules/route";
 import { parseJwtPayload } from "~/utils/common";
 import { useRouterPush } from "~/utils/router";
 import { localStg } from "~/utils/storage";
-import { getToken, getUserInfo, clearAuthStorage } from "./helpers";
+import { getToken, getUserInfo, clearAuthStorage, emptyInfo } from "./helpers";
 
 interface AuthState {
 	/** 用户信息 */
@@ -28,19 +29,21 @@ const authSlice = createSlice({
 	name: "auth",
 	initialState,
 	reducers: {
-		resetAuthStore(state) {
-			state.userInfo = initialState.userInfo;
-			state.token = initialState.token;
-			state.isLoading = initialState.isLoading;
+		resetAuthStore() {
+			return {
+				...initialState,
+				userInfo: emptyInfo,
+				token: ""
+			};
 		},
 		setIsLoading(state, action: PayloadAction<boolean>) {
-			state.isLoading = action.payload;
+			return { ...state, isLoading: action.payload };
 		},
 		setUserInfo(state, action: PayloadAction<Auth.UserInfo>) {
-			state.userInfo = action.payload;
+			return { ...state, userInfo: action.payload };
 		},
 		setToken(state, action: PayloadAction<string>) {
-			state.token = action.payload;
+			return { ...state, token: action.payload };
 		}
 	}
 });
@@ -48,23 +51,22 @@ const authSlice = createSlice({
 export default authSlice.reducer;
 
 export function useAuthState() {
-	const isLoading = useAppSelector((state) => state.auth.isLoading);
-	const userInfo = useAppSelector((state) => state.auth.userInfo);
-	const token = useAppSelector((state) => state.auth.token);
-	return { isLoading, userInfo, token };
+	return useAppSelector((state) => state.auth);
+}
+
+export function getAuthState() {
+	return store.getState().auth;
 }
 
 export function useAuthAction() {
 	const { routerPush, routerBack, toHome, toLogin, toRegister, toRedirect } = useRouterPush();
-	const { initAuthRoute } = useRouteAction();
-	const { isInitAuthRoute } = useRouteState();
-	const { token } = useAuthState();
+	const { initStaticRoute } = useRouteAction();
 	const dispatch = useAppDispatch();
 
-	function resetAuthStore() {
-		clearAuthStorage();
+	async function resetAuthStore() {
+		await clearAuthStorage();
 		dispatch(authSlice.actions.resetAuthStore());
-		routerPush("/");
+		toHome();
 	}
 	function setIsLoading(isLoading: boolean) {
 		dispatch(authSlice.actions.setIsLoading(isLoading));
@@ -78,6 +80,7 @@ export function useAuthAction() {
 
 	/** 是否登录 */
 	function isLogin() {
+		const { token } = getAuthState();
 		return Boolean(token);
 	}
 
@@ -89,24 +92,26 @@ export function useAuthAction() {
 		const loginSuccess = await loginByToken(backendToken);
 
 		if (loginSuccess) {
-			await initAuthRoute();
+			await initStaticRoute();
 
 			// 跳转登录后的地址
 			toRedirect();
 
+			const { isInitAuthRoute } = getRouteState();
+			const { userInfo } = getAuthState();
+
 			// 登录成功弹出欢迎提示
 			if (isInitAuthRoute) {
-				console.log("登录成功");
-				toast.success("登录成功");
-				// window.$notification?.success({
-				// 	title: "登录成功!",
-				// 	content: `欢迎回来，${this.userInfo.userName}!`,
-				// 	duration: 3000
-				// });
+				notice.success({
+					title: "登录成功!",
+					description: `欢迎回来，${userInfo.userName}!`
+				});
 			}
 
 			return;
 		}
+
+		notice.error({ title: "登录失败", description: "请稍后再试~" });
 		// 不成功则重置状态
 		resetAuthStore();
 	}
@@ -136,7 +141,7 @@ export function useAuthAction() {
 
 				// 更新状态
 				setUserInfo(userInfo);
-				setToken(token);
+				setToken(`Bearer ${token}`);
 
 				successFlag = true;
 			}
@@ -155,18 +160,39 @@ export function useAuthAction() {
 
 		const { data } = await fetchLogin(model);
 
-		if (data) {
-			await handleActionAfterLogin(data);
-		}
+		if (data) await handleActionAfterLogin(data);
 
 		setIsLoading(false);
 	}
+
+	async function emailLogin(model: Auth.EmailLoginForm) {
+		setIsLoading(true);
+		const { data, error } = await fetchEmailLogin(model);
+		if (data) await handleActionAfterLogin(data);
+		setIsLoading(false);
+		return error === null;
+	}
+
+	/**
+	 * 注册
+	 * @param userName - 用户名
+	 * @param password - 密码
+	 */
+	async function register(model: Auth.RegisterForm) {
+		setIsLoading(true);
+		const { error } = await fetchRegister(model);
+		setIsLoading(false);
+		return error === null;
+	}
+
 	return {
 		resetAuthStore,
 		setIsLoading,
 		setUserInfo,
 		setToken,
 		login,
-		isLogin
+		emailLogin,
+		isLogin,
+		register
 	};
 }

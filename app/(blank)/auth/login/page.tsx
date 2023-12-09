@@ -1,13 +1,9 @@
 import { Card, CardBody } from "@nextui-org/react";
 
-
 import { Col, ThemeSwitch, Link, Image } from "@/components/common";
 import LoginTabs from "./login-tabs";
 
-
 export default function LoginPage() {
-
-
 	return (
 		<Card className='h-full lg:h-3/4 container px-0 relative'>
 			<ThemeSwitch className='absolute z-10 top-5 left-5' />
