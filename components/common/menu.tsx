@@ -1,19 +1,15 @@
 "use client";
-import { Accordion, AccordionItem, Link, ScrollShadow } from "@nextui-org/react";
+import { memo } from "react";
 
-import { Iconify } from "@/components/common";
+import { Icon } from "@iconify/react";
+import { Accordion as NextUiAccordion, AccordionItem, Link, ScrollShadow } from "@nextui-org/react";
+
 import { siteConfig } from "~/config";
 import { useMenuItemState, useMenuItemAction } from "~/store/modules/menu";
 import { useRouterPush } from "~/utils/router";
 
 export function AdminMenu() {
 	// 手风琴样式
-	const itemClasses = {
-		base: "py-0 w-full",
-		title: "font-normal text-medium hover:text-primary",
-		trigger: "px-2 py-0 hover:bg-default-100 rounded-lg h-10 flex items-center",
-		indicator: "text-medium"
-	};
 	const { menuItem } = useMenuItemState();
 	const { setMenuItem } = useMenuItemAction();
 	const { routerPush } = useRouterPush();
@@ -23,64 +19,56 @@ export function AdminMenu() {
 		routerPush(item.path);
 	}
 
-	return (
-		<ScrollShadow className='h-full w-full' size={20} hideScrollBar>
-			<Accordion
+	const MenuAccordion = memo(function Accordion({ items }: any) {
+		// 是否有子菜单
+		function hasChildren(item: any): boolean {
+			return item.children && item.children.length > 0;
+		}
+
+		return (
+			<NextUiAccordion
 				showDivider={false} // 不显示分割符
-				itemClasses={itemClasses}
-				defaultExpandedKeys={["10"]} // 默认打开第一个
-				selectionMode='multiple'
+				itemClasses={{
+					base: "py-0 w-full",
+					title: "font-normal text-medium hover:text-primary",
+					trigger: "px-2 py-0 hover:bg-default-100 rounded-lg h-10 flex items-center",
+					indicator: "text-medium"
+				}}
+				defaultExpandedKeys={[`AccordionItem - ${items[0].meta.order}`]} // 默认打开第一个
+				// selectionMode='multiple'
 			>
-				{siteConfig.sideMenuItems.map((item) => (
+				{items.map((item: any) => (
 					<AccordionItem
-						key={item.meta.order}
 						aria-label={item.name}
+						key={`AccordionItem - ${item.meta.order}`}
 						title={item.meta.title}
 						startContent={
-							<Iconify
+							<Icon
 								icon={item.meta.icon}
 								color={
 									item.meta.title === menuItem.meta.title ? "#006FEE" : "#11181C"
 								}
+								height='auto'
 							/>
 						}
-						hideIndicator={!item.children}
+						hideIndicator={!hasChildren(item)}
 						classNames={{
-							content: item.children ? "" : "hidden"
+							content: hasChildren(item) ? "" : "hidden"
 						}}
 						onPress={() => {
-							!item.children && handlePress(item);
+							!hasChildren(item) && handlePress(item);
 						}}
 					>
-						{item.children && (
-							<Accordion showDivider={false} itemClasses={itemClasses}>
-								{item.children.map((subItem) => (
-									<AccordionItem
-										key={subItem.meta.order}
-										aria-label={subItem.name}
-										title={subItem.meta.title}
-										startContent={
-											<Iconify
-												icon={subItem.meta.icon}
-												color={
-													subItem.meta.title === menuItem.meta.title
-														? "#006FEE"
-														: "#11181C"
-												}
-											/>
-										}
-										hideIndicator
-										classNames={{ content: "hidden" }}
-										onPress={() => {
-											handlePress(subItem);
-										}}
-									/>
-								))}
-							</Accordion>
-						)}
+						{hasChildren(item) && <MenuAccordion items={item.children} />}
 					</AccordionItem>
 				))}
-			</Accordion>
+			</NextUiAccordion>
+		);
+	});
+
+	return (
+		<ScrollShadow className='h-full w-full' size={20} hideScrollBar>
+			<MenuAccordion items={siteConfig.sideMenuItems} />
 		</ScrollShadow>
 	);
 }

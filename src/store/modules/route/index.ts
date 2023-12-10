@@ -15,7 +15,7 @@ interface RouteState {
 	/** 是否初始化了权限路由 */
 	isInitAuthRoute: boolean;
 	/** 路由首页name(前端静态路由时生效，后端动态路由该值会被后端返回的值覆盖) */
-	routeHomeName: AuthRoute.AllRouteKey;
+	previousRoutePath: AuthRoute.RoutePath;
 	/** 菜单 */
 	menus: App.GlobalMenuOption[];
 	/** 搜索的菜单 */
@@ -24,7 +24,7 @@ interface RouteState {
 
 const initialState: RouteState = {
 	isInitAuthRoute: getIsInitAuthRoute(),
-	routeHomeName: "/",
+	previousRoutePath: "/",
 	menus: getMenus(),
 	searchMenus: getSearchMenus()
 };
@@ -35,14 +35,17 @@ const routeSlice = createSlice({
 	reducers: {
 		resetRouteStore() {
 			return {
-				...initialState,
 				isInitAuthRoute: false,
+				previousRoutePath: "/",
 				menus: [],
 				searchMenus: []
 			};
 		},
 		setIsInitAuthRoute(state, action: PayloadAction<boolean>) {
 			return { ...state, isInitAuthRoute: action.payload };
+		},
+		setPreviousRoutePath(state, action: PayloadAction<AuthRoute.RoutePath>) {
+			return { ...state, previousRoutePath: action.payload };
 		},
 		setMenus(state, action: PayloadAction<App.GlobalMenuOption[]>) {
 			return { ...state, menus: action.payload };
@@ -72,6 +75,9 @@ export function useRouteAction() {
 	}
 	function setIsInitAuthRoute(isInitAuthRoute: boolean) {
 		dispatch(routeSlice.actions.setIsInitAuthRoute(isInitAuthRoute));
+	}
+	function setPreviousRoutePath(previousRoutePath: AuthRoute.RoutePath) {
+		dispatch(routeSlice.actions.setPreviousRoutePath(previousRoutePath));
 	}
 	function setMenus(menus: App.GlobalMenuOption[]) {
 		dispatch(routeSlice.actions.setMenus(menus));
@@ -108,6 +114,7 @@ export function useRouteAction() {
 	return {
 		resetRouteStore,
 		setIsInitAuthRoute,
+		setPreviousRoutePath,
 		setMenus,
 		setSearchMenus,
 		initStaticRoute
