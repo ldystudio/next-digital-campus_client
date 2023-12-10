@@ -1,17 +1,14 @@
 import { Metadata, Viewport } from "next";
-
+import NextTopLoader from "nextjs-toploader";
 
 import { Toaster } from "react-hot-toast";
 import { ToastContainer as Notice, Slide } from "react-toastify";
 
-
 import { fontSans } from "~/config/fonts";
 import { Providers } from "./providers";
 
-
 import "react-toastify/dist/ReactToastify.css";
 import "~/styles/globals.css";
-
 
 export const metadata: Metadata = {
 	title: {
@@ -51,8 +48,9 @@ export default function Layout({ children }: LayoutProps) {
 						disableTransitionOnChange: true
 					}}
 				>
+					<NextTopLoader color='#006FEE' zIndex={9999} showSpinner={false} />
 					<Toaster />
-					<main>{children}</main>
+					{children}
 					<Notice
 						autoClose={3000}
 						transition={Slide}

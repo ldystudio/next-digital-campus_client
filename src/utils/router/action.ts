@@ -1,5 +1,8 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
+import NProgress from "nprogress";
+
+let oldPathname = "";
 /**
  * 路由跳转
  */
@@ -18,6 +21,10 @@ export function useRouterPush() {
 			window.open(to, "_blank");
 			return Promise.resolve();
 		}
+		if (oldPathname && to !== oldPathname) {
+			NProgress.configure({ showSpinner: false }).start();
+		}
+		oldPathname = to;
 		router.push(to);
 	}
 

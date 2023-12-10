@@ -1,6 +1,4 @@
-"use client";
-import { useEffect, useMemo } from "react";
-import { usePathname } from "next/navigation";
+import { useMemo } from "react";
 
 import * as adventurer from "@dicebear/adventurer";
 import { createAvatar } from "@dicebear/core";
@@ -8,7 +6,6 @@ import { AvatarIcon, Button, Card, User } from "@nextui-org/react";
 
 import { Col, Iconify, Link, Row } from "@/components/common";
 import { Logo, AdminMenu, ThemeSwitch } from "@/components/common";
-import { useProgressAction } from "~/store/modules/progress";
 
 /**
  * Renders the Side component.
@@ -16,14 +13,6 @@ import { useProgressAction } from "~/store/modules/progress";
  * @returns {JSX.Element} The JSX element representing the Side component.
  */
 export default function Side(): JSX.Element {
-	const pathname = usePathname();
-	const { showProgress } = useProgressAction();
-
-	useEffect(() => {
-		showProgress();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [pathname]);
-
 	const avatar = useMemo(() => {
 		return createAvatar(adventurer, { seed: "asdasdghdf" }).toDataUriSync();
 	}, []);

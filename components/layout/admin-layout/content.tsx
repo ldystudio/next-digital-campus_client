@@ -1,13 +1,13 @@
 "use client";
 import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 import clsx from "clsx";
+import NProgress from "nprogress";
 import { Card, CardBody, CardFooter, CardHeader, Divider, Tab, Tabs } from "@nextui-org/react";
 
 import { Iconify } from "@/components/common";
 import { useMenuItemState } from "~/store/modules/menu";
-import { useProgressAction } from "~/store/modules/progress";
 
 interface contentProps {
 	children: React.ReactNode;
@@ -16,12 +16,11 @@ interface contentProps {
 export default function Content({ children }: contentProps) {
 	const pathname = usePathname();
 	const { menuItem } = useMenuItemState();
-	const { successProgress } = useProgressAction();
+	const searchParams = useSearchParams();
 
 	useEffect(() => {
-		successProgress();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [pathname]);
+		NProgress.done();
+	}, [pathname, searchParams]);
 
 	return (
 		<Card className={clsx("flex-grow mr-5 my-5")} shadow='sm'>

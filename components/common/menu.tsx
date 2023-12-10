@@ -1,14 +1,12 @@
 "use client";
-import { useRouter } from "next/navigation";
-
 import { Accordion, AccordionItem, Link, ScrollShadow } from "@nextui-org/react";
 
 import { Iconify } from "@/components/common";
 import { siteConfig } from "~/config";
 import { useMenuItemState, useMenuItemAction } from "~/store/modules/menu";
+import { useRouterPush } from "~/utils/router";
 
 export function AdminMenu() {
-	const router = useRouter();
 	// 手风琴样式
 	const itemClasses = {
 		base: "py-0 w-full",
@@ -18,10 +16,11 @@ export function AdminMenu() {
 	};
 	const { menuItem } = useMenuItemState();
 	const { setMenuItem } = useMenuItemAction();
+	const { routerPush } = useRouterPush();
 
 	function handlePress(item: any) {
 		setMenuItem(item);
-		router.push(item.path);
+		routerPush(item.path);
 	}
 
 	return (
@@ -49,7 +48,7 @@ export function AdminMenu() {
 						classNames={{
 							content: item.children ? "" : "hidden"
 						}}
-						onClick={() => {
+						onPress={() => {
 							!item.children && handlePress(item);
 						}}
 					>
@@ -72,7 +71,7 @@ export function AdminMenu() {
 										}
 										hideIndicator
 										classNames={{ content: "hidden" }}
-										onClick={() => {
+										onPress={() => {
 											handlePress(subItem);
 										}}
 									/>
