@@ -3,8 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { notice } from "@/components/common";
 import { useAppSelector, useAppDispatch } from "~/hooks/common";
 import { fetchEmailLogin, fetchLogin, fetchRegister } from "~/service/api";
-import store from "~/store";
-import { getRouteState, useRouteAction } from "~/store/modules/route";
+import { getRouteState, getAuthState } from "~/store";
+import { useRouteAction } from "~/store/modules/route";
 import { parseJwtPayload } from "~/utils/common";
 import { useRouterPush } from "~/utils/router";
 import { localStg } from "~/utils/storage";
@@ -54,12 +54,8 @@ export function useAuthState() {
 	return useAppSelector((state) => state.auth);
 }
 
-export function getAuthState() {
-	return store.getState().auth;
-}
-
 export function useAuthAction() {
-	const { routerPush, routerBack, toHome, toLogin, toRegister, toRedirect } = useRouterPush();
+	const { toHome, toRedirect } = useRouterPush();
 	const { initStaticRoute } = useRouteAction();
 	const dispatch = useAppDispatch();
 

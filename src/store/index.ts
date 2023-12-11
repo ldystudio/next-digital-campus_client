@@ -17,3 +17,12 @@ const store = configureStore({
 export default store;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+// 确保在store初始化后才能获取到state
+export function getRouteState() {
+	return store.getState().route;
+}
+
+export function getAuthState() {
+	return store.getState().auth;
+}

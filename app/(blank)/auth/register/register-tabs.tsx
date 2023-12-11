@@ -1,7 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 
 import { motion } from "framer-motion";
+import NProgress from "nprogress";
 import toast from "react-hot-toast";
 import { Icon } from "@iconify/react";
 import { Button, Input, RadioGroup, Tab, Tabs, Image } from "@nextui-org/react";
@@ -17,6 +19,13 @@ import { colorfulFlag } from "~/utils/toys";
 type tabValue = "EmailRegister" | "FillInTheInformation" | "ChooseAnAvatar";
 
 export default function RegisterTabs() {
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+
+	useEffect(() => {
+		NProgress.done();
+	}, [pathname, searchParams]);
+
 	const tabList: tabValue[] = ["EmailRegister", "FillInTheInformation", "ChooseAnAvatar"];
 	const [selectedTab, setSelectedTab] = useState<tabValue>("EmailRegister");
 	const [disabledKeysList, setDisabledKeysList] = useState<tabValue[]>(

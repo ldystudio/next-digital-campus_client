@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 
+import NProgress from "nprogress";
 import toast from "react-hot-toast";
 import { Icon } from "@iconify/react";
-
 import {
 	Avatar,
 	Button,
@@ -23,6 +24,13 @@ import { useAuthState, useAuthAction } from "~/store/modules/auth";
 import ImageCaptcha from "./image-captcha";
 
 export default function LoginTabs() {
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+
+	useEffect(() => {
+		NProgress.done();
+	}, [pathname, searchParams]);
+
 	const {
 		rememberMe,
 		setRememberMe,

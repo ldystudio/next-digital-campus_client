@@ -25,7 +25,10 @@ declare namespace PageRoute {
 		| "auth"
 		| "auth_login"
 		| "auth_register"
-		| "about";
+		| "about"
+		| "dashboard"
+		| "dashboard_analysis"
+		| "dashboard_workbench";
 
 	/**
 	 * last degree route key, which has the page file
@@ -42,5 +45,7 @@ declare namespace PageRoute {
 		| "auth_login"
 		| "auth_register"
 		| "about"
+		| "dashboard_analysis"
+		| "dashboard_workbench"
 	>;
 }

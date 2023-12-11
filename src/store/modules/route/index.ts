@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { useAppSelector, useAppDispatch } from "~/hooks/common";
-import store from "~/store";
-import { getAuthState } from "~/store/modules/auth";
+import { getAuthState } from "~/store";
 import {
 	filterAuthRoutesByUserPermission,
 	transformAuthRouteToMenu,
@@ -60,10 +59,6 @@ export default routeSlice.reducer;
 
 export function useRouteState() {
 	return useAppSelector((state) => state.route);
-}
-
-export function getRouteState() {
-	return store.getState().route;
 }
 
 export function useRouteAction() {
