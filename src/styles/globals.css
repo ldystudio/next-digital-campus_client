@@ -53,7 +53,7 @@ input[type="password"] {
 }
 
 :root {
-    --toastify-color-info: #006FEE;
+    --toastify-color-info: #006fee;
     --toastify-color-success: #17c964;
     --toastify-color-warning: #f5a524;
     --toastify-color-error: #f31260;
