@@ -84,16 +84,10 @@ export function useRouteAction() {
     }
 
     /** 初始化静态路由 */
-    async function initStaticRoute() {
-        const staticRoutes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/route`, {
-            cache: "no-store"
-        }).then((res) => res.json())
-
+    async function initStaticRoute(staticRoutes: AuthRoute.Route[]) {
         const { userInfo } = getAuthState()
         const routes = filterAuthRoutesByUserPermission(staticRoutes, userInfo.userRole)
-
         await handleAuthRoute(routes)
-
         setIsInitAuthRoute(true)
     }
 

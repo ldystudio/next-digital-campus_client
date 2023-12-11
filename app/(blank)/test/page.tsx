@@ -2,7 +2,6 @@
 import { Button } from "@nextui-org/react"
 
 import { notice } from "@/components/common"
-
 import { useAuthState, useAuthAction } from "~/store/modules/auth"
 import { useRouteState, useRouteAction } from "~/store/modules/route"
 

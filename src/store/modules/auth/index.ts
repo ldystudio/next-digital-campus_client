@@ -84,11 +84,14 @@ export function useAuthAction() {
      * 处理登录后成功或失败的逻辑
      * @param backendToken - 返回的token
      */
-    async function handleActionAfterLogin(backendToken: ApiAuth.Token) {
+    async function handleActionAfterLogin(
+        backendToken: ApiAuth.Token,
+        staticRoutes: AuthRoute.Route[]
+    ) {
         const loginSuccess = await loginByToken(backendToken)
 
         if (loginSuccess) {
-            await initStaticRoute()
+            await initStaticRoute(staticRoutes)
 
             // 跳转登录后的地址
             toRedirect()
@@ -151,20 +154,17 @@ export function useAuthAction() {
      * @param userName - 用户名
      * @param password - 密码
      */
-    async function login(model: Auth.LoginForm) {
+    async function login(model: Auth.LoginForm, staticRoutes: AuthRoute.Route[]) {
         setIsLoading(true)
-
         const { data } = await fetchLogin(model)
-
-        if (data) await handleActionAfterLogin(data)
-
+        if (data) await handleActionAfterLogin(data, staticRoutes)
         setIsLoading(false)
     }
 
-    async function emailLogin(model: Auth.EmailLoginForm) {
+    async function emailLogin(model: Auth.EmailLoginForm, staticRoutes: AuthRoute.Route[]) {
         setIsLoading(true)
         const { data, error } = await fetchEmailLogin(model)
-        if (data) await handleActionAfterLogin(data)
+        if (data) await handleActionAfterLogin(data, staticRoutes)
         setIsLoading(false)
         return error === null
     }
