@@ -173,7 +173,7 @@ export default function LoginTabs({ staticRoutes }: { staticRoutes: AuthRoute.Ro
                         <Checkbox isSelected={rememberMe} onValueChange={setRememberMe}>
                             记住我
                         </Checkbox>
-                        <Link href='#'>忘记密码？</Link>
+                        <Link href='//'>忘记密码？</Link>
                     </Row>
                     <Col space={4} fullWidth>
                         <Button

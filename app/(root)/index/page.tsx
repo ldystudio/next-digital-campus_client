@@ -64,6 +64,7 @@ export default function HomePage() {
                                 variant: "bordered",
                                 radius: "full"
                             })}
+                            // @ts-expect-error: link not in AuthRoute.RoutePath
                             href={siteConfig.links.github}
                         >
                             <GithubIcon size={20} />

@@ -4,7 +4,7 @@ export const siteConfig = {
     navItems: [
         {
             label: "首页",
-            href: "/"
+            href: "/index"
         },
         {
             label: "管理",

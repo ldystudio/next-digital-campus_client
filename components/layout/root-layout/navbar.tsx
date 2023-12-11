@@ -45,7 +45,7 @@ export default function Navbar() {
                 <NavbarBrand className='gap-3 max-w-fit'>
                     <Link
                         className='flex justify-start items-center gap-1'
-                        href='/'
+                        href='/index'
                         color='secondary'
                     >
                         <Logo />
@@ -60,6 +60,7 @@ export default function Navbar() {
                                     "data-[active=true]:text-primary data-[active=true]:font-medium"
                                 )}
                                 color='primary'
+                                // @ts-expect-error: link not in AuthRoute.RoutePath
                                 href={item.href}
                             >
                                 {item.label}
@@ -71,7 +72,11 @@ export default function Navbar() {
 
             <NavbarContent className='hidden sm:flex basis-1/5 sm:basis-full' justify='end'>
                 <NavbarItem className='hidden sm:flex gap-2'>
-                    <Link isExternal href={siteConfig.links.github}>
+                    <Link
+                        isExternal
+                        // @ts-expect-error: link not in AuthRoute.RoutePath
+                        href={siteConfig.links.github}
+                    >
                         <GithubIcon className='text-default-500' />
                     </Link>
                     <ThemeSwitch />
@@ -81,7 +86,11 @@ export default function Navbar() {
             </NavbarContent>
 
             <NavbarContent className='sm:hidden basis-1 pl-4' justify='end'>
-                <Link isExternal href={siteConfig.links.github}>
+                <Link
+                    isExternal
+                    // @ts-expect-error: link not in AuthRoute.RoutePath
+                    href={siteConfig.links.github}
+                >
                     <GithubIcon className='text-default-500' />
                 </Link>
                 <ThemeSwitch />
@@ -101,6 +110,7 @@ export default function Navbar() {
                                           ? "danger"
                                           : "foreground"
                                 }
+                                // @ts-expect-error: link not in AuthRoute.RoutePath
                                 href={item.href}
                                 size='lg'
                             >

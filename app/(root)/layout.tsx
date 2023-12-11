@@ -37,6 +37,7 @@ export default function RootLayout({ children }: LayoutProps) {
                 <Link
                     isExternal
                     className='flex items-center gap-1 text-current'
+                    // @ts-expect-error: 链接不在AuthRoute.RoutePath中
                     href='https://nextui-docs-v2.vercel.app?utm_source=next-app-template'
                     title='nextui.org homepage'
                 >

@@ -21,7 +21,7 @@ export default async function LoginPage() {
                     />
                 </Col>
                 <Col space={3} className='w-full lg:w-1/2 h-[640px]'>
-                    <Link href='/' color='foreground'>
+                    <Link href='/index' color='foreground'>
                         <Image
                             src='/logo.png'
                             alt='login'

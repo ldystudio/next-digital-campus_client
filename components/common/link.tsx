@@ -6,11 +6,12 @@ type NextLinkPropsMixin = NextLinkProps & NextUiLinkProps
 
 interface LinkProps extends NextLinkPropsMixin {
     children: React.ReactNode
+    href: AuthRoute.RoutePath
 }
 
-export function Link({ children, ...props }: LinkProps) {
+export function Link({ children, href, ...props }: LinkProps) {
     return (
-        <NextUiLink as={NextLink} {...props}>
+        <NextUiLink href={href} as={NextLink} {...props}>
             {children}
         </NextUiLink>
     )

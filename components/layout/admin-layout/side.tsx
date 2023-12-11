@@ -19,7 +19,7 @@ export default function Side(): JSX.Element {
 
     return (
         <Card className='flex min-w-[12rem] mx-5 my-5 items-center justify-around' shadow='sm'>
-            <Link href='/' color='foreground' className='pt-1'>
+            <Link href='/index' color='foreground' className='pt-1'>
                 <Logo size={60} />
             </Link>
             <div className='h-2/3 w-full'>
