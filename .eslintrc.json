@@ -1,3 +1,16 @@
 {
-	"extends": ["next/core-web-vitals", "prettier"]
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "plugins": ["@typescript-eslint"],
+    "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "prettier"],
+    "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/no-explicit-any": "off"
+    },
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    }
 }

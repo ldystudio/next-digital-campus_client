@@ -1,12 +1,12 @@
-"use client";
-import { useTheme } from "next-themes";
+"use client"
+import { useTheme } from "next-themes"
 
-import clsx from "clsx";
-import { useBoolean, useEffectOnce } from "usehooks-ts";
-import { Spinner } from "@nextui-org/react";
-import { Expand } from "@theme-toggles/react";
+import clsx from "clsx"
+import { useBoolean, useEffectOnce } from "usehooks-ts"
+import { Spinner } from "@nextui-org/react"
+import { Expand } from "@theme-toggles/react"
 
-import "@theme-toggles/react/css/Expand.css";
+import "@theme-toggles/react/css/Expand.css"
 
 /**
  * Switches the theme between light and dark.
@@ -15,63 +15,63 @@ import "@theme-toggles/react/css/Expand.css";
  * @return {void} No return value.
  */
 export function ThemeSwitch({ className }: { className?: string }) {
-	const { value: isMounted, setTrue } = useBoolean(false);
-	const { theme, setTheme, resolvedTheme } = useTheme();
+    const { value: isMounted, setTrue } = useBoolean(false)
+    const { theme, setTheme, resolvedTheme } = useTheme()
 
-	useEffectOnce(() => {
-		setTrue();
-	});
+    useEffectOnce(() => {
+        setTrue()
+    })
 
-	if (!isMounted) {
-		return <Spinner size='sm' color='secondary' className={clsx(className)} />;
-	}
+    if (!isMounted) {
+        return <Spinner size='sm' color='secondary' className={clsx(className)} />
+    }
 
-	// Handle the switch event
-	function handleSwitch(event: React.MouseEvent<HTMLElement, MouseEvent>) {
-		const x = event.clientX;
-		const y = event.clientY;
-		const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-		// Check if Transition API is supported
-		// If not, directly update the theme
-		// @ts-expect-error: Transition API
-		if (!document.startViewTransition) {
-			setTheme(theme === "light" ? "dark" : "light");
-			return;
-		}
-		// Start the view transition
-		// @ts-expect-error: Transition API
-		const transition = document.startViewTransition(() => {
-			setTheme(theme === "light" ? "dark" : "light");
-		});
-		// After the transition is ready, animate the clipPath
-		transition.ready.then(() => {
-			const clipPath = [
-				`circle(0px at ${x}px ${y}px)`,
-				`circle(${endRadius}px at ${x}px ${y}px)`
-			];
-			document.documentElement.animate(
-				{
-					clipPath: theme === "light" ? clipPath : [...clipPath].reverse()
-				},
-				{
-					duration: 500,
-					easing: "ease-in",
-					fill: "forwards",
-					pseudoElement:
-						theme === "light"
-							? "::view-transition-new(root)"
-							: "::view-transition-old(root)"
-				}
-			);
-		});
-	}
-	return (
-		// Render the theme switch button
-		<div
-			className={clsx("flex items-center justify-center cursor-pointer", className)}
-			onClick={(e) => handleSwitch(e)}
-		>
-			<Expand duration={750} toggled={resolvedTheme === "light"} />
-		</div>
-	);
+    // Handle the switch event
+    function handleSwitch(event: React.MouseEvent<HTMLElement, MouseEvent>) {
+        const x = event.clientX
+        const y = event.clientY
+        const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
+        // Check if Transition API is supported
+        // If not, directly update the theme
+        // @ts-expect-error: Transition API
+        if (!document.startViewTransition) {
+            setTheme(theme === "light" ? "dark" : "light")
+            return
+        }
+        // Start the view transition
+        // @ts-expect-error: Transition API
+        const transition = document.startViewTransition(() => {
+            setTheme(theme === "light" ? "dark" : "light")
+        })
+        // After the transition is ready, animate the clipPath
+        transition.ready.then(() => {
+            const clipPath = [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${endRadius}px at ${x}px ${y}px)`
+            ]
+            document.documentElement.animate(
+                {
+                    clipPath: theme === "light" ? clipPath : [...clipPath].reverse()
+                },
+                {
+                    duration: 500,
+                    easing: "ease-in",
+                    fill: "forwards",
+                    pseudoElement:
+                        theme === "light"
+                            ? "::view-transition-new(root)"
+                            : "::view-transition-old(root)"
+                }
+            )
+        })
+    }
+    return (
+        // Render the theme switch button
+        <div
+            className={clsx("flex items-center justify-center cursor-pointer", className)}
+            onClick={(e) => handleSwitch(e)}
+        >
+            <Expand duration={750} toggled={resolvedTheme === "light"} />
+        </div>
+    )
 }

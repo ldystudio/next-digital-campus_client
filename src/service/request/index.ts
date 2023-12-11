@@ -1,5 +1,5 @@
-import { createRequest } from "./request";
+import { createRequest } from "./request"
 
 export const request = createRequest({
-	baseURL: process.env.SERVER_URL
-});
+    baseURL: process.env.SERVER_URL
+})

@@ -1,15 +1,15 @@
-"use client";
-import { useState, useCallback, useMemo } from "react";
+"use client"
+import { useState, useCallback, useMemo } from "react"
 
 export function useFormValidation(regexp: RegExp, defaultValue: string = "") {
-	const [field, setField] = useState(defaultValue);
-	const validateField = useCallback((value: string) => value.match(regexp), [regexp]);
+    const [field, setField] = useState(defaultValue)
+    const validateField = useCallback((value: string) => value.match(regexp), [regexp])
 
-	const isInvalidField = useMemo(() => {
-		if (field === "") return false;
+    const isInvalidField = useMemo(() => {
+        if (field === "") return false
 
-		return !validateField(field);
-	}, [field, validateField]);
+        return !validateField(field)
+    }, [field, validateField])
 
-	return { field, setField, isInvalidField };
+    return { field, setField, isInvalidField }
 }

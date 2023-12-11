@@ -1,3 +1,3 @@
 export default function WorkbenchPage() {
-	return <div>WorkbenchPage</div>;
+    return <div>WorkbenchPage</div>
 }

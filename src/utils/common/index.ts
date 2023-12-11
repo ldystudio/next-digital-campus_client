@@ -1,3 +1,3 @@
-export * from "./pattern";
-export * from "./typeof";
-export * from "./base64";
+export * from "./pattern"
+export * from "./typeof"
+export * from "./base64"

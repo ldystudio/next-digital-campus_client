@@ -1,1 +1,1 @@
-export * from "./colorful-flag";
+export * from "./colorful-flag"

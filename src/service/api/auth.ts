@@ -1,4 +1,4 @@
-import { request } from "../request";
+import { request } from "../request"
 
 /**
  * 获取验证码
@@ -6,7 +6,7 @@ import { request } from "../request";
  * @returns - 返回boolean值表示是否发送成功
  */
 export function fetchSmtpCode(email: string, traceId: string) {
-	return request.post<boolean>("auth/email_captcha/", { email, traceId });
+    return request.post<boolean>("auth/email_captcha/", { email, traceId })
 }
 
 /**
@@ -15,17 +15,17 @@ export function fetchSmtpCode(email: string, traceId: string) {
  * @returns
  */
 export function fetchLogin(model: Auth.LoginForm) {
-	return request.post<ApiAuth.Token>("auth/login/", { ...model });
+    return request.post<ApiAuth.Token>("auth/login/", { ...model })
 }
 
 export function fetchEmailLogin(model: Auth.EmailLoginForm) {
-	return request.post<ApiAuth.Token>("auth/login/", {
-		...model,
-		type: "emailLogin",
-		// Django登录占位符，随机生成用户名和密码，后续不使用
-		username: `${Math.random().toString(36).slice(-8)}`,
-		password: `${Math.random().toString(36).slice(-8)}`
-	});
+    return request.post<ApiAuth.Token>("auth/login/", {
+        ...model,
+        type: "emailLogin",
+        // Django登录占位符，随机生成用户名和密码，后续不使用
+        username: `${Math.random().toString(36).slice(-8)}`,
+        password: `${Math.random().toString(36).slice(-8)}`
+    })
 }
 
 /**
@@ -34,14 +34,14 @@ export function fetchEmailLogin(model: Auth.EmailLoginForm) {
  * @returns null
  */
 export function fetchLogout(refresh: string) {
-	return request.post<null>("auth/logout/", { refresh });
+    return request.post<null>("auth/logout/", { refresh })
 }
 
 /**
  * 注册
  */
 export function fetchRegister(model: Auth.RegisterForm) {
-	return request.post<null>("auth/register/", { ...model });
+    return request.post<null>("auth/register/", { ...model })
 }
 
 /**
@@ -49,9 +49,9 @@ export function fetchRegister(model: Auth.RegisterForm) {
  * @param refreshToken
  */
 export function fetchUpdateToken(refresh: string) {
-	return request.post<ApiAuth.Token>("auth/refresh/", { refresh });
+    return request.post<ApiAuth.Token>("auth/refresh/", { refresh })
 }
 
 export function fetchTest() {
-	return request.get<null>("iam/1/");
+    return request.get<null>("iam/1/")
 }

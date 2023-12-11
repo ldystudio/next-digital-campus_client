@@ -1,5 +1,5 @@
-"use client";
+"use client"
 
 export default function PricingPage() {
-	return <div>Price</div>;
+    return <div>Price</div>
 }
