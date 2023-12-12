@@ -13,8 +13,7 @@ export async function readAllRouteModuleFiles() {
 
     const modules: AuthRoute.Route[] = fs
         .readdirSync("./src/router/modules")
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        .map((filename) => require(`./modules/${filename.split(".")[0]}`).default)
+        .map((filename: string) => require(`./modules/${filename.split(".")[0]}`).default)
 
     cachedResult = sortRoutes(_.compact(modules))
 

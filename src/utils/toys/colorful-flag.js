@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const confetti = require("canvas-confetti").default
 
 export function colorfulFlag() {
