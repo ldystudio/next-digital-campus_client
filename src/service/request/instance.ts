@@ -9,7 +9,6 @@ import {
     handleServiceResult,
     transformRequestData
 } from "~/utils/service"
-import { localStg } from "~/utils/storage"
 import { handleRefreshToken } from "./helpers"
 
 interface ErrorResponse {
@@ -53,7 +52,7 @@ export default class CustomAxiosInstance {
                     const contentType = handleConfig.headers["Content-Type"] as UnionKey.ContentType
                     handleConfig.data = await transformRequestData(handleConfig.data, contentType)
                     // 设置token
-                    handleConfig.headers.Authorization = localStg.get("token") || ""
+                    // handleConfig.headers.Authorization = localStg.get("token") || ""
                 }
                 return handleConfig
             },

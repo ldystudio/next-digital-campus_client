@@ -1,6 +1,8 @@
 import type { AxiosRequestConfig } from "axios"
 
 // import { useAuthStore } from "~/store";
+import { setCookie } from "cookies-next"
+
 import { localStg } from "~/utils/storage"
 import { fetchUpdateToken } from "../api"
 
@@ -13,7 +15,12 @@ export async function handleRefreshToken(axiosConfig: AxiosRequestConfig) {
     const refreshToken = localStg.get("refreshToken") || ""
     const { data } = await fetchUpdateToken(refreshToken)
     if (data) {
-        localStg.set("token", `Bearer ${data.token}`)
+        setCookie("token", `Bearer ${data.token}`, {
+            maxAge: parseInt(process.env.TOKEN_LIFETIME!),
+            sameSite: true,
+            httpOnly: true
+        })
+        // localStg.set("token", `Bearer ${data.token}`)
         localStg.set("refreshToken", data.refreshToken)
 
         const config = { ...axiosConfig }

@@ -1,3 +1,4 @@
+import { setCookie } from "cookies-next"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { notice } from "@/components/common"
@@ -124,7 +125,11 @@ export function useAuthAction() {
 
         // 先把token存储到缓存中(后面接口的请求头需要token)
         const { token, refreshToken } = backendToken
-        localStg.set("token", `Bearer ${token}`)
+        setCookie("token", `Bearer ${token}`, {
+            maxAge: parseInt(process.env.TOKEN_LIFETIME!),
+            sameSite: true
+        })
+        // localStg.set("token", `Bearer ${token}`)
         localStg.set("refreshToken", refreshToken)
 
         // 获取用户信息

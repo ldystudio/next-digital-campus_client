@@ -67,7 +67,7 @@ export default function Test() {
                 <Button onClick={() => resetRouteStore()}>重置</Button>
             </section>
             <section>
-                <p>{process.env.NEXT_PUBLIC_CRYPTO_SECRET}</p>
+                <p>{typeof process.env.TOKEN_LIFETIME}</p>
             </section>
         </>
     )

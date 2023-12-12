@@ -1,8 +1,11 @@
+import { getCookie, deleteCookie } from "cookies-next"
+
 import { localStg } from "~/utils/storage"
 
 /** 获取token */
 export function getToken() {
-    return localStg.get("token") || ""
+    return getCookie("token") || ""
+    // return localStg.get("token") || ""
 }
 
 export const emptyInfo: Auth.UserInfo = {
@@ -21,7 +24,8 @@ export function getUserInfo() {
 
 /** 去除用户相关缓存 */
 export async function clearAuthStorage() {
-    localStg.remove("token")
+    // localStg.remove("token")
+    deleteCookie("token")
     localStg.remove("refreshToken")
     localStg.remove("userInfo")
 }
