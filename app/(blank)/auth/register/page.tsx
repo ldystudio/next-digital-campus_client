@@ -3,11 +3,11 @@ import { Card, CardBody } from "@nextui-org/react"
 import { Col, ThemeSwitch, Link, Image } from "@/components/common"
 import RegisterTabs from "./register-tabs"
 
-export default function Register() {
+export default function RegisterPage() {
     return (
         <Card className='h-full lg:h-3/4 container px-0 relative'>
             <ThemeSwitch className='absolute z-10 top-5 right-5' />
-            <CardBody className='flex flex-row-reverse items-center justify-between bg-contour-line'>
+            <CardBody className='flex flex-row-reverse items-center justify-between bg-contour-line overflow-y-hidden'>
                 <Col className='w-0 lg:w-1/2'>
                     <Image
                         src='/images/log-in-girl.svg'

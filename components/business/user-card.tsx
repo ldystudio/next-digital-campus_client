@@ -23,7 +23,6 @@ export function UserCard({ avatar, name, description, role, realName, email }: U
         const { error } = await fetchLogout(refreshToken)
 
         if (error && error.type === "axios") {
-            toast.error("退出失败")
             return
         }
 

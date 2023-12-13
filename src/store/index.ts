@@ -11,7 +11,8 @@ const store = configureStore({
         menu: menuItemReducer,
         route: routeReducer,
         auth: authReducer
-    }
+    },
+    devTools: process.env.NODE_ENV !== "production"
 })
 
 export default store

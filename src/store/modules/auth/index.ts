@@ -125,7 +125,7 @@ export function useAuthAction() {
 
         // 先把token存储到缓存中(后面接口的请求头需要token)
         const { token, refreshToken } = backendToken
-        setCookie("token", `Bearer ${token}`, {
+        setCookie("accessToken", token, {
             maxAge: parseInt(process.env.TOKEN_LIFETIME!),
             sameSite: true
         })
@@ -168,10 +168,9 @@ export function useAuthAction() {
 
     async function emailLogin(model: Auth.EmailLoginForm, staticRoutes: AuthRoute.Route[]) {
         setIsLoading(true)
-        const { data, error } = await fetchEmailLogin(model)
+        const { data } = await fetchEmailLogin(model)
         if (data) await handleActionAfterLogin(data, staticRoutes)
         setIsLoading(false)
-        return error === null
     }
 
     /**

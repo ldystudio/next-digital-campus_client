@@ -13,7 +13,7 @@ import { getIsInitAuthRoute, getMenus, getSearchMenus, clearRouteStorage } from 
 interface RouteState {
     /** 是否初始化了权限路由 */
     isInitAuthRoute: boolean
-    /** 路由首页name(前端静态路由时生效，后端动态路由该值会被后端返回的值覆盖) */
+    /** 上一次的路由路径 */
     previousRoutePath: AuthRoute.RoutePath
     /** 菜单 */
     menus: App.GlobalMenuOption[]

@@ -10,11 +10,14 @@ import { isNumber } from "~/utils/common"
 type NextImagePropsMixin = Omit<NextImageProps, "src" | "width"> & Omit<NextUiImageProps, "width">
 
 interface ImageProps extends NextImagePropsMixin {
-    width: number | [number, number] // 在电脑上的宽度、在手机上的宽度
+    // 统一宽度 | 在电脑上的宽度、在手机上的宽度
+    width: number | [number, number]
+    // 图片原始尺寸，用于保持比例
     originalSize: {
         width: number
         height: number
     }
+    // 是否使用暗黑模式下的亮色背景，对于一些带透明的图片很有用
     darkModeBrightBackground?: boolean
 }
 

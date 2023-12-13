@@ -393,7 +393,6 @@ export default function RegisterTabs() {
                                     setTraceId(generateTraceId())
 
                                     if (!res) {
-                                        toast.error("注册失败")
                                         return
                                     }
                                     toast.success("注册成功")

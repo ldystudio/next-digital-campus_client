@@ -7,7 +7,7 @@ import _ from "lodash"
 import { sortRoutes } from "~/utils/router"
 
 export async function GET() {
-    const isLogin = hasCookie("token", { cookies })
+    const isLogin = hasCookie("accessToken", { cookies })
     if (!isLogin) {
         return Response.json(null, { status: 401 })
     }

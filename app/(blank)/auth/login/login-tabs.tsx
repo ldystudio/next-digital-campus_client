@@ -269,16 +269,8 @@ export default function LoginTabs({ staticRoutes }: { staticRoutes: AuthRoute.Ro
 
                             setVerificationFailed(false)
 
-                            const res = await emailLogin(
-                                { email, emailCaptcha, traceId },
-                                staticRoutes
-                            )
+                            await emailLogin({ email, emailCaptcha, traceId }, staticRoutes)
                             setTraceId(generateTraceId())
-
-                            if (!res) {
-                                toast.error("登录失败")
-                                return
-                            }
                         }}
                         isLoading={isLoading}
                     >

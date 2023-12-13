@@ -4,7 +4,7 @@ import { localStg } from "~/utils/storage"
 
 /** 获取token */
 export function getToken() {
-    return getCookie("token") || ""
+    return getCookie("accessToken") || ""
     // return localStg.get("token") || ""
 }
 
@@ -25,7 +25,7 @@ export function getUserInfo() {
 /** 去除用户相关缓存 */
 export async function clearAuthStorage() {
     // localStg.remove("token")
-    deleteCookie("token")
+    deleteCookie("accessToken")
     localStg.remove("refreshToken")
     localStg.remove("userInfo")
 }
