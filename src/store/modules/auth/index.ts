@@ -85,14 +85,11 @@ export function useAuthAction() {
      * 处理登录后成功或失败的逻辑
      * @param backendToken - 返回的token
      */
-    async function handleActionAfterLogin(
-        backendToken: ApiAuth.Token,
-        staticRoutes: AuthRoute.Route[]
-    ) {
+    async function handleActionAfterLogin(backendToken: ApiAuth.Token) {
         const loginSuccess = await loginByToken(backendToken)
 
         if (loginSuccess) {
-            await initStaticRoute(staticRoutes)
+            await initStaticRoute()
 
             // 跳转登录后的地址
             toRedirect()
@@ -145,7 +142,7 @@ export function useAuthAction() {
 
                 // 更新状态
                 setUserInfo(userInfo)
-                setToken(`Bearer ${token}`)
+                setToken(token)
 
                 successFlag = true
             }
@@ -159,17 +156,17 @@ export function useAuthAction() {
      * @param userName - 用户名
      * @param password - 密码
      */
-    async function login(model: Auth.LoginForm, staticRoutes: AuthRoute.Route[]) {
+    async function login(model: Auth.LoginForm) {
         setIsLoading(true)
         const { data } = await fetchLogin(model)
-        if (data) await handleActionAfterLogin(data, staticRoutes)
+        if (data) await handleActionAfterLogin(data)
         setIsLoading(false)
     }
 
-    async function emailLogin(model: Auth.EmailLoginForm, staticRoutes: AuthRoute.Route[]) {
+    async function emailLogin(model: Auth.EmailLoginForm) {
         setIsLoading(true)
         const { data } = await fetchEmailLogin(model)
-        if (data) await handleActionAfterLogin(data, staticRoutes)
+        if (data) await handleActionAfterLogin(data)
         setIsLoading(false)
     }
 

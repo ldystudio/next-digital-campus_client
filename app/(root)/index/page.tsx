@@ -49,14 +49,14 @@ export default function HomePage() {
                     <p className={subtitle()}>基于React + Redux + Next.js + NextUI</p>
                     <Row space={3} className='mt-3 md:mt-10'>
                         <Link
-                            href='/about'
+                            href='/dashboard/analysis'
                             className={buttonStyles({
                                 color: "primary",
                                 radius: "full",
                                 variant: "shadow"
                             })}
                         >
-                            开始
+                            进入
                         </Link>
                         <Link
                             isExternal

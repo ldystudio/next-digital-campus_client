@@ -54,6 +54,7 @@ export function useRouterPush() {
      */
     function toHome(newTab = false) {
         routerPush("/", undefined, newTab)
+        NProgress.done()
     }
 
     /**

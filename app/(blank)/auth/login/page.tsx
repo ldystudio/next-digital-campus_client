@@ -1,12 +1,9 @@
 import { Card, CardBody } from "@nextui-org/react"
 
 import { Col, ThemeSwitch, Link, Image } from "@/components/common"
-import { readAllRouteModuleFiles } from "~/router"
 import LoginTabs from "./login-tabs"
 
 export default async function LoginPage() {
-    const staticRoutes = await readAllRouteModuleFiles()
-
     return (
         <Card className='h-full lg:h-3/4 container px-0 relative'>
             <ThemeSwitch className='absolute z-10 top-5 left-5' />
@@ -34,7 +31,7 @@ export default async function LoginPage() {
                     <p className='text-3xl font-bold text-secondary'>欢迎回来</p>
                     <Card className='w-[95%] lg:w-[450px]' shadow='none'>
                         <CardBody className='overflow-hidden'>
-                            <LoginTabs staticRoutes={staticRoutes} />
+                            <LoginTabs />
                         </CardBody>
                     </Card>
                 </Col>

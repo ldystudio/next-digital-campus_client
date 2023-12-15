@@ -23,7 +23,7 @@ import { fetchSmtpCode } from "~/service/api"
 import { useAuthState, useAuthAction } from "~/store/modules/auth"
 import ImageCaptcha from "./image-captcha"
 
-export default function LoginTabs({ staticRoutes }: { staticRoutes: AuthRoute.Route[] }) {
+export default function LoginTabs() {
     const pathname = usePathname()
     const searchParams = useSearchParams()
 
@@ -194,7 +194,7 @@ export default function LoginTabs({ staticRoutes }: { staticRoutes: AuthRoute.Ro
                                 }
 
                                 setVerificationFailed(false)
-                                login(model, staticRoutes)
+                                login(model)
                             }}
                             isLoading={isLoading}
                         >
@@ -269,7 +269,7 @@ export default function LoginTabs({ staticRoutes }: { staticRoutes: AuthRoute.Ro
 
                             setVerificationFailed(false)
 
-                            await emailLogin({ email, emailCaptcha, traceId }, staticRoutes)
+                            await emailLogin({ email, emailCaptcha, traceId })
                             setTraceId(generateTraceId())
                         }}
                         isLoading={isLoading}

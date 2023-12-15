@@ -1,15 +1,19 @@
 "use client"
-import { Button } from "@nextui-org/react"
+import { useState } from "react"
 
-import { notice } from "@/components/common"
+import { Button, Input } from "@nextui-org/react"
+
+import { Row, notice } from "@/components/common"
 import { useAuthState, useAuthAction } from "~/store/modules/auth"
 import { useRouteState, useRouteAction } from "~/store/modules/route"
+import { parseJwtPayload } from "~/utils/common/jwt"
 
 export default function Test() {
     const { userInfo, isLoading, token } = useAuthState()
     const { setUserInfo, resetAuthStore } = useAuthAction()
     const { isInitAuthRoute, menus, searchMenus } = useRouteState()
     const { setIsInitAuthRoute, resetRouteStore } = useRouteAction()
+    const [search, setSearch] = useState("")
 
     return (
         <>
@@ -59,7 +63,7 @@ export default function Test() {
                     error消息
                 </Button>
             </section>
-            <section>
+            <section className='mt-2 p-2 space-x-2 bg-blue-200'>
                 <p>isInitAuthRoute: {`${isInitAuthRoute}`}</p>
                 <p>menus: {`${JSON.stringify(menus)}`}</p>
                 <p>searchMenus: {`${JSON.stringify(searchMenus)}`}</p>
@@ -67,7 +71,17 @@ export default function Test() {
                 <Button onClick={() => resetRouteStore()}>重置</Button>
             </section>
             <section>
-                <p>{typeof process.env.TOKEN_LIFETIME}</p>
+                <Row className='w-1/3'>
+                    <Input value={search} onValueChange={setSearch} />
+                    <Button
+                        onPress={async () => {
+                            const res = await parseJwtPayload(search)
+                            console.log("res: ", res)
+                        }}
+                    >
+                        搜索
+                    </Button>
+                </Row>
             </section>
         </>
     )
