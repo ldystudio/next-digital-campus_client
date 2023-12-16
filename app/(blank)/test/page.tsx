@@ -6,9 +6,11 @@ import { Button, Input } from "@nextui-org/react"
 import { Row, notice } from "@/components/common"
 import { useAuthState, useAuthAction } from "~/store/modules/auth"
 import { useRouteState, useRouteAction } from "~/store/modules/route"
-import { parseJwtPayload } from "~/utils/common/jwt"
+import { parseJwtPayload } from "~/utils/common"
+import { localStg } from "~/utils/storage"
 
 export default function Test() {
+    const refreshToken = localStg.get("refreshToken")
     const { userInfo, isLoading, token } = useAuthState()
     const { setUserInfo, resetAuthStore } = useAuthAction()
     const { isInitAuthRoute, menus, searchMenus } = useRouteState()
@@ -29,6 +31,7 @@ export default function Test() {
                 <p>userInfo: {JSON.stringify(userInfo)}</p>
                 <p>isLoading: {`${isLoading}`}</p>
                 <p>token: {token}</p>
+                <p>refreshToken: {refreshToken}</p>
             </section>
             <section className='mt-2 p-2 space-x-2 bg-zinc-400'>
                 <Button

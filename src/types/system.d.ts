@@ -150,13 +150,13 @@ declare namespace I18nType {
 
 declare namespace App {
     /** 菜单项配置 */
-    type GlobalMenuOption = {
+    type AdminMenu = {
         key: string
         label: string
         routeName: string
         routePath: string
         icon?: string
-        children?: GlobalMenuOption[]
+        children?: AdminMenu[]
         i18nTitle?: string
     }
 }

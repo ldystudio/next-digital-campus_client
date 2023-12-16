@@ -1,3 +1,7 @@
+import { getRouteState } from "~/store"
+import { localStg } from "~/utils/storage"
+
 export async function GET() {
-    return new Response("This is a new API route")
+    const menus = localStg.get("menus")
+    return Response.json(menus)
 }

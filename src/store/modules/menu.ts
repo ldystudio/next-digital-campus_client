@@ -2,21 +2,19 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { useAppSelector, useAppDispatch } from "~/hooks/common"
 
-const initialState = {
-    name: "",
-    path: "",
-    meta: {
-        title: "",
-        icon: "",
-        order: 0
-    }
+const initialState: App.AdminMenu = {
+    key: "",
+    label: "",
+    routeName: "",
+    routePath: "",
+    icon: ""
 }
 
 const menuItemSlice = createSlice({
     name: "menuItem",
     initialState,
     reducers: {
-        setMenuItem(state, action: PayloadAction<typeof initialState>) {
+        setMenuItem(state, action: PayloadAction<App.AdminMenu>) {
             return action.payload
         },
         resetMenuItem() {
@@ -27,14 +25,13 @@ const menuItemSlice = createSlice({
 
 export default menuItemSlice.reducer
 export function useMenuItemState() {
-    const menuItem = useAppSelector((state) => state.menu)
-    return { menuItem }
+    return useAppSelector((state) => state.menu)
 }
 
 export function useMenuItemAction() {
     const dispatch = useAppDispatch()
 
-    function setMenuItem(menuItem: typeof initialState) {
+    function setMenuItem(menuItem: App.AdminMenu) {
         dispatch(menuItemSlice.actions.setMenuItem(menuItem))
     }
     function resetMenuItem() {

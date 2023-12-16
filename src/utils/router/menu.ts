@@ -2,16 +2,16 @@
  * 将权限路由转换成菜单
  * @param routes - 路由
  */
-export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): App.GlobalMenuOption[] {
-    const globalMenu: App.GlobalMenuOption[] = []
+export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): App.AdminMenu[] {
+    const globalMenu: App.AdminMenu[] = []
     routes.forEach((route) => {
         const { name, path, meta } = route
         const routeName = name as string
-        let menuChildren: App.GlobalMenuOption[] | undefined
+        let menuChildren: App.AdminMenu[] | undefined
         if (route.children && route.children.length > 0) {
             menuChildren = transformAuthRouteToMenu(route.children)
         }
-        const menuItem: App.GlobalMenuOption = addPartialProps({
+        const menuItem: App.AdminMenu = addPartialProps({
             menu: {
                 key: routeName,
                 label: meta.title,
@@ -33,12 +33,12 @@ export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): App.GlobalM
  * @param activeKey - 当前路由的key
  * @param menus - 菜单数据
  */
-export function getActiveKeyPathsOfMenus(activeKey: string, menus: App.GlobalMenuOption[]) {
+export function getActiveKeyPathsOfMenus(activeKey: string, menus: App.AdminMenu[]) {
     const keys = menus.map((menu) => getActiveKeyPathsOfMenu(activeKey, menu)).flat(1)
     return keys
 }
 
-function getActiveKeyPathsOfMenu(activeKey: string, menu: App.GlobalMenuOption) {
+function getActiveKeyPathsOfMenu(activeKey: string, menu: App.AdminMenu) {
     const keys: string[] = []
     if (activeKey.startsWith(menu.routeName)) {
         keys.push(menu.routeName)
@@ -46,7 +46,7 @@ function getActiveKeyPathsOfMenu(activeKey: string, menu: App.GlobalMenuOption) 
     if (menu.children) {
         keys.push(
             ...menu.children
-                .map((item) => getActiveKeyPathsOfMenu(activeKey, item as App.GlobalMenuOption))
+                .map((item) => getActiveKeyPathsOfMenu(activeKey, item as App.AdminMenu))
                 .flat(1)
         )
     }
@@ -55,9 +55,9 @@ function getActiveKeyPathsOfMenu(activeKey: string, menu: App.GlobalMenuOption) 
 
 /** 给菜单添加可选属性 */
 function addPartialProps(config: {
-    menu: App.GlobalMenuOption
+    menu: App.AdminMenu
     icon?: string
-    children?: App.GlobalMenuOption[]
+    children?: App.AdminMenu[]
 }) {
     const item = { ...config.menu }
 

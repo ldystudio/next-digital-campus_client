@@ -100,7 +100,7 @@ export const siteConfig = {
             name: "management_student",
             path: "/management_student",
             meta: {
-                title: "学生管理",
+                title: "student",
                 icon: "solar:users-group-two-rounded-bold-duotone",
                 order: 20
             },

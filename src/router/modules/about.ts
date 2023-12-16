@@ -1,17 +1,14 @@
-const about = {
+const About: AuthRoute.Route = {
     name: "about",
     path: "/about",
     component: "self",
     meta: {
         title: "关于",
-        i18nTitle: "message.routes.about",
-        requiresAuth: true,
-        keepAlive: true,
         singleLayout: "basic",
-        permissions: ["super", "admin", "user"],
-        icon: "fluent:book-information-24-regular",
-        order: 10
+        permissions: ["admin", "teacher", "student"],
+        icon: "solar:ghost-bold-duotone",
+        order: 999
     }
 }
 
-export default about
+export default About

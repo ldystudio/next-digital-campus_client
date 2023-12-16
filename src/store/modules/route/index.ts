@@ -16,7 +16,7 @@ interface RouteState {
     /** 上一次的路由路径 */
     previousRoutePath: AuthRoute.RoutePath
     /** 菜单 */
-    menus: App.GlobalMenuOption[]
+    menus: App.AdminMenu[]
     /** 搜索的菜单 */
     searchMenus: AuthRoute.Route[]
 }
@@ -46,7 +46,7 @@ const routeSlice = createSlice({
         setPreviousRoutePath(state, action: PayloadAction<AuthRoute.RoutePath>) {
             return { ...state, previousRoutePath: action.payload }
         },
-        setMenus(state, action: PayloadAction<App.GlobalMenuOption[]>) {
+        setMenus(state, action: PayloadAction<App.AdminMenu[]>) {
             return { ...state, menus: action.payload }
         },
         setSearchMenus(state, action: PayloadAction<AuthRoute.Route[]>) {
@@ -74,7 +74,7 @@ export function useRouteAction() {
     function setPreviousRoutePath(previousRoutePath: AuthRoute.RoutePath) {
         dispatch(routeSlice.actions.setPreviousRoutePath(previousRoutePath))
     }
-    function setMenus(menus: App.GlobalMenuOption[]) {
+    function setMenus(menus: App.AdminMenu[]) {
         dispatch(routeSlice.actions.setMenus(menus))
         localStg.set("menus", menus)
     }

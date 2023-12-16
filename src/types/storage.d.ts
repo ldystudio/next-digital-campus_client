@@ -7,7 +7,7 @@ declare namespace StorageInterface {
     /** localStorage的存储数据的类型 */
     interface Local {
         /** 用户token */
-        accessToken: string
+        token: string
         /** 用户刷新token */
         refreshToken: string
         /** 用户信息 */
@@ -15,7 +15,7 @@ declare namespace StorageInterface {
         /** 本地语言缓存 */
         lang: I18nType.langType
         /** 管理页菜单 */
-        menus: App.GlobalMenuOption[]
+        menus: App.AdminMenu[]
         /** 查询菜单 */
         searchMenus: AuthRoute.Route[]
     }

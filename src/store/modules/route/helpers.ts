@@ -5,7 +5,7 @@ const menus = localStg.get("menus")
 const searchMenus = localStg.get("searchMenus")
 
 export function getIsInitAuthRoute() {
-    return isArray<App.GlobalMenuOption[]>(menus) && isArray<AuthRoute.Route[]>(searchMenus)
+    return isArray<App.AdminMenu[]>(menus) && isArray<AuthRoute.Route[]>(searchMenus)
 }
 
 export function getMenus() {

@@ -1,14 +1,17 @@
 import { cookies } from "next/headers"
 
-import { hasCookie } from "cookies-next"
-import fs from "fs"
+import { getCookie } from "cookies-next"
 import _ from "lodash"
+import fs from "node:fs"
 
+import { parseJwtPayload } from "~/utils/common"
 import { sortRoutes } from "~/utils/router"
 
 export async function GET() {
-    const isLogin = hasCookie("accessToken", { cookies })
-    if (!isLogin) {
+    const token = getCookie("token", { cookies })
+    const res = await parseJwtPayload(token)
+
+    if (!res) {
         return Response.json(null, { status: 401 })
     }
 
