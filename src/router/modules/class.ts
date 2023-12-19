@@ -14,6 +14,7 @@ const Class: AuthRoute.Route = {
             path: "/class/member",
             component: "self",
             meta: {
+                permissions: ["admin", "teacher"],
                 title: "班级成员管理",
                 icon: "solar:user-bold",
                 order: 101

@@ -14,6 +14,7 @@ const Task: AuthRoute.Route = {
             path: "/task/add",
             component: "self",
             meta: {
+                permissions: ["admin", "teacher"],
                 title: "作业布置",
                 icon: "solar:notebook-bookmark-bold-duotone",
                 order: 71
@@ -34,6 +35,7 @@ const Task: AuthRoute.Route = {
             path: "/task/correct",
             component: "self",
             meta: {
+                permissions: ["admin", "teacher"],
                 title: "作业批改",
                 icon: "solar:gallery-edit-bold-duotone",
                 order: 73

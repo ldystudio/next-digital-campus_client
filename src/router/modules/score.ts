@@ -14,6 +14,7 @@ const Score: AuthRoute.Route = {
             path: "/score/enter",
             component: "self",
             meta: {
+                permissions: ["admin", "teacher"],
                 title: "成绩录入",
                 icon: "solar:document-medicine-bold-duotone",
                 order: 51

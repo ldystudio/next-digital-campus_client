@@ -14,6 +14,7 @@ const Activity: AuthRoute.Route = {
             path: "/activity/release",
             component: "self",
             meta: {
+                permissions: ["admin", "teacher"],
                 title: "活动发布",
                 icon: "solar:stars-line-bold-duotone",
                 order: 91

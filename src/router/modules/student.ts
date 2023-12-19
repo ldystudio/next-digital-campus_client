@@ -4,7 +4,7 @@ const Student: AuthRoute.Route = {
     component: "basic",
     meta: {
         title: "学生管理",
-        permissions: ["admin", "teacher", "student"],
+        permissions: ["admin", "student"],
         icon: "solar:users-group-two-rounded-bold-duotone",
         order: 20
     },
