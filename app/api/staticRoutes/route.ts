@@ -4,12 +4,12 @@ import { getCookie } from "cookies-next"
 import _ from "lodash"
 import fs from "node:fs"
 
-import { parseJwtPayload } from "~/utils/common"
+import { verifyAndParseJwtPayload } from "~/utils/common"
 import { sortRoutes } from "~/utils/router"
 
 export async function GET() {
     const token = getCookie("token", { cookies })
-    const res = await parseJwtPayload(token)
+    const res = await verifyAndParseJwtPayload(token)
 
     if (!res) {
         return Response.json(null, { status: 401 })

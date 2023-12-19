@@ -6,7 +6,7 @@ import { Button, Input } from "@nextui-org/react"
 import { Row, notice } from "@/components/common"
 import { useAuthState, useAuthAction } from "~/store/modules/auth"
 import { useRouteState, useRouteAction } from "~/store/modules/route"
-import { parseJwtPayload } from "~/utils/common"
+import { verifyAndParseJwtPayload } from "~/utils/common"
 import { localStg } from "~/utils/storage"
 
 export default function Test() {
@@ -78,7 +78,7 @@ export default function Test() {
                     <Input value={search} onValueChange={setSearch} />
                     <Button
                         onPress={async () => {
-                            const res = await parseJwtPayload(search)
+                            const res = await verifyAndParseJwtPayload(search)
                             console.log("res: ", res)
                         }}
                     >

@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from "~/hooks/common"
 import { fetchEmailLogin, fetchLogin, fetchRegister } from "~/service/api"
 import { getRouteState, getAuthState } from "~/store"
 import { useRouteAction } from "~/store/modules/route"
-import { parseJwtPayload } from "~/utils/common"
+import { verifyAndParseJwtPayload } from "~/utils/common"
 import { useRouterPush } from "~/utils/router"
 import { localStg } from "~/utils/storage"
 import { getToken, getUserInfo, clearAuthStorage, emptyInfo } from "./helpers"
@@ -130,7 +130,7 @@ export function useAuthAction() {
         localStg.set("refreshToken", refreshToken)
 
         // 获取用户信息
-        const payload = await parseJwtPayload(token)
+        const payload = await verifyAndParseJwtPayload(token)
 
         if (payload) {
             const { iat, exp, userInfo } = payload
