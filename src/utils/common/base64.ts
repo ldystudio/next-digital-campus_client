@@ -4,7 +4,8 @@ interface JwtPayload {
     userInfo: Auth.UserInfo
 }
 
-export function parseJwtPayload(token: string): JwtPayload | null {
+export function parseJwtPayload(token: string | null): JwtPayload | null {
+    if (!token) return null
     const jwtParts = token.split(".")
     if (jwtParts.length !== 3) {
         return null

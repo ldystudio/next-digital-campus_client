@@ -8,7 +8,13 @@ interface PayloadTypes extends JwtPayload {
     userInfo: Auth.UserInfo
 }
 
-export async function parseJwtPayload(token: CookieValueTypes) {
+interface Payload {
+    iat: number
+    exp: number
+    userInfo: Auth.UserInfo
+}
+
+export async function verifyAndParseJwtPayload(token: CookieValueTypes) {
     if (!token) return null
 
     const jwtParts = token.split(".")
@@ -35,5 +41,5 @@ export async function parseJwtPayload(token: CookieValueTypes) {
         }
 
         return null
-    })
+    }) as unknown as Payload | null
 }
