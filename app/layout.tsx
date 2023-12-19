@@ -4,6 +4,7 @@ import NextTopLoader from "nextjs-toploader"
 import { Toaster } from "react-hot-toast"
 import { ToastContainer as Notice, Slide } from "react-toastify"
 
+import { siteConfig } from "~/config"
 import { fontSans } from "~/config/fonts"
 import { Providers } from "./providers"
 
@@ -12,10 +13,10 @@ import "~/styles/globals.css"
 
 export const metadata: Metadata = {
     title: {
-        default: process.env.APP_TITLE || "环境变量APP_TITLE未设置",
-        template: `%s - ${process.env.APP_TITLE}`
+        default: siteConfig.name,
+        template: `%s - ${siteConfig.name}`
     },
-    description: process.env.APP_DESC,
+    description: siteConfig.description,
     icons: {
         icon: "/favicon.ico"
         // shortcut: "/favicon-16x16.png",

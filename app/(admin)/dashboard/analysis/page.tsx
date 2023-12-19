@@ -5,8 +5,7 @@ export const revalidate = 0
 export const fetchCache = "default-no-store"
 
 export const metadata: Metadata = {
-    title: "My Site",
-    description: "This is my site."
+    title: "分析页"
 }
 
 export default function AnalysisPage() {

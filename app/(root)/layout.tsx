@@ -5,6 +5,7 @@ import clsx from "clsx"
 import { Col, Link } from "@/components/common"
 import { PageSwitchingAnimation } from "@/components/layout"
 import { Navbar } from "@/components/layout"
+import config from "@/package.json"
 import { JosefinSans } from "~/config"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -14,7 +15,7 @@ const AnimatedCursor = dynamic(() => import("react-animated-cursor"), {
 
 export default function RootLayout({ children }: LayoutProps) {
     return (
-        <Col className='relative'>
+        <Col className='h-screen'>
             {/* <AnimatedCursor
 				innerSize={15}
 				outerSize={30}
@@ -30,20 +31,20 @@ export default function RootLayout({ children }: LayoutProps) {
             </main>
             <footer
                 className={clsx(
-                    "w-full flex items-center justify-center py-3",
+                    "w-full flex flex-col lg:flex-row items-center justify-around py-3 bg-default-100 text-default-600",
                     JosefinSans.className
                 )}
             >
+                <p>@ 2023 Next Digital Campus.</p>
                 <Link
                     isExternal
                     className='flex items-center gap-1 text-current'
-                    // @ts-expect-error: 链接不在AuthRoute.RoutePath中
-                    href='https://nextui-docs-v2.vercel.app?utm_source=next-app-template'
-                    title='nextui.org homepage'
+                    href='https://github.com/ldystudio'
                 >
-                    <span className='text-default-600'>Powered by</span>
-                    <p className='text-primary'>NextUI</p>
+                    <span>Powered by</span>
+                    <p className='text-primary'>Liudy</p>
                 </Link>
+                <p>v{config.version} All rights reserved</p>
             </footer>
         </Col>
     )
