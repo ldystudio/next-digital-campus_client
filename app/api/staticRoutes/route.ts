@@ -1,26 +1,17 @@
 import { cookies } from "next/headers"
 
 import { getCookie } from "cookies-next"
-import _ from "lodash"
-import fs from "node:fs"
 
+import { readAllRouteModuleFiles } from "~/router"
 import { verifyAndParseJwtPayload } from "~/utils/common"
-import { sortRoutes } from "~/utils/router"
 
 export async function GET() {
     const token = getCookie("token", { cookies })
     const res = await verifyAndParseJwtPayload(token)
 
-    if (!res) {
-        return Response.json(null, { status: 401 })
-    }
+    if (!res) return Response.json(null, { status: 401 })
 
-    const modules: AuthRoute.Route[] = fs
-        .readdirSync("./src/router/modules")
-        .map(
-            (filename: string) =>
-                require(`../../../src/router/modules/${filename.split(".")[0]}`).default
-        )
+    const staticRoutes = await readAllRouteModuleFiles()
 
-    return Response.json(sortRoutes(_.compact(modules)), { status: 200 })
+    return Response.json(staticRoutes, { status: 200 })
 }
