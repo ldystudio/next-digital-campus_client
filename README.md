@@ -13,10 +13,10 @@ Next数字校园系统是一套基于现代化信息技术的全新型校园管�
 
 ## 使用前沿技术
 
-- [React18](https://react.dev/)
-- [Next.js 13](https://nextjs.org/docs/getting-started)
+- [React 18](https://react.dev/)
+- [Redux](https://zustand-demo.pmnd.rs/)
+- [Next.js 14](https://nextjs.org/docs/getting-started)
 - [NextUI](https://nextui.org)
-- [Zustand](https://zustand-demo.pmnd.rs/)
 - [Tailwind CSS](https://tailwindcss.com)
 - [Tailwind Variants](https://tailwind-variants.org)
 - [TypeScript](https://www.typescriptlang.org)
