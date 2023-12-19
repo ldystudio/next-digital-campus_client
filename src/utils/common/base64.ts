@@ -1,15 +1,19 @@
+import { CookieValueTypes } from "cookies-next"
+
 interface JwtPayload {
     iat: number
     exp: number
     userInfo: Auth.UserInfo
 }
 
-export function parseJwtPayload(token: string | null): JwtPayload | null {
+export function parseJwtPayload(token: CookieValueTypes): JwtPayload | null {
     if (!token) return null
+
     const jwtParts = token.split(".")
     if (jwtParts.length !== 3) {
         return null
     }
+
     try {
         const payloadJson = atob(jwtParts[1])
         const payloadObj = JSON.parse(payloadJson)

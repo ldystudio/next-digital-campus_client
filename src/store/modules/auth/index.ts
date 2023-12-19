@@ -87,30 +87,28 @@ export function useAuthAction() {
      */
     async function handleActionAfterLogin(backendToken: ApiAuth.Token) {
         const loginSuccess = await loginByToken(backendToken)
+        const initSuccess = await initStaticRoute()
 
-        if (loginSuccess) {
-            await initStaticRoute()
-
-            // 跳转登录后的地址
-            toRedirect()
-
-            const { isInitAuthRoute } = getRouteState()
-            const { userInfo } = getAuthState()
-
-            // 登录成功弹出欢迎提示
-            if (isInitAuthRoute) {
-                notice.success({
-                    title: "登录成功!",
-                    description: `欢迎回来，${userInfo.userName}!`
-                })
-            }
-
+        if (!loginSuccess || !initSuccess) {
+            notice.error({ title: "登录失败", description: "请稍后再试~" })
+            // 不成功则重置状态
+            resetAuthStore()
             return
         }
 
-        notice.error({ title: "登录失败", description: "请稍后再试~" })
-        // 不成功则重置状态
-        resetAuthStore()
+        const { isInitAuthRoute } = getRouteState()
+        const { userInfo } = getAuthState()
+
+        // 登录成功弹出欢迎提示
+        if (isInitAuthRoute) {
+            notice.success({
+                title: "登录成功!",
+                description: `欢迎回来，${userInfo.userName}!`
+            })
+        }
+
+        // 跳转登录后的地址
+        toRedirect()
     }
 
     /**

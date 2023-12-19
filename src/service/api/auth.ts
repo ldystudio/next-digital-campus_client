@@ -11,13 +11,18 @@ export function fetchSmtpCode(email: string, traceId: string) {
 
 /**
  * 登录
- * @param model
- * @returns
+ * @param model - 登录表单
+ * @returns - 返回token和refreshToken
  */
 export function fetchLogin(model: Auth.LoginForm) {
     return request.post<ApiAuth.Token>("auth/login/", { ...model })
 }
 
+/**
+ * 邮箱登录
+ * @param model 邮箱登录表单
+ * @returns - 返回token和refreshToken
+ */
 export function fetchEmailLogin(model: Auth.EmailLoginForm) {
     return request.post<ApiAuth.Token>("auth/login/", {
         ...model,
@@ -30,8 +35,8 @@ export function fetchEmailLogin(model: Auth.EmailLoginForm) {
 
 /**
  * 退出登录
- * @param refresh 刷新token
- * @returns null
+ * @param refresh - refreshToken
+ * @returns - 返回null
  */
 export function fetchLogout(refresh: string) {
     return request.post<null>("auth/logout/", { refresh })
@@ -39,6 +44,8 @@ export function fetchLogout(refresh: string) {
 
 /**
  * 注册
+ * @param model - 注册表单
+ * @returns - 返回null
  */
 export function fetchRegister(model: Auth.RegisterForm) {
     return request.post<null>("auth/register/", { ...model })
@@ -47,6 +54,7 @@ export function fetchRegister(model: Auth.RegisterForm) {
 /**
  * 刷新token
  * @param refreshToken
+ * @returns - 返回token
  */
 export function fetchUpdateToken(refresh: string) {
     return request.post<ApiAuth.Token>("auth/refresh/", { refresh })
