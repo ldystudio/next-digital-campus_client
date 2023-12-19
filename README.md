@@ -26,27 +26,33 @@ Next数字校园系统是一套基于现代化信息技术的全新型校园管�
 
 ## 如何使用
 
-拉取项目到本地
+1. 拉取项目到本地
+
+   ```bash
+   git clone https://github.com/ldystudio/next-digital-campus_client.git
+   ```
+
+2. 切换目录
+
+   ```bash
+   cd next-digital-campus_client
+   ```
+
+3. 安装所需依赖
+
+   ```bash
+   npm i -g pnpm@latest
+   
+   pnpm i
+   ```
+
+4. 将后端生成的public.pem放到本项目根目录
+
+5. 运行项目
+
 
 ```bash
-git clone https://github.com/ldystudio/next-digital-campus_client.git
-```
-切换目录
-
-```bash
-cd next-digital-campus_client
-```
-
-安装所需依赖
-
-```bash
-npm i
-```
-
-运行项目
-
-```bash
-npm run dev
+pnpm run dev
 ```
 
 浏览器打开：http://localhost:3000/
