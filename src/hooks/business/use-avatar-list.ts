@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 
-import { useMediaQuery } from "usehooks-ts"
+import { useMediaQuery } from "react-responsive"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 
@@ -20,10 +20,10 @@ export function useAvatarList() {
         return avatars
     }
 
-    // 宽度md以下的设备显示9个头像，否则显示12个
-    const avatarListKeys: string[] = useMediaQuery("(min-width: 768px)")
-        ? Array.from(avatarList.keys())
-        : Array.from(avatarList.keys()).slice(3)
+    // 竖屏设备显示9个头像，否则显示12个
+    const avatarListKeys: string[] = useMediaQuery({ orientation: "portrait" })
+        ? Array.from(avatarList.keys()).slice(3)
+        : Array.from(avatarList.keys())
 
     return { avatar, setAvatar, avatarList, setAvatarList, generateAvatars, avatarListKeys }
 }

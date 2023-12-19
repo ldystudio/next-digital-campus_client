@@ -1,9 +1,8 @@
 "use client"
-import { useEffect, useState } from "react"
 import NextImage, { ImageProps as NextImageProps } from "next/image"
 
 import clsx from "clsx"
-import { useMediaQuery } from "usehooks-ts"
+import { useMediaQuery } from "react-responsive"
 import { Image as NextUiImage, ImageProps as NextUiImageProps } from "@nextui-org/react"
 
 import { isNumber } from "~/utils/common"
@@ -29,15 +28,10 @@ export function Image({
     className,
     ...otherProps
 }: ImageProps) {
-    const mediaQuery = useMediaQuery("(min-width: 768px)")
-    const [isMdDevice, setIsMdDevice] = useState(false)
-
-    useEffect(() => {
-        setIsMdDevice(mediaQuery)
-    }, [mediaQuery])
+    const isPortrait = useMediaQuery({ orientation: "portrait" })
 
     width = isNumber(width) ? [width, width] : width
-    const imgWidth = isMdDevice ? width[0] : width[1]
+    const imgWidth = isPortrait ? width[1] : width[0]
     const imgHeight = Math.round((imgWidth * originalSize.height) / originalSize.width)
 
     return (
