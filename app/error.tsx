@@ -2,7 +2,6 @@
 import { Button, Code } from "@nextui-org/react"
 
 import { Col, Row, Image } from "@/components/common"
-
 import { useRouterPush } from "~/utils/router"
 
 interface ErrorProps {
@@ -21,7 +20,6 @@ export default function Error({ error, reset }: ErrorProps) {
                 width={[400, 300]}
                 originalSize={{ width: 456, height: 535 }}
                 darkModeBrightBackground
-                priority
             />
 
             <Code color='danger' size='lg' className='mx-5'>

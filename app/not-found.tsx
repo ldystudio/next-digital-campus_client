@@ -15,7 +15,6 @@ export default function NotFound() {
                 width={[400, 300]}
                 originalSize={{ width: 584, height: 490 }}
                 darkModeBrightBackground
-                priority
             />
             <Code color='primary' size='lg'>
                 404 Page Not Found

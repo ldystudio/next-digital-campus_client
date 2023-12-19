@@ -1,4 +1,5 @@
 "use client"
+import { useEffect, useState } from "react"
 import NextImage, { ImageProps as NextImageProps } from "next/image"
 
 import clsx from "clsx"
@@ -28,7 +29,13 @@ export function Image({
     className,
     ...otherProps
 }: ImageProps) {
-    const isMdDevice = useMediaQuery("(min-width: 768px)")
+    const mediaQuery = useMediaQuery("(min-width: 768px)")
+    const [isMdDevice, setIsMdDevice] = useState(false)
+
+    useEffect(() => {
+        setIsMdDevice(mediaQuery)
+    }, [mediaQuery])
+
     width = isNumber(width) ? [width, width] : width
     const imgWidth = isMdDevice ? width[0] : width[1]
     const imgHeight = Math.round((imgWidth * originalSize.height) / originalSize.width)
