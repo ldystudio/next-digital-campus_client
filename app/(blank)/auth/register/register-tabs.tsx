@@ -78,10 +78,7 @@ export default function RegisterTabs() {
         }
 
         const { error } = await fetchSmtpCode(email, traceId)
-        if (error) {
-            toast.error("验证码发送失败，请稍后再试~")
-            return
-        }
+        if (error) return
 
         toast.success("验证码发送成功，有效期30分钟~")
 
@@ -159,6 +156,7 @@ export default function RegisterTabs() {
                                 <Button
                                     variant='light'
                                     onClick={() => handleCountdownButtonClick()}
+                                    isDisabled={count !== 0 && count !== 120}
                                 >
                                     <CountdownText />
                                 </Button>

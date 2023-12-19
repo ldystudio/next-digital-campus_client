@@ -75,10 +75,7 @@ export default function LoginTabs() {
         }
 
         const { error } = await fetchSmtpCode(email, traceId)
-        if (error) {
-            toast.error("验证码发送失败，请稍后再试~")
-            return
-        }
+        if (error) return
 
         toast.success("验证码发送成功，有效期30分钟~")
         startCountdown()
@@ -245,6 +242,7 @@ export default function LoginTabs() {
                                 onClick={() => {
                                     handleCountdownButtonClick()
                                 }}
+                                isDisabled={count !== 0 && count !== 120}
                             >
                                 <CountdownText />
                             </Button>
