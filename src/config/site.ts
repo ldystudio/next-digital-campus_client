@@ -1,6 +1,6 @@
 export const siteConfig = {
     name: "Next数字校园",
-    description: "Make beautiful websites regardless of your design experience.",
+    description: "现代化信息技术的全新型校园管理系统",
     navItems: [
         {
             label: "首页",
