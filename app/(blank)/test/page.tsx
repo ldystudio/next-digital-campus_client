@@ -75,17 +75,22 @@ export default function Test() {
             </section>
             <section>
                 <Row className='w-1/3'>
-                    <Input value={search} onValueChange={setSearch} />
+                    <Input
+                        value={search}
+                        onValueChange={setSearch}
+                        placeholder='输入Token或RefreshToken'
+                    />
                     <Button
                         onPress={async () => {
                             const res = await verifyAndParseJwtPayload(search)
-                            console.log("res: ", res)
+                            alert("res: " + JSON.stringify(res))
                         }}
                     >
-                        搜索
+                        校验并解析Token
                     </Button>
                 </Row>
             </section>
+            <section></section>
         </>
     )
 }
