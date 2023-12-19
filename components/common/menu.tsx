@@ -3,8 +3,14 @@ import { memo } from "react"
 
 import { useIsClient } from "usehooks-ts"
 import { Icon } from "@iconify/react"
-import { Accordion as NextUiAccordion, AccordionItem, ScrollShadow } from "@nextui-org/react"
+import {
+    Accordion as NextUiAccordion,
+    AccordionItem,
+    ScrollShadow,
+    Skeleton
+} from "@nextui-org/react"
 
+import { Col } from "@/components/common"
 import { useMenuItemState, useMenuItemAction } from "~/store/modules/menu"
 import { getMenus } from "~/store/modules/route/helpers"
 import { useRouterPush } from "~/utils/router"
@@ -21,7 +27,14 @@ export function AdminMenu() {
     const isClient = useIsClient()
 
     if (!isClient) {
-        return <p>Loading</p>
+        const array = Array.from({ length: 15 })
+        return (
+            <Col className='mt-2 gap-y-4'>
+                {array.map((_, index) => (
+                    <Skeleton key={index} className='h-6 w-4/5 rounded-lg' />
+                ))}
+            </Col>
+        )
     }
 
     function handlePress(item: App.AdminMenu) {
