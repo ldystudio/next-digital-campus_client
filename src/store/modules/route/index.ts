@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { useQuery } from "@tanstack/react-query"
 
 import { useAppSelector, useAppDispatch } from "~/hooks/common"
 import { getAuthState } from "~/store"
@@ -63,6 +64,14 @@ export function useRouteState() {
 
 export function useRouteAction() {
     const dispatch = useAppDispatch()
+    const { data: previousQueryData, refetch } = useQuery({
+        queryKey: ["staticRoutes"],
+        queryFn: async (): Promise<AuthRoute.Route[] | null> =>
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/staticRoutes`).then((res) =>
+                res.json()
+            ),
+        staleTime: Infinity
+    })
 
     async function resetRouteStore() {
         await clearRouteStorage()
@@ -86,12 +95,15 @@ export function useRouteAction() {
     /** 初始化静态路由 */
     async function initStaticRoute() {
         const { userInfo } = getAuthState()
-        const staticRoutes = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/staticRoutes`
-        ).then((res) => res.json())
+        const staticRoutes = previousQueryData ?? (await refetch()).data
+
+        if (!staticRoutes) return false
+
         const routes = filterAuthRoutesByUserPermission(staticRoutes, userInfo.userRole)
         await handleAuthRoute(routes)
         setIsInitAuthRoute(true)
+
+        return true
     }
 
     /**
