@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-import { PageSwitchingAnimation } from "@/components/layout"
+import { PageTransitionEffect } from "@/components/layout"
 import { NotoSansSC } from "~/config"
 
 export default function AuthLayout({ children }: LayoutProps) {
@@ -8,13 +8,13 @@ export default function AuthLayout({ children }: LayoutProps) {
         <main>
             <section
                 className={clsx(
-                    "w-full h-screen bg-background bg-cover bg-center md:bg-blob-scene",
+                    "w-full h-screen bg-background bg-cover bg-center md:bg-blob-scene overflow-x-hidden",
                     NotoSansSC.className
                 )}
             >
-                <PageSwitchingAnimation className='h-full flex items-center justify-center'>
+                <PageTransitionEffect className='h-full flex items-center justify-center'>
                     {children}
-                </PageSwitchingAnimation>
+                </PageTransitionEffect>
             </section>
         </main>
     )

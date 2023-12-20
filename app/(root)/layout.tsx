@@ -3,14 +3,14 @@ import dynamic from "next/dynamic"
 import clsx from "clsx"
 
 import { Col, Link } from "@/components/common"
-import { PageSwitchingAnimation } from "@/components/layout"
+import { PageTransitionEffect } from "@/components/layout"
 import { Navbar } from "@/components/layout"
 import config from "@/package.json"
 import { JosefinSans } from "~/config"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AnimatedCursor = dynamic(() => import("react-animated-cursor"), {
-    ssr: false
+    ssr: false,
 })
 
 export default function RootLayout({ children }: LayoutProps) {
@@ -26,8 +26,8 @@ export default function RootLayout({ children }: LayoutProps) {
 				trailingSpeed={4}
 			/> */}
             <Navbar />
-            <main className='container mx-auto max-w-7xl px-6 flex-grow'>
-                <PageSwitchingAnimation>{children}</PageSwitchingAnimation>
+            <main className='container mx-auto max-w-7xl px-6 flex-grow overflow-x-hidden'>
+                <PageTransitionEffect>{children}</PageTransitionEffect>
             </main>
             <footer
                 className={clsx(
