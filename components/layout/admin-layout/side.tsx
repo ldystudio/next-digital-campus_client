@@ -18,7 +18,10 @@ export default function Side(): JSX.Element {
     }, [])
 
     return (
-        <Card className='flex min-w-[12rem] mx-5 my-5 items-center justify-around' shadow='sm'>
+        <Card
+            className='hidden lg:flex min-w-[12rem] mx-5 my-5 items-center justify-around'
+            shadow='sm'
+        >
             <Link href='/index' color='foreground' className='pt-1'>
                 <Logo size={60} />
             </Link>

@@ -93,7 +93,7 @@ export default function HomePage() {
                             <Iconify icon={item.icon} height={30} color='#006FEE' />
                             <p className='font-bold'>{item.title}</p>
                         </CardHeader>
-                        <CardBody className='pt-0'>
+                        <CardBody className='pt-0 mb-2'>
                             <p>{item.desc}</p>
                         </CardBody>
                     </Card>

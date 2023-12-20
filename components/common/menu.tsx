@@ -74,7 +74,7 @@ export function AdminMenu() {
                         }
                         hideIndicator={!hasChildren(item)}
                         classNames={{
-                            content: hasChildren(item) ? "" : "hidden"
+                            content: hasChildren(item) ? "flex" : "hidden"
                         }}
                         onPress={() => {
                             !hasChildren(item) && handlePress(item)
