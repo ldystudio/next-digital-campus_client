@@ -33,7 +33,7 @@
         "date-fns": "^2.30.0",
         "echarts-for-react": "^3.0.2",
         "form-data": "^4.0.0",
-        "framer-motion": "^10.16.5",
+        "framer-motion": "^10.16.16",
         "intl-messageformat": "^10.5.8",
         "jsonwebtoken": "^9.0.2",
         "lodash": "^4.17.21",
