@@ -4,14 +4,16 @@
         "es2021": true
     },
     "plugins": ["@typescript-eslint", "@tanstack/query"],
-    "extends": ["next/core-web-vitals", "prettier"],
+    "extends": [
+        "next/core-web-vitals",
+        "prettier",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@tanstack/eslint-plugin-query/recommended"
+    ],
     "rules": {
         "@typescript-eslint/no-unused-vars": "warn",
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-var-requires": "off",
-        "@tanstack/query/exhaustive-deps": "error",
-        "@tanstack/query/no-rest-destructuring": "warn",
-        "@tanstack/query/stable-query-client": "error"
+        "@typescript-eslint/no-var-requires": "off"
     },
     "parserOptions": {
         "ecmaVersion": "latest",
