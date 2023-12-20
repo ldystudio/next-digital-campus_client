@@ -7,6 +7,7 @@ import NProgress from "nprogress"
 import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react"
 
 import { Iconify } from "@/components/common"
+import { PageTransitionEffect } from "@/components/layout"
 import { useMenuItemState } from "~/store/modules/menu"
 import { parseJwtPayload } from "~/utils/common"
 
@@ -35,7 +36,9 @@ export default function Content({ children }: contentProps) {
                 <p className='text-xl'>{menuItem.label}</p>
             </CardHeader>
             <Divider />
-            <CardBody>{children}</CardBody>
+            <CardBody className='overflow-x-hidden'>
+                <PageTransitionEffect>{children}</PageTransitionEffect>
+            </CardBody>
         </Card>
     )
 }

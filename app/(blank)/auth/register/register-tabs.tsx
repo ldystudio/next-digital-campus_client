@@ -9,12 +9,12 @@ import { Icon } from "@iconify/react"
 import { Button, Input, RadioGroup, Tab, Tabs, Image } from "@nextui-org/react"
 
 import { CardRadio, Col, Link, PasswordInput, Row } from "@/components/common"
+import { colorfulFlag } from "@/components/toys"
 import { useAvatarList, useEmailCaptchaCountdown } from "~/hooks/business"
 import { useAuthForm } from "~/hooks/business"
 import { fetchSmtpCode } from "~/service/api"
 import { useAuthAction, useAuthState } from "~/store/modules/auth"
 import { useRouterPush } from "~/utils/router"
-import { colorfulFlag } from "~/utils/toys"
 
 type tabValue = "EmailRegister" | "FillInTheInformation" | "ChooseAnAvatar"
 
