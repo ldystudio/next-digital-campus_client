@@ -4,7 +4,7 @@ import { Button, Code } from "@nextui-org/react"
 import { Col, Row, Image } from "@/components/common"
 import { useRouterPush } from "~/utils/router"
 
-export default function NotFound() {
+export default function NotFoundPage() {
     const { routerBack, toHome } = useRouterPush()
 
     return (

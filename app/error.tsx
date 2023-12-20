@@ -1,15 +1,19 @@
 "use client"
 import { Button, Code } from "@nextui-org/react"
 
+
+
 import { Col, Row, Image } from "@/components/common"
 import { useRouterPush } from "~/utils/router"
+
+
 
 interface ErrorProps {
     error: Error & { digest?: string }
     reset: () => void
 }
 
-export default function Error({ error, reset }: ErrorProps) {
+export default function ErrorPage({ error, reset }: ErrorProps) {
     const { routerBack } = useRouterPush()
 
     return (
