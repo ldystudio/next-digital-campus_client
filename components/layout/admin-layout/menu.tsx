@@ -14,26 +14,29 @@ import { Col } from "@/components/common"
 import { useMenuItemState, useMenuItemAction } from "~/store/modules/menu"
 import { getMenus } from "~/store/modules/route/helpers"
 import { useRouterPush } from "~/utils/router"
+import { useTheme } from "next-themes"
 
 interface AccordionProps {
     items: App.AdminMenu[]
 }
 
-export function AdminMenu() {
+export default function AdminMenu() {
     const { setMenuItem } = useMenuItemAction()
     const { routerPush } = useRouterPush()
     const menuItem = useMenuItemState()
     const menus = getMenus()
     const isClient = useIsClient()
+    const { theme } = useTheme()
 
     if (!isClient) {
-        const array = Array.from({ length: 15 })
         return (
-            <Col className='mt-2 gap-y-4'>
-                {array.map((_, index) => (
-                    <Skeleton key={index} className='h-6 w-4/5 rounded-lg' />
-                ))}
-            </Col>
+            <ScrollShadow className='h-full w-full' size={20} hideScrollBar>
+                <Col className='mt-2 gap-y-4'>
+                    {Array.from({ length: 15 }).map((_, index) => (
+                        <Skeleton key={index} className='h-6 w-4/5 rounded-lg' />
+                    ))}
+                </Col>
+            </ScrollShadow>
         )
     }
 
@@ -68,7 +71,13 @@ export function AdminMenu() {
                         startContent={
                             <Icon
                                 icon={item.icon}
-                                color={item.label === menuItem.label ? "#006FEE" : "#11181C"}
+                                color={
+                                    item.label === menuItem.label
+                                        ? "#006FEE"
+                                        : theme === "light"
+                                          ? "#11181C"
+                                          : "#FAFAFA"
+                                }
                                 height='auto'
                             />
                         }
