@@ -1,14 +1,14 @@
-import clsx from "clsx"
 import {
+    link as linkStyles,
     NavbarBrand,
     NavbarContent,
     NavbarItem,
     NavbarMenu,
     NavbarMenuItem,
     NavbarMenuToggle,
-    Navbar as NextUINavbar,
-    link as linkStyles
+    Navbar as NextUINavbar
 } from "@nextui-org/react"
+import clsx from "clsx"
 
 import { GithubIcon, Link, Logo, ThemeSwitch } from "@/components/common"
 import { siteConfig } from "~/config"
@@ -19,22 +19,22 @@ export default function Navbar() {
     return (
         <NextUINavbar maxWidth='2xl' position='sticky' isBordered>
             <NavbarContent className='basis-1/5 sm:basis-full ' justify='start'>
-                <NavbarBrand className='gap-3 max-w-fit'>
+                <NavbarBrand className='max-w-fit gap-3'>
                     <Link
-                        className='flex justify-start items-center gap-1'
+                        className='flex items-center justify-start gap-1'
                         href='/index'
                         color='secondary'
                     >
                         <Logo />
                     </Link>
                 </NavbarBrand>
-                <div className='hidden lg:flex gap-7 justify-start ml-2'>
+                <div className='ml-2 hidden justify-start gap-7 lg:flex'>
                     {siteConfig.navItems.map((item, index) => (
                         <NavbarItem key={`navItems - ${index}`}>
                             <Link
                                 className={clsx(
                                     linkStyles({ color: "foreground" }),
-                                    "data-[active=true]:text-primary data-[active=true]:font-medium"
+                                    "data-[active=true]:font-medium data-[active=true]:text-primary"
                                 )}
                                 color='primary'
                                 // @ts-expect-error: link not in AuthRoute.RoutePath
@@ -47,8 +47,8 @@ export default function Navbar() {
                 </div>
             </NavbarContent>
 
-            <NavbarContent className='hidden sm:flex basis-1/5 sm:basis-full' justify='end'>
-                <NavbarItem className='hidden sm:flex gap-2'>
+            <NavbarContent className='hidden basis-1/5 sm:flex sm:basis-full' justify='end'>
+                <NavbarItem className='hidden gap-2 sm:flex'>
                     <Link
                         isExternal
                         // @ts-expect-error: link not in AuthRoute.RoutePath
@@ -65,7 +65,7 @@ export default function Navbar() {
                 <NavbarMenuToggle className='flex lg:hidden' />
             </NavbarContent>
 
-            <NavbarContent className='sm:hidden basis-1 pl-4' justify='end'>
+            <NavbarContent className='basis-1 pl-4 sm:hidden' justify='end'>
                 <Link
                     isExternal
                     // @ts-expect-error: link not in AuthRoute.RoutePath

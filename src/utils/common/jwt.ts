@@ -1,7 +1,8 @@
 "use server"
+
+import fs from "node:fs"
 import { CookieValueTypes } from "cookies-next"
 import jwt, { JwtPayload } from "jsonwebtoken"
-import fs from "node:fs"
 
 interface PayloadTypes extends JwtPayload {
     token_type: string

@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 import { memo } from "react"
 
 import clsx from "clsx"

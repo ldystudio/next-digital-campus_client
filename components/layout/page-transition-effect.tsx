@@ -1,10 +1,11 @@
 "use client"
-import { useContext, useRef } from "react"
+
 import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime"
 import { usePathname } from "next/navigation"
+import { useContext, useRef } from "react"
 
 import clsx from "clsx"
-import { motion, Variants, AnimatePresence } from "framer-motion"
+import { AnimatePresence, motion, Variants } from "framer-motion"
 
 interface PageTransitionEffectProps {
     children: React.ReactNode

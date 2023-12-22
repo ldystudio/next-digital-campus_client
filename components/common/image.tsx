@@ -1,9 +1,10 @@
 "use client"
+
 import NextImage, { ImageProps as NextImageProps } from "next/image"
 
+import { Image as NextUiImage, ImageProps as NextUiImageProps } from "@nextui-org/react"
 import clsx from "clsx"
 import { useMediaQuery } from "react-responsive"
-import { Image as NextUiImage, ImageProps as NextUiImageProps } from "@nextui-org/react"
 
 import { isNumber } from "~/utils/common"
 

@@ -1,10 +1,11 @@
 "use client"
-import { useEffect, useMemo } from "react"
-import { redirect, usePathname, useSearchParams } from "next/navigation"
 
+import { redirect, usePathname, useSearchParams } from "next/navigation"
+import { useEffect, useMemo } from "react"
+
+import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react"
 import { getCookie } from "cookies-next"
 import NProgress from "nprogress"
-import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react"
 
 import { Iconify } from "@/components/common"
 import { PageTransitionEffect } from "@/components/layout"
@@ -30,7 +31,7 @@ export default function Content({ children }: contentProps) {
     }, [pathname, res, searchParams, token])
 
     return (
-        <Card className='flex-grow mx-5 my-5' shadow='sm'>
+        <Card className='m-5 grow' shadow='sm'>
             <CardHeader>
                 <Iconify icon={menuItem.icon!} color='#006FEE' />
                 <p className='text-xl'>{menuItem.label}</p>

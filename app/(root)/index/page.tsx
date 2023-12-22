@@ -1,6 +1,6 @@
-import { Card, CardBody, CardHeader, button as buttonStyles } from "@nextui-org/react"
+import { button as buttonStyles, Card, CardBody, CardHeader } from "@nextui-org/react"
 
-import { GithubIcon, Iconify, Row, Image, Link } from "@/components/common"
+import { GithubIcon, Iconify, Image, Link, Row } from "@/components/common"
 import { subtitle, title } from "@/components/custom"
 import { NotoSansSC, siteConfig } from "~/config"
 
@@ -40,7 +40,7 @@ const introduce = [
 export default function HomePage() {
     return (
         <>
-            <section className='flex flex-col items-center justify-between gap-4 w-full py-8 lg:py-10 lg:flex-row'>
+            <section className='flex w-full flex-col items-center justify-between gap-4 py-8 lg:flex-row lg:py-10'>
                 <div>
                     <p className={title({ color: "blue" })}>Next数字校园</p>
                     <p className={title({ size: "xs", color: "foreground" })}>
@@ -93,7 +93,7 @@ export default function HomePage() {
                             <Iconify icon={item.icon} height={30} color='#006FEE' />
                             <p className='font-bold'>{item.title}</p>
                         </CardHeader>
-                        <CardBody className='pt-0 mb-2'>
+                        <CardBody className='mb-2 pt-0'>
                             <p>{item.desc}</p>
                         </CardBody>
                     </Card>

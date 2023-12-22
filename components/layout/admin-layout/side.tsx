@@ -1,6 +1,6 @@
 import { Button, Card } from "@nextui-org/react"
 
-import { Col, Iconify, Link, Row, Logo, ThemeSwitch } from "@/components/common"
+import { Col, Iconify, Link, Logo, Row, ThemeSwitch } from "@/components/common"
 import AdminMenu from "./menu"
 import UserInfo from "./user-info"
 
@@ -12,7 +12,7 @@ import UserInfo from "./user-info"
 export default function Side(): JSX.Element {
     return (
         <Card
-            className='hidden lg:flex min-w-[12rem] ml-5 my-5 items-center justify-around'
+            className='my-5 ml-5 hidden min-w-[12rem] items-center justify-around lg:flex'
             shadow='sm'
         >
             <Link href='/index' color='foreground' className='pt-1'>

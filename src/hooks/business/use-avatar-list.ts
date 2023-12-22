@@ -1,9 +1,10 @@
 "use client"
+
 import { useState } from "react"
 
-import { useMediaQuery } from "react-responsive"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
+import { useMediaQuery } from "react-responsive"
 
 export function useAvatarList() {
     const [avatar, setAvatar] = useState("")

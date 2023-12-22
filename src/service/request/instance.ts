@@ -1,5 +1,5 @@
+import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios"
 import axios from "axios"
-import type { AxiosResponse, AxiosError, AxiosInstance, AxiosRequestConfig } from "axios"
 
 import { REFRESH_TOKEN_CODE } from "~/config"
 import {

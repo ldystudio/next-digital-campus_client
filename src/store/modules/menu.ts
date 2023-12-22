@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-import { useAppSelector, useAppDispatch } from "~/hooks/common"
+import { useAppDispatch, useAppSelector } from "~/hooks/common"
 
 const initialState: App.AdminMenu = {
     key: "",

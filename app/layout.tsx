@@ -1,6 +1,6 @@
 import { Metadata, Viewport } from "next"
-import NextTopLoader from "nextjs-toploader"
 
+import NextTopLoader from "nextjs-toploader"
 import { Toaster } from "react-hot-toast"
 import { ToastContainer as Notice, Slide } from "react-toastify"
 

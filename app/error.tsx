@@ -1,12 +1,9 @@
 "use client"
+
 import { Button, Code } from "@nextui-org/react"
 
-
-
-import { Col, Row, Image } from "@/components/common"
+import { Col, Image, Row } from "@/components/common"
 import { useRouterPush } from "~/utils/router"
-
-
 
 interface ErrorProps {
     error: Error & { digest?: string }
@@ -17,7 +14,7 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
     const { routerBack } = useRouterPush()
 
     return (
-        <Col fullWidth justify='center' className='h-screen gap-4 select-none'>
+        <Col fullWidth justify='center' className='h-screen gap-4'>
             <Image
                 src='/images/403.svg'
                 alt='错误页面'

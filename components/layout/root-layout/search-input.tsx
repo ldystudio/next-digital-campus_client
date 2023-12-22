@@ -1,4 +1,5 @@
 "use client"
+
 import { useState } from "react"
 
 import { Input, Kbd } from "@nextui-org/react"
@@ -22,7 +23,7 @@ export default function SearchInput() {
             labelPlacement='outside'
             placeholder='Search...'
             startContent={
-                <SearchIcon className='text-base text-default-400 pointer-events-none flex-shrink-0' />
+                <SearchIcon className='pointer-events-none shrink-0 text-base text-default-400' />
             }
             type='search'
             value={value}

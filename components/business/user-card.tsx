@@ -1,10 +1,10 @@
 import { useMemo } from "react"
 
-import toast from "react-hot-toast"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import {
     Avatar,
+    AvatarProps,
     Button,
     Card,
     CardBody,
@@ -12,18 +12,18 @@ import {
     CardHeader,
     Popover,
     PopoverContent,
-    PopoverTrigger,
     PopoverProps,
-    AvatarProps,
+    PopoverTrigger,
     User,
     UserProps
 } from "@nextui-org/react"
+import toast from "react-hot-toast"
 
+import { Col, Row } from "@/components/common"
 import { fetchLogout } from "~/service/api"
 import { useAuthAction, useAuthState } from "~/store/modules/auth"
 import { useRouteAction } from "~/store/modules/route"
 import { localStg } from "~/utils/storage"
-import { Col, Row } from "@/components/common"
 
 interface UserCardProps {
     description?: string
@@ -121,18 +121,18 @@ export function UserCard({
                         </Button>
                     </CardHeader>
                     <CardBody className='px-3 py-0'>
-                        <p className='text-small pl-px text-default-500'>
+                        <p className='pl-px text-small text-default-500'>
                             {description ?? "写段描述介绍自己吧~"}
                         </p>
                     </CardBody>
                     <CardFooter className='gap-3'>
                         <p>
-                            <span className='font-semibold text-primary text-small'>4</span>
-                            <span className=' text-default-500 text-small ml-1'>任务</span>
+                            <span className='text-small font-semibold text-primary'>4</span>
+                            <span className=' ml-1 text-small text-default-500'>任务</span>
                         </p>
                         <p>
-                            <span className='font-semibold text-danger text-small'>97</span>
-                            <span className='text-default-500 text-small ml-1'>消息</span>
+                            <span className='text-small font-semibold text-danger'>97</span>
+                            <span className='ml-1 text-small text-default-500'>消息</span>
                         </p>
                     </CardFooter>
                 </Card>

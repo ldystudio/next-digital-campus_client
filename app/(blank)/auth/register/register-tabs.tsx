@@ -1,17 +1,17 @@
 "use client"
-import { useEffect, useState } from "react"
-import { usePathname, useSearchParams } from "next/navigation"
 
-import { motion, AnimatePresence } from "framer-motion"
+import { usePathname, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
+
+import { Icon } from "@iconify/react"
+import { Button, Image, Input, RadioGroup, Tab, Tabs } from "@nextui-org/react"
+import { AnimatePresence, motion } from "framer-motion"
 import NProgress from "nprogress"
 import toast from "react-hot-toast"
-import { Icon } from "@iconify/react"
-import { Button, Input, RadioGroup, Tab, Tabs, Image } from "@nextui-org/react"
 
 import { CardRadio, Col, Link, PasswordInput, Row } from "@/components/common"
 import { colorfulFlag } from "@/components/toys"
-import { useAvatarList, useEmailCaptchaCountdown } from "~/hooks/business"
-import { useAuthForm } from "~/hooks/business"
+import { useAuthForm, useAvatarList, useEmailCaptchaCountdown } from "~/hooks/business"
 import { fetchSmtpCode } from "~/service/api"
 import { useAuthAction, useAuthState } from "~/store/modules/auth"
 import { useRouterPush } from "~/utils/router"
@@ -152,7 +152,7 @@ export default function RegisterTabs() {
                                     <Icon icon='solar:copyright-bold-duotone' height='auto' />
                                 }
                             />
-                            <div className='border-8 border-default-100 rounded-xl bg-default-100'>
+                            <div className='rounded-xl border-8 border-default-100 bg-default-100'>
                                 <Button
                                     variant='light'
                                     onClick={() => handleCountdownButtonClick()}

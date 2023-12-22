@@ -1,4 +1,5 @@
 "use client"
+
 import { useState } from "react"
 
 import { Input, InputProps } from "@nextui-org/react"
@@ -16,9 +17,9 @@ export function PasswordInput(props: InputProps) {
             endContent={
                 <button type='button' onClick={toggleVisibility}>
                     {isVisible ? (
-                        <EyeSlashFilledIcon className='text-2xl text-default-400 pointer-events-none' />
+                        <EyeSlashFilledIcon className='pointer-events-none text-2xl text-default-400' />
                     ) : (
-                        <EyeFilledIcon className='text-2xl text-default-400 pointer-events-none' />
+                        <EyeFilledIcon className='pointer-events-none text-2xl text-default-400' />
                     )}
                 </button>
             }

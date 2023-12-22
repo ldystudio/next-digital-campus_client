@@ -1,9 +1,8 @@
 "use client"
-import { useEffect, useState } from "react"
-import { usePathname, useSearchParams } from "next/navigation"
 
-import NProgress from "nprogress"
-import toast from "react-hot-toast"
+import { usePathname, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
+
 import { Icon } from "@iconify/react"
 import {
     Avatar,
@@ -16,11 +15,13 @@ import {
     Tabs,
     Tooltip
 } from "@nextui-org/react"
+import NProgress from "nprogress"
+import toast from "react-hot-toast"
 
 import { Col, Link, ListBoxWrapper, PasswordInput, Row } from "@/components/common"
-import { useEmailCaptchaCountdown, useAuthForm } from "~/hooks/business"
+import { useAuthForm, useEmailCaptchaCountdown } from "~/hooks/business"
 import { fetchSmtpCode } from "~/service/api"
-import { useAuthState, useAuthAction } from "~/store/modules/auth"
+import { useAuthAction, useAuthState } from "~/store/modules/auth"
 import ImageCaptcha from "./image-captcha"
 
 export default function LoginTabs() {
@@ -157,7 +158,7 @@ export default function LoginTabs() {
                             }
                         />
                         <Tooltip content='点击切换验证码' placement='bottom'>
-                            <div className='h-full border-8 border-default-100 bg-default-100 rounded-xl cursor-pointer'>
+                            <div className='h-full cursor-pointer rounded-xl border-8 border-default-100 bg-default-100'>
                                 <ImageCaptcha
                                     generateTraceId={generateTraceId}
                                     setTraceId={setTraceId}
@@ -236,7 +237,7 @@ export default function LoginTabs() {
                                 <Icon icon='solar:copyright-bold-duotone' height='auto' />
                             }
                         />
-                        <div className='border-8 border-default-100 rounded-xl bg-default-100'>
+                        <div className='rounded-xl border-8 border-default-100 bg-default-100'>
                             <Button
                                 variant='light'
                                 onClick={() => {

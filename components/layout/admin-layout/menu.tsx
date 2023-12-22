@@ -1,20 +1,21 @@
 "use client"
+
 import { memo } from "react"
 
-import { useIsClient } from "usehooks-ts"
 import { Icon } from "@iconify/react"
 import {
-    Accordion as NextUiAccordion,
     AccordionItem,
+    Accordion as NextUiAccordion,
     ScrollShadow,
     Skeleton
 } from "@nextui-org/react"
+import { useTheme } from "next-themes"
+import { useIsClient } from "usehooks-ts"
 
 import { Col } from "@/components/common"
-import { useMenuItemState, useMenuItemAction } from "~/store/modules/menu"
+import { useMenuItemAction, useMenuItemState } from "~/store/modules/menu"
 import { getMenus } from "~/store/modules/route/helpers"
 import { useRouterPush } from "~/utils/router"
-import { useTheme } from "next-themes"
 
 interface AccordionProps {
     items: App.AdminMenu[]

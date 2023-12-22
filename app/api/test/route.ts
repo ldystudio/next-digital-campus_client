@@ -1,4 +1,3 @@
-import { getRouteState } from "~/store"
 import { localStg } from "~/utils/storage"
 
 export async function GET() {

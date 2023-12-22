@@ -1,4 +1,6 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 "use client"
+
 import Link from "next/link"
 
 import { motion } from "framer-motion"
@@ -57,7 +59,7 @@ const products = [
 export default function Motion() {
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
-            <div className='container center'>
+            <div className='container'>
                 <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }} className='title'>
                     <h1>Select a protein</h1>
                 </motion.div>

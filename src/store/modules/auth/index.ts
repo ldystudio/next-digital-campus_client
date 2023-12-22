@@ -1,15 +1,15 @@
-import { setCookie } from "cookies-next"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { setCookie } from "cookies-next"
 
 import { notice } from "@/components/common"
-import { useAppSelector, useAppDispatch } from "~/hooks/common"
+import { useAppDispatch, useAppSelector } from "~/hooks/common"
 import { fetchEmailLogin, fetchLogin, fetchRegister } from "~/service/api"
-import { getRouteState, getAuthState } from "~/store"
+import { getAuthState, getRouteState } from "~/store"
 import { useRouteAction } from "~/store/modules/route"
 import { verifyAndParseJwtPayload } from "~/utils/common"
 import { useRouterPush } from "~/utils/router"
 import { localStg } from "~/utils/storage"
-import { getToken, getUserInfo, clearAuthStorage, emptyInfo } from "./helpers"
+import { clearAuthStorage, emptyInfo, getToken, getUserInfo } from "./helpers"
 
 interface AuthState {
     /** 用户信息 */

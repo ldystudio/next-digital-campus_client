@@ -1,11 +1,12 @@
 "use client"
+
 import { useState } from "react"
 
 import { Button, Input } from "@nextui-org/react"
 
-import { Row, notice } from "@/components/common"
-import { useAuthState, useAuthAction } from "~/store/modules/auth"
-import { useRouteState, useRouteAction } from "~/store/modules/route"
+import { notice, Row } from "@/components/common"
+import { useAuthAction, useAuthState } from "~/store/modules/auth"
+import { useRouteAction, useRouteState } from "~/store/modules/route"
 import { verifyAndParseJwtPayload } from "~/utils/common"
 import { localStg } from "~/utils/storage"
 
@@ -19,7 +20,7 @@ export default function Test() {
 
     return (
         <>
-            <section className='mt-2 p-2 space-x-2 bg-red-200'>
+            <section className='mt-2 space-x-2 bg-red-200 p-2'>
                 <Button
                     onClick={() =>
                         setUserInfo({ userId: "100", userName: "test", userRole: "admin" })
@@ -33,7 +34,7 @@ export default function Test() {
                 <p>token: {token}</p>
                 <p>refreshToken: {refreshToken}</p>
             </section>
-            <section className='mt-2 p-2 space-x-2 bg-zinc-400'>
+            <section className='mt-2 space-x-2 bg-zinc-400 p-2'>
                 <Button
                     onClick={() =>
                         notice.info({
@@ -66,7 +67,7 @@ export default function Test() {
                     error消息
                 </Button>
             </section>
-            <section className='mt-2 p-2 space-x-2 bg-blue-200'>
+            <section className='mt-2 space-x-2 bg-blue-200 p-2'>
                 <p>isInitAuthRoute: {`${isInitAuthRoute}`}</p>
                 <p>menus: {`${JSON.stringify(menus)}`}</p>
                 <p>searchMenus: {`${JSON.stringify(searchMenus)}`}</p>

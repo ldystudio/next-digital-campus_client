@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 
-import { Radio, RadioProps, cn, CardProps, Card, CardFooter } from "@nextui-org/react"
+import { Card, CardFooter, CardProps, cn, Radio, RadioProps } from "@nextui-org/react"
 
 interface CardRadioProps {
     children: ReactNode
@@ -18,8 +18,8 @@ export function CardRadio({ children, radioProps, cardProps, name }: CardRadioPr
             {...radioProps}
             classNames={{
                 base: cn(
-                    "inline-flex m-0 bg-content1 hover:bg-content2 items-center justify-between",
-                    "flex-col-reverse cursor-pointer rounded-lg gap-2 border-2 border-transparent",
+                    "m-0 inline-flex items-center justify-between bg-content1 hover:bg-content2",
+                    "cursor-pointer flex-col-reverse gap-2 rounded-lg border-2 border-transparent",
                     "data-[selected=true]:border-primary"
                 ),
                 wrapper: "hidden"
@@ -28,8 +28,8 @@ export function CardRadio({ children, radioProps, cardProps, name }: CardRadioPr
             <Card {...cardProps} className='-ml-2'>
                 {children}
                 {name && (
-                    <CardFooter className='justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-0 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_50px)] shadow-small ml-6 z-10'>
-                        <span className='text-white text-tiny'>{name}</span>
+                    <CardFooter className='absolute bottom-1 z-10 ml-6 w-[calc(100%_-_50px)] justify-center overflow-hidden rounded-large border-1 border-white/20 py-0 shadow-small before:rounded-xl before:bg-white/10'>
+                        <span className='text-tiny text-white'>{name}</span>
                     </CardFooter>
                 )}
             </Card>

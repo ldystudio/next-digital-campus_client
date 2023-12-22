@@ -1,14 +1,15 @@
 "use client"
+
 import { Button, Code } from "@nextui-org/react"
 
-import { Col, Row, Image } from "@/components/common"
+import { Col, Image, Row } from "@/components/common"
 import { useRouterPush } from "~/utils/router"
 
 export default function NotFoundPage() {
     const { routerBack, toHome } = useRouterPush()
 
     return (
-        <Col fullWidth justify='center' className='h-screen px-5 gap-4 select-none'>
+        <Col fullWidth justify='center' className='h-screen gap-4 px-5'>
             <Image
                 src='/images/404.svg'
                 alt='未找到页面'

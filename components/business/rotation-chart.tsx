@@ -1,8 +1,9 @@
+import { Card, CardBody, CardFooter, CardHeader, Image } from "@nextui-org/react"
 import { EffectCards } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Card, CardBody, CardFooter, CardHeader, Image } from "@nextui-org/react"
 
 import { Iconify } from "@/components/common"
+
 import "swiper/css"
 import "swiper/css/effect-cards"
 
@@ -47,12 +48,12 @@ export function RotationChart() {
             modules={[EffectCards]}
             // onSlideChange={() => console.log("slide change")}
             // onSwiper={(swiper) => console.log(swiper)}
-            className='h-full max-w-[220px] flex justify-center items-center'
+            className='flex h-full max-w-[220px] items-center justify-center'
         >
             {userList.map((item, index) => (
                 <SwiperSlide key={`userList - ${index}`} className='rounded-2xl'>
-                    <Card className='h-full bg-primary-300 flex'>
-                        <CardHeader className='justify-center items-center mt-unit-lg'>
+                    <Card className='flex h-full bg-primary-300'>
+                        <CardHeader className='mt-unit-lg items-center justify-center'>
                             <Image
                                 src={item.avatar}
                                 alt='Avatar'
@@ -65,8 +66,8 @@ export function RotationChart() {
                             ></Image>
                         </CardHeader>
                         <CardBody className='items-center'>
-                            <p className='text-default-900 text-xl'>{item.name}</p>
-                            <p className='text-default-500 text-md'>{item.description}</p>
+                            <p className='text-xl text-default-900'>{item.name}</p>
+                            <p className='text-md text-default-500'>{item.description}</p>
                         </CardBody>
                         <CardFooter className='justify-center'>
                             <Iconify icon='solar:calendar-mark-bold-duotone' color='#f4f4f5' />

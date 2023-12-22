@@ -1,8 +1,9 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 import React from "react"
 
+import { Card, CardBody, CircularProgress } from "@nextui-org/react"
 import ReactECharts from "echarts-for-react"
 import { DayPicker } from "react-day-picker"
-import { Card, CardBody, CircularProgress } from "@nextui-org/react"
 
 import { title } from "@/components/custom"
 

@@ -1,10 +1,10 @@
 "use client"
-import { useTheme } from "next-themes"
 
-import clsx from "clsx"
-import { useBoolean, useEffectOnce } from "usehooks-ts"
 import { Spinner } from "@nextui-org/react"
 import { Expand } from "@theme-toggles/react"
+import clsx from "clsx"
+import { useTheme } from "next-themes"
+import { useBoolean, useEffectOnce } from "usehooks-ts"
 
 import "@theme-toggles/react/css/Expand.css"
 
@@ -68,7 +68,7 @@ export function ThemeSwitch({ className }: { className?: string }) {
     return (
         // Render the theme switch button
         <div
-            className={clsx("flex items-center justify-center cursor-pointer", className)}
+            className={clsx("flex cursor-pointer items-center justify-center", className)}
             onClick={(e) => handleSwitch(e)}
         >
             <Expand duration={750} toggled={resolvedTheme === "light"} />

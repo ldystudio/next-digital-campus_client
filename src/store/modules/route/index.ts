@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { useQuery } from "@tanstack/react-query"
 
-import { useAppSelector, useAppDispatch } from "~/hooks/common"
+import { useAppDispatch, useAppSelector } from "~/hooks/common"
 import { getAuthState } from "~/store"
 import {
     filterAuthRoutesByUserPermission,
@@ -9,7 +9,7 @@ import {
     transformAuthRouteToSearchMenus
 } from "~/utils/router"
 import { localStg } from "~/utils/storage"
-import { getIsInitAuthRoute, getMenus, getSearchMenus, clearRouteStorage } from "./helpers"
+import { clearRouteStorage, getIsInitAuthRoute, getMenus, getSearchMenus } from "./helpers"
 
 interface RouteState {
     /** 是否初始化了权限路由 */

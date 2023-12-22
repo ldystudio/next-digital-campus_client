@@ -1,7 +1,8 @@
 "use client"
-import { useEffectOnce, useBoolean } from "usehooks-ts"
+
 import { Icon, IconProps } from "@iconify/react"
 import { Skeleton } from "@nextui-org/react"
+import { useBoolean, useEffectOnce } from "usehooks-ts"
 
 export function Iconify({ height, ...otherProps }: IconProps) {
     const size = height ? `${height}px` : "auto"

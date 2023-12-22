@@ -8,11 +8,11 @@ export default function AuthLayout({ children }: LayoutProps) {
         <main>
             <section
                 className={clsx(
-                    "w-full h-screen bg-background bg-cover bg-center md:bg-blob-scene overflow-x-hidden",
+                    "h-screen w-full overflow-x-hidden bg-background bg-cover bg-center md:bg-blob-scene",
                     NotoSansSC.className
                 )}
             >
-                <PageTransitionEffect className='h-full flex items-center justify-center'>
+                <PageTransitionEffect className='flex h-full items-center justify-center'>
                     {children}
                 </PageTransitionEffect>
             </section>

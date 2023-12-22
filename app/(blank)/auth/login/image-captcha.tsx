@@ -1,4 +1,5 @@
 "use client"
+
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
 
 import { Image, Popover, PopoverContent, PopoverTrigger, Skeleton } from "@nextui-org/react"
@@ -44,7 +45,7 @@ export default function ImageCaptcha({
     }
 
     return (
-        <Skeleton isLoaded={isLoaded} className='rounded-lg h-[41px] w-[109px]'>
+        <Skeleton isLoaded={isLoaded} className='h-[41px] w-[109px] rounded-lg'>
             <Popover isOpen={showPopover} radius='sm' showArrow>
                 <PopoverTrigger>
                     <Image

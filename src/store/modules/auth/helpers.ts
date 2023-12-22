@@ -1,4 +1,4 @@
-import { getCookie, deleteCookie } from "cookies-next"
+import { deleteCookie, getCookie } from "cookies-next"
 
 import { localStg } from "~/utils/storage"
 
