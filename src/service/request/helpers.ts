@@ -14,7 +14,7 @@ export async function handleRefreshToken(axiosConfig: AxiosRequestConfig) {
     const refreshToken = localStg.get("refreshToken") || ""
     const { data } = await fetchUpdateToken(refreshToken)
     if (data) {
-        setCookie("token", data.token, {
+        setCookie("accessToken", data.accessToken, {
             maxAge: parseInt(process.env.TOKEN_LIFETIME!),
             sameSite: true
         })
@@ -23,7 +23,7 @@ export async function handleRefreshToken(axiosConfig: AxiosRequestConfig) {
 
         const config = { ...axiosConfig }
         if (config.headers) {
-            config.headers.Authorization = data.token
+            config.headers.Authorization = data.accessToken
         }
         return config
     }

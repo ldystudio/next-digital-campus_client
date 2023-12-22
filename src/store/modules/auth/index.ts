@@ -119,8 +119,8 @@ export function useAuthAction() {
         let successFlag = false
 
         // 先把token存储到缓存中(后面接口的请求头需要token)
-        const { token, refreshToken } = backendToken
-        setCookie("token", token, {
+        const { accessToken, refreshToken } = backendToken
+        setCookie("accessToken", accessToken, {
             maxAge: parseInt(process.env.TOKEN_LIFETIME!),
             sameSite: true
         })
@@ -128,7 +128,7 @@ export function useAuthAction() {
         localStg.set("refreshToken", refreshToken)
 
         // 获取用户信息
-        const payload = await verifyAndParseJwtPayload(token)
+        const payload = await verifyAndParseJwtPayload(accessToken)
 
         if (payload) {
             const { iat, exp, userInfo } = payload
@@ -140,7 +140,7 @@ export function useAuthAction() {
 
                 // 更新状态
                 setUserInfo(userInfo)
-                setToken(token)
+                setToken(accessToken)
 
                 successFlag = true
             }

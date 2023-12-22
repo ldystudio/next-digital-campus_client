@@ -19,7 +19,7 @@ export default function Content({ children }: contentProps) {
     const pathname = usePathname()
     const menuItem = useMenuItemState()
     const searchParams = useSearchParams()
-    const token = getCookie("token")
+    const token = getCookie("accessToken")
     const res = useMemo(() => parseJwtPayload(token), [token])
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function Content({ children }: contentProps) {
     }, [pathname, res, searchParams, token])
 
     return (
-        <Card className='flex-grow mr-5 my-5' shadow='sm'>
+        <Card className='flex-grow mx-5 my-5' shadow='sm'>
             <CardHeader>
                 <Iconify icon={menuItem.icon!} color='#006FEE' />
                 <p className='text-xl'>{menuItem.label}</p>

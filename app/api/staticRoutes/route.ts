@@ -6,7 +6,7 @@ import { readAllRouteModuleFiles } from "~/router"
 import { verifyAndParseJwtPayload } from "~/utils/common"
 
 export async function GET() {
-    const token = getCookie("token", { cookies })
+    const token = getCookie("accessToken", { cookies })
     const res = await verifyAndParseJwtPayload(token)
 
     if (!res) return Response.json(null, { status: 401 })
