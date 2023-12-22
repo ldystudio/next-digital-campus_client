@@ -27,7 +27,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
             <NextThemesProvider {...themeProps}>
                 <QueryClientProvider client={queryClient}>
                     <ReduxProvider store={store}>{children}</ReduxProvider>
-                    <ReactQueryDevtools initialIsOpen />
+                    <ReactQueryDevtools initialIsOpen={false} />
                 </QueryClientProvider>
             </NextThemesProvider>
         </NextUIProvider>

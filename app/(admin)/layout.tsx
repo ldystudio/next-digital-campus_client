@@ -8,7 +8,7 @@ export default function AdminLayout({ children }: LayoutProps) {
         <main>
             <div
                 className={clsx(
-                    "flex h-screen bg-[#f3f3f3] dark:bg-background",
+                    "flex h-screen min-h-[650px] bg-[#f3f3f3] dark:bg-background",
                     NotoSansSC.className
                 )}
             >

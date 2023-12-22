@@ -1,7 +1,5 @@
 import clsx from "clsx"
 import {
-    Input,
-    Kbd,
     NavbarBrand,
     NavbarContent,
     NavbarItem,
@@ -9,36 +7,15 @@ import {
     NavbarMenuItem,
     NavbarMenuToggle,
     Navbar as NextUINavbar,
-    link as linkStyles,
-    button as buttonStyles
+    link as linkStyles
 } from "@nextui-org/react"
 
-import { GithubIcon, Link, Logo, SearchIcon, ThemeSwitch } from "@/components/common"
+import { GithubIcon, Link, Logo, ThemeSwitch } from "@/components/common"
 import { siteConfig } from "~/config"
 import AuthNavbarItem from "./auth-button"
+import SearchInput from "./search-input"
 
 export default function Navbar() {
-    const searchInput = (
-        <Input
-            aria-label='Search'
-            classNames={{
-                inputWrapper: "bg-default-200",
-                input: "text-sm"
-            }}
-            endContent={
-                <Kbd className='hidden lg:inline-block' keys={["command"]}>
-                    K
-                </Kbd>
-            }
-            labelPlacement='outside'
-            placeholder='Search...'
-            startContent={
-                <SearchIcon className='text-base text-default-400 pointer-events-none flex-shrink-0' />
-            }
-            type='search'
-        />
-    )
-
     return (
         <NextUINavbar maxWidth='2xl' position='sticky' isBordered>
             <NavbarContent className='basis-1/5 sm:basis-full ' justify='start'>
@@ -81,8 +58,11 @@ export default function Navbar() {
                     </Link>
                     <ThemeSwitch />
                 </NavbarItem>
-                <NavbarItem className='hidden lg:flex'>{searchInput}</NavbarItem>
+                <NavbarItem className='hidden lg:flex'>
+                    <SearchInput />
+                </NavbarItem>
                 <AuthNavbarItem />
+                <NavbarMenuToggle className='flex lg:hidden' />
             </NavbarContent>
 
             <NavbarContent className='sm:hidden basis-1 pl-4' justify='end'>
@@ -94,11 +74,12 @@ export default function Navbar() {
                     <GithubIcon className='text-default-500' />
                 </Link>
                 <ThemeSwitch />
+                <AuthNavbarItem />
                 <NavbarMenuToggle />
             </NavbarContent>
 
             <NavbarMenu>
-                {searchInput}
+                <SearchInput />
                 <div className='mx-4 mt-2 flex flex-col gap-2'>
                     {siteConfig.navItems.map((item, index) => (
                         <NavbarMenuItem key={`navItems2 - ${index}`}>
@@ -118,11 +99,6 @@ export default function Navbar() {
                             </Link>
                         </NavbarMenuItem>
                     ))}
-                    <NavbarMenuItem>
-                        <Link href='/auth/login' className={buttonStyles({ variant: "flat" })}>
-                            登录
-                        </Link>
-                    </NavbarMenuItem>
                 </div>
             </NavbarMenu>
         </NextUINavbar>

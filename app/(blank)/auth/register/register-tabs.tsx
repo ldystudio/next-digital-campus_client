@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
 
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import NProgress from "nprogress"
 import toast from "react-hot-toast"
 import { Icon } from "@iconify/react"
@@ -336,30 +336,28 @@ export default function RegisterTabs() {
                             onValueChange={setAvatar}
                         >
                             <div className='grid grid-cols-3 md:grid-cols-4 md:gap-2'>
-                                {avatarListKeys.map((avatarKey) => (
-                                    <motion.div
-                                        key={avatarKey}
-                                        initial={{
-                                            translateY: "-30px"
-                                        }}
-                                        animate={{
-                                            translateY: "0px"
-                                        }}
-                                    >
-                                        <CardRadio
-                                            radioProps={{
-                                                value: avatarKey
-                                            }}
-                                            cardProps={{ shadow: "sm" }}
+                                <AnimatePresence mode='wait'>
+                                    {avatarListKeys.map((avatarKey) => (
+                                        <motion.div
+                                            key={avatarKey}
+                                            initial={{ opacity: 0, scale: 0, skewY: 30 }}
+                                            animate={{ opacity: 1, scale: 1, skewY: 0 }}
+                                            exit={{ opacity: 0, scale: 0, skewY: -30 }}
+                                            transition={{ duration: 0.3 }}
                                         >
-                                            <Image
-                                                src={avatarList.get(avatarKey)}
-                                                alt={`avatar ${avatarKey}`}
-                                                width={75}
-                                            />
-                                        </CardRadio>
-                                    </motion.div>
-                                ))}
+                                            <CardRadio
+                                                radioProps={{ value: avatarKey }}
+                                                cardProps={{ shadow: "sm" }}
+                                            >
+                                                <Image
+                                                    src={avatarList.get(avatarKey)}
+                                                    alt={`avatar ${avatarKey}`}
+                                                    width={75}
+                                                />
+                                            </CardRadio>
+                                        </motion.div>
+                                    ))}
+                                </AnimatePresence>
                             </div>
                         </RadioGroup>
                         <Button

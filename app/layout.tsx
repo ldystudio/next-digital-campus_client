@@ -39,7 +39,7 @@ export default function Layout({ children }: LayoutProps) {
         <html lang='zh-CN' suppressHydrationWarning>
             <head />
             <body
-                className={`min-h-screen bg-background font-sans antialiased ${fontSans.variable}`}
+                className={`min-h-screen min-w-[350px] bg-background font-sans antialiased ${fontSans.variable}`}
             >
                 <Providers
                     themeProps={{
