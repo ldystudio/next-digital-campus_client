@@ -1,22 +1,51 @@
+import { useMemo } from "react"
+
 import toast from "react-hot-toast"
-import { Avatar, Button, Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react"
+import * as adventurer from "@dicebear/adventurer"
+import { createAvatar } from "@dicebear/core"
+import {
+    Avatar,
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+    PopoverProps,
+    AvatarProps,
+    User,
+    UserProps
+} from "@nextui-org/react"
 
 import { fetchLogout } from "~/service/api"
-import { useAuthAction } from "~/store/modules/auth"
+import { useAuthAction, useAuthState } from "~/store/modules/auth"
 import { useRouteAction } from "~/store/modules/route"
 import { localStg } from "~/utils/storage"
+import { Col, Row } from "@/components/common"
 
 interface UserCardProps {
-    avatar?: string
-    name: string
-    description: string
-    role: string
-    realName?: string
-    email?: string
+    description?: string
+    avatarProps?: AvatarProps
+    placement?: PopoverProps["placement"]
+    className?: string
+    classNames?: UserProps["classNames"]
 }
-export function UserCard({ avatar, name, description, role, realName, email }: UserCardProps) {
+export function UserCard({
+    description,
+    placement = "bottom",
+    avatarProps,
+    className,
+    classNames
+}: UserCardProps) {
     const { resetAuthStore } = useAuthAction()
     const { resetRouteStore } = useRouteAction()
+    const { avatar, userName, userRole, realName, email } = useAuthState().userInfo
+
+    const avatarImage = useMemo(() => {
+        return avatar ? createAvatar(adventurer, { seed: avatar }).toDataUriSync() : undefined
+    }, [avatar])
 
     async function logout() {
         const refreshToken = localStg.get("refreshToken") || ""
@@ -32,60 +61,82 @@ export function UserCard({ avatar, name, description, role, realName, email }: U
     }
 
     return (
-        <Card shadow='none' className='max-w-[300px] border-none bg-transparent'>
-            <CardHeader className='justify-between'>
-                <div className='flex gap-3'>
-                    <Avatar
-                        isBordered
-                        radius='full'
-                        size='md'
-                        src={avatar}
-                        color={
-                            role === "admin"
+        <Popover showArrow placement={placement}>
+            <PopoverTrigger>
+                <User
+                    name={userName}
+                    description={userRole}
+                    avatarProps={{
+                        ...avatarProps,
+                        src: avatarImage,
+                        name: userName,
+                        color:
+                            userRole === "admin"
                                 ? "secondary"
-                                : role === "teacher"
+                                : userRole === "teacher"
                                   ? "primary"
                                   : "default"
-                        }
-                        name={name}
-                    />
-                    <div className='flex flex-col items-start justify-center'>
-                        <h4 className='text-small font-semibold leading-none text-default-600'>
-                            {realName ? realName : name}
-                        </h4>
-                        <h5 className='text-small tracking-tight text-default-500'>{email}</h5>
-                    </div>
-                </div>
-                <Button
-                    color='danger'
-                    radius='full'
-                    size='sm'
-                    variant='solid'
-                    onClick={async () => {
-                        await logout()
                     }}
-                >
-                    退出
-                </Button>
-            </CardHeader>
-            <CardBody className='px-3 py-0'>
-                <p className='text-small pl-px text-default-500'>
-                    {description}
-                    <span aria-label='confetti' role='img'>
-                        🎉
-                    </span>
-                </p>
-            </CardBody>
-            <CardFooter className='gap-3'>
-                <div className='flex gap-1'>
-                    <p className='font-semibold text-primary text-small'>4</p>
-                    <p className=' text-default-500 text-small'>任务</p>
-                </div>
-                <div className='flex gap-1'>
-                    <p className='font-semibold text-danger text-small'>97</p>
-                    <p className='text-default-500 text-small'>消息</p>
-                </div>
-            </CardFooter>
-        </Card>
+                    className={className}
+                    {...{ classNames }}
+                />
+            </PopoverTrigger>
+            <PopoverContent className='p-1'>
+                <Card shadow='none' className='w-[300px] border-none bg-transparent'>
+                    <CardHeader className='justify-between'>
+                        <Row space={3}>
+                            <Avatar
+                                isBordered
+                                radius='full'
+                                size='md'
+                                src={avatarImage}
+                                color={
+                                    userRole === "admin"
+                                        ? "secondary"
+                                        : userRole === "teacher"
+                                          ? "primary"
+                                          : "default"
+                                }
+                                name={userName}
+                            />
+                            <Col items='start' justify='center'>
+                                <p className='text-small font-semibold leading-none text-default-600'>
+                                    {realName ? realName : userName}
+                                </p>
+                                <p className='text-small tracking-tight text-default-500'>
+                                    {email}
+                                </p>
+                            </Col>
+                        </Row>
+                        <Button
+                            color='danger'
+                            radius='full'
+                            size='sm'
+                            variant='solid'
+                            onClick={async () => {
+                                await logout()
+                            }}
+                        >
+                            退出
+                        </Button>
+                    </CardHeader>
+                    <CardBody className='px-3 py-0'>
+                        <p className='text-small pl-px text-default-500'>
+                            {description ?? "写段描述介绍自己吧~"}
+                        </p>
+                    </CardBody>
+                    <CardFooter className='gap-3'>
+                        <p>
+                            <span className='font-semibold text-primary text-small'>4</span>
+                            <span className=' text-default-500 text-small ml-1'>任务</span>
+                        </p>
+                        <p>
+                            <span className='font-semibold text-danger text-small'>97</span>
+                            <span className='text-default-500 text-small ml-1'>消息</span>
+                        </p>
+                    </CardFooter>
+                </Card>
+            </PopoverContent>
+        </Popover>
     )
 }
