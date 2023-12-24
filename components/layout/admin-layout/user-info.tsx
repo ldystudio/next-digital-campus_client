@@ -1,10 +1,10 @@
 "use client"
 
-import { Skeleton } from "@nextui-org/react"
 import { useIsClient } from "usehooks-ts"
 
 import { UserCard } from "@/components/business"
 import { Col } from "@/components/common"
+import { Skeleton } from "@nextui-org/react"
 
 export default function UserInfo() {
     const isClient = useIsClient()
@@ -21,7 +21,6 @@ export default function UserInfo() {
 
     return (
         <UserCard
-            description='Full-stack developer, @getnextui lover she/her'
             placement='top'
             avatarProps={{
                 size: "lg"

@@ -1,5 +1,8 @@
 import { useMemo } from "react"
 
+import toast from "react-hot-toast"
+
+import { Col, Row } from "@/components/common"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import {
@@ -17,35 +20,38 @@ import {
     User,
     UserProps
 } from "@nextui-org/react"
-import toast from "react-hot-toast"
-
-import { Col, Row } from "@/components/common"
-import { fetchLogout } from "~/service/api"
+import { useQuery } from "@tanstack/react-query"
+import { fetchLogout, fetchUserInfo } from "~/service/api"
 import { useAuthAction, useAuthState } from "~/store/modules/auth"
 import { useRouteAction } from "~/store/modules/route"
 import { localStg } from "~/utils/storage"
 
 interface UserCardProps {
-    description?: string
     avatarProps?: AvatarProps
     placement?: PopoverProps["placement"]
     className?: string
     classNames?: UserProps["classNames"]
 }
 export function UserCard({
-    description,
-    placement = "bottom",
     avatarProps,
+    placement = "bottom",
     className,
     classNames
 }: UserCardProps) {
     const { resetAuthStore } = useAuthAction()
     const { resetRouteStore } = useRouteAction()
-    const { avatar, userName, userRole, realName, email } = useAuthState().userInfo
+    const { userId, userName, userRole, avatar } = useAuthState().userInfo
 
     const avatarImage = useMemo(() => {
         return avatar ? createAvatar(adventurer, { seed: avatar }).toDataUriSync() : undefined
     }, [avatar])
+
+    const { data } = useQuery({
+        queryKey: ["userInfo", userId],
+        queryFn: async (): Promise<ApiUserManagement.User | null> =>
+            !userId ? null : (await fetchUserInfo(userId)).data,
+        staleTime: Infinity
+    })
 
     async function logout() {
         const refreshToken = localStg.get("refreshToken") || ""
@@ -101,10 +107,10 @@ export function UserCard({
                             />
                             <Col items='start' justify='center'>
                                 <p className='text-small font-semibold leading-none text-default-600'>
-                                    {realName ? realName : userName}
+                                    {data?.real_name ?? userName}
                                 </p>
                                 <p className='text-small tracking-tight text-default-500'>
-                                    {email}
+                                    {data?.email}
                                 </p>
                             </Col>
                         </Row>
@@ -122,7 +128,7 @@ export function UserCard({
                     </CardHeader>
                     <CardBody className='px-3 py-0'>
                         <p className='pl-px text-small text-default-500'>
-                            {description ?? "写段描述介绍自己吧~"}
+                            {data?.signature ?? "写段描述介绍自己吧~"}
                         </p>
                     </CardBody>
                     <CardFooter className='gap-3'>

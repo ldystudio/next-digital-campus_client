@@ -39,7 +39,7 @@ export function createRequest(
             method,
             url,
             data: param.data,
-            config: param.axiosConfig
+            config: { ...param.axiosConfig, withCredentials: true }
         })) as Service.RequestResult<T>
 
         return res

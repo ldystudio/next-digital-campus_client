@@ -1,6 +1,6 @@
 import { request } from "../request"
 
-const VIEW_URL = "/auth"
+const CONTROLLER = "/auth"
 
 /**
  * 获取验证码
@@ -8,7 +8,7 @@ const VIEW_URL = "/auth"
  * @returns - 返回boolean值表示是否发送成功
  */
 export function fetchSmtpCode(email: string, traceId: string) {
-    return request.post<boolean>(`${VIEW_URL}/email_captcha/`, { email, traceId })
+    return request.post<boolean>(`${CONTROLLER}/email_captcha/`, { email, traceId })
 }
 
 /**
@@ -17,7 +17,7 @@ export function fetchSmtpCode(email: string, traceId: string) {
  * @returns - 返回token和refreshToken
  */
 export function fetchLogin(model: Auth.LoginForm) {
-    return request.post<ApiAuth.Token>(`${VIEW_URL}/login/`, { ...model })
+    return request.post<ApiAuth.Token>(`${CONTROLLER}/login/`, { ...model })
 }
 
 /**
@@ -26,7 +26,7 @@ export function fetchLogin(model: Auth.LoginForm) {
  * @returns - 返回token和refreshToken
  */
 export function fetchEmailLogin(model: Auth.EmailLoginForm) {
-    return request.post<ApiAuth.Token>(`${VIEW_URL}/login/`, {
+    return request.post<ApiAuth.Token>(`${CONTROLLER}/login/`, {
         ...model,
         type: "emailLogin",
         // Django登录占位符，随机生成用户名和密码，后续不使用
@@ -41,7 +41,7 @@ export function fetchEmailLogin(model: Auth.EmailLoginForm) {
  * @returns - 返回null
  */
 export function fetchLogout(refresh: string) {
-    return request.post<null>(`${VIEW_URL}/logout/`, { refresh })
+    return request.post<null>(`${CONTROLLER}/logout/`, { refresh })
 }
 
 /**
@@ -50,7 +50,7 @@ export function fetchLogout(refresh: string) {
  * @returns - 返回null
  */
 export function fetchRegister(model: Auth.RegisterForm) {
-    return request.post<null>(`${VIEW_URL}/register/`, { ...model })
+    return request.post<null>(`${CONTROLLER}/register/`, { ...model })
 }
 
 /**
@@ -59,9 +59,13 @@ export function fetchRegister(model: Auth.RegisterForm) {
  * @returns - 返回token
  */
 export function fetchUpdateToken(refresh: string) {
-    return request.post<ApiAuth.Token>(`${VIEW_URL}/refresh/`, { refresh })
+    return request.post<ApiAuth.Token>(`${CONTROLLER}/refresh/`, { refresh })
 }
 
-export function fetchTest() {
-    return request.get<null>("iam/1/")
+/**
+ * 获取用户信息
+ * @returns - 返回用户信息
+ */
+export function fetchUserInfo(id: string) {
+    return request.get<ApiUserManagement.User>(`${CONTROLLER}/user/${id}/`)
 }

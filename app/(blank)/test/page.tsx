@@ -5,6 +5,7 @@ import { useState } from "react"
 import { Button, Input } from "@nextui-org/react"
 
 import { notice, Row } from "@/components/common"
+import { fetchUserInfo } from "~/service/api"
 import { useAuthAction, useAuthState } from "~/store/modules/auth"
 import { useRouteAction, useRouteState } from "~/store/modules/route"
 import { verifyAndParseJwtPayload } from "~/utils/common"
@@ -75,7 +76,7 @@ export default function Test() {
                 <Button onClick={() => resetRouteStore()}>重置</Button>
             </section>
             <section>
-                <Row className='w-1/3'>
+                <Row className='w-2/3'>
                     <Input
                         value={search}
                         onValueChange={setSearch}
@@ -88,6 +89,14 @@ export default function Test() {
                         }}
                     >
                         校验并解析Token
+                    </Button>
+                    <Button
+                        onPress={async () => {
+                            const res = await fetchUserInfo(userInfo.userId)
+                            console.log("res: ", res)
+                        }}
+                    >
+                        获取用户信息
                     </Button>
                 </Row>
             </section>
