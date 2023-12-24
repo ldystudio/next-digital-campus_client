@@ -54,7 +54,7 @@ export default function LoginTabs() {
         isInvalidEmailCaptcha
     } = useAuthForm()
 
-    const { count, startCountdown, resetCountdown, CountdownText } = useEmailCaptchaCountdown(120)
+    const { count, startCountdown, resetCountdown, CountdownText } = useEmailCaptchaCountdown()
 
     const generateTraceId = () => `${Math.random().toString(36).slice(-8)}${Date.now()}`
     const [traceId, setTraceId] = useState(generateTraceId())
@@ -243,7 +243,7 @@ export default function LoginTabs() {
                                 onClick={() => {
                                     handleCountdownButtonClick()
                                 }}
-                                isDisabled={count !== 0 && count !== 120}
+                                isDisabled={count !== 0 && count !== 60}
                             >
                                 <CountdownText />
                             </Button>

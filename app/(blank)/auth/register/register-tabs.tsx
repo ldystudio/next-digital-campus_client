@@ -57,7 +57,7 @@ export default function RegisterTabs() {
     const { avatar, setAvatar, avatarList, setAvatarList, generateAvatars, avatarListKeys } =
         useAvatarList()
 
-    const { count, startCountdown, resetCountdown, CountdownText } = useEmailCaptchaCountdown(120)
+    const { count, startCountdown, resetCountdown, CountdownText } = useEmailCaptchaCountdown()
 
     const generateTraceId = () => `${Math.random().toString(36).slice(-8)}${Date.now()}`
     const [traceId, setTraceId] = useState(generateTraceId())
@@ -156,7 +156,7 @@ export default function RegisterTabs() {
                                 <Button
                                     variant='light'
                                     onClick={() => handleCountdownButtonClick()}
-                                    isDisabled={count !== 0 && count !== 120}
+                                    isDisabled={count !== 0 && count !== 60}
                                 >
                                     <CountdownText />
                                 </Button>
