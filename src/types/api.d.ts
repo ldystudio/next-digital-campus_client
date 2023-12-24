@@ -11,35 +11,18 @@ declare namespace ApiAuth {
     type UserInfo = Auth.UserInfo
 }
 
-/** 后端返回的路由相关类型 */
-declare namespace ApiRoute {
-    /** 后端返回的路由数据类型 */
-    interface Route {
-        /** 动态路由 */
-        routes: AuthRoute.Route[]
-        /** 路由首页对应的key */
-        home: AuthRoute.AllRouteKey
-    }
-}
-
 declare namespace ApiUserManagement {
     interface User {
         /** 用户id */
         id: string
         /** 用户名 */
-        username: string | null
-        /** 用户年龄 */
-        age: number | null
-        /**
-         * 用户性别
-         * - 0: 女
-         * - 1: 男
-         */
-        gender: "0" | "1" | null
+        username: string
+        /** 真实姓名 */
+        real_name: string | null
+        /** 邮箱 */
+        email: string
         /** 用户手机号码 */
         phone: string | null
-        /** 用户邮箱 */
-        email: string
         /**
          * 用户状态
          * - 1: 启用
@@ -47,6 +30,20 @@ declare namespace ApiUserManagement {
          * - 3: 冻结
          * - 4: 软删除
          */
-        userStatus: "1" | "2" | "3" | "4" | null
+        status: 1 | 2 | 3 | 4
+        /** 用户头像 */
+        avatar: string | null
+        /** 个性签名 */
+        signature: string | null
+        /**
+         * 用户性别
+         * - 0: 女
+         * - 1: 男
+         */
+        gender: 0 | 1
+        /** 用户年龄 */
+        age: number | null
+        /** 住址 */
+        address: string | null
     }
 }

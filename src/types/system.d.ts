@@ -1,3 +1,7 @@
+declare interface LayoutProps {
+    children: React.ReactNode
+}
+
 /** 请求的相关类型 */
 declare namespace Service {
     /**

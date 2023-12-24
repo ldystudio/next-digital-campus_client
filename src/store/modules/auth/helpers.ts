@@ -12,9 +12,7 @@ export const emptyInfo: Auth.UserInfo = {
     userId: "",
     userName: "",
     userRole: "student",
-    avatar: undefined,
-    realName: undefined,
-    email: undefined
+    avatar: undefined
 }
 
 /** 获取用户信息 */

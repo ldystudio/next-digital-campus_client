@@ -18,10 +18,6 @@ declare namespace Auth {
         userRole: RoleType
         /** 用户头像 */
         avatar?: string
-        /** 真实姓名 */
-        realName?: string
-        /** 邮箱 */
-        email?: string
     }
 
     interface LoginForm {
