@@ -1,7 +1,12 @@
-import { button as buttonStyles } from "@nextui-org/react"
+import type { Metadata } from "next"
 
 import { Link } from "@/components/common"
 import { title } from "@/components/custom"
+import { button as buttonStyles } from "@nextui-org/react"
+
+export const metadata: Metadata = {
+    title: "关于"
+}
 
 export default function AboutPage() {
     return (

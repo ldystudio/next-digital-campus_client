@@ -2,6 +2,10 @@
 
 import { memo } from "react"
 
+import { useTheme } from "next-themes"
+import { useIsClient } from "usehooks-ts"
+
+import { Col } from "@/components/common"
 import { Icon } from "@iconify/react"
 import {
     AccordionItem,
@@ -9,10 +13,6 @@ import {
     ScrollShadow,
     Skeleton
 } from "@nextui-org/react"
-import { useTheme } from "next-themes"
-import { useIsClient } from "usehooks-ts"
-
-import { Col } from "@/components/common"
 import { useMenuItemAction, useMenuItemState } from "~/store/modules/menu"
 import { getMenus } from "~/store/modules/route/helpers"
 import { useRouterPush } from "~/utils/router"
@@ -61,7 +61,7 @@ export default function AdminMenu() {
                     trigger: "px-2 py-0 hover:bg-default-100 rounded-lg h-10 flex items-center",
                     indicator: "text-medium"
                 }}
-                defaultExpandedKeys={[`AccordionItem - ${items[0].key}`]} // 默认打开第一个
+                defaultExpandedKeys={[`AccordionItem - ${menuItem.key}`]} // 默认打开第一个
                 // selectionMode='multiple'
             >
                 {items.map((item: any) => (

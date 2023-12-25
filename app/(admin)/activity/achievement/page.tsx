@@ -3,9 +3,9 @@ import type { Metadata } from "next"
 import { PageUnderConstruction } from "@/components/custom"
 
 export const metadata: Metadata = {
-    title: "工作台"
+    title: "活动成果展示"
 }
 
-export default function DashboardWorkbenchPage() {
+export default function ActivityAchievementPage() {
     return <PageUnderConstruction pageTitle={metadata.title?.toString()} />
 }

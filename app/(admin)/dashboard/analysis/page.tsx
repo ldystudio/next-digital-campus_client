@@ -1,18 +1,11 @@
 import type { Metadata } from "next"
 
-import { Col } from "@/components/common"
+import { PageUnderConstruction } from "@/components/custom"
 
 export const metadata: Metadata = {
     title: "分析页"
 }
 
-export default function AnalysisPage() {
-    return (
-        <Col className='mt-[35vh]'>
-            <p>AnalysisPage</p>
-            <p>AnalysisPage</p>
-            <p>AnalysisPage</p>
-            <p>AnalysisPage</p>
-        </Col>
-    )
+export default function DashboardAnalysisPage() {
+    return <PageUnderConstruction pageTitle={metadata.title?.toString()} />
 }

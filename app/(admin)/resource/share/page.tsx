@@ -3,9 +3,9 @@ import type { Metadata } from "next"
 import { PageUnderConstruction } from "@/components/custom"
 
 export const metadata: Metadata = {
-    title: "工作台"
+    title: "共享资源管理"
 }
 
-export default function DashboardWorkbenchPage() {
+export default function ResourceSharePage() {
     return <PageUnderConstruction pageTitle={metadata.title?.toString()} />
 }
