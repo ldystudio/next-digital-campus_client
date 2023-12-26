@@ -1,3 +1,5 @@
+"use client"
+
 import { useMemo } from "react"
 
 import _ from "lodash"
@@ -13,14 +15,13 @@ import {
     Breadcrumbs as NextUiBreadcrumbs
 } from "@nextui-org/react"
 
-import { useMenuItemAction, useMenuItemState } from "~/store/modules/menu"
+import { useMenuItemState } from "~/store/modules/menu"
 import { useRouteState } from "~/store/modules/route"
 import { useRouterPush } from "~/utils/router"
 
 export default function Breadcrumbs(props: BreadcrumbsProps) {
     const { menus } = useRouteState()
     const menuItem = useMenuItemState()
-    const { setMenuItem } = useMenuItemAction()
     const { routerPush } = useRouterPush()
     const parentMenuItem = useMemo(
         () => _.find(menus, (menu) => _.some(menu.children, (child) => child.key === menuItem.key)),
@@ -62,7 +63,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
                         </Button>
                     </DropdownTrigger>
                     {parentMenuItem && (
-                        <DropdownMenu>
+                        <DropdownMenu aria-label='Breadcrumbs Dropdown Menu'>
                             {parentMenuItem.children!.map((child) => (
                                 <DropdownItem
                                     key={child.key}
@@ -70,7 +71,6 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
                                     variant='faded'
                                     color='primary'
                                     onPress={() => {
-                                        setMenuItem(child)
                                         routerPush(child.routePath as AuthRoute.RoutePath)
                                     }}
                                 >

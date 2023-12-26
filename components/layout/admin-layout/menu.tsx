@@ -2,8 +2,6 @@
 
 import { useTheme } from "next-themes"
 import { useIsClient } from "usehooks-ts"
-
-import { Col } from "@/components/common"
 import { Icon } from "@iconify/react"
 import {
     AccordionItem,
@@ -11,12 +9,13 @@ import {
     ScrollShadow,
     Skeleton
 } from "@nextui-org/react"
-import { useMenuItemAction, useMenuItemState } from "~/store/modules/menu"
+
+import { Col } from "@/components/common"
+import { useMenuItemState } from "~/store/modules/menu"
 import { getMenus } from "~/store/modules/route/helpers"
 import { useRouterPush } from "~/utils/router"
 
 export default function AdminMenu() {
-    const { setMenuItem } = useMenuItemAction()
     const { routerPush } = useRouterPush()
     const menuItem = useMenuItemState()
     const menus = getMenus()
@@ -43,11 +42,10 @@ export default function AdminMenu() {
     }
 
     function hasChildren(item: App.AdminMenu) {
-        return item.children && item.children.length > 0
+        return Boolean(item.children && item.children.length)
     }
 
     function handlePress(item: App.AdminMenu) {
-        setMenuItem(item)
         routerPush(item.routePath as AuthRoute.RoutePath)
     }
 
@@ -121,53 +119,3 @@ export default function AdminMenu() {
     )
 }
 
-// const MenuAccordion = memo(function Accordion({ items }: AccordionProps) {
-//     // 是否有子菜单
-//     function hasChildren(item: App.AdminMenu) {
-//         return item.children && item.children.length > 0
-//     }
-
-//     return (
-//         <NextUiAccordion
-//             showDivider={false} // 不显示分割符
-//             itemClasses={{
-//                 base: "py-0 w-full",
-//                 title: "font-normal text-medium hover:text-primary",
-//                 trigger: "px-2 py-0 hover:bg-default-100 rounded-lg h-10 flex items-center",
-//                 indicator: "text-medium"
-//             }}
-//             defaultExpandedKeys={[`${items[0].key}`]} // 默认打开第一个
-//             // selectionMode='multiple'
-//         >
-//             {items.map((item: App.AdminMenu) => (
-//                 <AccordionItem
-//                     aria-label={item.label}
-//                     key={item.key}
-//                     title={item.label}
-//                     startContent={
-//                         <Icon
-//                             icon={item.icon || ""}
-//                             color={
-//                                 item.label === menuItem.label
-//                                     ? "#006FEE"
-//                                     : theme === "light"
-//                                       ? "#11181C"
-//                                       : "#FAFAFA"
-//                             }
-//                             height='auto'
-//                         />
-//                     }
-//                     hideIndicator={!hasChildren(item)}
-//                     classNames={{
-//                         content: hasChildren(item) ? "flex" : "hidden"
-//                     }}
-//                     onPress={() => {
-//                         !hasChildren(item) && handlePress(item)
-//                     }}
-//                 >
-//                     {hasChildren(item) && <MenuAccordion items={item.children!} />}
-//                 </AccordionItem>
-//             ))}
-//         </NextUiAccordion>
-//     )
-// })
