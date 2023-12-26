@@ -1,9 +1,10 @@
-import { Col, Image } from "@/components/common"
 import { Card, CardBody, CardFooter } from "@nextui-org/react"
+
+import { Col, Image } from "@/components/common"
 
 export function PageUnderConstruction({ pageTitle }: { pageTitle: string | undefined }) {
     return (
-        <Col className='mt-[20vh]'>
+        <Col fullHeight justify='center'>
             <Card shadow='none'>
                 <CardBody className='py-5'>
                     <Image
