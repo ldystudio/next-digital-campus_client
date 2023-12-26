@@ -1,14 +1,8 @@
-"use client"
-
-import { useEffect, useMemo } from "react"
-import { redirect, usePathname, useSearchParams } from "next/navigation"
-
-import { getCookie } from "cookies-next"
-import NProgress from "nprogress"
 import {
     Card,
     CardBody,
     CardHeader,
+    Divider,
     NavbarContent,
     NavbarMenu,
     NavbarMenuToggle,
@@ -18,27 +12,14 @@ import {
 import { PageTransitionEffect } from "@/components/layout"
 import AuthNavbarItem from "@/components/layout/root-layout/auth-button"
 import SearchInput from "@/components/layout/root-layout/search-input"
-import { parseJwtPayload } from "~/utils/common"
 import Breadcrumbs from "./breadcrumbs"
 import AdminMenu from "./menu"
 
-interface contentProps {
+interface ContentProps {
     children: React.ReactNode
 }
 
-export default function Content({ children }: contentProps) {
-    const pathname = usePathname()
-    const searchParams = useSearchParams()
-    const token = getCookie("accessToken")
-    const res = useMemo(() => parseJwtPayload(token), [token])
-
-    useEffect(() => {
-        if (!res || Object.keys(res).length === 0) {
-            redirect(`/auth/login?redirect=${pathname}`)
-        }
-        NProgress.done()
-    }, [pathname, res, searchParams, token])
-
+export default function Content({ children }: ContentProps) {
     return (
         <Card className='grow lg:m-5' shadow='sm'>
             <NextUiNavbar maxWidth='full' isBordered className='lg:hidden'>
@@ -60,8 +41,9 @@ export default function Content({ children }: contentProps) {
             <CardHeader className='hidden lg:flex'>
                 <Breadcrumbs size='lg' />
             </CardHeader>
+            <Divider className='hidden lg:flex' />
             <CardBody className='overflow-x-hidden'>
-                <PageTransitionEffect>{children}</PageTransitionEffect>
+                <PageTransitionEffect className='h-full'>{children}</PageTransitionEffect>
             </CardBody>
         </Card>
     )

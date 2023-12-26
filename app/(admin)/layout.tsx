@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-import { Content, Side } from "@/components/layout"
+import { Content, Expand, Side } from "@/components/layout"
 import { NotoSansSC } from "~/config"
 
 export default function AdminLayout({ children }: LayoutProps) {
@@ -15,6 +15,7 @@ export default function AdminLayout({ children }: LayoutProps) {
                 <Side />
                 <Content>{children}</Content>
             </div>
+            <Expand />
         </main>
     )
 }
