@@ -15,7 +15,7 @@ export default function Test() {
     const refreshToken = localStg.get("refreshToken")
     const { userInfo, isLoading, token } = useAuthState()
     const { setUserInfo, resetAuthStore } = useAuthAction()
-    const { isInitAuthRoute, menus, searchMenus } = useRouteState()
+    const { isInitAuthRoute, authMenus, searchMenus } = useRouteState()
     const { setIsInitAuthRoute, resetRouteStore } = useRouteAction()
     const [search, setSearch] = useState("")
 
@@ -70,7 +70,7 @@ export default function Test() {
             </section>
             <section className='mt-2 space-x-2 bg-blue-200 p-2'>
                 <p>isInitAuthRoute: {`${isInitAuthRoute}`}</p>
-                <p>menus: {`${JSON.stringify(menus)}`}</p>
+                <p>authMenus: {`${JSON.stringify(authMenus)}`}</p>
                 <p>searchMenus: {`${JSON.stringify(searchMenus)}`}</p>
                 <Button onClick={() => setIsInitAuthRoute(!isInitAuthRoute)}>转换</Button>
                 <Button onClick={() => resetRouteStore()}>重置</Button>

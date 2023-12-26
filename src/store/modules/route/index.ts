@@ -9,7 +9,7 @@ import {
     transformAuthRouteToSearchMenus
 } from "~/utils/router"
 import { localStg } from "~/utils/storage"
-import { clearRouteStorage, getIsInitAuthRoute, getMenus, getSearchMenus } from "./helpers"
+import { clearRouteStorage, getAuthMenus, getIsInitAuthRoute, getSearchMenus } from "./helpers"
 
 interface RouteState {
     /** 是否初始化了权限路由 */
@@ -17,7 +17,7 @@ interface RouteState {
     /** 上一次的路由路径 */
     previousRoutePath: AuthRoute.RoutePath
     /** 菜单 */
-    menus: App.AdminMenu[]
+    authMenus: App.AdminMenu[]
     /** 搜索的菜单 */
     searchMenus: AuthRoute.Route[]
 }
@@ -25,7 +25,7 @@ interface RouteState {
 const initialState: RouteState = {
     isInitAuthRoute: getIsInitAuthRoute(),
     previousRoutePath: "/",
-    menus: getMenus(),
+    authMenus: getAuthMenus(),
     searchMenus: getSearchMenus()
 }
 
@@ -37,7 +37,7 @@ const routeSlice = createSlice({
             return {
                 isInitAuthRoute: false,
                 previousRoutePath: "/",
-                menus: [],
+                authMenus: [],
                 searchMenus: []
             }
         },
@@ -47,8 +47,8 @@ const routeSlice = createSlice({
         setPreviousRoutePath(state, action: PayloadAction<AuthRoute.RoutePath>) {
             return { ...state, previousRoutePath: action.payload }
         },
-        setMenus(state, action: PayloadAction<App.AdminMenu[]>) {
-            return { ...state, menus: action.payload }
+        setAuthMenus(state, action: PayloadAction<App.AdminMenu[]>) {
+            return { ...state, authMenus: action.payload }
         },
         setSearchMenus(state, action: PayloadAction<AuthRoute.Route[]>) {
             return { ...state, searchMenus: action.payload }
@@ -83,9 +83,9 @@ export function useRouteAction() {
     function setPreviousRoutePath(previousRoutePath: AuthRoute.RoutePath) {
         dispatch(routeSlice.actions.setPreviousRoutePath(previousRoutePath))
     }
-    function setMenus(menus: App.AdminMenu[]) {
-        dispatch(routeSlice.actions.setMenus(menus))
-        localStg.set("menus", menus)
+    function setAuthMenus(authMenus: App.AdminMenu[]) {
+        dispatch(routeSlice.actions.setAuthMenus(authMenus))
+        localStg.set("authMenus", authMenus)
     }
     function setSearchMenus(searchMenus: AuthRoute.Route[]) {
         dispatch(routeSlice.actions.setSearchMenus(searchMenus))
@@ -111,7 +111,7 @@ export function useRouteAction() {
      * @param routes - 权限路由
      */
     async function handleAuthRoute(routes: AuthRoute.Route[]) {
-        setMenus(transformAuthRouteToMenu(routes))
+        setAuthMenus(transformAuthRouteToMenu(routes))
         setSearchMenus(transformAuthRouteToSearchMenus(routes))
     }
 
@@ -119,7 +119,7 @@ export function useRouteAction() {
         resetRouteStore,
         setIsInitAuthRoute,
         setPreviousRoutePath,
-        setMenus,
+        setAuthMenus,
         setSearchMenus,
         initStaticRoute
     }

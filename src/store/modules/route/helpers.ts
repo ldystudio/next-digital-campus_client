@@ -1,15 +1,15 @@
 import { isArray } from "~/utils/common"
 import { localStg } from "~/utils/storage"
 
-const menus = localStg.get("menus")
+const authMenus = localStg.get("authMenus")
 const searchMenus = localStg.get("searchMenus")
 
 export function getIsInitAuthRoute() {
-    return isArray<App.AdminMenu[]>(menus) && isArray<AuthRoute.Route[]>(searchMenus)
+    return isArray<App.AdminMenu[]>(authMenus) && isArray<AuthRoute.Route[]>(searchMenus)
 }
 
-export function getMenus() {
-    return localStg.get("menus") || []
+export function getAuthMenus() {
+    return localStg.get("authMenus") || []
 }
 
 export function getSearchMenus() {
@@ -18,6 +18,6 @@ export function getSearchMenus() {
 
 /** 去除路由相关缓存 */
 export async function clearRouteStorage() {
-    localStg.remove("menus")
+    localStg.remove("authMenus")
     localStg.remove("searchMenus")
 }

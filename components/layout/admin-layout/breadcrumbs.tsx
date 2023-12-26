@@ -20,12 +20,15 @@ import { useRouteState } from "~/store/modules/route"
 import { useRouterPush } from "~/utils/router"
 
 export default function Breadcrumbs(props: BreadcrumbsProps) {
-    const { menus } = useRouteState()
+    const { authMenus } = useRouteState()
     const menuItem = useMenuItemState()
     const { routerPush } = useRouterPush()
     const parentMenuItem = useMemo(
-        () => _.find(menus, (menu) => _.some(menu.children, (child) => child.key === menuItem.key)),
-        [menus, menuItem.key]
+        () =>
+            _.find(authMenus, (menu) =>
+                _.some(menu.children, (child) => child.key === menuItem.key)
+            ),
+        [authMenus, menuItem.key]
     )
 
     return (

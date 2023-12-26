@@ -12,13 +12,13 @@ import {
 
 import { Col } from "@/components/common"
 import { useMenuItemState } from "~/store/modules/menu"
-import { getMenus } from "~/store/modules/route/helpers"
+import { getAuthMenus } from "~/store/modules/route/helpers"
 import { useRouterPush } from "~/utils/router"
 
 export default function AdminMenu() {
     const { routerPush } = useRouterPush()
     const menuItem = useMenuItemState()
-    const menus = getMenus()
+    const authMenus = getAuthMenus()
     const isClient = useIsClient()
     const { theme } = useTheme()
 
@@ -54,10 +54,10 @@ export default function AdminMenu() {
             <NextUiAccordion
                 showDivider={false} // 不显示分割符
                 itemClasses={itemClasses}
-                defaultExpandedKeys={[`${menus[0].key}`]} // 默认打开第一个
+                defaultExpandedKeys={[`${authMenus[0].key}`]} // 默认打开第一个
                 // selectionMode='multiple'
             >
-                {menus.map((item) => (
+                {authMenus.map((item) => (
                     <AccordionItem
                         key={item.key}
                         aria-label={item.label}
@@ -118,4 +118,3 @@ export default function AdminMenu() {
         </ScrollShadow>
     )
 }
-
