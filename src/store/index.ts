@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit"
 
 import authReducer from "./modules/auth"
-import menuItemReducer from "./modules/menu"
+import menuItemReducer from "./modules/menuItem"
 import routeReducer from "./modules/route"
 
 const store = configureStore({
     reducer: {
-        menu: menuItemReducer,
+        menuItem: menuItemReducer,
         route: routeReducer,
         auth: authReducer
     },
@@ -24,4 +24,7 @@ export function getRouteState() {
 
 export function getAuthState() {
     return store.getState().auth
+}
+export function getMenuItemState() {
+    return store.getState().menuItem
 }

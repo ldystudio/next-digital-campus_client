@@ -1,8 +1,5 @@
 "use client"
 
-import { useMemo } from "react"
-
-import _ from "lodash"
 import { Icon } from "@iconify/react"
 import {
     BreadcrumbItem,
@@ -15,21 +12,12 @@ import {
     Breadcrumbs as NextUiBreadcrumbs
 } from "@nextui-org/react"
 
-import { useMenuItemState } from "~/store/modules/menu"
-import { useRouteState } from "~/store/modules/route"
+import { useMenuItemState } from "~/store/modules/menuItem"
 import { useRouterPush } from "~/utils/router"
 
 export default function Breadcrumbs(props: BreadcrumbsProps) {
-    const { authMenus } = useRouteState()
-    const menuItem = useMenuItemState()
+    const { activeMenuItem, parentMenuItem } = useMenuItemState()
     const { routerPush } = useRouterPush()
-    const parentMenuItem = useMemo(
-        () =>
-            _.find(authMenus, (menu) =>
-                _.some(menu.children, (child) => child.key === menuItem.key)
-            ),
-        [authMenus, menuItem.key]
-    )
 
     return (
         <NextUiBreadcrumbs
@@ -56,18 +44,22 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
                     <DropdownTrigger>
                         <Button
                             startContent={
-                                <Icon icon={menuItem.icon ?? ""} color='#006FEE' height='auto' />
+                                <Icon
+                                    icon={activeMenuItem.icon ?? ""}
+                                    color='#006FEE'
+                                    height='auto'
+                                />
                             }
                             className='h-6 pl-0 pr-1'
                             radius='full'
                             variant='light'
                         >
-                            {menuItem.label}
+                            {activeMenuItem.label}
                         </Button>
                     </DropdownTrigger>
-                    {parentMenuItem && (
+                    {parentMenuItem.children && (
                         <DropdownMenu aria-label='Breadcrumbs Dropdown Menu'>
-                            {parentMenuItem.children!.map((child) => (
+                            {parentMenuItem.children.map((child) => (
                                 <DropdownItem
                                     key={child.key}
                                     startContent={<Icon icon={child.icon ?? ""} height='auto' />}

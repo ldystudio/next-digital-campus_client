@@ -11,13 +11,13 @@ import {
 } from "@nextui-org/react"
 
 import { Col } from "@/components/common"
-import { useMenuItemState } from "~/store/modules/menu"
+import { useMenuItemState } from "~/store/modules/menuItem"
 import { getAuthMenus } from "~/store/modules/route/helpers"
 import { useRouterPush } from "~/utils/router"
 
 export default function AdminMenu() {
     const { routerPush } = useRouterPush()
-    const menuItem = useMenuItemState()
+    const { activeMenuItem, parentMenuItem } = useMenuItemState()
     const authMenus = getAuthMenus()
     const isClient = useIsClient()
     const { theme } = useTheme()
@@ -54,7 +54,7 @@ export default function AdminMenu() {
             <NextUiAccordion
                 showDivider={false} // 不显示分割符
                 itemClasses={itemClasses}
-                defaultExpandedKeys={[`${authMenus[0].key}`]} // 默认打开第一个
+                defaultExpandedKeys={[`${parentMenuItem.key}`]}
                 // selectionMode='multiple'
             >
                 {authMenus.map((item) => (
@@ -66,7 +66,7 @@ export default function AdminMenu() {
                             <Icon
                                 icon={item.icon || ""}
                                 color={
-                                    item.label === menuItem.label
+                                    item.label === activeMenuItem.label
                                         ? "#006FEE"
                                         : theme === "light"
                                           ? "#11181C"
@@ -94,7 +94,7 @@ export default function AdminMenu() {
                                             <Icon
                                                 icon={subItem.icon || ""}
                                                 color={
-                                                    subItem.label === menuItem.label
+                                                    subItem.label === activeMenuItem.label
                                                         ? "#006FEE"
                                                         : theme === "light"
                                                           ? "#11181C"
