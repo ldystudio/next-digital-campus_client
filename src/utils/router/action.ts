@@ -15,6 +15,10 @@ export function useRouterPush() {
     const { previousRoutePath } = getRouteState()
     const { setPreviousRoutePath } = useRouteAction()
 
+    function isPushNewPage(path: AuthRoute.RoutePath) {
+        return previousRoutePath !== process.env.ROUTE_HOME_PATH && path !== previousRoutePath
+    }
+
     /**
      * 路由跳转
      * @param to - 需要跳转的路由
@@ -31,7 +35,7 @@ export function useRouterPush() {
             return Promise.resolve()
         }
 
-        if (previousRoutePath !== process.env.ROUTE_HOME_PATH && targetPath !== previousRoutePath) {
+        if (isPushNewPage(targetPath)) {
             NProgress.configure({ showSpinner: false }).start()
         }
         setPreviousRoutePath(targetPath)
@@ -84,6 +88,7 @@ export function useRouterPush() {
     }
 
     return {
+        isPushNewPage,
         routerPush,
         routerBack,
         toHome,
