@@ -1,6 +1,17 @@
+import { JudgeRenderingEnv } from "~/hooks/common"
 import { deCrypto, enCrypto } from "../crypto"
 
 function createSessionStorage<T extends StorageInterface.Session = StorageInterface.Session>() {
+    const { isServer } = JudgeRenderingEnv()
+    if (isServer) {
+        return {
+            set: () => {},
+            get: () => null,
+            remove: () => {},
+            clear: () => {}
+        }
+    }
+
     function set<K extends keyof T>(key: K, value: T[K]) {
         const json = enCrypto(value)
         sessionStorage.setItem(key as string, json)

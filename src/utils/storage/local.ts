@@ -1,3 +1,4 @@
+import { JudgeRenderingEnv } from "~/hooks/common"
 import { deCrypto, enCrypto } from "../crypto"
 
 interface StorageData<T> {
@@ -6,24 +7,33 @@ interface StorageData<T> {
 }
 
 function createLocalStorage<T extends StorageInterface.Local = StorageInterface.Local>() {
-    /** 默认缓存期限为7天 */
-    const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7
+    const { isServer } = JudgeRenderingEnv()
+    if (isServer) {
+        return {
+            set: () => {},
+            get: () => null,
+            remove: () => {},
+            clear: () => {}
+        }
+    }
 
     function set<K extends keyof T>(
         key: K,
         value: T[K],
-        expire: number | null = DEFAULT_CACHE_TIME
+        expire: number | null = process.env.LOCAL_STORAGE_CACHE_TIME
+            ? parseInt(process.env.LOCAL_STORAGE_CACHE_TIME)
+            : null
     ) {
         const storageData: StorageData<T[K]> = {
             value,
             expire: expire !== null ? new Date().getTime() + expire * 1000 : null
         }
         const json = enCrypto(storageData)
-        typeof window !== "undefined" && window.localStorage.setItem(key as string, json)
+        window.localStorage.setItem(key as string, json)
     }
 
     function get<K extends keyof T>(key: K) {
-        const json = typeof window !== "undefined" && window.localStorage.getItem(key as string)
+        const json = window.localStorage.getItem(key as string)
         if (json) {
             let storageData: StorageData<T[K]> | null = null
             try {
@@ -45,10 +55,10 @@ function createLocalStorage<T extends StorageInterface.Local = StorageInterface.
     }
 
     function remove(key: keyof T) {
-        typeof window !== "undefined" && window.localStorage.removeItem(key as string)
+        window.localStorage.removeItem(key as string)
     }
     function clear() {
-        typeof window !== "undefined" && window.localStorage.clear()
+        window.localStorage.clear()
     }
 
     return {
