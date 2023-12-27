@@ -14,7 +14,7 @@ const AnimatedCursor = dynamic(() => import("react-animated-cursor"), {
 
 export default function RootLayout({ children }: LayoutProps) {
     return (
-        <Col className='h-screen'>
+        <Col className='min-h-screen'>
             {/* <AnimatedCursor
 				innerSize={15}
 				outerSize={30}
@@ -25,12 +25,12 @@ export default function RootLayout({ children }: LayoutProps) {
 				trailingSpeed={4}
 			/> */}
             <Navbar />
-            <main className='container mx-auto max-w-7xl grow overflow-x-hidden px-6'>
+            <main className='container max-w-7xl grow overflow-x-hidden px-6'>
                 <PageTransitionEffect>{children}</PageTransitionEffect>
             </main>
             <footer
                 className={clsx(
-                    "flex w-full flex-col items-center justify-around bg-default-100 py-3 text-default-600 lg:flex-row",
+                    "mt-2 flex w-full flex-col items-center justify-around bg-default-100 py-3 text-default-600 lg:flex-row",
                     JosefinSans.className
                 )}
             >

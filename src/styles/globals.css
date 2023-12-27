@@ -58,3 +58,16 @@ input[type="password"] {
     --toastify-color-warning: #f5a524;
     --toastify-color-error: #f31260;
 }
+
+body {
+    /* 隐藏默认的滚动条样式 */
+    /* Firefox */
+    scrollbar-width: none;
+    /* IE and Edge */
+    -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+    /* Chrome, Safari, and Opera */
+    display: none;
+}
