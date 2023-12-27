@@ -1,15 +1,15 @@
 "use client"
 
-import { useIsClient } from "usehooks-ts"
+import { Skeleton } from "@nextui-org/react"
 
 import { UserCard } from "@/components/business"
 import { Col } from "@/components/common"
-import { Skeleton } from "@nextui-org/react"
+import { useClientServerCheck } from "~/hooks/common"
 
 export default function UserInfo() {
-    const isClient = useIsClient()
+    const { isServer } = useClientServerCheck()
 
-    if (!isClient) {
+    if (isServer) {
         return (
             <Col fullWidth space={3} className='max-w-[300px]'>
                 <Skeleton className='flex h-10 w-10 rounded-full lg:h-12 lg:w-12' />

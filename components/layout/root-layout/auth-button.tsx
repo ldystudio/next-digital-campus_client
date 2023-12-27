@@ -1,21 +1,21 @@
 "use client"
 
+import { useResponsive } from "ahooks"
 import { Button, NavbarItem, Skeleton } from "@nextui-org/react"
-import { useMediaQuery } from "react-responsive"
-import { useIsClient } from "usehooks-ts"
 
 import { UserCard } from "@/components/business"
 import { Col, Row } from "@/components/common"
+import { useClientServerCheck } from "~/hooks/common"
 import { useAuthAction } from "~/store/modules/auth"
 import { useRouterPush } from "~/utils/router"
 
 export default function AuthNavbarItem() {
     const { toLogin, toRegister } = useRouterPush()
     const { isLogin } = useAuthAction()
-    const isMobile = useMediaQuery({ maxWidth: 768 })
-    const isClient = useIsClient()
+    const responsive = useResponsive()
+    const { isServer } = useClientServerCheck()
 
-    if (!isClient) {
+    if (isServer) {
         return (
             <Row fullWidth space={3} className='max-w-[300px]'>
                 <div>
@@ -33,22 +33,25 @@ export default function AuthNavbarItem() {
         <NavbarItem className='flex gap-4' suppressHydrationWarning>
             {isLogin() ? (
                 <UserCard
-                    // description='Full-stack developer, @getnextui lover she/her'
                     avatarProps={{
                         isBordered: true,
-                        size: isMobile ? "sm" : "md"
+                        size: responsive?.md ? "md" : "sm"
                     }}
                     className='ml-1'
                     classNames={{ wrapper: "ml-1" }}
                 />
             ) : (
                 <>
-                    <Button variant='flat' size={isMobile ? "sm" : "md"} onClick={() => toLogin()}>
+                    <Button
+                        variant='flat'
+                        size={responsive?.md ? "md" : "sm"}
+                        onClick={() => toLogin()}
+                    >
                         登录
                     </Button>
                     <Button
                         variant='flat'
-                        size={isMobile ? "sm" : "md"}
+                        size={responsive?.md ? "md" : "sm"}
                         color='primary'
                         className='hidden md:block'
                         onClick={() => toRegister()}

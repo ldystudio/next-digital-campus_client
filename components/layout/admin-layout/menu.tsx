@@ -1,7 +1,6 @@
 "use client"
 
 import { useTheme } from "next-themes"
-import { useIsClient } from "usehooks-ts"
 import { Icon } from "@iconify/react"
 import {
     AccordionItem,
@@ -11,6 +10,7 @@ import {
 } from "@nextui-org/react"
 
 import { Col } from "@/components/common"
+import { useClientServerCheck } from "~/hooks/common"
 import { useMenuItemState } from "~/store/modules/menuItem"
 import { getAuthMenus } from "~/store/modules/route/helpers"
 import { useRouterPush } from "~/utils/router"
@@ -19,10 +19,10 @@ export default function AdminMenu() {
     const { routerPush } = useRouterPush()
     const { activeMenuItem, parentMenuItem } = useMenuItemState()
     const authMenus = getAuthMenus()
-    const isClient = useIsClient()
+    const { isServer } = useClientServerCheck()
     const { theme } = useTheme()
 
-    if (!isClient) {
+    if (isServer) {
         return (
             <ScrollShadow className='h-full w-full' size={20} hideScrollBar>
                 <Col className='mt-2 gap-y-4'>

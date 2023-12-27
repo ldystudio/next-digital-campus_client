@@ -1,12 +1,13 @@
 "use client"
 
-import { Spinner } from "@nextui-org/react"
-import { Expand } from "@theme-toggles/react"
 import clsx from "clsx"
 import { useTheme } from "next-themes"
-import { useBoolean, useEffectOnce } from "usehooks-ts"
+import { Spinner } from "@nextui-org/react"
+import { Expand } from "@theme-toggles/react"
 
 import "@theme-toggles/react/css/Expand.css"
+
+import { useClientServerCheck } from "~/hooks/common"
 
 /**
  * Switches the theme between light and dark.
@@ -15,14 +16,10 @@ import "@theme-toggles/react/css/Expand.css"
  * @return {void} No return value.
  */
 export function ThemeSwitch({ className }: { className?: string }) {
-    const { value: isMounted, setTrue } = useBoolean(false)
     const { theme, setTheme, resolvedTheme } = useTheme()
+    const { isServer } = useClientServerCheck()
 
-    useEffectOnce(() => {
-        setTrue()
-    })
-
-    if (!isMounted) {
+    if (isServer) {
         return <Spinner size='sm' color='secondary' className={clsx(className)} />
     }
 
