@@ -1,22 +1,26 @@
-import { useCountdown } from "usehooks-ts"
+import { useState } from "react"
+
+import { useCountDown } from "ahooks"
 
 export function useEmailCaptchaCountdown(seconds: number = 60) {
-    const [count, { startCountdown, resetCountdown }] = useCountdown({
-        countStart: seconds,
-        intervalMs: 1000
-    })
+    const [targetDate, setTargetDate] = useState<number>()
+    const [count] = useCountDown({ targetDate })
 
-    const CountdownText = () =>
-        count === 0 || count === seconds ? (
+    function startCountDown() {
+        setTargetDate(Date.now() + seconds * 1000)
+    }
+
+    function CountdownText() {
+        return count === 0 ? (
             <span>获取验证码</span>
         ) : (
-            <span>{count} 秒后重新获取</span>
+            <span>{Math.round(count / 1000)} 秒后重新获取</span>
         )
+    }
 
     return {
         count,
-        startCountdown,
-        resetCountdown,
+        startCountDown,
         CountdownText
     }
 }

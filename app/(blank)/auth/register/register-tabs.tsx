@@ -1,13 +1,13 @@
 "use client"
 
-import { usePathname, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
+import { usePathname, useSearchParams } from "next/navigation"
 
-import { Icon } from "@iconify/react"
-import { Button, Image, Input, RadioGroup, Tab, Tabs } from "@nextui-org/react"
 import { AnimatePresence, motion } from "framer-motion"
 import NProgress from "nprogress"
 import toast from "react-hot-toast"
+import { Icon } from "@iconify/react"
+import { Button, Image, Input, RadioGroup, Tab, Tabs } from "@nextui-org/react"
 
 import { CardRadio, Col, Link, PasswordInput, Row } from "@/components/common"
 import { colorfulFlag } from "@/components/toys"
@@ -57,7 +57,7 @@ export default function RegisterTabs() {
     const { avatar, setAvatar, avatarList, setAvatarList, generateAvatars, avatarListKeys } =
         useAvatarList()
 
-    const { count, startCountdown, resetCountdown, CountdownText } = useEmailCaptchaCountdown()
+    const { count, startCountDown, CountdownText } = useEmailCaptchaCountdown()
 
     const generateTraceId = () => `${Math.random().toString(36).slice(-8)}${Date.now()}`
     const [traceId, setTraceId] = useState(generateTraceId())
@@ -73,16 +73,11 @@ export default function RegisterTabs() {
             return
         }
 
-        if (count === 0) {
-            resetCountdown()
-        }
-
         const { error } = await fetchSmtpCode(email, traceId)
         if (error) return
 
         toast.success("验证码发送成功，有效期30分钟~")
-
-        startCountdown()
+        startCountDown()
     }
 
     function moveTab(name: tabValue) {

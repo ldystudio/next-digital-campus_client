@@ -1,8 +1,10 @@
 "use client"
 
-import { usePathname, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
+import { usePathname, useSearchParams } from "next/navigation"
 
+import NProgress from "nprogress"
+import toast from "react-hot-toast"
 import { Icon } from "@iconify/react"
 import {
     Avatar,
@@ -15,8 +17,6 @@ import {
     Tabs,
     Tooltip
 } from "@nextui-org/react"
-import NProgress from "nprogress"
-import toast from "react-hot-toast"
 
 import { Col, Link, ListBoxWrapper, PasswordInput, Row } from "@/components/common"
 import { useAuthForm, useEmailCaptchaCountdown } from "~/hooks/business"
@@ -54,7 +54,7 @@ export default function LoginTabs() {
         isInvalidEmailCaptcha
     } = useAuthForm()
 
-    const { count, startCountdown, resetCountdown, CountdownText } = useEmailCaptchaCountdown()
+    const { count, startCountDown, CountdownText } = useEmailCaptchaCountdown()
 
     const generateTraceId = () => `${Math.random().toString(36).slice(-8)}${Date.now()}`
     const [traceId, setTraceId] = useState(generateTraceId())
@@ -71,15 +71,11 @@ export default function LoginTabs() {
             return
         }
 
-        if (count === 0) {
-            resetCountdown()
-        }
-
         const { error } = await fetchSmtpCode(email, traceId)
         if (error) return
 
         toast.success("验证码发送成功，有效期30分钟~")
-        startCountdown()
+        startCountDown()
     }
 
     const otherLoginList = [
