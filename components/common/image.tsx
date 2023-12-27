@@ -2,9 +2,9 @@
 
 import NextImage, { ImageProps as NextImageProps } from "next/image"
 
-import { Image as NextUiImage, ImageProps as NextUiImageProps } from "@nextui-org/react"
+import { useResponsive } from "ahooks"
 import clsx from "clsx"
-import { useMediaQuery } from "react-responsive"
+import { Image as NextUiImage, ImageProps as NextUiImageProps } from "@nextui-org/react"
 
 import { isNumber } from "~/utils/common"
 
@@ -29,10 +29,10 @@ export function Image({
     className,
     ...otherProps
 }: ImageProps) {
-    const isPortrait = useMediaQuery({ orientation: "portrait" })
+    const responsive = useResponsive()
 
     width = isNumber(width) ? [width, width] : width
-    const imgWidth = isPortrait ? width[1] : width[0]
+    const imgWidth = responsive?.md ? width[0] : width[1]
     const imgHeight = Math.round((imgWidth * originalSize.height) / originalSize.width)
 
     return (

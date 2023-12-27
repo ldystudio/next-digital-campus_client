@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 
+import { useResponsive } from "ahooks"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
-import { useMediaQuery } from "react-responsive"
 
 export function useAvatarList() {
     const [avatar, setAvatar] = useState("")
@@ -21,10 +21,11 @@ export function useAvatarList() {
         return avatars
     }
 
+    const responsive = useResponsive()
     // 竖屏设备显示9个头像，否则显示12个
-    const avatarListKeys: string[] = useMediaQuery({ orientation: "portrait" })
-        ? Array.from(avatarList.keys()).slice(3)
-        : Array.from(avatarList.keys())
+    const avatarListKeys: string[] = responsive?.md
+        ? Array.from(avatarList.keys())
+        : Array.from(avatarList.keys()).slice(3)
 
     return { avatar, setAvatar, avatarList, setAvatarList, generateAvatars, avatarListKeys }
 }
