@@ -1,5 +1,13 @@
-import { redirect } from "next/navigation"
+"use client"
+
+import { useEffect } from "react"
+
+import { useRouterPush } from "~/utils/router"
 
 export default function RedirectPage() {
-    redirect("/index")
+    const { routerPush } = useRouterPush()
+
+    useEffect(() => {
+        routerPush("/index")
+    })
 }
