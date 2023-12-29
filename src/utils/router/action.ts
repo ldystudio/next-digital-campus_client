@@ -57,7 +57,7 @@ export function useRouterPush() {
      * @param newTab - 在新的浏览器标签打开
      */
     function toHome(newTab = false) {
-        routerPush("/", undefined, newTab)
+        routerPush("/index", undefined, newTab)
         NProgress.done()
     }
 

@@ -5,10 +5,10 @@ import { useEffect } from "react"
 import { useRouterPush } from "~/utils/router"
 
 export default function RedirectPage() {
-    const { routerPush } = useRouterPush()
+    const { toHome } = useRouterPush()
 
     useEffect(() => {
-        routerPush("/index")
+        toHome()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 }
