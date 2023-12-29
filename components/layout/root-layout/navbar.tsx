@@ -1,3 +1,4 @@
+import clsx from "clsx"
 import {
     link as linkStyles,
     NavbarBrand,
@@ -8,7 +9,6 @@ import {
     NavbarMenuToggle,
     Navbar as NextUINavbar
 } from "@nextui-org/react"
-import clsx from "clsx"
 
 import { GithubIcon, Link, Logo, ThemeSwitch } from "@/components/common"
 import { siteConfig } from "~/config"
@@ -87,7 +87,7 @@ export default function Navbar() {
                                 color={
                                     index === 2
                                         ? "primary"
-                                        : index === siteConfig.sideMenuItems.length - 1
+                                        : index === siteConfig.navItems.length - 1
                                           ? "danger"
                                           : "foreground"
                                 }

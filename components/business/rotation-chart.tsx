@@ -67,7 +67,7 @@ export function RotationChart() {
                         </CardHeader>
                         <CardBody className='items-center'>
                             <p className='text-xl text-default-900'>{item.name}</p>
-                            <p className='text-md text-default-500'>{item.description}</p>
+                            <p className='text-medium text-default-500'>{item.description}</p>
                         </CardBody>
                         <CardFooter className='justify-center'>
                             <Iconify icon='solar:calendar-mark-bold-duotone' color='#f4f4f5' />
