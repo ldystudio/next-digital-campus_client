@@ -61,9 +61,9 @@ export function useAuthAction() {
     const dispatch = useAppDispatch()
 
     async function resetAuthStore() {
+        toHome()
         await clearAuthStorage()
         dispatch(authSlice.actions.resetAuthStore())
-        toHome()
     }
     function setIsLoading(isLoading: boolean) {
         dispatch(authSlice.actions.setIsLoading(isLoading))

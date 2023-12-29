@@ -7,10 +7,6 @@ export const siteConfig = {
             href: "/index"
         },
         {
-            label: "管理",
-            href: "/dashboard/analysis"
-        },
-        {
             label: "关于",
             href: "/about"
         },

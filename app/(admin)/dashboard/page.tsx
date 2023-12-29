@@ -7,6 +7,6 @@ export default function RedirectPage() {
     const { routerPush } = useRouterPush()
 
     useEffectOnce(() => {
-        routerPush("/index")
+        routerPush("/dashboard/analysis")
     })
 }
