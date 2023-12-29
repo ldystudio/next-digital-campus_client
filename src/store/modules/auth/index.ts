@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { setCookie } from "cookies-next"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { notice } from "@/components/common"
 import { useAppDispatch, useAppSelector } from "~/hooks/common"

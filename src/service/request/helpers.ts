@@ -1,7 +1,8 @@
 import type { AxiosRequestConfig } from "axios"
-// import { useAuthStore } from "~/store";
 import { setCookie } from "cookies-next"
 
+import { clearAuthStorage } from "~/store/modules/auth/helpers"
+import { clearRouteStorage } from "~/store/modules/route/helpers"
 import { localStg } from "~/utils/storage"
 import { fetchUpdateToken } from "../api"
 
@@ -10,7 +11,6 @@ import { fetchUpdateToken } from "../api"
  * @param axiosConfig - token失效时的请求配置
  */
 export async function handleRefreshToken(axiosConfig: AxiosRequestConfig) {
-    // const { resetAuthStore } = useAuthStore();
     const refreshToken = localStg.get("refreshToken") || ""
     const { data } = await fetchUpdateToken(refreshToken)
     if (data) {
@@ -18,16 +18,13 @@ export async function handleRefreshToken(axiosConfig: AxiosRequestConfig) {
             maxAge: parseInt(process.env.TOKEN_LIFETIME!),
             sameSite: true
         })
-        // localStg.set("token", `Bearer ${data.token}`)
         localStg.set("refreshToken", data.refreshToken)
 
-        const config = { ...axiosConfig }
-        if (config.headers) {
-            config.headers.Authorization = data.accessToken
-        }
-        return config
+        return { ...axiosConfig }
     }
 
-    // resetAuthStore();
+    window.location.href = "/auth/login"
+    await clearAuthStorage()
+    await clearRouteStorage()
     return null
 }
