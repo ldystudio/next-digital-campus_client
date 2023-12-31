@@ -80,7 +80,9 @@ export default function HomePage() {
                     priority
                 ></Image>
             </section>
-            <section className={`grid grid-cols-2 gap-4 lg:grid-cols-3 ${NotoSansSC.className}`}>
+            <section
+                className={`grid grid-cols-2 gap-4 lg:grid-cols-3 ${NotoSansSC.className}`}
+            >
                 {introduce.map((item, index) => (
                     <Card
                         isBlurred
@@ -90,7 +92,7 @@ export default function HomePage() {
                         className='bg-default-100'
                     >
                         <CardHeader className='space-x-2'>
-                            <Iconify icon={item.icon} height={30} color='#006FEE' />
+                            <Iconify icon={item.icon} height={30} color='primary' />
                             <p className='font-bold'>{item.title}</p>
                         </CardHeader>
                         <CardBody className='mb-2 pt-0'>

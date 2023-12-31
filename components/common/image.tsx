@@ -8,7 +8,8 @@ import { Image as NextUiImage, ImageProps as NextUiImageProps } from "@nextui-or
 
 import { isNumber } from "~/utils/common"
 
-type NextImagePropsMixin = Omit<NextImageProps, "src" | "width"> & Omit<NextUiImageProps, "width">
+type NextImagePropsMixin = Omit<NextImageProps, "src" | "width"> &
+    Omit<NextUiImageProps, "width">
 
 interface ImageProps extends NextImagePropsMixin {
     // 统一宽度 | 在电脑上的宽度、在手机上的宽度

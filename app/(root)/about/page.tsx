@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
+import { button as buttonStyles } from "@nextui-org/react"
 
 import { Link } from "@/components/common"
 import { title } from "@/components/custom"
-import { button as buttonStyles } from "@nextui-org/react"
 
 export const metadata: Metadata = {
     title: "关于"

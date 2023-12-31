@@ -9,7 +9,12 @@ import {
     transformAuthRouteToSearchMenus
 } from "~/utils/router"
 import { localStg } from "~/utils/storage"
-import { clearRouteStorage, getAuthMenus, getIsInitAuthRoute, getSearchMenus } from "./helpers"
+import {
+    clearRouteStorage,
+    getAuthMenus,
+    getIsInitAuthRoute,
+    getSearchMenus
+} from "./helpers"
 
 interface RouteState {
     /** 是否初始化了权限路由 */
@@ -67,8 +72,8 @@ export function useRouteAction() {
     const { data: previousQueryData, refetch } = useQuery({
         queryKey: ["staticRoutes"],
         queryFn: async (): Promise<AuthRoute.Route[] | null> =>
-            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/staticRoutes`).then((res) =>
-                res.json()
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/staticRoutes`).then(
+                (res) => res.json()
             ),
         staleTime: Infinity
     })

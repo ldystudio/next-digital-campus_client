@@ -38,7 +38,8 @@ export function handleAxiosError(axiosError: AxiosError) {
         ],
         [
             // 超时错误
-            axiosError.code === REQUEST_TIMEOUT_CODE && axiosError.message.includes("timeout"),
+            axiosError.code === REQUEST_TIMEOUT_CODE &&
+                axiosError.message.includes("timeout"),
             () => {
                 Object.assign(error, {
                     code: REQUEST_TIMEOUT_CODE,
@@ -52,7 +53,10 @@ export function handleAxiosError(axiosError: AxiosError) {
             () => {
                 const errorCode: ErrorStatus =
                     (axiosError.response?.status as ErrorStatus) || "DEFAULT"
-                const msg = axiosError.message === "" ? ERROR_STATUS[errorCode] : axiosError.message
+                const msg =
+                    axiosError.message === ""
+                        ? ERROR_STATUS[errorCode]
+                        : axiosError.message
                 Object.assign(error, { code: errorCode, msg })
             }
         ]

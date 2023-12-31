@@ -1,6 +1,8 @@
-export function JudgeRenderingEnv() {
+export function judgeRenderingEnv() {
     const isDOM =
-        typeof window !== "undefined" && window.document && window.document.documentElement
+        typeof window !== "undefined" &&
+        window.document &&
+        window.document.documentElement
 
     return {
         isBrowser: isDOM,

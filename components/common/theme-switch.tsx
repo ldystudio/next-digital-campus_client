@@ -27,7 +27,10 @@ export function ThemeSwitch({ className }: { className?: string }) {
     function handleSwitch(event: React.MouseEvent<HTMLElement, MouseEvent>) {
         const x = event.clientX
         const y = event.clientY
-        const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
+        const endRadius = Math.hypot(
+            Math.max(x, innerWidth - x),
+            Math.max(y, innerHeight - y)
+        )
         // Check if Transition API is supported
         // If not, directly update the theme
         // @ts-expect-error: Transition API
@@ -65,7 +68,10 @@ export function ThemeSwitch({ className }: { className?: string }) {
     return (
         // Render the theme switch button
         <div
-            className={clsx("flex cursor-pointer items-center justify-center", className)}
+            className={clsx(
+                "flex cursor-pointer items-center justify-center",
+                className
+            )}
             onClick={(e) => handleSwitch(e)}
         >
             <Expand duration={750} toggled={resolvedTheme === "light"} />

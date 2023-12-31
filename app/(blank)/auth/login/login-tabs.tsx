@@ -5,7 +5,6 @@ import { usePathname, useSearchParams } from "next/navigation"
 
 import NProgress from "nprogress"
 import toast from "react-hot-toast"
-import { Icon } from "@iconify/react"
 import {
     Avatar,
     Button,
@@ -18,7 +17,14 @@ import {
     Tooltip
 } from "@nextui-org/react"
 
-import { Col, Link, ListBoxWrapper, PasswordInput, Row } from "@/components/common"
+import {
+    Col,
+    Iconify,
+    Link,
+    ListBoxWrapper,
+    PasswordInput,
+    Row
+} from "@/components/common"
 import { useAuthForm, useEmailCaptchaCountdown } from "~/hooks/business"
 import { fetchSmtpCode } from "~/service/api"
 import { useAuthAction, useAuthState } from "~/store/modules/auth"
@@ -105,14 +111,18 @@ export default function LoginTabs() {
                         type='text'
                         value={username}
                         isInvalid={verificationFailed && isInvalidUsername}
-                        color={verificationFailed && isInvalidUsername ? "danger" : "default"}
+                        color={
+                            verificationFailed && isInvalidUsername
+                                ? "danger"
+                                : "default"
+                        }
                         errorMessage={
                             verificationFailed &&
                             isInvalidUsername &&
                             "用户名应为4~16位的字母、数字或_-"
                         }
                         onValueChange={setUsername}
-                        startContent={<Icon icon='solar:user-circle-bold-duotone' height='auto' />}
+                        startContent={<Iconify icon='solar:user-circle-bold-duotone' />}
                     />
                     <PasswordInput
                         isRequired
@@ -120,7 +130,11 @@ export default function LoginTabs() {
                         type='password'
                         value={password}
                         isInvalid={verificationFailed && isInvalidPassword}
-                        color={verificationFailed && isInvalidPassword ? "danger" : "default"}
+                        color={
+                            verificationFailed && isInvalidPassword
+                                ? "danger"
+                                : "default"
+                        }
                         errorMessage={
                             verificationFailed &&
                             isInvalidPassword &&
@@ -128,10 +142,7 @@ export default function LoginTabs() {
                         }
                         onValueChange={setPassword}
                         startContent={
-                            <Icon
-                                icon='solar:password-minimalistic-input-bold-duotone'
-                                height='auto'
-                            />
+                            <Iconify icon='solar:password-minimalistic-input-bold-duotone' />
                         }
                     />
                     <Row fullWidth items='start'>
@@ -142,7 +153,11 @@ export default function LoginTabs() {
                             type='text'
                             value={captcha}
                             isInvalid={verificationFailed && isInvalidCaptcha}
-                            color={verificationFailed && isInvalidCaptcha ? "danger" : "default"}
+                            color={
+                                verificationFailed && isInvalidCaptcha
+                                    ? "danger"
+                                    : "default"
+                            }
                             errorMessage={
                                 verificationFailed &&
                                 isInvalidCaptcha &&
@@ -150,7 +165,7 @@ export default function LoginTabs() {
                             }
                             onValueChange={setCaptcha}
                             startContent={
-                                <Icon icon='solar:copyright-bold-duotone' height='auto' />
+                                <Iconify icon='solar:copyright-bold-duotone' />
                             }
                         />
                         <Tooltip content='点击切换验证码' placement='bottom'>
@@ -182,7 +197,11 @@ export default function LoginTabs() {
                                 }
 
                                 // 如果有错误，开启表单错误显示
-                                if (isInvalidUsername || isInvalidPassword || isInvalidCaptcha) {
+                                if (
+                                    isInvalidUsername ||
+                                    isInvalidPassword ||
+                                    isInvalidCaptcha
+                                ) {
                                     setVerificationFailed(true)
                                     return
                                 }
@@ -209,10 +228,14 @@ export default function LoginTabs() {
                         type='email'
                         value={email}
                         isInvalid={verificationFailed && isInvalidEmail}
-                        color={verificationFailed && isInvalidEmail ? "danger" : "default"}
-                        errorMessage={verificationFailed && isInvalidEmail && "邮箱格式错误"}
+                        color={
+                            verificationFailed && isInvalidEmail ? "danger" : "default"
+                        }
+                        errorMessage={
+                            verificationFailed && isInvalidEmail && "邮箱格式错误"
+                        }
                         onValueChange={setEmail}
-                        startContent={<Icon icon='solar:mailbox-bold-duotone' height='auto' />}
+                        startContent={<Iconify icon='solar:mailbox-bold-duotone' />}
                     />
                     <Row fullWidth items='start'>
                         <Input
@@ -223,14 +246,18 @@ export default function LoginTabs() {
                             value={emailCaptcha}
                             isInvalid={verificationFailed && isInvalidEmailCaptcha}
                             color={
-                                verificationFailed && isInvalidEmailCaptcha ? "danger" : "default"
+                                verificationFailed && isInvalidEmailCaptcha
+                                    ? "danger"
+                                    : "default"
                             }
                             errorMessage={
-                                verificationFailed && isInvalidEmailCaptcha && "验证码应是6位的数字"
+                                verificationFailed &&
+                                isInvalidEmailCaptcha &&
+                                "验证码应是6位的数字"
                             }
                             onValueChange={setEmailCaptcha}
                             startContent={
-                                <Icon icon='solar:copyright-bold-duotone' height='auto' />
+                                <Iconify icon='solar:copyright-bold-duotone' />
                             }
                         />
                         <div className='rounded-xl border-8 border-default-100 bg-default-100'>

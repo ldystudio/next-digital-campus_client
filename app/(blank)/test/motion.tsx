@@ -60,12 +60,20 @@ export default function Motion() {
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
             <div className='container'>
-                <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }} className='title'>
+                <motion.div
+                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
+                    className='title'
+                >
                     <h1>Select a protein</h1>
                 </motion.div>
                 <motion.div variants={stagger} className='product-row'>
                     {products.map((product: any) => (
-                        <Link key={product.id} href='/products/[id]' as={`/products/${product.id}`}>
+                        <Link
+                            key={product.id}
+                            href='/products/[id]'
+                            as={`/products/${product.id}`}
+                        >
                             <motion.div
                                 variants={fadeInUp}
                                 whileHover={{ scale: 1.05 }}

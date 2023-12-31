@@ -1,4 +1,9 @@
-import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios"
+import type {
+    AxiosError,
+    AxiosInstance,
+    AxiosRequestConfig,
+    AxiosResponse
+} from "axios"
 import axios from "axios"
 
 import { REFRESH_TOKEN_CODE } from "~/config"
@@ -49,8 +54,13 @@ export default class CustomAxiosInstance {
                 const handleConfig = { ...config }
                 if (handleConfig.headers) {
                     // 数据转换
-                    const contentType = handleConfig.headers["Content-Type"] as UnionKey.ContentType
-                    handleConfig.data = await transformRequestData(handleConfig.data, contentType)
+                    const contentType = handleConfig.headers[
+                        "Content-Type"
+                    ] as UnionKey.ContentType
+                    handleConfig.data = await transformRequestData(
+                        handleConfig.data,
+                        contentType
+                    )
                     // 设置token
                     // handleConfig.headers.Authorization = localStg.get("token") || ""
                 }
@@ -86,7 +96,9 @@ export default class CustomAxiosInstance {
                 }
                 const error = handleResponseError(response)
                 return handleServiceResult(error, null)
-            }) as (response: AxiosResponse<any, any>) => Promise<AxiosResponse<any, any>>,
+            }) as (
+                response: AxiosResponse<any, any>
+            ) => Promise<AxiosResponse<any, any>>,
             (axiosError: AxiosError<ErrorResponse>) => {
                 axiosError.message = axiosError.response?.data?.msg || ""
                 const error = handleAxiosError(axiosError)

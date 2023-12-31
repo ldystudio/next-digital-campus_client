@@ -31,7 +31,12 @@ export default function NotFoundPage() {
                 >
                     返回
                 </Button>
-                <Button variant='solid' radius='full' color='secondary' onClick={() => toHome()}>
+                <Button
+                    variant='solid'
+                    radius='full'
+                    color='secondary'
+                    onClick={() => toHome()}
+                >
                     首页
                 </Button>
             </Row>

@@ -59,7 +59,8 @@ input[type="password"] {
     --toastify-color-error: #f31260;
 }
 
-body {
+body,
+.message-dropdown {
     /* 隐藏默认的滚动条样式 */
     /* Firefox */
     scrollbar-width: none;
@@ -67,7 +68,8 @@ body {
     -ms-overflow-style: none;
 }
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+.message-dropdown::-webkit-scrollbar {
     /* Chrome, Safari, and Opera */
     display: none;
 }

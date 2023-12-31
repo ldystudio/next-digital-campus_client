@@ -1,7 +1,9 @@
-import { Button, Card } from "@nextui-org/react"
+import { Card } from "@nextui-org/react"
 
-import { Col, Iconify, Link, Logo, Row, ThemeSwitch } from "@/components/common"
+import { Col, Link, Logo, Row, ThemeSwitch } from "@/components/common"
+import Logout from "./logout"
 import AdminMenu from "./menu"
+import Message from "./message"
 import UserInfo from "./user-info"
 
 /**
@@ -25,12 +27,8 @@ export default function Side(): JSX.Element {
                 <UserInfo />
                 <Row>
                     <ThemeSwitch />
-                    <Button isIconOnly size='sm' variant='light'>
-                        <Iconify icon='solar:chat-line-bold-duotone' />
-                    </Button>
-                    <Button isIconOnly size='sm' variant='light'>
-                        <Iconify icon='solar:logout-3-bold-duotone' rotate={90} />
-                    </Button>
+                    <Message />
+                    <Logout />
                 </Row>
             </Col>
         </Card>

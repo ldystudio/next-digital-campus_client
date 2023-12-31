@@ -39,7 +39,10 @@ export function transformRoutePathToRouteName<K extends AuthRoute.RoutePath>(pat
     const pathSplitMark = "/"
     const routeSplitMark = "_"
 
-    const name = path.split(pathSplitMark).slice(1).join(routeSplitMark) as AuthRoute.AllRouteKey
+    const name = path
+        .split(pathSplitMark)
+        .slice(1)
+        .join(routeSplitMark) as AuthRoute.AllRouteKey
 
     return name
 }

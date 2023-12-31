@@ -24,7 +24,11 @@ export default function Test() {
             <section className='mt-2 space-x-2 bg-red-200 p-2'>
                 <Button
                     onClick={() =>
-                        setUserInfo({ userId: "100", userName: "test", userRole: "admin" })
+                        setUserInfo({
+                            userId: "100",
+                            userName: "test",
+                            userRole: "admin"
+                        })
                     }
                 >
                     设置
@@ -72,7 +76,9 @@ export default function Test() {
                 <p>isInitAuthRoute: {`${isInitAuthRoute}`}</p>
                 <p>authMenus: {`${JSON.stringify(authMenus)}`}</p>
                 <p>searchMenus: {`${JSON.stringify(searchMenus)}`}</p>
-                <Button onClick={() => setIsInitAuthRoute(!isInitAuthRoute)}>转换</Button>
+                <Button onClick={() => setIsInitAuthRoute(!isInitAuthRoute)}>
+                    转换
+                </Button>
                 <Button onClick={() => resetRouteStore()}>重置</Button>
             </section>
             <section>

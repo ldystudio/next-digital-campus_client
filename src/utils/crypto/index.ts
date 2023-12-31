@@ -1,6 +1,7 @@
 import CryptoJS from "crypto-js"
 
-const CryptoSecret = "__NextCampus_CRYPTO_Secret__rxqZQKQdgK6UeiASFVCBURvX6P23ae6lkaCpHKoFp1g="
+const CryptoSecret =
+    "__NextCampus_CRYPTO_Secret__rxqZQKQdgK6UeiASFVCBURvX6P23ae6lkaCpHKoFp1g="
 
 /**
  * 加密数据

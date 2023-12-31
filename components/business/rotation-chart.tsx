@@ -1,6 +1,6 @@
-import { Card, CardBody, CardFooter, CardHeader, Image } from "@nextui-org/react"
 import { EffectCards } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
+import { Card, CardBody, CardFooter, CardHeader, Image } from "@nextui-org/react"
 
 import { Iconify } from "@/components/common"
 
@@ -67,16 +67,24 @@ export function RotationChart() {
                         </CardHeader>
                         <CardBody className='items-center'>
                             <p className='text-xl text-default-900'>{item.name}</p>
-                            <p className='text-medium text-default-500'>{item.description}</p>
+                            <p className='text-medium text-default-500'>
+                                {item.description}
+                            </p>
                         </CardBody>
                         <CardFooter className='justify-center'>
-                            <Iconify icon='solar:calendar-mark-bold-duotone' color='#f4f4f5' />
+                            <Iconify
+                                icon='solar:calendar-mark-bold-duotone'
+                                color='light'
+                            />
                             <Iconify
                                 icon='solar:chat-round-dots-bold-duotone'
-                                color='#f4f4f5'
+                                color='light'
                                 className='mx-unit-lg'
                             />
-                            <Iconify icon='solar:clock-circle-bold-duotone' color='#f4f4f5' />
+                            <Iconify
+                                icon='solar:clock-circle-bold-duotone'
+                                color='light'
+                            />
                         </CardFooter>
                     </Card>
                 </SwiperSlide>

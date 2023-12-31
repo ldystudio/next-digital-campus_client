@@ -6,10 +6,9 @@ import { usePathname, useSearchParams } from "next/navigation"
 import { AnimatePresence, motion } from "framer-motion"
 import NProgress from "nprogress"
 import toast from "react-hot-toast"
-import { Icon } from "@iconify/react"
 import { Button, Image, Input, RadioGroup, Tab, Tabs } from "@nextui-org/react"
 
-import { CardRadio, Col, Link, PasswordInput, Row } from "@/components/common"
+import { CardRadio, Col, Iconify, Link, PasswordInput, Row } from "@/components/common"
 import { colorfulFlag } from "@/components/toys"
 import { useAuthForm, useAvatarList, useEmailCaptchaCountdown } from "~/hooks/business"
 import { fetchSmtpCode } from "~/service/api"
@@ -26,7 +25,11 @@ export default function RegisterTabs() {
         NProgress.done()
     }, [pathname, searchParams])
 
-    const tabList: tabValue[] = ["EmailRegister", "FillInTheInformation", "ChooseAnAvatar"]
+    const tabList: tabValue[] = [
+        "EmailRegister",
+        "FillInTheInformation",
+        "ChooseAnAvatar"
+    ]
     const [selectedTab, setSelectedTab] = useState<tabValue>("EmailRegister")
     const [disabledKeysList, setDisabledKeysList] = useState<tabValue[]>(
         tabList.filter((tab) => tab !== "EmailRegister")
@@ -54,8 +57,14 @@ export default function RegisterTabs() {
         isInvalidConfirmPassword
     } = useAuthForm()
 
-    const { avatar, setAvatar, avatarList, setAvatarList, generateAvatars, avatarListKeys } =
-        useAvatarList()
+    const {
+        avatar,
+        setAvatar,
+        avatarList,
+        setAvatarList,
+        generateAvatars,
+        avatarListKeys
+    } = useAvatarList()
 
     const { count, startCountDown, CountdownText } = useEmailCaptchaCountdown()
 
@@ -119,10 +128,16 @@ export default function RegisterTabs() {
                             type='email'
                             value={email}
                             isInvalid={verificationFailed && isInvalidEmail}
-                            color={verificationFailed && isInvalidEmail ? "danger" : "default"}
-                            errorMessage={verificationFailed && isInvalidEmail && "邮箱格式错误"}
+                            color={
+                                verificationFailed && isInvalidEmail
+                                    ? "danger"
+                                    : "default"
+                            }
+                            errorMessage={
+                                verificationFailed && isInvalidEmail && "邮箱格式错误"
+                            }
                             onValueChange={setEmail}
-                            startContent={<Icon icon='solar:mailbox-bold-duotone' height='auto' />}
+                            startContent={<Iconify icon='solar:mailbox-bold-duotone' />}
                         />
                         <Row fullWidth>
                             <Input
@@ -144,7 +159,7 @@ export default function RegisterTabs() {
                                 }
                                 onValueChange={setEmailCaptcha}
                                 startContent={
-                                    <Icon icon='solar:copyright-bold-duotone' height='auto' />
+                                    <Iconify icon='solar:copyright-bold-duotone' />
                                 }
                             />
                             <div className='rounded-xl border-8 border-default-100 bg-default-100'>
@@ -162,7 +177,9 @@ export default function RegisterTabs() {
                             orientation='horizontal'
                             defaultValue='student'
                             value={roleType}
-                            onValueChange={(value) => setRoleType(value as Auth.RoleType)}
+                            onValueChange={(value) =>
+                                setRoleType(value as Auth.RoleType)
+                            }
                         >
                             <div className='grid grid-cols-2 gap-10'>
                                 <CardRadio
@@ -232,7 +249,11 @@ export default function RegisterTabs() {
                             type='text'
                             value={username}
                             isInvalid={verificationFailed && isInvalidUsername}
-                            color={verificationFailed && isInvalidUsername ? "danger" : "default"}
+                            color={
+                                verificationFailed && isInvalidUsername
+                                    ? "danger"
+                                    : "default"
+                            }
                             errorMessage={
                                 verificationFailed &&
                                 isInvalidUsername &&
@@ -240,7 +261,7 @@ export default function RegisterTabs() {
                             }
                             onValueChange={setUsername}
                             startContent={
-                                <Icon icon='solar:user-circle-bold-duotone' height='auto' />
+                                <Iconify icon='solar:user-circle-bold-duotone' />
                             }
                         />
                         <PasswordInput
@@ -249,7 +270,11 @@ export default function RegisterTabs() {
                             type='password'
                             value={password}
                             isInvalid={verificationFailed && isInvalidPassword}
-                            color={verificationFailed && isInvalidPassword ? "danger" : "default"}
+                            color={
+                                verificationFailed && isInvalidPassword
+                                    ? "danger"
+                                    : "default"
+                            }
                             errorMessage={
                                 verificationFailed &&
                                 isInvalidPassword &&
@@ -257,16 +282,10 @@ export default function RegisterTabs() {
                             }
                             onValueChange={setPassword}
                             startContent={
-                                <Icon
-                                    icon='solar:password-minimalistic-input-bold-duotone'
-                                    height='auto'
-                                />
+                                <Iconify icon='solar:password-minimalistic-input-bold-duotone' />
                             }
                             endContent={
-                                <Icon
-                                    icon='solar:password-minimalistic-input-bold-duotone'
-                                    height='auto'
-                                />
+                                <Iconify icon='solar:password-minimalistic-input-bold-duotone' />
                             }
                             className='appearance-none'
                         />
@@ -277,10 +296,12 @@ export default function RegisterTabs() {
                             value={confirmPassword}
                             isInvalid={isInvalidConfirmPassword}
                             color={isInvalidConfirmPassword ? "danger" : "default"}
-                            errorMessage={isInvalidConfirmPassword && "两次密码输入不一致"}
+                            errorMessage={
+                                isInvalidConfirmPassword && "两次密码输入不一致"
+                            }
                             onValueChange={setConfirmPassword}
                             startContent={
-                                <Icon icon='solar:restart-circle-bold-duotone' height='auto' />
+                                <Iconify icon='solar:restart-circle-bold-duotone' />
                             }
                             className='appearance-none'
                         />
@@ -335,7 +356,11 @@ export default function RegisterTabs() {
                                     {avatarListKeys.map((avatarKey) => (
                                         <motion.div
                                             key={avatarKey}
-                                            initial={{ opacity: 0, scale: 0, skewY: 30 }}
+                                            initial={{
+                                                opacity: 0,
+                                                scale: 0,
+                                                skewY: 30
+                                            }}
                                             animate={{ opacity: 1, scale: 1, skewY: 0 }}
                                             exit={{ opacity: 0, scale: 0, skewY: -30 }}
                                             transition={{ duration: 0.3 }}

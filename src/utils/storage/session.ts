@@ -1,8 +1,10 @@
-import { JudgeRenderingEnv } from "~/hooks/common"
+import { judgeRenderingEnv } from "~/hooks/common"
 import { deCrypto, enCrypto } from "../crypto"
 
-function createSessionStorage<T extends StorageInterface.Session = StorageInterface.Session>() {
-    const { isServer } = JudgeRenderingEnv()
+function createSessionStorage<
+    T extends StorageInterface.Session = StorageInterface.Session
+>() {
+    const { isServer } = judgeRenderingEnv()
     if (isServer) {
         return {
             set: () => {},

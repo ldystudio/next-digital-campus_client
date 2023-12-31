@@ -41,7 +41,8 @@ export function useAuthForm() {
         isInvalidField: isInvalidUsername
     } = useFormValidation(REGEXP_USERNAME, "Liudy")
     const [confirmPassword, setConfirmPassword] = useState("")
-    const isInvalidConfirmPassword = confirmPassword !== "" && password !== confirmPassword
+    const isInvalidConfirmPassword =
+        confirmPassword !== "" && password !== confirmPassword
 
     return {
         isLoading,

@@ -7,7 +7,9 @@ export function filterAuthRoutesByUserPermission(
     routes: AuthRoute.Route[],
     permission: Auth.RoleType
 ) {
-    return routes.map((route) => filterAuthRouteByUserPermission(route, permission)).flat(1)
+    return routes
+        .map((route) => filterAuthRouteByUserPermission(route, permission))
+        .flat(1)
 }
 
 /**

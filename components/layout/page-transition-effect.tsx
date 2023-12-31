@@ -1,8 +1,8 @@
 "use client"
 
+import { useContext, useRef } from "react"
 import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime"
 import { usePathname } from "next/navigation"
-import { useContext, useRef } from "react"
 
 import clsx from "clsx"
 import { AnimatePresence, motion, Variants } from "framer-motion"
@@ -25,10 +25,18 @@ function FrozenRouter({ children }: LayoutProps) {
         return <>{children}</>
     }
 
-    return <LayoutRouterContext.Provider value={frozen}>{children}</LayoutRouterContext.Provider>
+    return (
+        <LayoutRouterContext.Provider value={frozen}>
+            {children}
+        </LayoutRouterContext.Provider>
+    )
 }
 
-export function PageTransitionEffect({ children, className, variants }: PageTransitionEffectProps) {
+export function PageTransitionEffect({
+    children,
+    className,
+    variants
+}: PageTransitionEffectProps) {
     const pathname = usePathname()
 
     const defaultVariants: Variants = {

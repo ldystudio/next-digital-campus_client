@@ -125,13 +125,16 @@ declare namespace AuthRouteUtils {
         K extends `${infer _Left}${RouteKeySplitMark}${infer _Right}` ? never : K
 
     /** 获取有子路由的一级路由 */
-    type GetFirstDegreeRouteKeyWithChildren<K extends AuthRoute.RouteKey = AuthRoute.RouteKey> =
-        K extends `${infer Left}${RouteKeySplitMark}${infer _Right}` ? Left : never
+    type GetFirstDegreeRouteKeyWithChildren<
+        K extends AuthRoute.RouteKey = AuthRoute.RouteKey
+    > = K extends `${infer Left}${RouteKeySplitMark}${infer _Right}` ? Left : never
 
     /** 单级路由的key (单级路由需要添加一个父级路由用于应用布局组件) */
     type SingleRouteKey = Exclude<
         GetFirstDegreeRouteKey,
-        GetFirstDegreeRouteKeyWithChildren | AuthRoute.RootRouteKey | AuthRoute.NotFoundRouteKey
+        | GetFirstDegreeRouteKeyWithChildren
+        | AuthRoute.RootRouteKey
+        | AuthRoute.NotFoundRouteKey
     >
 
     /** 单独路由父级路由key */

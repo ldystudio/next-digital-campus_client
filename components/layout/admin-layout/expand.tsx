@@ -38,9 +38,12 @@ export default function Expand() {
             const activeMenuItem = transformAuthRouteToMenu([pathToMenuItem])[0]
             setActiveMenuItem(activeMenuItem)
 
-            const isInPreviousParentMenuItem = _.some(getMenuItemState().parentMenuItem.children, {
-                key: activeMenuItem.key
-            })
+            const isInPreviousParentMenuItem = _.some(
+                getMenuItemState().parentMenuItem.children,
+                {
+                    key: activeMenuItem.key
+                }
+            )
 
             if (isInPreviousParentMenuItem) return
 

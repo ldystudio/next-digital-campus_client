@@ -46,7 +46,9 @@ function getActiveKeyPathsOfMenu(activeKey: string, menu: App.AdminMenu) {
     if (menu.children) {
         keys.push(
             ...menu.children
-                .map((item) => getActiveKeyPathsOfMenu(activeKey, item as App.AdminMenu))
+                .map((item) =>
+                    getActiveKeyPathsOfMenu(activeKey, item as App.AdminMenu)
+                )
                 .flat(1)
         )
     }

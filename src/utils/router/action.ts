@@ -16,7 +16,10 @@ export function useRouterPush() {
     const { setPreviousRoutePath } = useRouteAction()
 
     function isPushNewPage(path: AuthRoute.RoutePath) {
-        return previousRoutePath !== process.env.ROUTE_HOME_PATH && path !== previousRoutePath
+        return (
+            previousRoutePath !== process.env.ROUTE_HOME_PATH &&
+            path !== previousRoutePath
+        )
     }
 
     /**

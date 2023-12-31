@@ -1,12 +1,11 @@
 "use client"
 
+import { redirect } from "next/navigation"
+
 import { useEffectOnce } from "~/hooks/common"
-import { useRouterPush } from "~/utils/router"
 
 export default function RedirectPage() {
-    const { routerPush } = useRouterPush()
-
     useEffectOnce(() => {
-        routerPush("/index")
+        redirect("/index")
     })
 }

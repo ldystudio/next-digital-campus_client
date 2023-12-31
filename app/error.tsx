@@ -16,10 +16,10 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
     return (
         <Col fullWidth justify='center' className='h-screen gap-4'>
             <Image
-                src='/images/403.svg'
+                src='/images/crashed-error.svg'
                 alt='错误页面'
                 width={[400, 300]}
-                originalSize={{ width: 456, height: 535 }}
+                originalSize={{ width: 960, height: 960 }}
                 darkModeBrightBackground
             />
 
@@ -27,7 +27,12 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
                 Error: {error.message}
             </Code>
             <Row>
-                <Button variant='bordered' radius='full' color='primary' onClick={() => reset()}>
+                <Button
+                    variant='bordered'
+                    radius='full'
+                    color='primary'
+                    onClick={() => reset()}
+                >
                     重试
                 </Button>
                 <Button

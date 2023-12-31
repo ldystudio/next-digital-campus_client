@@ -32,7 +32,9 @@ export function isBigInt<T extends bigint>(value: T | unknown): value is T {
     return getDataTypeString(value) === dataTypeLabels.bigInt
 }
 
-export function isObject<T extends Record<string, any>>(value: T | unknown): value is T {
+export function isObject<T extends Record<string, any>>(
+    value: T | unknown
+): value is T {
     return getDataTypeString(value) === dataTypeLabels.object
 }
 

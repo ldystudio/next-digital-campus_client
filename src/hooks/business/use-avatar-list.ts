@@ -27,5 +27,12 @@ export function useAvatarList() {
         ? Array.from(avatarList.keys())
         : Array.from(avatarList.keys()).slice(3)
 
-    return { avatar, setAvatar, avatarList, setAvatarList, generateAvatars, avatarListKeys }
+    return {
+        avatar,
+        setAvatar,
+        avatarList,
+        setAvatarList,
+        generateAvatars,
+        avatarListKeys
+    }
 }

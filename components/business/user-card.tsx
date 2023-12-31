@@ -1,8 +1,6 @@
 import { useMemo } from "react"
 
 import toast from "react-hot-toast"
-
-import { Col, Row } from "@/components/common"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import {
@@ -21,6 +19,8 @@ import {
     UserProps
 } from "@nextui-org/react"
 import { useQuery } from "@tanstack/react-query"
+
+import { Col, Row } from "@/components/common"
 import { fetchLogout, fetchUserInfo } from "~/service/api"
 import { useAuthAction, useAuthState } from "~/store/modules/auth"
 import { useRouteAction } from "~/store/modules/route"
@@ -43,7 +43,9 @@ export function UserCard({
     const { userId, userName, userRole, avatar } = useAuthState().userInfo
 
     const avatarImage = useMemo(() => {
-        return avatar ? createAvatar(adventurer, { seed: avatar }).toDataUriSync() : undefined
+        return avatar
+            ? createAvatar(adventurer, { seed: avatar }).toDataUriSync()
+            : undefined
     }, [avatar])
 
     const { data } = useQuery({
@@ -133,12 +135,20 @@ export function UserCard({
                     </CardBody>
                     <CardFooter className='gap-3'>
                         <p>
-                            <span className='text-small font-semibold text-primary'>4</span>
-                            <span className=' ml-1 text-small text-default-500'>任务</span>
+                            <span className='text-small font-semibold text-primary'>
+                                4
+                            </span>
+                            <span className=' ml-1 text-small text-default-500'>
+                                任务
+                            </span>
                         </p>
                         <p>
-                            <span className='text-small font-semibold text-danger'>97</span>
-                            <span className='ml-1 text-small text-default-500'>消息</span>
+                            <span className='text-small font-semibold text-danger'>
+                                97
+                            </span>
+                            <span className='ml-1 text-small text-default-500'>
+                                消息
+                            </span>
                         </p>
                     </CardFooter>
                 </Card>

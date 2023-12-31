@@ -1,4 +1,4 @@
-import { JudgeRenderingEnv } from "~/hooks/common"
+import { judgeRenderingEnv } from "~/hooks/common"
 import { deCrypto, enCrypto } from "../crypto"
 
 interface StorageData<T> {
@@ -6,8 +6,10 @@ interface StorageData<T> {
     expire: number | null
 }
 
-function createLocalStorage<T extends StorageInterface.Local = StorageInterface.Local>() {
-    const { isServer } = JudgeRenderingEnv()
+function createLocalStorage<
+    T extends StorageInterface.Local = StorageInterface.Local
+>() {
+    const { isServer } = judgeRenderingEnv()
     if (isServer) {
         return {
             set: () => {},

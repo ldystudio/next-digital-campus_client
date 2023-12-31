@@ -30,14 +30,18 @@ declare namespace TypeUtil {
 
     type Writable<T> = { [K in keyof T]: T[K] }
 
-    type FirstOfArray<T extends any[]> = T extends [infer First, ...infer _Rest] ? First : never
+    type FirstOfArray<T extends any[]> = T extends [infer First, ...infer _Rest]
+        ? First
+        : never
 
-    type LastOfArray<T extends any[]> = T extends [...infer _Rest, infer Last] ? Last : never
+    type LastOfArray<T extends any[]> = T extends [...infer _Rest, infer Last]
+        ? Last
+        : never
 
     // union to tuple
-    type Union2IntersectionFn<T> = (T extends unknown ? (k: () => T) => void : never) extends (
-        k: infer R
-    ) => void
+    type Union2IntersectionFn<T> = (
+        T extends unknown ? (k: () => T) => void : never
+    ) extends (k: infer R) => void
         ? R
         : never
     type GetUnionLast<U> = Union2IntersectionFn<U> extends () => infer I ? I : never

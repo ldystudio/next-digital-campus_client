@@ -1,7 +1,6 @@
 "use client"
 
 import { useTheme } from "next-themes"
-import { Icon } from "@iconify/react"
 import {
     AccordionItem,
     Accordion as NextUiAccordion,
@@ -9,7 +8,7 @@ import {
     Skeleton
 } from "@nextui-org/react"
 
-import { Col } from "@/components/common"
+import { Col, Iconify } from "@/components/common"
 import { useClientServerCheck } from "~/hooks/common"
 import { useMenuItemState } from "~/store/modules/menuItem"
 import { getAuthMenus } from "~/store/modules/route/helpers"
@@ -63,16 +62,15 @@ export default function AdminMenu() {
                         aria-label={item.label}
                         title={item.label}
                         startContent={
-                            <Icon
+                            <Iconify
                                 icon={item.icon || ""}
                                 color={
                                     item.label === activeMenuItem.label
-                                        ? "#006FEE"
+                                        ? "primary"
                                         : theme === "light"
-                                          ? "#11181C"
-                                          : "#FAFAFA"
+                                          ? "secondary"
+                                          : "light"
                                 }
-                                height='auto'
                             />
                         }
                         hideIndicator={!hasChildren(item)}
@@ -84,23 +82,26 @@ export default function AdminMenu() {
                         }}
                     >
                         {item.children && (
-                            <NextUiAccordion showDivider={false} itemClasses={itemClasses}>
+                            <NextUiAccordion
+                                showDivider={false}
+                                itemClasses={itemClasses}
+                            >
                                 {item.children.map((subItem) => (
                                     <AccordionItem
                                         key={subItem.key}
                                         aria-label={subItem.label}
                                         title={subItem.label}
                                         startContent={
-                                            <Icon
+                                            <Iconify
                                                 icon={subItem.icon || ""}
                                                 color={
-                                                    subItem.label === activeMenuItem.label
-                                                        ? "#006FEE"
+                                                    subItem.label ===
+                                                    activeMenuItem.label
+                                                        ? "primary"
                                                         : theme === "light"
-                                                          ? "#11181C"
-                                                          : "#FAFAFA"
+                                                          ? "secondary"
+                                                          : "light"
                                                 }
-                                                height='auto'
                                             />
                                         }
                                         hideIndicator

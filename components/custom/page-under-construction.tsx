@@ -2,7 +2,11 @@ import { Card, CardBody, CardFooter } from "@nextui-org/react"
 
 import { Col, Image } from "@/components/common"
 
-export function PageUnderConstruction({ pageTitle }: { pageTitle: string | undefined }) {
+export function PageUnderConstruction({
+    pageTitle
+}: {
+    pageTitle: string | undefined
+}) {
     return (
         <Col fullHeight justify='center'>
             <Card shadow='none'>

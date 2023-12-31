@@ -23,7 +23,10 @@ export default function Content({ children }: ContentProps) {
     return (
         <Card className='grow lg:m-5' shadow='sm'>
             <NextUiNavbar maxWidth='full' isBordered className='lg:hidden'>
-                <NavbarContent justify='start' className='data-[justify=start]:basis-4/5'>
+                <NavbarContent
+                    justify='start'
+                    className='data-[justify=start]:basis-4/5'
+                >
                     <Breadcrumbs />
                 </NavbarContent>
 
@@ -43,7 +46,9 @@ export default function Content({ children }: ContentProps) {
             </CardHeader>
             <Divider className='hidden lg:flex' />
             <CardBody className='overflow-x-hidden'>
-                <PageTransitionEffect className='h-full'>{children}</PageTransitionEffect>
+                <PageTransitionEffect className='h-full'>
+                    {children}
+                </PageTransitionEffect>
             </CardBody>
         </Card>
     )
