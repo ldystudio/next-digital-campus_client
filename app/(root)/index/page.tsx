@@ -3,6 +3,7 @@ import { button as buttonStyles, Card, CardBody, CardHeader } from "@nextui-org/
 import { GithubIcon, Iconify, Image, Link, Row } from "@/components/common"
 import { subtitle, title } from "@/components/custom"
 import { NotoSansSC, siteConfig } from "~/config"
+import EnterButton from "./enter-button"
 
 const introduce = [
     {
@@ -48,16 +49,7 @@ export default function HomePage() {
                     </p>
                     <p className={subtitle()}>基于React + Redux + Next.js + NextUI</p>
                     <Row space={3} className='mt-3 md:mt-10'>
-                        <Link
-                            href='/dashboard'
-                            className={buttonStyles({
-                                color: "primary",
-                                radius: "full",
-                                variant: "shadow"
-                            })}
-                        >
-                            进入
-                        </Link>
+                        <EnterButton />
                         <Link
                             isExternal
                             className={buttonStyles({
