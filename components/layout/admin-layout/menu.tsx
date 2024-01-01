@@ -1,12 +1,6 @@
 "use client"
 
-import { useTheme } from "next-themes"
-import {
-    AccordionItem,
-    Accordion as NextUiAccordion,
-    ScrollShadow,
-    Skeleton
-} from "@nextui-org/react"
+import { Accordion, AccordionItem, ScrollShadow, Skeleton } from "@nextui-org/react"
 
 import { Col, Iconify } from "@/components/common"
 import { useClientServerCheck } from "~/hooks/common"
@@ -19,7 +13,6 @@ export default function AdminMenu() {
     const { activeMenuItem, parentMenuItem } = useMenuItemState()
     const authMenus = getAuthMenus()
     const { isServer } = useClientServerCheck()
-    const { theme } = useTheme()
 
     if (isServer) {
         return (
@@ -50,11 +43,11 @@ export default function AdminMenu() {
 
     return (
         <ScrollShadow className='h-full w-full' size={20} hideScrollBar>
-            <NextUiAccordion
+            <Accordion
                 showDivider={false} // 不显示分割符
                 itemClasses={itemClasses}
                 defaultExpandedKeys={[`${parentMenuItem.key}`]}
-                // selectionMode='multiple'
+                selectionMode='multiple'
             >
                 {authMenus.map((item) => (
                     <AccordionItem
@@ -67,9 +60,7 @@ export default function AdminMenu() {
                                 color={
                                     item.label === activeMenuItem.label
                                         ? "primary"
-                                        : theme === "light"
-                                          ? "secondary"
-                                          : "light"
+                                        : undefined
                                 }
                             />
                         }
@@ -82,10 +73,7 @@ export default function AdminMenu() {
                         }}
                     >
                         {item.children && (
-                            <NextUiAccordion
-                                showDivider={false}
-                                itemClasses={itemClasses}
-                            >
+                            <Accordion showDivider={false} itemClasses={itemClasses}>
                                 {item.children.map((subItem) => (
                                     <AccordionItem
                                         key={subItem.key}
@@ -98,9 +86,7 @@ export default function AdminMenu() {
                                                     subItem.label ===
                                                     activeMenuItem.label
                                                         ? "primary"
-                                                        : theme === "light"
-                                                          ? "secondary"
-                                                          : "light"
+                                                        : undefined
                                                 }
                                             />
                                         }
@@ -111,11 +97,11 @@ export default function AdminMenu() {
                                         }}
                                     />
                                 ))}
-                            </NextUiAccordion>
+                            </Accordion>
                         )}
                     </AccordionItem>
                 ))}
-            </NextUiAccordion>
+            </Accordion>
         </ScrollShadow>
     )
 }

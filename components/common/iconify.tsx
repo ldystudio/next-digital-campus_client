@@ -1,19 +1,23 @@
 "use client"
 
+import { useTheme } from "next-themes"
 import { Icon, IconProps } from "@iconify/react"
-import { BaseColors, ThemeColors } from "@nextui-org/react"
 
 interface IconifyProps extends Omit<IconProps, "color"> {
-    color?: keyof Omit<ThemeColors, keyof BaseColors> | "light"
+    color?:
+        | "primary"
+        | "secondary"
+        | "success"
+        | "warning"
+        | "danger"
+        | "light"
+        | "dark"
     height?: string | number
     otherProps?: IconProps
 }
 
-export function Iconify({
-    color = "default",
-    height = "auto",
-    ...otherProps
-}: IconifyProps) {
+export function Iconify({ color, height = "auto", ...otherProps }: IconifyProps) {
+    const { theme } = useTheme()
     const colorMap = {
         primary: "#006FEE",
         secondary: "#11181C",
@@ -21,8 +25,20 @@ export function Iconify({
         warning: "#f5a524",
         danger: "#f31260",
         light: "#FAFAFA",
-        default: "#18181b"
+        dark: "#18181b"
     }
 
-    return <Icon color={colorMap[color]} height={height} {...otherProps} />
+    return (
+        <Icon
+            color={
+                color
+                    ? colorMap[color]
+                    : theme === "light"
+                      ? colorMap.dark
+                      : colorMap.light
+            }
+            height={height}
+            {...otherProps}
+        />
+    )
 }
