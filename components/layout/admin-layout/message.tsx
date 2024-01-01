@@ -93,7 +93,7 @@ export default function Message() {
                                             <Iconify
                                                 icon='solar:letter-unread-bold-duotone'
                                                 color={
-                                                    item.hasRead ? "default" : "primary"
+                                                    item.hasRead ? undefined : "primary"
                                                 }
                                             />
                                         }

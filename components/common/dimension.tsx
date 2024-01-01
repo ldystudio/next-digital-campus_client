@@ -1,8 +1,9 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import { memo } from "react"
 
-import clsx from "clsx"
 import memoizeOne from "memoize-one"
+
+import { cn } from "~/utils"
 
 interface DimensionProps {
     children: React.ReactNode
@@ -33,7 +34,7 @@ const generateStyles = memoizeOne(
             justifyContent: j || "flex-start"
         }
 
-        const classNames = clsx(
+        const classNames = cn(
             fullWidth && "w-full",
             fullHeight && "h-full",
             `gap-${space || 2}`,

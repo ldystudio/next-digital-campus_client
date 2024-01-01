@@ -11,7 +11,7 @@ export default function NotFoundPage() {
     return (
         <Col fullWidth justify='center' className='h-screen gap-4 px-5'>
             <Image
-                src='/images/404.svg'
+                src='/images/falling.svg'
                 alt='未找到页面'
                 width={[400, 300]}
                 originalSize={{ width: 584, height: 490 }}

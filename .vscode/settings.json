@@ -1,8 +1,9 @@
 {
-	"typescript.tsdk": "node_modules/typescript/lib",
-	"tailwindCSS.experimental.classRegex": [
-		["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-		["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-	],
-	"css.lint.unknownAtRules": "ignore"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "tailwindCSS.experimental.classRegex": [
+        ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+        ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+        ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+    ],
+    "css.lint.unknownAtRules": "ignore"
 }

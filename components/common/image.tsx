@@ -3,9 +3,9 @@
 import NextImage, { ImageProps as NextImageProps } from "next/image"
 
 import { useResponsive } from "ahooks"
-import clsx from "clsx"
 import { Image as NextUiImage, ImageProps as NextUiImageProps } from "@nextui-org/react"
 
+import { cn } from "~/utils"
 import { isNumber } from "~/utils/common"
 
 type NextImagePropsMixin = Omit<NextImageProps, "src" | "width"> &
@@ -43,7 +43,7 @@ export function Image({
             height={imgHeight}
             draggable='false'
             isBlurred
-            className={clsx(
+            className={cn(
                 darkModeBrightBackground && "dark:bg-foreground",
                 "select-none",
                 className

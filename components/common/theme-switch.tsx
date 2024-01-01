@@ -1,6 +1,5 @@
 "use client"
 
-import clsx from "clsx"
 import { useTheme } from "next-themes"
 import { Spinner } from "@nextui-org/react"
 import { Expand } from "@theme-toggles/react"
@@ -8,6 +7,7 @@ import { Expand } from "@theme-toggles/react"
 import "@theme-toggles/react/css/Expand.css"
 
 import { useClientServerCheck } from "~/hooks/common"
+import { cn } from "~/utils"
 
 /**
  * Switches the theme between light and dark.
@@ -20,7 +20,7 @@ export function ThemeSwitch({ className }: { className?: string }) {
     const { isServer } = useClientServerCheck()
 
     if (isServer) {
-        return <Spinner size='sm' color='secondary' className={clsx(className)} />
+        return <Spinner size='sm' color='secondary' className={cn(className)} />
     }
 
     // Handle the switch event
@@ -68,10 +68,7 @@ export function ThemeSwitch({ className }: { className?: string }) {
     return (
         // Render the theme switch button
         <div
-            className={clsx(
-                "flex cursor-pointer items-center justify-center",
-                className
-            )}
+            className={cn("flex cursor-pointer items-center justify-center", className)}
             onClick={(e) => handleSwitch(e)}
         >
             <Expand duration={750} toggled={resolvedTheme === "light"} />

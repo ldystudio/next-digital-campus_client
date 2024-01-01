@@ -4,8 +4,9 @@ import { useContext, useRef } from "react"
 import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime"
 import { usePathname } from "next/navigation"
 
-import clsx from "clsx"
 import { AnimatePresence, motion, Variants } from "framer-motion"
+
+import { cn } from "~/utils"
 
 interface PageTransitionEffectProps {
     children: React.ReactNode
@@ -64,7 +65,7 @@ export function PageTransitionEffect({
                 animate='animate'
                 exit='exit'
                 transition={{ type: "tween", duration: 0.5 }}
-                className={clsx("transform-gpu", className)}
+                className={cn("transform-gpu", className)}
             >
                 <FrozenRouter>{children}</FrozenRouter>
             </motion.div>
