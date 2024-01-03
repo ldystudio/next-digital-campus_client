@@ -6,12 +6,7 @@ import { NotoSansSC } from "~/config"
 export default function AdminLayout({ children }: LayoutProps) {
     return (
         <main>
-            <div
-                className={clsx(
-                    "flex h-screen min-h-[650px] bg-[#f3f3f3] dark:bg-background",
-                    NotoSansSC.className
-                )}
-            >
+            <div className={clsx("flex h-screen min-h-[650px]", NotoSansSC.className)}>
                 <Side />
                 <Content>{children}</Content>
             </div>

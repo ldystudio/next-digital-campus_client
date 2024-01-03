@@ -2,7 +2,6 @@ import {
     Card,
     CardBody,
     CardHeader,
-    Divider,
     NavbarContent,
     NavbarMenu,
     NavbarMenuToggle,
@@ -21,8 +20,12 @@ interface ContentProps {
 
 export default function Content({ children }: ContentProps) {
     return (
-        <Card className='grow lg:m-5' shadow='sm'>
-            <NextUiNavbar maxWidth='full' isBordered className='lg:hidden'>
+        <Card className='grow' shadow='none' radius='none'>
+            <NextUiNavbar
+                maxWidth='full'
+                className='lg:hidden'
+                classNames={{ wrapper: "px-3" }}
+            >
                 <NavbarContent
                     justify='start'
                     className='data-[justify=start]:basis-4/5'
@@ -41,14 +44,15 @@ export default function Content({ children }: ContentProps) {
                 </NavbarMenu>
             </NextUiNavbar>
 
-            <CardHeader className='hidden lg:flex'>
+            <CardHeader className='hidden lg:flex lg:pl-0'>
                 <Breadcrumbs size='lg' />
             </CardHeader>
-            <Divider className='hidden lg:flex' />
-            <CardBody className='overflow-x-hidden'>
-                <PageTransitionEffect className='h-full'>
-                    {children}
-                </PageTransitionEffect>
+            <CardBody className='overflow-x-hidden px-3 pb-3 pt-0 lg:pb-5 lg:pl-0 lg:pr-5 lg:pt-0'>
+                <div className='h-full w-full rounded-3xl bg-default-100 p-3 lg:p-5'>
+                    <PageTransitionEffect className='h-full'>
+                        {children}
+                    </PageTransitionEffect>
+                </div>
             </CardBody>
         </Card>
     )

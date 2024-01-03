@@ -28,6 +28,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
             itemClasses={{
                 separator: "px-2"
             }}
+            classNames={{ list: "flex-nowrap" }}
             {...props}
         >
             {parentMenuItem && (
@@ -61,7 +62,16 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
                             {parentMenuItem.children.map((child) => (
                                 <DropdownItem
                                     key={child.key}
-                                    startContent={<Iconify icon={child.icon ?? ""} />}
+                                    startContent={
+                                        <Iconify
+                                            icon={child.icon ?? ""}
+                                            color={
+                                                child.key === activeMenuItem.key
+                                                    ? "primary"
+                                                    : undefined
+                                            }
+                                        />
+                                    }
                                     variant='faded'
                                     color='primary'
                                     onPress={() => {

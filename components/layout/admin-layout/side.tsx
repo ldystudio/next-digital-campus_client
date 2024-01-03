@@ -14,8 +14,9 @@ import UserInfo from "./user-info"
 export default function Side(): JSX.Element {
     return (
         <Card
-            className='my-5 ml-5 hidden min-w-[12rem] items-center justify-around lg:flex'
-            shadow='sm'
+            className='hidden min-w-[12rem] items-center justify-around lg:flex'
+            shadow='none'
+            radius='none'
         >
             <Link href='/index' color='foreground' className='pt-1'>
                 <Logo size={60} />
