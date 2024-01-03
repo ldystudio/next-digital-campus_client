@@ -4,13 +4,14 @@ import { Accordion, AccordionItem, ScrollShadow, Skeleton } from "@nextui-org/re
 
 import { Col, Iconify } from "@/components/common"
 import { useClientServerCheck } from "~/hooks/common"
-import { useMenuItemState } from "~/store/modules/menuItem"
+import { useMenuItemAction, useMenuItemState } from "~/store/modules/menuItem"
 import { getAuthMenus } from "~/store/modules/route/helpers"
 import { useRouterPush } from "~/utils/router"
 
 export default function AdminMenu() {
     const { routerPush } = useRouterPush()
     const { activeMenuItem, parentMenuItem } = useMenuItemState()
+    const { setParentMenuItem } = useMenuItemAction()
     const authMenus = getAuthMenus()
     const { isServer } = useClientServerCheck()
 
@@ -47,7 +48,7 @@ export default function AdminMenu() {
                 showDivider={false} // 不显示分割符
                 itemClasses={itemClasses}
                 defaultExpandedKeys={[`${parentMenuItem.key}`]}
-                selectionMode='multiple'
+                // selectionMode='multiple'
             >
                 {authMenus.map((item) => (
                     <AccordionItem
@@ -58,7 +59,7 @@ export default function AdminMenu() {
                             <Iconify
                                 icon={item.icon || ""}
                                 color={
-                                    item.label === activeMenuItem.label
+                                    item.key === parentMenuItem.key
                                         ? "primary"
                                         : undefined
                                 }
@@ -69,7 +70,10 @@ export default function AdminMenu() {
                             content: hasChildren(item) ? "flex" : "hidden"
                         }}
                         onPress={() => {
-                            !hasChildren(item) && handlePress(item)
+                            if (!hasChildren(item)) {
+                                setParentMenuItem(item)
+                                handlePress(item)
+                            }
                         }}
                     >
                         {item.children && (
@@ -83,8 +87,7 @@ export default function AdminMenu() {
                                             <Iconify
                                                 icon={subItem.icon || ""}
                                                 color={
-                                                    subItem.label ===
-                                                    activeMenuItem.label
+                                                    subItem.key === activeMenuItem.key
                                                         ? "primary"
                                                         : undefined
                                                 }
