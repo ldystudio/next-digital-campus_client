@@ -40,9 +40,7 @@ export default function Expand() {
 
             const isInPreviousParentMenuItem = _.some(
                 getMenuItemState().parentMenuItem.children,
-                {
-                    key: activeMenuItem.key
-                }
+                { key: activeMenuItem.key }
             )
 
             if (isInPreviousParentMenuItem) return
