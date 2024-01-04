@@ -189,7 +189,7 @@ export default function RegisterTabs() {
                                     name='学生'
                                 >
                                     <Image
-                                        src='/images/student.gif'
+                                        src='/images/icon/student.gif'
                                         alt='学生'
                                         className='object-cover'
                                         width={100}
@@ -202,7 +202,7 @@ export default function RegisterTabs() {
                                     name='教师'
                                 >
                                     <Image
-                                        src='/images/teacher.gif'
+                                        src='/images/icon/teacher.gif'
                                         alt='教师'
                                         className='object-cover'
                                         width={100}

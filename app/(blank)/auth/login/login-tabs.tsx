@@ -85,9 +85,9 @@ export default function LoginTabs() {
     }
 
     const otherLoginList = [
-        { id: 1, icon: "/images/QQ.png", name: "QQ登录", link: "#" },
-        { id: 2, icon: "/images/微信.png", name: "微信登录", link: "#" },
-        { id: 3, icon: "/images/Github.svg", name: "Github登录", link: "#" }
+        { id: 1, icon: "/images/icon/QQ.png", name: "QQ登录", link: "#" },
+        { id: 2, icon: "/images/icon/微信.png", name: "微信登录", link: "#" },
+        { id: 3, icon: "/images/icon/Github.svg", name: "Github登录", link: "#" }
     ]
 
     const { isLoading } = useAuthState()
