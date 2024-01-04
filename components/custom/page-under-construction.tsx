@@ -8,7 +8,7 @@ export function PageUnderConstruction({
     pageTitle: string | undefined
 }) {
     return (
-        <Col fullHeight justify='center' className='rounded-3xl bg-background'>
+        <Col justify='center' className='h-[88vh] rounded-3xl bg-background lg:h-full'>
             <Card shadow='none'>
                 <CardBody className='py-5'>
                     <Image

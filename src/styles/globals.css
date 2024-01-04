@@ -60,7 +60,8 @@ input[type="password"] {
 }
 
 body,
-.message-dropdown {
+.message-dropdown,
+.admin-content {
     /* 隐藏默认的滚动条样式 */
     /* Firefox */
     scrollbar-width: none;
@@ -69,7 +70,8 @@ body,
 }
 
 body::-webkit-scrollbar,
-.message-dropdown::-webkit-scrollbar {
+.message-dropdown::-webkit-scrollbar,
+.admin-content::-webkit-scrollbar {
     /* Chrome, Safari, and Opera */
     display: none;
 }
