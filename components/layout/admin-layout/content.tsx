@@ -48,7 +48,7 @@ export default function Content({ children }: ContentProps) {
                 <Breadcrumbs size='lg' />
             </CardHeader>
             <CardBody className='admin-content overflow-x-hidden px-3 pb-3 pt-0 lg:pb-5 lg:pl-0 lg:pr-5 lg:pt-0'>
-                <div className='w-full rounded-3xl bg-default-100 p-3 lg:h-full lg:p-5'>
+                <div className='w-full rounded-3xl bg-default-100 p-3 lg:min-h-full lg:p-5'>
                     <PageTransitionEffect className='h-full'>
                         {children}
                     </PageTransitionEffect>
