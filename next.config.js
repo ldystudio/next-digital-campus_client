@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
     reactStrictMode: true,
-    poweredByHeader: process.env.NODE_ENV !== "production",
+    poweredByHeader: process.env.NODE_ENV === "development",
     // basePath: '',
     env: {
         // SERVER_URL: "http://192.168.1.215:8000/api/v1",
@@ -16,5 +16,3 @@ const nextConfig = {
         }
     }
 }
-
-module.exports = nextConfig
