@@ -33,9 +33,9 @@ export function Iconify({ color, height = "auto", ...otherProps }: IconifyProps)
             color={
                 color
                     ? colorMap[color]
-                    : theme === "light"
-                      ? colorMap.dark
-                      : colorMap.light
+                    : theme === "dark"
+                      ? colorMap.light
+                      : colorMap.dark
             }
             height={height}
             {...otherProps}
