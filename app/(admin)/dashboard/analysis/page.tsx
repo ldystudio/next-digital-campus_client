@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import Chart1 from "./charts/chart1"
 import Chart2 from "./charts/chart2"
 import Chart3 from "./charts/chart3"
+import LargeChart from "./charts/large-chart"
 import SummaryCard from "./charts/summary-card"
 
 export const metadata: Metadata = {
@@ -15,8 +16,8 @@ export default function DashboardAnalysisPage() {
             <Chart1 className='order-1 lg:col-span-3 lg:row-span-3' />
             <Chart2 className='order-2 lg:col-span-3 lg:row-span-3' />
             <SummaryCard className='order-4 lg:order-3 lg:col-span-2 lg:row-span-4' />
-            <Chart3 className='order-3 lg:order-4 lg:col-span-6 lg:row-span-5' />
-            <Chart1 className='order-5 lg:col-span-2 lg:row-span-4' />
+            <LargeChart className='order-3 lg:order-4 lg:col-span-6 lg:row-span-5' />
+            <Chart3 className='order-5 lg:col-span-2 lg:row-span-4' />
         </section>
     )
 }

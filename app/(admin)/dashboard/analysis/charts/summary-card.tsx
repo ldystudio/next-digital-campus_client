@@ -1,52 +1,88 @@
 import { Card, CardBody, CardHeader, CircularProgress } from "@nextui-org/react"
 
+import { Iconify } from "@/components/common"
 import { cn } from "~/utils"
 
 interface CircularProgressCardProps {
     title: string
     describe: string
-    value: number
-    color?:
-        | "default"
-        | "primary"
-        | "secondary"
-        | "success"
-        | "warning"
-        | "danger"
-        | undefined
+    icon: string
+    numValue?: number
+    showCircleRing?: boolean
+    color?: "primary" | "secondary" | "success" | "warning" | "danger" | undefined
 }
 
 function CircularProgressCard({
     title,
     describe,
-    value,
+    icon,
+    numValue,
+    showCircleRing = true,
     color
 }: CircularProgressCardProps) {
-    const CircularClass = {
-        indicator: `stroke-${color}`,
-        track: `stroke-${color}/10`,
-        value: `text-3xl font-semibold text-${color}`
+    const circularProgressClassNames = {
+        primary: {
+            svg: "w-28 h-28 drop-shadow-md",
+            indicator: "stroke-primary",
+            track: "stroke-primary/10",
+            value: "text-3xl font-semibold text-primary"
+        },
+        secondary: {
+            svg: "w-28 h-28 drop-shadow-md",
+            indicator: "stroke-secondary",
+            track: "stroke-secondary/10",
+            value: "text-3xl font-semibold text-secondary"
+        },
+        success: {
+            svg: "w-28 h-28 drop-shadow-md",
+            indicator: "stroke-success",
+            track: "stroke-success/10",
+            value: "text-3xl font-semibold text-success"
+        },
+        warning: {
+            svg: "w-28 h-28 drop-shadow-md",
+            indicator: "stroke-warning",
+            track: "stroke-warning/10",
+            value: "text-3xl font-semibold text-warning"
+        },
+        danger: {
+            svg: "w-28 h-28 drop-shadow-md",
+            indicator: "stroke-danger",
+            track: "stroke-danger/10",
+            value: "text-3xl font-semibold text-danger"
+        },
+        default: {
+            svg: "w-28 h-28 drop-shadow-md",
+            indicator: "stroke-default",
+            track: "stroke-default/10",
+            value: "text-3xl font-semibold text-default"
+        }
     }
+
     return (
-        <Card>
+        <Card className='justify-center'>
             <CardHeader className='flex-col justify-center'>
+                <Iconify icon={icon} color={color} className='mb-1' />
                 <p>{title}</p>
                 <p className='text-2xl font-bold'>{describe}</p>
             </CardHeader>
-            <CardBody className='mb-3 items-center justify-center p-0'>
-                <CircularProgress
-                    classNames={{
-                        svg: "w-28 h-28 drop-shadow-md",
-                        indicator: CircularClass.indicator,
-                        track: CircularClass.track,
-                        value: CircularClass.value
-                    }}
-                    value={value}
-                    strokeWidth={4}
-                    showValueLabel={true}
-                    color={color}
-                />
-            </CardBody>
+            {showCircleRing && (
+                <CardBody className='items-center justify-end pt-0'>
+                    <CircularProgress
+                        aria-label={`Circular Progress - ${title}`}
+                        classNames={
+                            color
+                                ? circularProgressClassNames[color]
+                                : circularProgressClassNames.default
+                        }
+                        value={numValue}
+                        valueLabel={`+${numValue}%`}
+                        strokeWidth={4}
+                        showValueLabel={true}
+                    />
+                    <p className='mt-1 text-small text-default-400'>相较于昨天</p>
+                </CardBody>
+            )}
         </Card>
     )
 }
@@ -55,28 +91,32 @@ export default function SummaryCard({ className }: { className?: string }) {
     return (
         <div className={cn("grid grid-cols-2 gap-3 *:rounded-3xl lg:gap-5", className)}>
             <CircularProgressCard
-                title='Applications'
-                describe='2500'
-                value={28}
+                title='注册学生人数'
+                describe='5678'
+                icon='solar:users-group-two-rounded-bold-duotone'
+                numValue={28}
                 color='primary'
             />
             <CircularProgressCard
-                title='Candidates'
-                describe='300'
-                value={2}
+                title='注册教师人数'
+                describe='345'
+                icon='solar:users-group-rounded-bold'
+                numValue={2}
                 color='secondary'
             />
             <CircularProgressCard
-                title='Rejected'
-                describe='2864'
-                value={16}
+                title='在线用户人数'
+                describe={`${Math.round(Math.random() * (3000 - 1000) + 1000)}`}
+                icon='solar:user-check-bold-duotone'
                 color='success'
+                showCircleRing={false}
             />
             <CircularProgressCard
-                title='UX/UI'
-                describe='232'
-                value={35}
+                title='平均响应时间'
+                describe={`${Math.round(Math.random() * (200 - 10) + 10)} ms`}
+                icon='solar:stopwatch-bold-duotone'
                 color='warning'
+                showCircleRing={false}
             />
         </div>
     )
