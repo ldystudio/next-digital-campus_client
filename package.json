@@ -12,6 +12,11 @@
         "lint": "next lint",
         "format": "prettier --config .prettierrc.js --check \"{app,components,pages,src}/**/*.{js,jsx,ts,tsx,css,html}\" --write"
     },
+    "typewind": {
+        "configPath": "./tailwind.config.js",
+        "showPixelEquivalents": false,
+        "rootFontSize": 16
+    },
     "dependencies": {
         "@dicebear/adventurer": "^7.0.1",
         "@dicebear/core": "^7.0.1",
@@ -56,6 +61,7 @@
         "swr": "^2.2.4",
         "tailwind-merge": "^2.0.0",
         "tailwindcss-animate": "^1.0.7",
+        "typewind": "^0.1.4",
         "uuid": "^9.0.1"
     },
     "devDependencies": {

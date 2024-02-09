@@ -14,5 +14,8 @@ module.exports = {
         fetches: {
             fullUrl: true
         }
+    },
+    experimental: {
+        swcPlugins: [["typewind/swc", {}]]
     }
 }
