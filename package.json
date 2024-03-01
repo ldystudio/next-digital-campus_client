@@ -61,7 +61,6 @@
         "swr": "^2.2.4",
         "tailwind-merge": "^2.0.0",
         "tailwindcss-animate": "^1.0.7",
-        "typewind": "^0.1.4",
         "uuid": "^9.0.1"
     },
     "devDependencies": {

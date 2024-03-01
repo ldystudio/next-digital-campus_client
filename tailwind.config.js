@@ -1,6 +1,5 @@
-import { fontFamily } from "tailwindcss/defaultTheme"
-import { typewindTransforms } from "typewind/transform"
-import { nextui } from "@nextui-org/react"
+const { fontFamily } = require("tailwindcss/defaultTheme")
+const { nextui } = require("@nextui-org/react")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -10,8 +9,7 @@ module.exports = {
             "./components/**/*.{js,ts,jsx,tsx,mdx}",
             "./app/**/*.{js,ts,jsx,tsx,mdx}",
             "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
-        ],
-        transform: typewindTransforms
+        ]
     },
     theme: {
         container: {
