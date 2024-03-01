@@ -10,7 +10,7 @@ import { Avatar, Button, Card } from "@nextui-org/react"
 import { Col, Iconify, Row } from "@/components/common"
 import { cn } from "~/utils"
 
-function SubChart({ className }: { className?: string }) {
+function SubChart({ className }: PageComponentProps) {
     function topChartOption(color: string) {
         /** @type EChartsOption */
         return {
@@ -93,7 +93,7 @@ function SubChart({ className }: { className?: string }) {
     )
 }
 
-export default function Chart3({ className }: { className?: string }) {
+export default function Chart3({ className }: PageComponentProps) {
     const responsive = useResponsive()
 
     const today = new Date()

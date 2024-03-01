@@ -1,10 +1,10 @@
 import type { Metadata } from "next"
 
-import Chart1 from "./charts/chart1"
-import Chart2 from "./charts/chart2"
-import Chart3 from "./charts/chart3"
-import LargeChart from "./charts/large-chart"
-import SummaryCard from "./charts/summary-card"
+import Chart1 from "./components/chart1"
+import Chart2 from "./components/chart2"
+import Chart3 from "./components/chart3"
+import LargeChart from "./components/large-chart"
+import SummaryCard from "./components/summary-card"
 
 export const metadata: Metadata = {
     title: "分析页"

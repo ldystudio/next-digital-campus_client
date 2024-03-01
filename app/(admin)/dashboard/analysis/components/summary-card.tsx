@@ -87,7 +87,7 @@ function CircularProgressCard({
     )
 }
 
-export default function SummaryCard({ className }: { className?: string }) {
+export default function SummaryCard({ className }: PageComponentProps) {
     return (
         <div className={cn("grid grid-cols-2 gap-3 *:rounded-3xl lg:gap-5", className)}>
             <CircularProgressCard

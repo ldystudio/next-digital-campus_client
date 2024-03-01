@@ -5,7 +5,7 @@ import { EChartsOption } from "echarts"
 
 import { ChartCard } from "@/components/business"
 
-export default function Chart2({ className }: { className?: string }) {
+export default function Chart2({ className }: PageComponentProps) {
     /** @type EChartsOption */
     const option: EChartsOption = {
         grid: { top: 8, right: 8, bottom: 8, left: 8 },
@@ -54,6 +54,6 @@ export default function Chart2({ className }: { className?: string }) {
         subDescribe: "出勤人数",
         className
     }
-    
+
     return <ChartCard {...chartCardProps} />
 }

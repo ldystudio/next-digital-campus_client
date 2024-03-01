@@ -71,7 +71,7 @@ export function ThemeSwitch({ className }: { className?: string }) {
             className={cn("flex cursor-pointer items-center justify-center", className)}
             onClick={(e) => handleSwitch(e)}
         >
-            <Expand duration={750} toggled={resolvedTheme !== "light"} />
+            <Expand duration={750} toggled={resolvedTheme === "light"} />
         </div>
     )
 }

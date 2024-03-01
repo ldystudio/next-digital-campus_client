@@ -1,9 +1,27 @@
-import { Col, LoadingIcon } from "@/components/common"
+import { Col } from "@/components/common"
+
+import "~/styles/loading.css"
 
 export default function LoadingPage() {
     return (
         <Col fullWidth justify='center' className='h-screen'>
-            <LoadingIcon size={40} color='#006FEE' />
+            <div className='semicircle'>
+                <div>
+                    <div>
+                        <div>
+                            <div>
+                                <div>
+                                    <div>
+                                        <div>
+                                            <div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <p>Loading...</p>
         </Col>
     )

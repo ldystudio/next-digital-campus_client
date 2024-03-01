@@ -4,7 +4,7 @@ import { EChartsOption } from "echarts"
 
 import { ChartCard } from "@/components/business"
 
-export default function Chart3({ className }: { className?: string }) {
+export default function Chart3({ className }: PageComponentProps) {
     /** @type EChartsOption */
     const option: EChartsOption = {
         tooltip: {
