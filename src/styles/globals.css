@@ -61,7 +61,8 @@ input[type="password"] {
 
 body,
 .message-dropdown,
-.admin-content {
+.admin-content,
+.no-scrollbar {
     /* 隐藏默认的滚动条样式 */
     /* Firefox */
     scrollbar-width: none;
@@ -71,7 +72,8 @@ body,
 
 body::-webkit-scrollbar,
 .message-dropdown::-webkit-scrollbar,
-.admin-content::-webkit-scrollbar {
+.admin-content::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
     /* Chrome, Safari, and Opera */
     display: none;
 }

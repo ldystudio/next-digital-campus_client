@@ -1,11 +1,5 @@
-"use client"
-
-import { redirect } from "next/navigation"
-
-import { useEffectOnce } from "~/hooks/common"
+import { permanentRedirect } from "next/navigation"
 
 export default function RedirectPage() {
-    useEffectOnce(() => {
-        redirect("/index")
-    })
+    permanentRedirect("/index")
 }

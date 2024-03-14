@@ -1,27 +1,27 @@
 "use client"
 
-import { useState } from "react"
+// import { useState } from "react"
 
-import { Button, Input } from "@nextui-org/react"
+// import { Button, Input } from "@nextui-org/react"
 
-import { notice, Row } from "@/components/common"
-import { fetchUserInfo } from "~/service/api"
-import { useAuthAction, useAuthState } from "~/store/modules/auth"
-import { useRouteAction, useRouteState } from "~/store/modules/route"
-import { verifyAndParseJwtPayload } from "~/utils/common"
-import { localStg } from "~/utils/storage"
+// import { notice, Row } from "@/components/common"
+// import { fetchUserInfo } from "~/service/api"
+// import { useAuthAction, useAuthState } from "~/store/modules/auth"
+// import { useRouteAction, useRouteState } from "~/store/modules/route"
+// import { verifyAndParseJwtPayload } from "~/utils/common"
+// import { localStg } from "~/utils/storage"
 
 export default function Test() {
-    const refreshToken = localStg.get("refreshToken")
-    const { userInfo, isLoading, token } = useAuthState()
-    const { setUserInfo, resetAuthStore } = useAuthAction()
-    const { isInitAuthRoute, authMenus, searchMenus } = useRouteState()
-    const { setIsInitAuthRoute, resetRouteStore } = useRouteAction()
-    const [search, setSearch] = useState("")
+    // const refreshToken = localStg.get("refreshToken")
+    // const { userInfo, isLoading, token } = useAuthState()
+    // const { setUserInfo, resetAuthStore } = useAuthAction()
+    // const { isInitAuthRoute, authMenus, searchMenus } = useRouteState()
+    // const { setIsInitAuthRoute, resetRouteStore } = useRouteAction()
+    // const [search, setSearch] = useState("")
 
     return (
         <>
-            <section className='mt-2 space-x-2 bg-red-200 p-2'>
+            {/* <section className='mt-2 space-x-2 bg-red-200 p-2'>
                 <Button
                     onClick={() =>
                         setUserInfo({
@@ -105,7 +105,7 @@ export default function Test() {
                         获取用户信息
                     </Button>
                 </Row>
-            </section>
+            </section> */}
             <section></section>
         </>
     )
