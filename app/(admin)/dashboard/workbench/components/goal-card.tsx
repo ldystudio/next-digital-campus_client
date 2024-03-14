@@ -5,8 +5,8 @@ import { Row } from "@/components/common"
 export default function GoalCard({ className }: PageComponentProps) {
     return (
         <Card className={className}>
-            <CardBody className='flex flex-row justify-around'>
-                <Card className='w-5/12' shadow='none'>
+            <CardBody className='flex justify-around lg:flex-row'>
+                <Card className='lg:w-5/12' shadow='none'>
                     <CardBody className='justify-center space-y-4'>
                         <p className='text-center text-xl font-bold'>今日目标</p>
                         <CircularProgress
@@ -30,7 +30,7 @@ export default function GoalCard({ className }: PageComponentProps) {
                         </Row>
                     </CardBody>
                 </Card>
-                <Card className='w-5/12' shadow='none'>
+                <Card className='lg:w-5/12' shadow='none'>
                     <CardBody className='justify-center space-y-4'>
                         <p className='text-center text-lg font-bold'>课程进度</p>
                         <CircularProgress

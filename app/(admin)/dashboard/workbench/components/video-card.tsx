@@ -12,11 +12,13 @@ interface VideoInfoProps {
 
 function VideoInfo({ icon, title, member, size }: VideoInfoProps) {
     return (
-        <Card fullWidth className='h-14 bg-primary-50' shadow='none'>
-            <CardBody>
+        <Card fullWidth className='bg-primary-50 lg:h-14' shadow='none' isPressable>
+            <CardBody className='justify-between gap-3 lg:flex-row'>
                 <Row justify='between'>
                     <Iconify icon={icon} height={32} />
                     <p className='font-bold'>{title}</p>
+                </Row>
+                <Row justify='between' className='lg:w-1/2'>
                     <Row>
                         <Iconify icon='solar:users-group-rounded-line-duotone' />
                         <p>{member}人</p>
@@ -25,8 +27,12 @@ function VideoInfo({ icon, title, member, size }: VideoInfoProps) {
                         <Iconify icon='solar:cloud-download-line-duotone' />
                         <p>{size}MB</p>
                     </Row>
-                    <Iconify icon='solar:menu-dots-bold-duotone' />
                 </Row>
+                <Iconify
+                    icon='solar:menu-dots-bold-duotone'
+                    height={32}
+                    className='hidden lg:block'
+                />
             </CardBody>
         </Card>
     )
