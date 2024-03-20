@@ -3,7 +3,7 @@ const Activity: AuthRoute.Route = {
     path: "/activity",
     component: "basic",
     meta: {
-        permissions: ["admin", "teacher", "student"],
+        permissions: ["admin", "teacher"],
         title: "活动管理",
         icon: "solar:stars-bold-duotone",
         order: 90

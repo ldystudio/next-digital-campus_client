@@ -47,3 +47,34 @@ declare namespace ApiUserManagement {
         address: string | null
     }
 }
+
+/** 后端返回的用户权益相关类型 */
+declare namespace ApiPage {
+    /** 返回的用户信息 */
+    interface Detail {
+        id: number
+        user_id: number
+        class_name: string
+        date_of_admission: string
+        service_date: string
+        guardian_name: string
+        guardian_phone: string
+        enrollment_status: 1 | 2 | 3
+        service_status: 1 | 2 | 3
+        identification_number: string
+        birth_date: number
+        address: string
+        gender: 1 | 2
+        real_name: string
+        email: string
+        avatar: string
+    }
+
+    /** 返回的token和刷新token */
+    interface Query {
+        count: number
+        next: string | null
+        previous: string | null
+        results: Detail[]
+    }
+}

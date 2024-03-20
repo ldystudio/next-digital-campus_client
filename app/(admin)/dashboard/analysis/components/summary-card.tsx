@@ -22,37 +22,37 @@ function CircularProgressCard({
 }: CircularProgressCardProps) {
     const circularProgressClassNames = {
         primary: {
-            svg: "w-28 h-28 drop-shadow-md",
+            svg: "w-32 h-32 drop-shadow-md",
             indicator: "stroke-primary",
             track: "stroke-primary/10",
             value: "text-3xl font-semibold text-primary"
         },
         secondary: {
-            svg: "w-28 h-28 drop-shadow-md",
+            svg: "w-32 h-32 drop-shadow-md",
             indicator: "stroke-secondary",
             track: "stroke-secondary/10",
             value: "text-3xl font-semibold text-secondary"
         },
         success: {
-            svg: "w-28 h-28 drop-shadow-md",
+            svg: "w-32 h-32 drop-shadow-md",
             indicator: "stroke-success",
             track: "stroke-success/10",
             value: "text-3xl font-semibold text-success"
         },
         warning: {
-            svg: "w-28 h-28 drop-shadow-md",
+            svg: "w-32 h-32 drop-shadow-md",
             indicator: "stroke-warning",
             track: "stroke-warning/10",
             value: "text-3xl font-semibold text-warning"
         },
         danger: {
-            svg: "w-28 h-28 drop-shadow-md",
+            svg: "w-32 h-32 drop-shadow-md",
             indicator: "stroke-danger",
             track: "stroke-danger/10",
             value: "text-3xl font-semibold text-danger"
         },
         default: {
-            svg: "w-28 h-28 drop-shadow-md",
+            svg: "w-32 h-32 drop-shadow-md",
             indicator: "stroke-default",
             track: "stroke-default/10",
             value: "text-3xl font-semibold text-default"
@@ -77,7 +77,7 @@ function CircularProgressCard({
                         }
                         value={numValue}
                         valueLabel={`+${numValue}%`}
-                        strokeWidth={4}
+                        strokeWidth={2}
                         showValueLabel={true}
                     />
                     <p className='mt-1 text-small text-default-400'>相较于昨天</p>

@@ -4,7 +4,7 @@ const Exam: AuthRoute.Route = {
     component: "basic",
     meta: {
         title: "考试管理",
-        permissions: ["admin", "teacher", "student"],
+        permissions: ["admin", "teacher"],
         icon: "solar:document-text-bold-duotone",
         order: 60
     },

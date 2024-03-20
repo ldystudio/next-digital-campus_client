@@ -6,6 +6,12 @@ declare interface PageComponentProps {
     className?: string
 }
 
+declare type Columns = {
+    uid: string
+    name: string
+    sortable?: boolean
+}[]
+
 /** 请求的相关类型 */
 declare namespace Service {
     /**

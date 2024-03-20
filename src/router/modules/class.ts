@@ -3,7 +3,7 @@ const Class: AuthRoute.Route = {
     path: "/class",
     component: "basic",
     meta: {
-        permissions: ["admin", "teacher", "student"],
+        permissions: ["admin", "teacher"],
         title: "班级管理",
         icon: "solar:buildings-2-bold-duotone",
         order: 100

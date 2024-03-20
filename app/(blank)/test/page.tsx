@@ -1,11 +1,11 @@
 "use client"
 
 // import { useState } from "react"
-
-// import { Button, Input } from "@nextui-org/react"
+import { Button } from "@nextui-org/react"
 
 // import { notice, Row } from "@/components/common"
-// import { fetchUserInfo } from "~/service/api"
+import { fetchPageStudentInformation } from "~/service/api"
+
 // import { useAuthAction, useAuthState } from "~/store/modules/auth"
 // import { useRouteAction, useRouteState } from "~/store/modules/route"
 // import { verifyAndParseJwtPayload } from "~/utils/common"
@@ -106,7 +106,16 @@ export default function Test() {
                     </Button>
                 </Row>
             </section> */}
-            <section></section>
+            <section>
+                <Button
+                    onPress={async () => {
+                        const res = await fetchPageStudentInformation()
+                        console.log("res: ", res)
+                    }}
+                >
+                    测试按钮
+                </Button>
+            </section>
         </>
     )
 }

@@ -3,7 +3,7 @@ const Resource: AuthRoute.Route = {
     path: "/resource",
     component: "basic",
     meta: {
-        permissions: ["admin", "teacher", "student"],
+        permissions: ["admin", "teacher"],
         title: "资源管理",
         icon: "solar:server-square-cloud-bold-duotone",
         order: 80

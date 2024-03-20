@@ -3,7 +3,7 @@ const Task: AuthRoute.Route = {
     path: "/task",
     component: "basic",
     meta: {
-        permissions: ["admin", "teacher", "student"],
+        permissions: ["admin", "teacher"],
         title: "作业管理",
         icon: "solar:notebook-bold-duotone",
         order: 70
