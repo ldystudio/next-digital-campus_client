@@ -45,17 +45,19 @@ import {
 import RenderModalCell from "@/components/custom/render-modal-cell"
 import SingleSelection from "@/components/custom/single-selection"
 import { useTableParams } from "~/hooks/business"
-import { calculateYearDifference } from "~/utils/common"
+import { calculateYearDifference, isString } from "~/utils/common"
 
 interface TableCardProps {
     ariaLabel: string
     columns: Columns
     filterColumns: Columns
     url: string
-    statusField: string
+    statusField?: string
     dateFields: string[]
-    statusOptions: any[]
-    statusColorMap: Record<string, ChipProps["color"]>
+    isAddDisabled?: boolean
+    isDelDisabled?: boolean
+    statusOptions?: Columns
+    statusColorMap?: Record<string, ChipProps["color"]>
     initialSortColumn?: string
     initialInvisibleColumns?: string[]
 }
@@ -65,7 +67,7 @@ interface ActionProps {
     onOpen: () => void
     setDetails: (value: any) => void
     setModifiedDetails: (value: any) => void
-    isInformationPage: boolean
+    isDelDisabled: boolean
     getOneFn: (id: number) => Promise<any>
 }
 
@@ -74,7 +76,7 @@ function Action({
     onOpen,
     setDetails,
     setModifiedDetails,
-    isInformationPage,
+    isDelDisabled,
     getOneFn
 }: ActionProps) {
     return (
@@ -88,7 +90,7 @@ function Action({
                 <DropdownMenu
                     variant='faded'
                     aria-label={`${rows.id} - DropdownMenu`}
-                    disabledKeys={isInformationPage ? ["delete"] : []}
+                    disabledKeys={isDelDisabled ? ["delete"] : []}
                 >
                     <DropdownItem
                         key='edit'
@@ -133,6 +135,8 @@ export default function TableCard({
     url,
     statusField,
     dateFields,
+    isAddDisabled = false,
+    isDelDisabled = false,
     statusOptions,
     statusColorMap,
     initialSortColumn = "id",
@@ -198,6 +202,19 @@ export default function TableCard({
         (rows: Rows, columnKey: Key) => {
             const cellValue = rows[columnKey as keyof Rows]
 
+            if (isString(statusField) && columnKey === statusField && statusColorMap) {
+                return (
+                    <Chip
+                        className='capitalize'
+                        color={statusColorMap[rows[statusField as keyof Rows]]}
+                        size='sm'
+                        variant='flat'
+                    >
+                        {findStatusName(cellValue as number)}
+                    </Chip>
+                )
+            }
+
             switch (columnKey) {
                 case "real_name":
                     return (
@@ -216,17 +233,6 @@ export default function TableCard({
                     )
                 case "gender":
                     return cellValue === 1 ? "男" : "女"
-                case statusField:
-                    return (
-                        <Chip
-                            className='capitalize'
-                            color={statusColorMap[rows[statusField as keyof Rows]]}
-                            size='sm'
-                            variant='flat'
-                        >
-                            {findStatusName(cellValue as number)}
-                        </Chip>
-                    )
                 case "birth_date":
                     return calculateYearDifference(cellValue as string)
                 case "actions":
@@ -236,7 +242,7 @@ export default function TableCard({
                             onOpen={onOpen}
                             setDetails={setDetails}
                             setModifiedDetails={setModifiedDetails}
-                            isInformationPage={isInformationPage}
+                            isDelDisabled={isDelDisabled}
                             getOneFn={getOneFn}
                         />
                     )
@@ -247,7 +253,7 @@ export default function TableCard({
         [
             findStatusName,
             getOneFn,
-            isInformationPage,
+            isDelDisabled,
             onOpen,
             setDetails,
             setModifiedDetails,
@@ -293,35 +299,42 @@ export default function TableCard({
                     </div>
                     <div className='flex gap-3'>
                         <div className='hidden gap-3 lg:flex'>
-                            <Dropdown>
-                                <DropdownTrigger>
-                                    <Button
-                                        endContent={
-                                            <ChevronDownIcon className='text-small' />
-                                        }
-                                        variant='flat'
-                                    >
-                                        就读状态
-                                    </Button>
-                                </DropdownTrigger>
-                                <DropdownMenu
-                                    disallowEmptySelection
-                                    aria-label='Table Columns'
-                                    closeOnSelect={false}
-                                    selectedKeys={statusFilter}
-                                    selectionMode='multiple'
-                                    onSelectionChange={setStatusFilter}
-                                >
-                                    {statusOptions.map((status) => (
-                                        <DropdownItem
-                                            key={status.uid}
-                                            className='capitalize'
+                            {statusField && statusOptions && (
+                                <Dropdown>
+                                    <DropdownTrigger>
+                                        <Button
+                                            endContent={
+                                                <ChevronDownIcon className='text-small' />
+                                            }
+                                            variant='flat'
                                         >
-                                            {status.name}
-                                        </DropdownItem>
-                                    ))}
-                                </DropdownMenu>
-                            </Dropdown>
+                                            {
+                                                columns.find(
+                                                    (column) =>
+                                                        column.uid === statusField
+                                                )?.name
+                                            }
+                                        </Button>
+                                    </DropdownTrigger>
+                                    <DropdownMenu
+                                        disallowEmptySelection
+                                        aria-label='Table Columns'
+                                        closeOnSelect={false}
+                                        selectedKeys={statusFilter}
+                                        selectionMode='multiple'
+                                        onSelectionChange={setStatusFilter}
+                                    >
+                                        {statusOptions.map((status) => (
+                                            <DropdownItem
+                                                key={status.uid}
+                                                className='capitalize'
+                                            >
+                                                {status.name}
+                                            </DropdownItem>
+                                        ))}
+                                    </DropdownMenu>
+                                </Dropdown>
+                            )}
                             <Dropdown>
                                 <DropdownTrigger>
                                     <Button
@@ -355,7 +368,7 @@ export default function TableCard({
                         <Button
                             color='primary'
                             endContent={<PlusIcon />}
-                            isDisabled={isInformationPage}
+                            isDisabled={isAddDisabled}
                         >
                             Add New
                         </Button>
@@ -384,7 +397,7 @@ export default function TableCard({
         columns,
         filterColumns,
         filterValue,
-        isInformationPage,
+        isAddDisabled,
         onClear,
         onRowsPerPageChange,
         onSearchChange,
@@ -394,6 +407,7 @@ export default function TableCard({
         selectedValue,
         setStatusFilter,
         setVisibleColumns,
+        statusField,
         statusFilter,
         statusOptions,
         visibleColumns

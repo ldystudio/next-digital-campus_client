@@ -47,6 +47,8 @@ export default function TeacherInformationPage() {
                 ariaLabel='Teacher information Table'
                 url='/teacher/information/'
                 columns={columns}
+                isAddDisabled
+                isDelDisabled
                 filterColumns={filterColumns}
                 dateFields={dateFields}
                 statusField='service_status'

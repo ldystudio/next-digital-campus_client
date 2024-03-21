@@ -10,8 +10,8 @@ interface useTableParamsProps {
     columns: Columns
     url: string
     selectedFilterKeys: Set<string>
-    statusField: string
-    statusOptions: any[]
+    statusField?: string
+    statusOptions?: Columns
     initialSortColumn?: string
     initialInvisibleColumns?: string[]
 }
@@ -78,7 +78,9 @@ export function useTableParams({
 
     const findStatusName = useCallback(
         (status: number) =>
-            statusOptions.find((option) => option.uid === `${status}`)?.name,
+            statusOptions
+                ? statusOptions.find((option) => option.uid === `${status}`)?.name
+                : "",
         [statusOptions]
     )
 

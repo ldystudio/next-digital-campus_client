@@ -2,17 +2,15 @@ import { Input, Radio, RadioGroup } from "@nextui-org/react"
 
 import DatePicker from "@/components/business/date-picker"
 import { Col } from "@/components/common"
+import { isString } from "~/utils/common"
 
 interface renderModalCellProps {
-    modelColumns: { uid: string; name: string; sortable?: boolean }[]
+    modelColumns: Columns
     details: any
     dateFields: string[]
-    statusOptions: {
-        uid: string
-        name: string
-    }[]
+    statusOptions?: Columns
     modifiedAttribute: (column: string, value: any) => void
-    statusField: string
+    statusField?: string
 }
 
 export default function RenderModalCell({
@@ -36,6 +34,26 @@ export default function RenderModalCell({
                 </Col>
             )
         }
+        if (isString(statusField) && statusField === column.uid && statusOptions) {
+            return (
+                <RadioGroup
+                    key={column.uid}
+                    label={column.name}
+                    color='primary'
+                    orientation='horizontal'
+                    defaultValue={`${details[column.uid]}`}
+                    onValueChange={(value) => {
+                        modifiedAttribute(column.uid, Number(value))
+                    }}
+                >
+                    {statusOptions.map((status) => (
+                        <Radio key={status.uid} value={status.uid}>
+                            {status.name}
+                        </Radio>
+                    ))}
+                </RadioGroup>
+            )
+        }
         switch (column.uid) {
             case "id":
             case "actions":
@@ -56,25 +74,7 @@ export default function RenderModalCell({
                         <Radio value='2'>女</Radio>
                     </RadioGroup>
                 )
-            case statusField:
-                return (
-                    <RadioGroup
-                        key={column.uid}
-                        label={column.name}
-                        color='primary'
-                        orientation='horizontal'
-                        defaultValue={`${details[column.uid]}`}
-                        onValueChange={(value) => {
-                            modifiedAttribute(column.uid, Number(value))
-                        }}
-                    >
-                        {statusOptions.map((status) => (
-                            <Radio key={status.uid} value={status.uid}>
-                                {status.name}
-                            </Radio>
-                        ))}
-                    </RadioGroup>
-                )
+
             default:
                 return (
                     <Input
