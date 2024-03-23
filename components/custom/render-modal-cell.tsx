@@ -45,6 +45,7 @@ export default function RenderModalCell({
                     onValueChange={(value) => {
                         modifiedAttribute(column.uid, Number(value))
                     }}
+                    classNames={{ wrapper: "justify-center" }}
                 >
                     {statusOptions.map((status) => (
                         <Radio key={status.uid} value={status.uid}>
@@ -52,6 +53,20 @@ export default function RenderModalCell({
                         </Radio>
                     ))}
                 </RadioGroup>
+            )
+        }
+        if (column.uid.includes("time")) {
+            return (
+                <Input
+                    key={column.uid}
+                    type='time'
+                    label={column.name}
+                    variant='bordered'
+                    defaultValue={details[column.uid]}
+                    onValueChange={(value) => {
+                        modifiedAttribute(column.uid, value)
+                    }}
+                />
             )
         }
         switch (column.uid) {

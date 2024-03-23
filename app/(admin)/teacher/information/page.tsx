@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { ChipProps } from "@nextui-org/react"
 
 import TableCard from "@/components/business/table-card"
-import filterColumnsByArray from "~/utils/common/filter-columns-by-array"
+import { filterColumnsByArray } from "~/utils/common"
 
 export const metadata: Metadata = {
     title: "信息管理"

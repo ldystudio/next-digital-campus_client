@@ -45,7 +45,7 @@ import {
 import RenderModalCell from "@/components/custom/render-modal-cell"
 import SingleSelection from "@/components/custom/single-selection"
 import { useTableParams } from "~/hooks/business"
-import { calculateYearDifference, isString } from "~/utils/common"
+import { calculateYearDifference, convertToDetail, isString } from "~/utils/common"
 
 interface TableCardProps {
     ariaLabel: string
@@ -68,7 +68,10 @@ interface ActionProps {
     setDetails: (value: any) => void
     setModifiedDetails: (value: any) => void
     isDelDisabled: boolean
-    getOneFn: (id: number) => Promise<any>
+    mutate: (url: string) => void
+    finalUrl: string
+    getOneFn: (id: number) => Promise<Service.RequestResult<ApiPage.Detail>>
+    removeOneFn: (id: number) => Promise<Service.RequestResult<null>>
 }
 
 function Action({
@@ -77,7 +80,10 @@ function Action({
     setDetails,
     setModifiedDetails,
     isDelDisabled,
-    getOneFn
+    mutate,
+    finalUrl,
+    getOneFn,
+    removeOneFn
 }: ActionProps) {
     return (
         <div className='relative flex items-center gap-2'>
@@ -119,6 +125,11 @@ function Action({
                         startContent={
                             <Icon icon='solar:trash-bin-2-bold-duotone' height={32} />
                         }
+                        onPress={async () => {
+                            const { error } = await removeOneFn(rows.id)
+                            mutate(finalUrl)
+                            error ? toast.error(error.msg) : toast.success("删除成功")
+                        }}
                     >
                         删除
                     </DropdownItem>
@@ -175,6 +186,8 @@ export default function TableCard({
         onClear,
         modifiedAttribute,
         getOneFn,
+        removeOneFn,
+        updateOneFn,
         saveOneFn
     } = useTableParams({
         columns,
@@ -235,6 +248,9 @@ export default function TableCard({
                     return cellValue === 1 ? "男" : "女"
                 case "birth_date":
                     return calculateYearDifference(cellValue as string)
+                case "leave_start_time":
+                case "leave_end_time":
+                    return `${cellValue}`.replace("T", " ")
                 case "actions":
                     return (
                         <Action
@@ -244,6 +260,9 @@ export default function TableCard({
                             setModifiedDetails={setModifiedDetails}
                             isDelDisabled={isDelDisabled}
                             getOneFn={getOneFn}
+                            removeOneFn={removeOneFn}
+                            mutate={mutate}
+                            finalUrl={finalUrl}
                         />
                     )
                 default:
@@ -251,10 +270,13 @@ export default function TableCard({
             }
         },
         [
+            finalUrl,
             findStatusName,
             getOneFn,
             isDelDisabled,
+            mutate,
             onOpen,
+            removeOneFn,
             setDetails,
             setModifiedDetails,
             statusColorMap,
@@ -262,9 +284,9 @@ export default function TableCard({
         ]
     )
 
-    function hasOnlyIdProperty(obj: object) {
+    function checkProperty(obj: object) {
         const keys = Object.keys(obj)
-        return keys.length === 1 && keys[0] === "id"
+        return keys.length === 0 || (keys.length === 1 && keys[0] === "id")
     }
 
     const selectedValue = useMemo(
@@ -369,8 +391,12 @@ export default function TableCard({
                             color='primary'
                             endContent={<PlusIcon />}
                             isDisabled={isAddDisabled}
+                            onPress={() => {
+                                setDetails(convertToDetail(modelColumns))
+                                onOpen()
+                            }}
                         >
-                            Add New
+                            添加
                         </Button>
                     </div>
                 </div>
@@ -398,13 +424,16 @@ export default function TableCard({
         filterColumns,
         filterValue,
         isAddDisabled,
+        modelColumns,
         onClear,
+        onOpen,
         onRowsPerPageChange,
         onSearchChange,
         pageData?.count,
         rowsPerPage,
         selectedFilterKeys,
         selectedValue,
+        setDetails,
         setStatusFilter,
         setVisibleColumns,
         statusField,
@@ -543,7 +572,7 @@ export default function TableCard({
                     {(onClose) => (
                         <>
                             <ModalHeader className='flex flex-col gap-1'>
-                                修改资料
+                                {modifiedDetails.id ? "修改资料" : "新增资料"}
                             </ModalHeader>
                             <ModalBody>
                                 <RenderModalCell
@@ -559,36 +588,48 @@ export default function TableCard({
                                 <Button
                                     color='danger'
                                     variant='light'
-                                    onPress={onClose}
+                                    onPress={() => {
+                                        setModifiedDetails({})
+                                        onClose()
+                                    }}
                                 >
                                     关闭
                                 </Button>
                                 <Button
                                     color='primary'
                                     onPress={async () => {
-                                        if (hasOnlyIdProperty(modifiedDetails)) {
-                                            toast.error("请至少修改一项信息")
+                                        const actionType = modifiedDetails.id
+                                            ? "修改"
+                                            : "新增"
+
+                                        if (checkProperty(modifiedDetails)) {
+                                            toast.error(
+                                                modifiedDetails.id
+                                                    ? "请至少修改一项信息"
+                                                    : "未输入任何信息"
+                                            )
                                             return
                                         }
 
-                                        const { error } =
-                                            await saveOneFn(modifiedDetails)
+                                        const { error } = modifiedDetails.id
+                                            ? await updateOneFn(modifiedDetails)
+                                            : await saveOneFn(modifiedDetails)
 
                                         if (error) {
                                             notice.error({
-                                                description: "修改失败，请稍后再试"
+                                                description: `${actionType}失败，请稍后再试`
                                             })
                                             return
                                         }
 
                                         notice.success({
-                                            description: "修改成功"
+                                            description: `${actionType}成功`
                                         })
                                         mutate(finalUrl)
                                         onClose()
                                     }}
                                 >
-                                    修改
+                                    {modifiedDetails.id ? "修改" : "新增"}
                                 </Button>
                             </ModalFooter>
                         </>

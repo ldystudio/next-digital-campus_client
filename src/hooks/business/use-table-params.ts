@@ -47,6 +47,7 @@ export function useTableParams({
 
     const [details, setDetails] = useState<any>(null)
     const [modifiedDetails, setModifiedDetails] = useState<any>({})
+    const [modelType, setModelType] = useState<"add" | "edit">("add")
 
     const { mutate } = useSWRConfig()
 
@@ -126,8 +127,16 @@ export function useTableParams({
         return request.get<ApiPage.Detail>(`${url}${id}/`)
     }
 
-    function saveOneFn({ id, ...otherData }: ApiPage.Detail) {
+    function removeOneFn(id: number) {
+        return request.delete<null>(`${url}${id}/`)
+    }
+
+    function updateOneFn({ id, ...otherData }: ApiPage.Detail) {
         return request.patch<ApiPage.Detail>(`${url}${id}/`, otherData)
+    }
+
+    function saveOneFn(data: any) {
+        return request.post<ApiPage.Detail>(url, data)
     }
 
     return {
@@ -147,6 +156,8 @@ export function useTableParams({
         setDetails,
         modifiedDetails,
         setModifiedDetails,
+        modelType,
+        setModelType,
         page,
         setPage,
         rows,
@@ -164,6 +175,8 @@ export function useTableParams({
         onClear,
         modifiedAttribute,
         getOneFn,
+        removeOneFn,
+        updateOneFn,
         saveOneFn
     }
 }

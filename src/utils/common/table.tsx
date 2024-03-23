@@ -1,3 +1,5 @@
+import _filter from "lodash/filter"
+
 export function calculateYearDifference(givenDateStr: string): number | null {
     if (!givenDateStr) {
         return null
@@ -20,4 +22,16 @@ export function calculateYearDifference(givenDateStr: string): number | null {
     }
 
     return yearDifference
+}
+
+export function filterColumnsByArray(columns: Columns, array: string[]) {
+    return _filter(columns, (column) => array.includes(column.uid))
+}
+
+export function convertToDetail(input: Columns) {
+    const output: { [key: string]: undefined } = {}
+    for (const item of input) {
+        output[item.uid] = undefined
+    }
+    return output
 }
