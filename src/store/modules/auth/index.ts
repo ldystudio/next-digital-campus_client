@@ -121,8 +121,8 @@ export function useAuthAction() {
         // 先把token存储到缓存中(后面接口的请求头需要token)
         const { accessToken, refreshToken } = backendToken
         setCookie("accessToken", accessToken, {
-            maxAge: parseInt(process.env.TOKEN_LIFETIME!),
-            sameSite: true
+            maxAge: parseInt(process.env.TOKEN_LIFETIME!)
+            // sameSite: true
         })
         // localStg.set("token", `Bearer ${token}`)
         localStg.set("refreshToken", refreshToken)

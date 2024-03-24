@@ -15,8 +15,8 @@ export async function handleRefreshToken(axiosConfig: AxiosRequestConfig) {
     const { data } = await fetchUpdateToken(refreshToken)
     if (data) {
         setCookie("accessToken", data.accessToken, {
-            maxAge: parseInt(process.env.TOKEN_LIFETIME!),
-            sameSite: true
+            maxAge: parseInt(process.env.TOKEN_LIFETIME!)
+            // sameSite: true
         })
         localStg.set("refreshToken", data.refreshToken)
 
