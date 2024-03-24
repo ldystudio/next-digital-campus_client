@@ -25,6 +25,7 @@ const Teacher: AuthRoute.Route = {
             component: "self",
             meta: {
                 title: "工作安排",
+                permissions: ["teacher"],
                 icon: "solar:checklist-minimalistic-bold-duotone",
                 order: 32
             }

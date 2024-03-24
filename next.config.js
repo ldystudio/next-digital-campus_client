@@ -3,6 +3,7 @@ module.exports = {
     reactStrictMode: true,
     poweredByHeader: process.env.NODE_ENV === "development",
     // basePath: '',
+    output: "standalone",
     env: {
         SERVER_URL: "http://192.168.1.215:8000/api/v1",
         // SERVER_URL: "http://127.0.0.1:8000/api/v1",

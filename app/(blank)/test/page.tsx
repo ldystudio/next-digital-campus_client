@@ -4,7 +4,6 @@
 import { Button } from "@nextui-org/react"
 
 // import { notice, Row } from "@/components/common"
-import { fetchPageStudentInformation } from "~/service/api"
 
 // import { useAuthAction, useAuthState } from "~/store/modules/auth"
 // import { useRouteAction, useRouteState } from "~/store/modules/route"
@@ -106,7 +105,7 @@ export default function Test() {
                     </Button>
                 </Row>
             </section> */}
-            <section>
+            {/* <section>
                 <Button
                     onPress={async () => {
                         const res = await fetchPageStudentInformation()
@@ -115,7 +114,7 @@ export default function Test() {
                 >
                     测试按钮
                 </Button>
-            </section>
+            </section> */}
         </>
     )
 }

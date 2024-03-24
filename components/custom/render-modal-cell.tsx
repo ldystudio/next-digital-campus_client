@@ -11,6 +11,7 @@ interface renderModalCellProps {
     statusOptions?: Columns
     modifiedAttribute: (column: string, value: any) => void
     statusField?: string
+    disabledInput?: string[]
 }
 
 export default function RenderModalCell({
@@ -19,6 +20,7 @@ export default function RenderModalCell({
     dateFields,
     statusOptions,
     modifiedAttribute,
+    disabledInput,
     statusField
 }: renderModalCellProps) {
     return modelColumns.map((column) => {
@@ -100,6 +102,7 @@ export default function RenderModalCell({
                         onValueChange={(value) => {
                             modifiedAttribute(column.uid, value)
                         }}
+                        isDisabled={disabledInput?.includes(column.uid)}
                     />
                 )
         }

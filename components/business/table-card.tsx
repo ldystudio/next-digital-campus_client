@@ -58,6 +58,7 @@ interface TableCardProps {
     isDelDisabled?: boolean
     statusOptions?: Columns
     statusColorMap?: Record<string, ChipProps["color"]>
+    disabledInput?: string[]
     initialSortColumn?: string
     initialInvisibleColumns?: string[]
 }
@@ -150,10 +151,12 @@ export default function TableCard({
     isDelDisabled = false,
     statusOptions,
     statusColorMap,
+    disabledInput,
     initialSortColumn = "id",
     initialInvisibleColumns = []
 }: TableCardProps) {
     const [selectedFilterKeys, setSelectedFilterKeys] = useState(new Set(["id"]))
+
     const {
         filterValue,
         selectedKeys,
@@ -445,7 +448,7 @@ export default function TableCard({
     const bottomContent = useMemo(() => {
         return (
             <div className='flex items-center justify-between p-2'>
-                <span className='w-[30%] text-small text-default-400'>
+                <span className='hidden w-[30%] text-small text-default-400 md:block'>
                     {selectedKeys === "all"
                         ? "All items selected"
                         : `${selectedKeys.size} of ${pageData?.count} selected`}
@@ -567,6 +570,9 @@ export default function TableCard({
                         }
                     }
                 }}
+                onClose={() => {
+                    setModifiedDetails({})
+                }}
             >
                 <ModalContent>
                     {(onClose) => (
@@ -582,6 +588,9 @@ export default function TableCard({
                                     statusField={statusField}
                                     dateFields={dateFields}
                                     statusOptions={statusOptions}
+                                    disabledInput={
+                                        modifiedDetails.id ? disabledInput : []
+                                    }
                                 />
                             </ModalBody>
                             <ModalFooter>

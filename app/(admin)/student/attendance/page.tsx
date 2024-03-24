@@ -61,6 +61,7 @@ export default function StudentAttendancePage() {
                 statusField='attendance_status'
                 statusOptions={statusOptions}
                 statusColorMap={statusColorMap}
+                disabledInput={["real_name"]}
                 initialInvisibleColumns={["id"]}
             />
         </section>
