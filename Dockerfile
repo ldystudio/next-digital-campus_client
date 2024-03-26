@@ -5,9 +5,13 @@ FROM base AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
     && apk update \
+    && apk add tzdata \
     && apk add --no-cache libc6-compat \
     && npm config set registry https://registry.npmmirror.com
 WORKDIR /app
+
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
+RUN echo "Asia/Shanghai" > /etc/timezone
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
