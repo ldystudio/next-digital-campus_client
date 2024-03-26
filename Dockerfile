@@ -6,7 +6,8 @@ FROM base AS deps
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
     && apk update \
     && apk add --no-cache libc6-compat \
-    && npm config set registry https://registry.npmmirror.com
+    && npm config set registry https://registry.npmmirror.com \
+    && npm install sharp
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
