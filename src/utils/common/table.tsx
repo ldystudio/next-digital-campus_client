@@ -28,10 +28,14 @@ export function filterColumnsByArray(columns: Columns, array: string[]) {
     return _filter(columns, (column) => array.includes(column.uid))
 }
 
-export function convertToDetail(input: Columns) {
-    const output: { [key: string]: undefined } = {}
+export function convertToDetail(input: Columns, groupField?: string) {
+    const output: { [key: string]: undefined | [] } = {}
     for (const item of input) {
-        output[item.uid] = undefined
+        if (groupField && groupField === item.uid) {
+            output[item.uid] = []
+        } else {
+            output[item.uid] = undefined
+        }
     }
     return output
 }

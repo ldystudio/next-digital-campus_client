@@ -14,6 +14,7 @@ const Course: AuthRoute.Route = {
             path: "/course/setting",
             component: "self",
             meta: {
+                permissions: ["teacher"],
                 title: "课程设置",
                 icon: "solar:diploma-verified-bold-duotone",
                 order: 41
@@ -34,6 +35,7 @@ const Course: AuthRoute.Route = {
             path: "/course/choose",
             component: "self",
             meta: {
+                permissions: ["student"],
                 title: "选课管理",
                 icon: "solar:bookmark-square-bold-duotone",
                 order: 43

@@ -46,6 +46,13 @@ declare namespace ApiUserManagement {
         /** 住址 */
         address: string | null
     }
+
+    interface SimpleUser {
+        id: number
+        real_name: string
+        email: string
+        avatar: string
+    }
 }
 
 /** 后端返回的用户权益相关类型 */
@@ -71,10 +78,10 @@ declare namespace ApiPage {
     }
 
     /** 返回的token和刷新token */
-    interface Query {
+    interface Query<T = Detail> {
         count: number
         next: string | null
         previous: string | null
-        results: Detail[]
+        results: T[]
     }
 }

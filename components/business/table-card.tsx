@@ -7,6 +7,8 @@ import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import { Icon } from "@iconify/react"
 import {
+    Avatar,
+    AvatarGroup,
     Button,
     Card,
     CardBody,
@@ -30,6 +32,7 @@ import {
     TableColumn,
     TableHeader,
     TableRow,
+    Tooltip,
     useDisclosure,
     User
 } from "@nextui-org/react"
@@ -61,6 +64,8 @@ interface TableCardProps {
     disabledInput?: string[]
     initialSortColumn?: string
     initialInvisibleColumns?: string[]
+    groupField?: string
+    groupUserRole?: "student" | "teacher"
 }
 
 interface ActionProps {
@@ -153,7 +158,9 @@ export default function TableCard({
     statusColorMap,
     disabledInput,
     initialSortColumn = "id",
-    initialInvisibleColumns = []
+    initialInvisibleColumns = [],
+    groupField,
+    groupUserRole = "student"
 }: TableCardProps) {
     const [selectedFilterKeys, setSelectedFilterKeys] = useState(new Set(["id"]))
 
@@ -231,6 +238,28 @@ export default function TableCard({
                 )
             }
 
+            if (groupField && columnKey === groupField) {
+                const userGroup = rows[
+                    groupField as keyof Rows
+                ] as unknown as ApiPage.Detail[]
+                return (
+                    <AvatarGroup isBordered max={5} className='justify-start'>
+                        {userGroup.map((row) => (
+                            <Tooltip
+                                key={row.id}
+                                content={<div className='w-11'>{row.real_name}</div>}
+                            >
+                                <Avatar
+                                    src={createAvatar(adventurer, {
+                                        seed: row.avatar
+                                    }).toDataUriSync()}
+                                />
+                            </Tooltip>
+                        ))}
+                    </AvatarGroup>
+                )
+            }
+
             switch (columnKey) {
                 case "real_name":
                     return (
@@ -283,7 +312,8 @@ export default function TableCard({
             setDetails,
             setModifiedDetails,
             statusColorMap,
-            statusField
+            statusField,
+            groupField
         ]
     )
 
@@ -395,7 +425,7 @@ export default function TableCard({
                             endContent={<PlusIcon />}
                             isDisabled={isAddDisabled}
                             onPress={() => {
-                                setDetails(convertToDetail(modelColumns))
+                                setDetails(convertToDetail(modelColumns, groupField))
                                 onOpen()
                             }}
                         >
@@ -415,7 +445,9 @@ export default function TableCard({
                             defaultValue={rowsPerPage}
                         >
                             <option value='5'>5</option>
+                            <option value='8'>8</option>
                             <option value='10'>10</option>
+                            <option value='12'>12</option>
                             <option value='15'>15</option>
                         </select>
                     </label>
@@ -426,6 +458,7 @@ export default function TableCard({
         columns,
         filterColumns,
         filterValue,
+        groupField,
         isAddDisabled,
         modelColumns,
         onClear,
@@ -591,6 +624,8 @@ export default function TableCard({
                                     disabledInput={
                                         modifiedDetails.id ? disabledInput : []
                                     }
+                                    groupField={groupField}
+                                    userRole={groupUserRole}
                                 />
                             </ModalBody>
                             <ModalFooter>

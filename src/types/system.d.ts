@@ -10,6 +10,7 @@ declare type Columns = {
     uid: string
     name: string
     sortable?: boolean
+    isRequired?: boolean
 }[]
 
 /** 请求的相关类型 */
