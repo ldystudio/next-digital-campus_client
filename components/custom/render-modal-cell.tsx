@@ -68,17 +68,46 @@ export default function RenderModalCell({
         }
         if (column.uid.includes("time")) {
             return (
-                <Input
-                    key={column.uid}
-                    type='time'
-                    label={column.name}
-                    variant='bordered'
-                    defaultValue={details[column.uid]}
-                    onValueChange={(value) => {
-                        modifiedAttribute(column.uid, value)
-                    }}
-                    isRequired={column.isRequired}
-                />
+                <>
+                    <Input
+                        key={column.uid}
+                        type='time'
+                        label={column.name}
+                        variant='bordered'
+                        defaultValue={details[column.uid]}
+                        onValueChange={(value) => {
+                            modifiedAttribute(column.uid, value)
+                        }}
+                        isRequired={column.isRequired}
+                        list={
+                            column.uid === "start_time"
+                                ? "startTimeList"
+                                : column.uid === "end_time"
+                                  ? "endTimeList"
+                                  : undefined
+                        }
+                    />
+                    <datalist id='startTimeList'>
+                        <option value='08:00' />
+                        <option value='08:55' />
+                        <option value='09:50' />
+                        <option value='10:45' />
+                        <option value='13:30' />
+                        <option value='14:25' />
+                        <option value='15:20' />
+                        <option value='16:15' />
+                    </datalist>
+                    <datalist id='endTimeList'>
+                        <option value='08:45' />
+                        <option value='09:40' />
+                        <option value='10:35' />
+                        <option value='11:30' />
+                        <option value='14:15' />
+                        <option value='15:10' />
+                        <option value='16:05' />
+                        <option value='17:00' />
+                    </datalist>
+                </>
             )
         }
         if (groupField && groupField === column.uid) {

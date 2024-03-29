@@ -1,28 +1,11 @@
-import { Col } from "@/components/common"
+import { Spinner } from "@nextui-org/react"
 
-import "~/styles/loading.css"
+import { Col } from "@/components/common"
 
 export default function LoadingPage() {
     return (
         <Col fullWidth justify='center' className='h-screen'>
-            <div className='semicircle'>
-                <div>
-                    <div>
-                        <div>
-                            <div>
-                                <div>
-                                    <div>
-                                        <div>
-                                            <div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p>Loading...</p>
+            <Spinner size='lg' label='Loading...' />
         </Col>
     )
 }

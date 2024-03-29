@@ -530,6 +530,7 @@ export default function TableCard({
             <CardBody className='no-scrollbar'>
                 <Table
                     aria-label={ariaLabel}
+                    isStriped
                     isHeaderSticky
                     selectedKeys={selectedKeys}
                     selectionMode='multiple'
@@ -556,14 +557,18 @@ export default function TableCard({
                         loadingContent={<Spinner />}
                         loadingState={isLoading ? "loading" : "idle"}
                         emptyContent={
-                            <Col fullWidth justify='center'>
-                                <Icon
-                                    icon='solar:sleeping-square-bold-duotone'
-                                    color='#a1a1aa'
-                                    height={56}
-                                />
-                                <p>No rows to display.</p>
-                            </Col>
+                            isLoading ? (
+                                <div />
+                            ) : (
+                                <Col fullWidth justify='center'>
+                                    <Icon
+                                        icon='solar:sleeping-square-bold-duotone'
+                                        color='#a1a1aa'
+                                        height={56}
+                                    />
+                                    <p>无内容</p>
+                                </Col>
+                            )
                         }
                         items={rows}
                     >
