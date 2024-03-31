@@ -14,7 +14,7 @@ interface renderModalCellProps {
     statusField?: string
     disabledInput?: string[]
     groupField?: string
-    userRole: "student" | "teacher"
+    groupFetchUrl?: string
 }
 
 export default function RenderModalCell({
@@ -26,7 +26,7 @@ export default function RenderModalCell({
     disabledInput,
     statusField,
     groupField,
-    userRole
+    groupFetchUrl = ""
 }: renderModalCellProps) {
     return modelColumns.map((column) => {
         if (dateFields.includes(column.uid)) {
@@ -117,7 +117,7 @@ export default function RenderModalCell({
                     column={column}
                     details={details}
                     groupField={groupField}
-                    userRole={userRole}
+                    groupFetchUrl={groupFetchUrl}
                     modifiedAttribute={modifiedAttribute}
                 />
             )
@@ -141,6 +141,28 @@ export default function RenderModalCell({
                         <Radio value='1'>男</Radio>
                         <Radio value='2'>女</Radio>
                     </RadioGroup>
+                )
+            case "class_name":
+                return (
+                    <MultipleSelect
+                        key={column.uid}
+                        column={column}
+                        details={details}
+                        groupField='class_name'
+                        groupFetchUrl='/classes/information/'
+                        modifiedAttribute={modifiedAttribute}
+                    />
+                )
+            case "classes":
+                return (
+                    <MultipleSelect
+                        key={column.uid}
+                        column={column}
+                        details={details}
+                        groupField='classes'
+                        groupFetchUrl='/classes/information/'
+                        modifiedAttribute={modifiedAttribute}
+                    />
                 )
             default:
                 return (

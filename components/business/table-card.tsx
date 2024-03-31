@@ -65,7 +65,7 @@ interface TableCardProps {
     initialSortColumn?: string
     initialInvisibleColumns?: string[]
     groupField?: string
-    groupUserRole?: "student" | "teacher"
+    groupFetchUrl?: string
 }
 
 interface ActionProps {
@@ -160,7 +160,7 @@ export default function TableCard({
     initialSortColumn = "id",
     initialInvisibleColumns = [],
     groupField,
-    groupUserRole = "student"
+    groupFetchUrl
 }: TableCardProps) {
     const [selectedFilterKeys, setSelectedFilterKeys] = useState(new Set(["id"]))
 
@@ -283,6 +283,10 @@ export default function TableCard({
                 case "leave_start_time":
                 case "leave_end_time":
                     return `${cellValue}`.replace("T", " ")
+                case "classes":
+                    return (cellValue as unknown as Classes[]).map((cls) => (
+                        <p key={cls.id}>{cls.class_name}</p>
+                    ))
                 case "actions":
                     return (
                         <Action
@@ -630,7 +634,7 @@ export default function TableCard({
                                         modifiedDetails.id ? disabledInput : []
                                     }
                                     groupField={groupField}
-                                    userRole={groupUserRole}
+                                    groupFetchUrl={groupFetchUrl}
                                 />
                             </ModalBody>
                             <ModalFooter>

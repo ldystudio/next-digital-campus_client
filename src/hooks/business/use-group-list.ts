@@ -5,20 +5,18 @@ import useSWR from "swr"
 import { request } from "~/service/request"
 
 export type UseUserListProps = {
-    userRole: "student" | "teacher"
+    groupFetchUrl: string
 }
 
 const fetcher = (url: string) =>
-    request
-        .get<ApiPage.Query<ApiUserManagement.SimpleUser>>(url)
-        .then((res) => res.data)
+    request.get<ApiPage.Query<any>>(url).then((res) => res.data)
 
-export function useUserList({ userRole }: UseUserListProps) {
-    const [items, setItems] = useState<ApiUserManagement.SimpleUser[]>([])
+export function useGroupList({ groupFetchUrl }: UseUserListProps) {
+    const [items, setItems] = useState<any[]>([])
     const [page, setPage] = useState(1)
 
     const { data, error, isValidating } = useSWR(
-        `/${userRole}/simple/?page=${page}&size=20`,
+        `${groupFetchUrl}?page=${page}&size=20`,
         fetcher
     )
 

@@ -13,6 +13,7 @@ export default function TeacherInformationPage() {
         { uid: "id", name: "教号", sortable: true },
         { uid: "real_name", name: "姓名" },
         { uid: "phone", name: "手机号" },
+        { uid: "classes", name: "适用班级", isRequired: true },
         { uid: "birth_date", name: "年龄", sortable: true },
         { uid: "service_date", name: "入职日期", sortable: true },
         { uid: "gender", name: "性别", sortable: true },

@@ -19,7 +19,7 @@ export default function CourseSettingPage() {
         { uid: "class_location", name: "上课地点", sortable: true, isRequired: true },
         { uid: "credit", name: "课程学分", sortable: true, isRequired: true },
         { uid: "course_type", name: "课程类型", sortable: true },
-        { uid: "applicable_classes", name: "适用班级", isRequired: true },
+        { uid: "classes", name: "适用班级", isRequired: true },
         { uid: "enrollment_limit", name: "选课人数限制" },
         { uid: "course_duration", name: "课程时长" },
         { uid: "start_date", name: "课程开始日期", sortable: true, isRequired: true },
@@ -47,8 +47,7 @@ export default function CourseSettingPage() {
         "real_name",
         "course_name",
         "class_location",
-        "course_type",
-        "applicable_classes"
+        "course_type"
     ])
 
     return (
@@ -65,7 +64,7 @@ export default function CourseSettingPage() {
                 disabledInput={["real_name"]}
                 initialInvisibleColumns={["id"]}
                 groupField='teacher'
-                groupUserRole='teacher'
+                groupFetchUrl='/teacher/simple/'
             />
         </section>
     )
