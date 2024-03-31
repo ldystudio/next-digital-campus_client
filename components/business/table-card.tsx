@@ -328,10 +328,11 @@ export default function TableCard({
 
     const selectedValue = useMemo(
         () =>
-            columns.find(
-                (column) => column.uid === Array.from(selectedFilterKeys).join(", ")
+            filterColumns.find(
+                (filterColumns) =>
+                    filterColumns.uid === Array.from(selectedFilterKeys).join(", ")
             )?.name,
-        [columns, selectedFilterKeys]
+        [filterColumns, selectedFilterKeys]
     )
 
     const topContent = useMemo(() => {

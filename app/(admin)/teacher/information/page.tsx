@@ -41,6 +41,7 @@ export default function TeacherInformationPage() {
         "phone",
         "identification_number"
     ])
+    filterColumns.push({ uid: "class_name", name: "班级名称" })
 
     return (
         <section className='lg:h-full'>

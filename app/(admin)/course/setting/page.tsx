@@ -14,6 +14,7 @@ export default function CourseSettingPage() {
         { uid: "course_name", name: "课程名称", sortable: true, isRequired: true },
         { uid: "course_description", name: "课程描述" },
         { uid: "teacher", name: "教师", isRequired: true },
+        { uid: "weekday", name: "上课星期" },
         { uid: "start_time", name: "上课时间", sortable: true, isRequired: true },
         { uid: "end_time", name: "下课时间", sortable: true, isRequired: true },
         { uid: "class_location", name: "上课地点", sortable: true, isRequired: true },
@@ -21,7 +22,6 @@ export default function CourseSettingPage() {
         { uid: "course_type", name: "课程类型", sortable: true },
         { uid: "classes", name: "适用班级", isRequired: true },
         { uid: "enrollment_limit", name: "选课人数限制" },
-        { uid: "course_duration", name: "课程时长" },
         { uid: "start_date", name: "课程开始日期", sortable: true, isRequired: true },
         { uid: "end_date", name: "课程结束日期", sortable: true, isRequired: true },
         { uid: "notes", name: "备注" },
@@ -49,6 +49,7 @@ export default function CourseSettingPage() {
         "class_location",
         "course_type"
     ])
+    filterColumns.push({ uid: "class_name", name: "班级名称" })
 
     return (
         <section className='lg:h-full'>

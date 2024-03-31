@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import clsx from "clsx"
-import { Card, CardBody } from "@nextui-org/react"
+import { Card } from "@nextui-org/react"
 
 import CourseSchedule from "@/components/business/course-schedule"
 import getFormattedWeekDates from "~/utils/common/date"
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "课程表管理"
 }
 
-export default function CourseTablePage() {
+export default async function CourseTablePage() {
     const columns = [
         {
             uid: "Monday",
@@ -40,15 +40,55 @@ export default function CourseTablePage() {
             name: "星期日"
         }
     ]
+    const timePoints = [
+        {
+            uid: 0,
+            start_time: "08:00",
+            end_time: "08:45"
+        },
+        {
+            uid: 1,
+            start_time: "08:55",
+            end_time: "09:40"
+        },
+        {
+            uid: 2,
+            start_time: "09:50",
+            end_time: "10:35"
+        },
+        {
+            uid: 3,
+            start_time: "10:45",
+            end_time: "11:30"
+        },
+        {
+            uid: 4,
+            start_time: "13:30",
+            end_time: "14:15"
+        },
+        {
+            uid: 5,
+            start_time: "14:25",
+            end_time: "15:10"
+        },
+        {
+            uid: 6,
+            start_time: "15:20",
+            end_time: "16:05"
+        },
+        {
+            uid: 7,
+            start_time: "16:15",
+            end_time: "17:00"
+        }
+    ]
+
     const toWeekDates = getFormattedWeekDates()
 
     return (
         <section className='grid grid-flow-row-dense grid-cols-8 grid-rows-9 *:h-full *:w-full *:rounded-3xl lg:h-full lg:gap-5'>
-            {/* <CourseSchedule columns={columns} /> */}
             <Card className='col-span-1 row-span-1 flex items-center justify-center'>
-                <p>
-                    第<span className='font-bold italic'> 1 </span>周
-                </p>
+                <p>课程表</p>
             </Card>
             <Card className='col-span-7 row-span-1 grid grid-cols-7 place-items-center gap-5 text-center'>
                 {columns.map((column, index) => (
@@ -72,61 +112,7 @@ export default function CourseTablePage() {
                     </div>
                 ))}
             </Card>
-            <Card className='col-span-1 row-span-2 grid grid-rows-2 place-items-center gap-5 text-center'>
-                <div>
-                    <p className='font-bold italic'>1</p>
-                    <p className='text-default-500'>08:00</p>
-                    <p className='text-default-500'>08:45</p>
-                </div>
-                <div>
-                    <p className='font-bold italic'>2</p>
-                    <p className='text-default-500'>08:55</p>
-                    <p className='text-default-500'>09:40</p>
-                </div>
-            </Card>
-            <Card className='col-span-7 row-span-2 grid grid-cols-7 place-items-center gap-5 text-center'>
-                <Card className='col-start-6 h-full w-full bg-default-500'></Card>
-                <Card className='col-start-7 h-full w-full bg-primary-500'></Card>
-            </Card>
-            <Card className='col-span-1 row-span-2 grid grid-rows-2 place-items-center gap-5 text-center'>
-                <div>
-                    <p className='font-bold italic'>3</p>
-                    <p className='text-default-500'>09:50</p>
-                    <p className='text-default-500'>10:45</p>
-                </div>
-                <div>
-                    <p className='font-bold italic'>4</p>
-                    <p className='text-default-500'>10:50</p>
-                    <p className='text-default-500'>11:35</p>
-                </div>
-            </Card>
-            <Card className='col-span-7 row-span-2'>6</Card>
-            <Card className='col-span-1 row-span-2 grid grid-rows-2 place-items-center gap-5 text-center'>
-                <div>
-                    <p className='font-bold italic'>5</p>
-                    <p className='text-default-500'>13:30</p>
-                    <p className='text-default-500'>14:15</p>
-                </div>
-                <div>
-                    <p className='font-bold italic'>6</p>
-                    <p className='text-default-500'>14:25</p>
-                    <p className='text-default-500'>15:10</p>
-                </div>
-            </Card>
-            <Card className='col-span-7 row-span-2'>8</Card>
-            <Card className='col-span-1 row-span-2 grid grid-rows-2 place-items-center gap-5 text-center'>
-                <div>
-                    <p className='font-bold italic'>7</p>
-                    <p className='text-default-500'>15:20</p>
-                    <p className='text-default-500'>16:05</p>
-                </div>
-                <div>
-                    <p className='font-bold italic'>8</p>
-                    <p className='text-default-500'>16:15</p>
-                    <p className='text-default-500'>17:00</p>
-                </div>
-            </Card>
-            <Card className='col-span-7 row-span-2'>10</Card>
+            <CourseSchedule timePoints={timePoints} />
         </section>
     )
 }
