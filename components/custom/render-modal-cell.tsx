@@ -87,7 +87,7 @@ export default function RenderModalCell({
                                   : undefined
                         }
                     />
-                    <datalist id='startTimeList'>
+                    <datalist key={`startTimeList - ${column.uid}`} id='startTimeList'>
                         <option value='08:00' />
                         <option value='08:55' />
                         <option value='09:50' />
@@ -97,7 +97,7 @@ export default function RenderModalCell({
                         <option value='15:20' />
                         <option value='16:15' />
                     </datalist>
-                    <datalist id='endTimeList'>
+                    <datalist key={`endTimeList - ${column.uid}`} id='endTimeList'>
                         <option value='08:45' />
                         <option value='09:40' />
                         <option value='10:35' />
@@ -169,6 +169,9 @@ export default function RenderModalCell({
                     <Input
                         key={column.uid}
                         label={column.name}
+                        type={
+                            typeof details[column.uid] === "number" ? "number" : "text"
+                        }
                         variant='bordered'
                         defaultValue={details[column.uid]}
                         onValueChange={(value) => {

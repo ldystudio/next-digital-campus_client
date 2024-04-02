@@ -3,7 +3,7 @@ import clsx from "clsx"
 import { Card } from "@nextui-org/react"
 
 import CourseSchedule from "@/components/business/course-schedule"
-import getFormattedWeekDates from "~/utils/common/date"
+import { getFormattedWeekDates } from "~/utils/common/date"
 
 export const metadata: Metadata = {
     title: "课程表管理"
@@ -86,11 +86,11 @@ export default async function CourseTablePage() {
     const toWeekDates = getFormattedWeekDates()
 
     return (
-        <section className='grid grid-flow-row-dense grid-cols-8 grid-rows-9 *:h-full *:w-full *:rounded-3xl lg:h-full lg:gap-5'>
-            <Card className='col-span-1 row-span-1 flex items-center justify-center'>
+        <section className='grid grid-flow-row-dense grid-cols-8 grid-rows-9 gap-3 text-xs *:h-full *:w-full lg:h-full lg:gap-5 lg:text-base'>
+            <Card className='col-span-1 row-span-1 flex items-center justify-center rounded-lg lg:rounded-3xl'>
                 <p>课程表</p>
             </Card>
-            <Card className='col-span-7 row-span-1 grid grid-cols-7 place-items-center gap-5 text-center'>
+            <Card className='col-span-7 row-span-1 grid grid-cols-7 place-items-center gap-1 rounded-lg text-center lg:gap-5 lg:rounded-3xl'>
                 {columns.map((column, index) => (
                     <div key={column.uid} className='col-span-1'>
                         <p

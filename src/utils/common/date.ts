@@ -1,6 +1,6 @@
 import { eachDayOfInterval, endOfWeek, format, isToday, startOfWeek } from "date-fns"
 
-export default function getFormattedWeekDates() {
+export function getFormattedWeekDates() {
     // 获取本周的开始日期和结束日期
     const startDate = startOfWeek(new Date(), { weekStartsOn: 1 }) // 1 表示周一为一周的开始
     const endDate = endOfWeek(new Date(), { weekStartsOn: 1 })
@@ -15,4 +15,13 @@ export default function getFormattedWeekDates() {
         }
     })
     return formattedDates
+}
+export function createCircularIterator(array: string[]) {
+    let index = 0
+
+    return function () {
+        const value = array[index]
+        index = (index + 1) % array.length // 计算下一个索引，如果到达数组尾部，则返回第一个元素
+        return value
+    }
 }

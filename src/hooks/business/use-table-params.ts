@@ -39,7 +39,7 @@ export function useTableParams({
         )
     )
     const [statusFilter, setStatusFilter] = useState<Selection>("all")
-    const [rowsPerPage, setRowsPerPage] = useState(10)
+    const [rowsPerPage, setRowsPerPage] = useState(8)
     const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
         column: initialSortColumn,
         direction: "ascending"

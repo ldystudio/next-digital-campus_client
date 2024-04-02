@@ -1,13 +1,12 @@
 "use client"
 
-import { Key, useCallback } from "react"
-
 import { isWithinInterval, parseISO } from "date-fns"
 import useSWR from "swr"
 import { Card } from "@nextui-org/react"
 
 import { request } from "~/service/request"
 import { cn } from "~/utils"
+import { createCircularIterator } from "~/utils/common/date"
 
 interface CourseScheduleProps {
     timePoints: { uid: number; start_time: string; end_time: string }[]
@@ -43,11 +42,18 @@ const fetcher = (url: string) =>
     request.get<ApiPage.Query<any>>(url).then((res) => res.data)
 
 export default function CourseSchedule({ timePoints }: CourseScheduleProps) {
-    // const timePointsFormat = timePoints.map((item) => ({
-    //     ...item,
-    //     start_time: item.start_time.slice(0, 5),
-    //     end_time: item.end_time.slice(0, 5)
-    // }))
+    const colorArray = [
+        "bg-default-500",
+        "bg-blue-500",
+        "bg-purple-500",
+        "bg-green-500",
+        "bg-red-500",
+        "bg-pink-500",
+        "bg-yellow-500",
+        "bg-cyan-500",
+        "bg-zinc-500"
+    ]
+    const nextColor = createCircularIterator(colorArray)
 
     const { data: courseData } = useSWR<ApiPage.Query<Course> | null>(
         `/course/schedule/`,
@@ -56,40 +62,11 @@ export default function CourseSchedule({ timePoints }: CourseScheduleProps) {
             revalidateOnFocus: false
         }
     )
-    const rows = courseData?.results ?? []
+    const rows = courseData?.results
+        ? courseData?.results.map((course) => ({ ...course, color: nextColor() }))
+        : []
 
-    // function Cells({ cellValue, color }: { cellValue: string; color: string }) {
-    //     return (
-    //         <div className={cn(`rounded-md py-6 text-white`, color)}>{cellValue}</div>
-    //     )
-    // }
-
-    // const renderCell = useCallback((rows: Course[], columnKey: Key) => {
-    //     const cellValue = rows[columnKey as keyof Course]
-
-    //     if (cellValue !== undefined) {
-    //         switch (columnKey) {
-    //             case "Monday":
-    //                 return <Cells cellValue={cellValue} color='bg-blue-500' />
-    //             case "Tuesday":
-    //                 return <Cells cellValue={cellValue} color='bg-green-500' />
-    //             case "Wednesday":
-    //                 return <Cells cellValue={cellValue} color='bg-yellow-500' />
-    //             case "Thursday":
-    //                 return <Cells cellValue={cellValue} color='bg-purple-500' />
-    //             case "Friday":
-    //                 return <Cells cellValue={cellValue} color='bg-red-500' />
-    //             case "Saturday":
-    //                 return <Cells cellValue={cellValue} color='bg-gray-500' />
-    //             case "Sunday":
-    //                 return <Cells cellValue={cellValue} color='bg-gray-500' />
-    //             default:
-    //                 return cellValue
-    //         }
-    //     }
-    // }, [])
-
-    function doesUidExist(startTime: string, endTime: string, uid: number): boolean {
+    function doesUidExist(startTime: string, endTime: string, uid: number) {
         for (const point of timePoints) {
             if (
                 point.uid === uid &&
@@ -107,18 +84,16 @@ export default function CourseSchedule({ timePoints }: CourseScheduleProps) {
             index % 2 === 0 && (
                 <div
                     key={timePoint.uid}
-                    className='col-span-8 row-span-2 grid grid-cols-8 gap-5'
+                    className='col-span-8 row-span-2 grid grid-cols-8 gap-3 lg:gap-5'
                 >
-                    <Card className='col-span-1 grid grid-rows-2 place-items-center gap-5 text-center'>
+                    <Card className='col-span-1 grid grid-rows-2 place-items-center gap-3 rounded-lg text-center lg:gap-5 lg:rounded-3xl'>
                         <div>
-                            <p className='font-bold italic'>{timePoint.uid}</p>
+                            <p className='font-bold italic'>{index + 1}</p>
                             <p className='text-default-500'>{timePoint.start_time}</p>
                             <p className='text-default-500'>{timePoint.end_time}</p>
                         </div>
                         <div>
-                            <p className='font-bold italic'>
-                                {timePoints[index + 1].uid}
-                            </p>
+                            <p className='font-bold italic'>{index + 2}</p>
                             <p className='text-default-500'>
                                 {timePoints[index + 1].start_time}
                             </p>
@@ -127,7 +102,7 @@ export default function CourseSchedule({ timePoints }: CourseScheduleProps) {
                             </p>
                         </div>
                     </Card>
-                    <Card className='col-span-7 grid grid-flow-col grid-cols-7 gap-5 text-center'>
+                    <Card className='col-span-7 grid grid-flow-col grid-cols-7 gap-3 rounded-lg text-center lg:gap-5 lg:rounded-3xl'>
                         {rows.map(
                             (row) =>
                                 isWithinInterval(new Date(), {
@@ -141,9 +116,9 @@ export default function CourseSchedule({ timePoints }: CourseScheduleProps) {
                                 ) && (
                                     <div
                                         key={row.id}
-                                        // eslint-disable-next-line tailwindcss/no-custom-classname
                                         className={cn(
-                                            "col-span-1 row-span-1 m-2 flex flex-col items-center justify-center rounded-xl bg-default-500 text-background *:truncate",
+                                            "col-span-1 m-1 flex min-w-8 flex-col items-center justify-center rounded-lg bg-default-500 text-background lg:m-2 lg:rounded-3xl",
+                                            row.color,
                                             row.weekday === 1
                                                 ? "col-start-1"
                                                 : row.weekday === 2
