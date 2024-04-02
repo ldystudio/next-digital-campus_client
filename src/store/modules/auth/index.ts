@@ -132,7 +132,7 @@ export function useAuthAction() {
 
         if (payload) {
             const { iat, exp, userInfo } = payload
-            const now = Math.floor(new Date().getTime() / 1000) + 2
+            const now = Math.floor(new Date().getTime() / 1000)
 
             if (iat <= now && now < exp) {
                 // 成功后把用户信息存储到缓存中

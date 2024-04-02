@@ -18,6 +18,7 @@ import {
     DropdownItem,
     DropdownMenu,
     DropdownTrigger,
+    Image,
     Input,
     Modal,
     ModalBody,
@@ -257,6 +258,17 @@ export default function TableCard({
                             </Tooltip>
                         ))}
                     </AvatarGroup>
+                )
+            }
+
+            if ((columnKey as string).includes("picture")) {
+                return (
+                    <Image
+                        src={cellValue as string}
+                        alt={cellValue as string}
+                        width={100}
+                        className='rounded-full'
+                    />
                 )
             }
 
@@ -627,7 +639,9 @@ export default function TableCard({
                                 <RenderModalCell
                                     modelColumns={modelColumns}
                                     details={details}
+                                    modifiedDetails={modifiedDetails}
                                     modifiedAttribute={modifiedAttribute}
+                                    url={url}
                                     statusField={statusField}
                                     dateFields={dateFields}
                                     statusOptions={statusOptions}

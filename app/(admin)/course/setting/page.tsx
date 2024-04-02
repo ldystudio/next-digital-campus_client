@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default function CourseSettingPage() {
     const columns: Columns = [
         { uid: "id", name: "课程编号", sortable: true, isRequired: true },
+        { uid: "course_picture", name: "课程图片" },
         { uid: "course_name", name: "课程名称", sortable: true, isRequired: true },
         { uid: "course_description", name: "课程描述" },
         { uid: "teacher", name: "教师", isRequired: true },

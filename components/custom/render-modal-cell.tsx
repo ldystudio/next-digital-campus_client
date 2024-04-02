@@ -1,15 +1,20 @@
+import React from "react"
+
 import { Input, Radio, RadioGroup } from "@nextui-org/react"
 
 import DatePicker from "@/components/business/date-picker"
-import { Col } from "@/components/common"
+import { Col, Row } from "@/components/common"
+import UploadBox from "@/components/common/upload-box"
 import MultipleSelect from "@/components/custom/multiple-select"
 import { isString } from "~/utils/common"
 
 interface renderModalCellProps {
+    url: string
     modelColumns: Columns
     details: any
     dateFields: string[]
     statusOptions?: Columns
+    modifiedDetails: any
     modifiedAttribute: (column: string, value: any) => void
     statusField?: string
     disabledInput?: string[]
@@ -18,10 +23,12 @@ interface renderModalCellProps {
 }
 
 export default function RenderModalCell({
+    url,
     modelColumns,
     details,
     dateFields,
     statusOptions,
+    modifiedDetails,
     modifiedAttribute,
     disabledInput,
     statusField,
@@ -29,6 +36,33 @@ export default function RenderModalCell({
     groupFetchUrl = ""
 }: renderModalCellProps) {
     return modelColumns.map((column) => {
+        if (column.uid.includes("picture")) {
+            return (
+                // <Row key={column.uid}>
+                //     <Input
+                //         label={column.name}
+                //         labelPlacement='outside-left'
+                //         type='file'
+                //         variant='bordered'
+                //         // defaultValue={details[column.uid]}
+                //         // onValueChange={(value) => {
+                //         //     modifiedAttribute(column.uid, value)
+                //         // }}
+                //         onChange={handleFileChange}
+                //         isRequired={column.isRequired}
+                //         isDisabled={disabledInput?.includes(column.uid)}
+                //     />
+                //     <Button onClick={handleUpload}>Upload</Button>
+                // </Row>
+                <UploadBox
+                    key={column.uid}
+                    label={column.name}
+                    fileField={column.uid}
+                    uploadUrl={url}
+                    entityId={modifiedDetails.id}
+                />
+            )
+        }
         if (dateFields.includes(column.uid)) {
             return (
                 <Col key={column.uid} items='start'>
