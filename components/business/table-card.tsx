@@ -262,12 +262,13 @@ export default function TableCard({
             }
 
             if ((columnKey as string).includes("picture")) {
-                return (
+                return cellValue === null ? (
+                    "暂无图片"
+                ) : (
                     <Image
                         src={cellValue as string}
                         alt={cellValue as string}
                         width={100}
-                        className='rounded-full'
                     />
                 )
             }
@@ -297,7 +298,9 @@ export default function TableCard({
                     return `${cellValue}`.replace("T", " ")
                 case "classes":
                     return (cellValue as unknown as Classes[]).map((cls) => (
-                        <p key={cls.id}>{cls.class_name}</p>
+                        <p key={cls.id} className='truncate'>
+                            {cls.class_name}
+                        </p>
                     ))
                 case "actions":
                     return (
@@ -547,7 +550,7 @@ export default function TableCard({
             <CardBody className='no-scrollbar'>
                 <Table
                     aria-label={ariaLabel}
-                    isStriped
+                    // isStriped
                     isHeaderSticky
                     selectedKeys={selectedKeys}
                     selectionMode='multiple'
@@ -599,6 +602,7 @@ export default function TableCard({
                     </TableBody>
                 </Table>
             </CardBody>
+
             <Modal
                 isOpen={isOpen}
                 onOpenChange={onOpenChange}
@@ -627,6 +631,7 @@ export default function TableCard({
                 }}
                 onClose={() => {
                     setModifiedDetails({})
+                    mutate(finalUrl)
                 }}
             >
                 <ModalContent>
@@ -656,10 +661,7 @@ export default function TableCard({
                                 <Button
                                     color='danger'
                                     variant='light'
-                                    onPress={() => {
-                                        setModifiedDetails({})
-                                        onClose()
-                                    }}
+                                    onPress={onClose}
                                 >
                                     关闭
                                 </Button>
@@ -693,7 +695,6 @@ export default function TableCard({
                                         notice.success({
                                             description: `${actionType}成功`
                                         })
-                                        mutate(finalUrl)
                                         onClose()
                                     }}
                                 >

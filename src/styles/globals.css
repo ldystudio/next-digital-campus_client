@@ -5,41 +5,39 @@
 /* 模式切换的动画效果设置 */
 .dark::view-transition-old(root),
 .dark::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
+    @apply animate-none mix-blend-normal;
 }
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: hue;
+    @apply animate-none mix-blend-hue
 }
 
 .dark::view-transition-new(root),
 ::view-transition-new(root) {
-    z-index: 9999;
+    @apply z-[9999]
 }
 
 .dark::view-transition-old(root),
 ::view-transition-old(root) {
-    z-index: 1;
+    @apply z-[1]
 }
 
 /*去除浏览器密码框默认出现的小眼睛，与本项目的style不符~*/
 input[type="password"]::-webkit-credentials-cramble-button {
-    appearance: none;
+    @apply appearance-none
 }
 
 input[type="password"]::-ms-reveal {
-    display: none;
+    @apply hidden
 }
 
 input[type="password"]::-ms-clear {
-    display: none;
+    @apply hidden
 }
 
 input[type="password"]::-o-clear {
-    display: none;
+    @apply hidden
 }
 
 input[type="password"] {
@@ -48,8 +46,7 @@ input[type="password"] {
 }
 
 .theme-toggle__expand {
-    height: 24px;
-    width: 24px;
+    @apply h-6 w-6;
 }
 
 :root {
@@ -59,9 +56,6 @@ input[type="password"] {
     --toastify-color-error: #f31260;
 }
 
-body,
-.message-dropdown,
-.admin-content,
 .no-scrollbar {
     /* 隐藏默认的滚动条样式 */
     /* Firefox */
@@ -70,10 +64,7 @@ body,
     -ms-overflow-style: none;
 }
 
-body::-webkit-scrollbar,
-.message-dropdown::-webkit-scrollbar,
-.admin-content::-webkit-scrollbar,
 .no-scrollbar::-webkit-scrollbar {
     /* Chrome, Safari, and Opera */
-    display: none;
+    @apply hidden
 }

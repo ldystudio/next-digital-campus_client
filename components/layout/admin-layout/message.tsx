@@ -79,7 +79,7 @@ export default function Message() {
                     <DropdownSection
                         title='通知'
                         showDivider
-                        className='message-dropdown'
+                        className='no-scrollbar'
                         classNames={{ base: "max-h-[350px] overflow-y-auto" }}
                     >
                         {messages.length > 0 ? (
