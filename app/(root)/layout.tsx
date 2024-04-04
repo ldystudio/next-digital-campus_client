@@ -1,14 +1,14 @@
 import clsx from "clsx"
 
 import { Link } from "@/components/common"
-import SmoothScrollbar from "@/components/common/smooth-scrollbar"
+import OverlayScrollbar from "@/components/common/overlay-scrollbar"
 import { Navbar, PageTransitionEffect } from "@/components/layout"
 import config from "@/package.json"
 import { JosefinSans } from "~/config"
 
 export default function RootLayout({ children }: LayoutProps) {
     return (
-        <SmoothScrollbar>
+        <OverlayScrollbar className='min-h-screen'>
             <Navbar />
             <main className='container max-w-7xl grow overflow-x-hidden px-6'>
                 <PageTransitionEffect>{children}</PageTransitionEffect>
@@ -30,6 +30,6 @@ export default function RootLayout({ children }: LayoutProps) {
                 </Link>
                 <p>v{config.version} All rights reserved</p>
             </footer>
-        </SmoothScrollbar>
+        </OverlayScrollbar>
     )
 }

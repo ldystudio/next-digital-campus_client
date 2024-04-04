@@ -52,11 +52,18 @@ export default function UploadBox({
         onError() {
             toast.error("上传失败，请稍后再试")
         },
-        customRequest({ action, file, onError, onSuccess }: UploadRequestOption<any>) {
+        async customRequest({
+            action,
+            file,
+            onError,
+            onSuccess
+        }: UploadRequestOption<any>) {
             const formData = new FormData()
             formData.append(fileField, file)
 
-            request.patch<any>(action, formData).then(onSuccess).catch(onError)
+            const { error } = await request.patch(action, formData)
+            // @ts-expect-error ts(2722) Error: 不能调用可能是“未定义”的对象。
+            error ? onError() : onSuccess()
         }
     }
 

@@ -50,6 +50,7 @@ import RenderModalCell from "@/components/custom/render-modal-cell"
 import SingleSelection from "@/components/custom/single-selection"
 import { useTableParams } from "~/hooks/business"
 import { calculateYearDifference, convertToDetail, isString } from "~/utils/common"
+import { isIncludeSubstring } from "~/utils/common/string"
 
 interface TableCardProps {
     ariaLabel: string
@@ -268,9 +269,16 @@ export default function TableCard({
                     <Image
                         src={cellValue as string}
                         alt={cellValue as string}
-                        width={100}
+                        width={150}
                     />
                 )
+            }
+
+            if (isIncludeSubstring(columnKey as string, ["description", "notes"])) {
+                const displayValue = `${cellValue}`
+                if (displayValue && displayValue.length > 20) {
+                    return displayValue.slice(0, 20) + "..."
+                }
             }
 
             switch (columnKey) {
