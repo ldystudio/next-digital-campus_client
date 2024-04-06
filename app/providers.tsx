@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { useRouter } from "next/navigation"
 
 import { ThemeProvider as NextThemesProvider } from "next-themes"
@@ -17,11 +16,26 @@ export interface ProvidersProps {
     themeProps?: ThemeProviderProps
 }
 
+function makeQueryClient() {
+    return new QueryClient({
+        defaultOptions: {
+            queries: {
+                // 数据过期时间
+                staleTime: 60 * 1000
+            }
+        }
+    })
+}
+
+let browserQueryClient = typeof window === "undefined" ? undefined : makeQueryClient()
+
+function getQueryClient() {
+    return (browserQueryClient ??= makeQueryClient())
+}
+
 export function Providers({ children, themeProps }: ProvidersProps) {
     const router = useRouter()
-    const [queryClient] = useState(
-        () => new QueryClient({ defaultOptions: { queries: { staleTime: 5 * 1000 } } })
-    )
+    const queryClient = getQueryClient()
 
     return (
         <NextUIProvider navigate={router.push}>

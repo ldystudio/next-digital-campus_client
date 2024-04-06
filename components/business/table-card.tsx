@@ -49,8 +49,12 @@ import {
 import RenderModalCell from "@/components/custom/render-modal-cell"
 import SingleSelection from "@/components/custom/single-selection"
 import { useTableParams } from "~/hooks/business"
-import { calculateYearDifference, convertToDetail, isString } from "~/utils/common"
-import { isIncludeSubstring } from "~/utils/common/string"
+import {
+    calculateYearDifference,
+    convertToDetail,
+    isIncludeSubstring,
+    isString
+} from "~/utils/common"
 
 interface TableCardProps {
     ariaLabel: string
