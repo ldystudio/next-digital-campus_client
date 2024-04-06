@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import { filterColumnsByArray } from "~/utils/common"
-import CourseListCard from "./components/course-list-item"
+import CourseListCard from "./components/course-list-card"
 
 export const metadata: Metadata = {
     title: "选课管理"
@@ -28,6 +28,7 @@ export default async function CourseChoosePage() {
         "course_name",
         "class_location"
     ])
+    filterColumns.push({ uid: "real_name", name: "教师名称" })
 
     return (
         <section className='lg:h-full'>

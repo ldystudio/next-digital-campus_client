@@ -2,27 +2,31 @@
 
 import React, { useMemo, useState } from "react"
 
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react"
+import * as adventurer from "@dicebear/adventurer"
+import { createAvatar } from "@dicebear/core"
 import { Icon } from "@iconify/react"
 import {
+    Avatar,
+    AvatarGroup,
     Button,
     Card,
     CardBody,
     CardFooter,
     CardHeader,
-    Dropdown,
-    DropdownItem,
-    DropdownMenu,
-    DropdownTrigger,
     Image,
     Input,
     Pagination,
-    Skeleton
+    Skeleton,
+    Tooltip
 } from "@nextui-org/react"
 import { useQuery } from "@tanstack/react-query"
 
-import { ChevronDownIcon, PlusIcon, SearchIcon } from "@/components/common"
+import { Row, SearchIcon } from "@/components/common"
+import OverlayScrollbar from "@/components/common/overlay-scrollbar"
 import SingleSelection from "@/components/custom/single-selection"
 import { useTableParams } from "~/hooks/business"
+import { useEffectOnce } from "~/hooks/common"
 import { fetchCourseList } from "~/service/api"
 import { cn } from "~/utils"
 
@@ -82,12 +86,12 @@ function CourseListItem({
     ...props
 }: CourseListItemProps) {
     const [isLiked, setIsLiked] = React.useState(false)
-    console.log(props.id)
+    const chineseNumbers: string[] = ["", "一", "二", "三", "四", "五", "六", "七"]
 
     return (
         <div
             className={cn(
-                "relative flex w-full flex-none flex-col gap-3",
+                "relative flex flex-none flex-col gap-3",
                 {
                     "rounded-none bg-background shadow-none": removeWrapper
                 },
@@ -135,29 +139,53 @@ function CourseListItem({
                     </div>
                 ) : (
                     <>
-                        <div className='flex items-start justify-between gap-1'>
-                            <h3 className='text-small font-medium text-default-700'>
+                        <Row justify='between'>
+                            <h3 className='font-medium text-default-700'>
                                 {course_name}
                             </h3>
-                            <div className='flex items-center gap-1'>
-                                <span className='text-small text-default-500'>
-                                    {choose_number}
-                                </span>
+                            <Row space={2} className='text-default-500'>
+                                <span>{choose_number}</span>
                                 <Icon
-                                    className='text-default-500'
                                     icon='solar:user-heart-line-duotone'
-                                    width={16}
+                                    height='auto'
                                 />
-                            </div>
+                            </Row>
+                        </Row>
+                        <div className='flex flex-col items-center justify-between text-default-500 md:flex-row'>
+                            <span>星期{chineseNumbers[weekday]}</span>
+                            <span>
+                                {start_time.slice(0, 5)}~{end_time.slice(0, 5)}
+                            </span>
+                            <span>{class_location}</span>
                         </div>
-                        {/* {description ? (
-                                <p className='text-small text-default-500'>
-                                    {description}
-                                </p>
-                            ) : null}
-                            <p className='text-small font-medium text-default-500'>
-                                ${price}
-                            </p> */}
+                        <div className='flex flex-col items-center justify-between text-default-500 md:flex-row'>
+                            <span>{credit}学分</span>
+                            <Row space={2}>
+                                教师：
+                                <AvatarGroup
+                                    isBordered
+                                    max={5}
+                                    className='justify-start'
+                                >
+                                    {teacher.map((row) => (
+                                        <Tooltip
+                                            key={row.id}
+                                            content={
+                                                <div className='w-11'>
+                                                    {row.real_name}
+                                                </div>
+                                            }
+                                        >
+                                            <Avatar
+                                                src={createAvatar(adventurer, {
+                                                    seed: row.avatar
+                                                }).toDataUriSync()}
+                                            />
+                                        </Tooltip>
+                                    ))}
+                                </AvatarGroup>
+                            </Row>
+                        </div>
                     </>
                 )}
             </div>
@@ -174,43 +202,25 @@ export default function CourseListCard({
 
     const {
         filterValue,
-        selectedKeys,
-        setSelectedKeys,
-        visibleColumns,
-        setVisibleColumns,
-        statusFilter,
-        setStatusFilter,
-        rowsPerPage,
-        sortDescriptor,
-        setSortDescriptor,
-        details,
-        setDetails,
-        modifiedDetails,
-        setModifiedDetails,
         page,
         setPage,
         rows,
         pageData,
-        headerColumns,
         pages,
         isLoading,
-        findStatusName,
-        mutate,
-        finalUrl,
         onNextPage,
         onPreviousPage,
-        onRowsPerPageChange,
         onSearchChange,
         onClear,
-        modifiedAttribute,
-        getOneFn,
-        removeOneFn,
-        updateOneFn,
-        saveOneFn
+        setRowsPerPage
     } = useTableParams({
         columns,
         url,
         selectedFilterKeys
+    })
+
+    useEffectOnce(() => {
+        setRowsPerPage(12)
     })
 
     const selectedValue = useMemo(
@@ -243,17 +253,21 @@ export default function CourseListCard({
                     />
                 </div>
             </CardHeader>
+
             <CardBody>
-                <Card className='grid h-full grid-cols-1 gap-5 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
-                    {(rows as unknown as CourseItem[])?.map((course) => (
-                        <CourseListItem
-                            key={course.id}
-                            isLoading={isLoading}
-                            {...course}
-                        />
-                    ))}
-                </Card>
+                <OverlayScrollbar>
+                    <Card className='grid h-full grid-cols-2 gap-5 p-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
+                        {(rows as unknown as CourseItem[])?.map((course) => (
+                            <CourseListItem
+                                key={course.id}
+                                isLoading={isLoading}
+                                {...course}
+                            />
+                        ))}
+                    </Card>
+                </OverlayScrollbar>
             </CardBody>
+
             <CardFooter className='flex items-center justify-between'>
                 <span className='hidden w-[30%] text-small text-default-400 md:block'>
                     共{pageData?.count}条可选课程

@@ -1,9 +1,16 @@
-import { useState } from "react"
+import { ReactNode, useState } from "react"
 
 import _unionWith from "lodash/unionWith"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
-import { Avatar, Chip, Select, SelectedItems, SelectItem } from "@nextui-org/react"
+import {
+    Avatar,
+    Chip,
+    Select,
+    SelectedItems,
+    Selection,
+    SelectItem
+} from "@nextui-org/react"
 import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll"
 
 import { useGroupList } from "~/hooks/business/use-group-list"
@@ -15,13 +22,28 @@ interface MultipleSelectProps {
     groupFetchUrl: string
     modifiedAttribute: (column: string, value: any) => void
 }
-export default function MultipleSelect({
+
+interface GroupSelectProps {
+    column: Columns[0]
+    initItems: any[]
+    groupFetchUrl: string
+    selectionMode: "multiple" | "single"
+    renderValue?: (items: SelectedItems<any>) => ReactNode
+    defaultSelectedKeys: string[]
+    onSelectionChange: (keys: Selection) => any
+    children: (item: any) => JSX.Element
+}
+
+function GroupSelect({
     column,
-    details,
-    groupField,
+    initItems,
     groupFetchUrl,
-    modifiedAttribute
-}: MultipleSelectProps) {
+    selectionMode,
+    renderValue,
+    defaultSelectedKeys,
+    onSelectionChange,
+    children
+}: GroupSelectProps) {
     const [isOpen, setIsOpen] = useState(false)
     const { items, hasMore, isLoading, onLoadMore } = useGroupList({ groupFetchUrl })
 
@@ -32,24 +54,45 @@ export default function MultipleSelect({
         onLoadMore
     })
 
+    return (
+        <Select
+            isLoading={isLoading}
+            items={_unionWith(initItems, items, (a, b) => a.id === b.id)}
+            key={column.uid}
+            label={column.name}
+            labelPlacement='outside'
+            placeholder='请选择'
+            selectionMode={selectionMode}
+            variant='bordered'
+            scrollRef={scrollerRef}
+            onOpenChange={setIsOpen}
+            isRequired={column.isRequired}
+            renderValue={renderValue}
+            defaultSelectedKeys={defaultSelectedKeys}
+            onSelectionChange={onSelectionChange}
+        >
+            {children}
+        </Select>
+    )
+}
+
+export default function MultipleSelect({
+    column,
+    details,
+    groupField,
+    groupFetchUrl,
+    modifiedAttribute
+}: MultipleSelectProps) {
     switch (groupField) {
         case "class_name":
             return (
-                <Select
-                    isLoading={isLoading}
-                    items={_unionWith(
-                        [{ class_name: details[groupField], id: details.classes_id }],
-                        items as Classes[],
-                        (a, b) => a.id === b.id
-                    )}
-                    key={column.uid}
-                    label={column.name}
-                    placeholder='请选择'
+                <GroupSelect
+                    column={column}
+                    initItems={[
+                        { class_name: details[groupField], id: details.classes_id }
+                    ]}
+                    groupFetchUrl={groupFetchUrl}
                     selectionMode='single'
-                    variant='bordered'
-                    scrollRef={scrollerRef}
-                    onOpenChange={setIsOpen}
-                    isRequired={column.isRequired}
                     defaultSelectedKeys={[details.classes_id]}
                     onSelectionChange={(value) => {
                         modifiedAttribute("classes_id", [...value][0])
@@ -60,25 +103,15 @@ export default function MultipleSelect({
                             {item.class_name}
                         </SelectItem>
                     )}
-                </Select>
+                </GroupSelect>
             )
         case "classes":
             return (
-                <Select
-                    isLoading={isLoading}
-                    items={_unionWith(
-                        details[groupField],
-                        items as Classes[],
-                        (a, b) => a.id === b.id
-                    )}
-                    key={column.uid}
-                    label={column.name}
-                    placeholder='请选择'
+                <GroupSelect
+                    column={column}
+                    initItems={details[groupField]}
+                    groupFetchUrl={groupFetchUrl}
                     selectionMode='multiple'
-                    variant='bordered'
-                    scrollRef={scrollerRef}
-                    onOpenChange={setIsOpen}
-                    isRequired={column.isRequired}
                     defaultSelectedKeys={details[groupField].map(
                         (item: SimpleUser) => item.id
                     )}
@@ -91,25 +124,15 @@ export default function MultipleSelect({
                             {item.class_name}
                         </SelectItem>
                     )}
-                </Select>
+                </GroupSelect>
             )
         default:
             return (
-                <Select
-                    isLoading={isLoading}
-                    items={_unionWith(
-                        details[groupField],
-                        items as SimpleUser[],
-                        (a, b) => a.id === b.id
-                    )}
-                    key={column.uid}
-                    label={column.name}
-                    placeholder='请选择'
+                <GroupSelect
+                    column={column}
+                    initItems={details[groupField]}
+                    groupFetchUrl={groupFetchUrl}
                     selectionMode='multiple'
-                    variant='bordered'
-                    scrollRef={scrollerRef}
-                    onOpenChange={setIsOpen}
-                    isRequired={column.isRequired}
                     renderValue={(items: SelectedItems<SimpleUser>) => {
                         return (
                             <div className='flex flex-wrap gap-1'>
@@ -146,7 +169,7 @@ export default function MultipleSelect({
                             </div>
                         </SelectItem>
                     )}
-                </Select>
+                </GroupSelect>
             )
     }
 }

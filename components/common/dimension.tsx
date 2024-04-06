@@ -31,13 +31,13 @@ const generateStyles = memoizeOne(
             display: "flex",
             flexDirection: direction,
             alignItems: i || "center",
-            justifyContent: j || "flex-start"
+            justifyContent: j || "flex-start",
+            gap: `${space * 0.25}rem`
         }
 
         const classNames = cn(
             fullWidth && "w-full",
             fullHeight && "h-full",
-            `gap-${space || 2}`,
             className
         )
 

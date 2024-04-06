@@ -1,12 +1,12 @@
 import React from "react"
 
-import { Input, Radio, RadioGroup } from "@nextui-org/react"
+import { Input, Radio, RadioGroup, Textarea } from "@nextui-org/react"
 
 import DatePicker from "@/components/business/date-picker"
 import { Col } from "@/components/common"
 import UploadBox from "@/components/common/upload-box"
 import MultipleSelect from "@/components/custom/multiple-select"
-import { isString } from "~/utils/common"
+import { isIncludeSubstring, isString } from "~/utils/common"
 
 interface renderModalCellProps {
     url: string
@@ -92,6 +92,7 @@ export default function RenderModalCell({
                         key={column.uid}
                         type='time'
                         label={column.name}
+                        labelPlacement='outside'
                         variant='bordered'
                         defaultValue={details[column.uid]}
                         onValueChange={(value) => {
@@ -138,6 +139,22 @@ export default function RenderModalCell({
                     groupField={groupField}
                     groupFetchUrl={groupFetchUrl}
                     modifiedAttribute={modifiedAttribute}
+                />
+            )
+        }
+        if (isIncludeSubstring(column.uid, ["description", "notes"])) {
+            return (
+                <Textarea
+                    key={column.uid}
+                    label={column.name}
+                    labelPlacement='outside'
+                    variant='bordered'
+                    defaultValue={details[column.uid]}
+                    onValueChange={(value) => {
+                        modifiedAttribute(column.uid, value)
+                    }}
+                    isRequired={column.isRequired}
+                    isDisabled={disabledInput?.includes(column.uid)}
                 />
             )
         }
@@ -188,6 +205,7 @@ export default function RenderModalCell({
                     <Input
                         key={column.uid}
                         label={column.name}
+                        labelPlacement='outside'
                         type={
                             typeof details[column.uid] === "number" ? "number" : "text"
                         }
