@@ -1,6 +1,5 @@
 declare interface LayoutProps {
     children: React.ReactNode
-    className?: string
 }
 
 declare interface PageComponentProps {

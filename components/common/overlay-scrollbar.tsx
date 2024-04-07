@@ -7,7 +7,10 @@ import { cn } from "~/utils"
 
 import "overlayscrollbars/overlayscrollbars.css"
 
-export default function OverlayScrollbar({ children, className }: LayoutProps) {
+export default function OverlayScrollbar({
+    children,
+    className
+}: LayoutProps & { className?: string }) {
     return (
         <OverlayScrollbarsComponent
             defer
