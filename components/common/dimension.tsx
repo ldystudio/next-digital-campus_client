@@ -32,14 +32,10 @@ const generateStyles = memoizeOne(
             flexDirection: direction,
             alignItems: i || "center",
             justifyContent: j || "flex-start",
-            gap: `${space * 0.25}rem`
+            gap: space ? `${space * 0.25}rem` : "0.5rem"
         }
 
-        const classNames = cn(
-            fullWidth && "w-full",
-            fullHeight && "h-full",
-            className
-        )
+        const classNames = cn(fullWidth && "w-full", fullHeight && "h-full", className)
 
         return { styles, classNames }
     }

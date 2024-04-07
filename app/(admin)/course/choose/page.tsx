@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import { filterColumnsByArray } from "~/utils/common"
-import CourseListCard from "./components/course-list-card"
+import CourseListCard from "./components/course-card"
 
 export const metadata: Metadata = {
     title: "选课管理"

@@ -1,8 +1,5 @@
-"use client"
+import React from "react"
 
-import React, { useMemo, useState } from "react"
-
-import { OverlayScrollbarsComponent } from "overlayscrollbars-react"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import { Icon } from "@iconify/react"
@@ -10,33 +7,16 @@ import {
     Avatar,
     AvatarGroup,
     Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
     Image,
-    Input,
-    Pagination,
     Skeleton,
     Tooltip
 } from "@nextui-org/react"
-import { useQuery } from "@tanstack/react-query"
 
-import { Row, SearchIcon } from "@/components/common"
-import OverlayScrollbar from "@/components/common/overlay-scrollbar"
-import SingleSelection from "@/components/custom/single-selection"
-import { useTableParams } from "~/hooks/business"
-import { useEffectOnce } from "~/hooks/common"
-import { fetchCourseList } from "~/service/api"
+import { notice, Row } from "@/components/common"
+import { updateCourseChoose } from "~/service/api"
 import { cn } from "~/utils"
 
-interface CourseListCardProps {
-    columns: Columns
-    filterColumns: Columns
-    url: string
-}
-
-type CourseItem = {
+export type CourseItem = {
     id: string
     course_name: string
     course_description: string
@@ -60,17 +40,19 @@ type CourseListItemProps = {
     isPopular?: boolean
     isLoading?: boolean
     removeWrapper?: boolean
+    onOpen: () => void
+    setSelectedCourseId: (id: string) => void
 } & CourseItem
 
-function useCourseList() {
-    const { isPending, data } = useQuery({
-        queryKey: ["courseChoose"],
-        queryFn: async () => (await fetchCourseList<CourseItem>()).data
-    })
-    return { data, isPending }
-}
+// function useCourseList() {
+//     const { isPending, data } = useQuery({
+//         queryKey: ["courseChoose"],
+//         queryFn: async () => (await fetchCourseList<CourseItem>()).data
+//     })
+//     return { data, isPending }
+// }
 
-function CourseListItem({
+export default function CourseListItem({
     course_name,
     course_picture,
     class_location,
@@ -83,6 +65,8 @@ function CourseListItem({
     isLoading,
     removeWrapper,
     className,
+    onOpen,
+    setSelectedCourseId,
     ...props
 }: CourseListItemProps) {
     const [isLiked, setIsLiked] = React.useState(false)
@@ -105,7 +89,21 @@ function CourseListItem({
                 radius='full'
                 size='sm'
                 variant='flat'
-                onPress={() => setIsLiked(!isLiked)}
+                onPress={async () => {
+                    const { error } = await updateCourseChoose<CourseItem>(props.id)
+                    if (error) {
+                        notice.error({
+                            title: "选课失败",
+                            description: `${error.msg}，请稍后再试`
+                        })
+                    } else {
+                        setIsLiked(!isLiked)
+                        notice.success({
+                            title: "选课成功",
+                            description: `已成功选课：${course_name}`
+                        })
+                    }
+                }}
             >
                 <Icon
                     className={cn("text-default-900/50", {
@@ -122,6 +120,11 @@ function CourseListItem({
                 className='aspect-square w-full hover:scale-110'
                 isLoading={isLoading}
                 src={course_picture}
+                fallbackSrc='https://via.placeholder.com/300x300'
+                onClick={() => {
+                    setSelectedCourseId(props.id)
+                    onOpen()
+                }}
             />
 
             <div className='mt-1 flex flex-col gap-2 px-1'>
@@ -190,116 +193,5 @@ function CourseListItem({
                 )}
             </div>
         </div>
-    )
-}
-
-export default function CourseListCard({
-    columns,
-    filterColumns,
-    url
-}: CourseListCardProps) {
-    const [selectedFilterKeys, setSelectedFilterKeys] = useState(new Set(["id"]))
-
-    const {
-        filterValue,
-        page,
-        setPage,
-        rows,
-        pageData,
-        pages,
-        isLoading,
-        onNextPage,
-        onPreviousPage,
-        onSearchChange,
-        onClear,
-        setRowsPerPage
-    } = useTableParams({
-        columns,
-        url,
-        selectedFilterKeys
-    })
-
-    useEffectOnce(() => {
-        setRowsPerPage(12)
-    })
-
-    const selectedValue = useMemo(
-        () =>
-            filterColumns.find(
-                (filterColumns) =>
-                    filterColumns.uid === Array.from(selectedFilterKeys).join(", ")
-            )?.name,
-        [filterColumns, selectedFilterKeys]
-    )
-
-    return (
-        <Card className='my-auto h-full rounded-3xl'>
-            <CardHeader>
-                <div className='flex gap-3'>
-                    <SingleSelection
-                        columns={filterColumns}
-                        selectedValue={selectedValue!}
-                        selectedFilterKeys={selectedFilterKeys}
-                        setSelectedFilterKeys={setSelectedFilterKeys}
-                    />
-                    <Input
-                        isClearable
-                        fullWidth
-                        placeholder={`按${selectedValue}搜索...`}
-                        startContent={<SearchIcon />}
-                        value={filterValue}
-                        onClear={onClear}
-                        onValueChange={onSearchChange}
-                    />
-                </div>
-            </CardHeader>
-
-            <CardBody>
-                <OverlayScrollbar>
-                    <Card className='grid h-full grid-cols-2 gap-5 p-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
-                        {(rows as unknown as CourseItem[])?.map((course) => (
-                            <CourseListItem
-                                key={course.id}
-                                isLoading={isLoading}
-                                {...course}
-                            />
-                        ))}
-                    </Card>
-                </OverlayScrollbar>
-            </CardBody>
-
-            <CardFooter className='flex items-center justify-between'>
-                <span className='hidden w-[30%] text-small text-default-400 md:block'>
-                    共{pageData?.count}条可选课程
-                </span>
-                <Pagination
-                    isCompact
-                    showControls
-                    showShadow
-                    color='primary'
-                    page={page}
-                    total={pages}
-                    onChange={setPage}
-                />
-                <div className='hidden w-[30%] justify-end gap-2 sm:flex'>
-                    <Button
-                        isDisabled={pages === 1}
-                        size='sm'
-                        variant='flat'
-                        onPress={onPreviousPage}
-                    >
-                        上一页
-                    </Button>
-                    <Button
-                        isDisabled={pages === 1}
-                        size='sm'
-                        variant='flat'
-                        onPress={onNextPage}
-                    >
-                        下一页
-                    </Button>
-                </div>
-            </CardFooter>
-        </Card>
     )
 }
