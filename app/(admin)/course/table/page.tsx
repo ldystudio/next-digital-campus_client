@@ -6,7 +6,7 @@ import CourseSchedule from "@/components/business/course-schedule"
 import { getFormattedWeekDates } from "~/utils/common/date"
 
 export const metadata: Metadata = {
-    title: "课程表管理"
+    title: "课程表"
 }
 
 export default async function CourseTablePage() {

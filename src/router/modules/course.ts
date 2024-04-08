@@ -25,7 +25,7 @@ const Course: AuthRoute.Route = {
             path: "/course/table",
             component: "self",
             meta: {
-                title: "课程表管理",
+                title: "课程表",
                 icon: "solar:document-bold-duotone",
                 order: 42
             }

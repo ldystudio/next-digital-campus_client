@@ -44,3 +44,6 @@ export const NO_ERROR_MSG_CODE: (string | number)[] = []
 
 /** token失效需要刷新token的code */
 export const REFRESH_TOKEN_CODE: (string | number)[] = [2030]
+
+/** 临时需要刷新token的code */
+export const TEMPORARY_REFRESH_TOKEN_CODE: (string | number)[] = [2031]

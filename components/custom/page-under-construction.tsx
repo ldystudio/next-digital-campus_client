@@ -19,7 +19,6 @@ export function PageUnderConstruction({
                         width={[450, 300]}
                         originalSize={{ width: 960, height: 960 }}
                         alt='page-under-construction'
-                        darkModeBrightBackground
                     />
                 </CardBody>
                 <CardFooter className='flex justify-center'>

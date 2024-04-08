@@ -119,7 +119,6 @@ export default function Message() {
                                     alt='暂无通知'
                                     width={232}
                                     originalSize={{ width: 960, height: 960 }}
-                                    darkModeBrightBackground
                                 />
                                 <p>暂无通知</p>
                             </DropdownItem>

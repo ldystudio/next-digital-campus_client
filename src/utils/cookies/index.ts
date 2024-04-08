@@ -10,3 +10,8 @@ export async function getAccessTokenFromServer() {
     const token = getCookie("accessToken", { cookies })
     return await verifyAndParseJwtPayload(token)
 }
+
+export async function getUserInfoFromServer() {
+    const payload = await getAccessTokenFromServer()
+    return payload?.userInfo
+}

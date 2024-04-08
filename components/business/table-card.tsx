@@ -82,8 +82,8 @@ interface ActionProps {
     isDelDisabled: boolean
     mutate: (url: string) => void
     finalUrl: string
-    getOneFn: (id: number) => Promise<Service.RequestResult<ApiPage.Detail>>
-    removeOneFn: (id: number) => Promise<Service.RequestResult<null>>
+    getOneFn: (id: string) => Promise<Service.RequestResult<ApiPage.Detail>>
+    removeOneFn: (id: string) => Promise<Service.RequestResult<null>>
 }
 
 function Action({

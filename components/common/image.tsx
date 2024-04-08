@@ -3,6 +3,7 @@
 import NextImage, { ImageProps as NextImageProps } from "next/image"
 
 import { useResponsive } from "ahooks"
+import { useTheme } from "next-themes"
 import { Image as NextUiImage, ImageProps as NextUiImageProps } from "@nextui-org/react"
 
 import { cn } from "~/utils"
@@ -19,18 +20,18 @@ interface ImageProps extends NextImagePropsMixin {
         width: number
         height: number
     }
-    // 是否使用暗黑模式下的亮色背景，对于一些带透明的图片很有用
-    darkModeBrightBackground?: boolean
+    noInvert?: boolean
 }
 
 export function Image({
     width,
     originalSize,
-    darkModeBrightBackground,
+    noInvert,
     className,
     ...otherProps
 }: ImageProps) {
     const responsive = useResponsive()
+    const { theme } = useTheme()
 
     width = isNumber(width) ? [width, width] : width
     const imgWidth = responsive?.md ? width[0] : width[1]
@@ -44,8 +45,8 @@ export function Image({
             draggable='false'
             isBlurred
             className={cn(
-                darkModeBrightBackground && "dark:bg-foreground",
-                "select-none",
+                !noInvert && theme === "dark" && "hue-rotate-180 invert",
+                "select-none animate-in zoom-in",
                 className
             )}
             {...otherProps}

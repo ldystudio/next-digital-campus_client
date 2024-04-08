@@ -12,6 +12,21 @@ module.exports = {
         ]
     },
     theme: {
+        unsplashImages: {
+            lyon: "YMi66afAE3I",
+            stars: "4dpAqfTbvKA",
+            yosemite: "zOXUvQ3Xo3s",
+            gradient: "LeG68PrXA6Y"
+        },
+        unsplashResolutions: {
+            default: null, // --- Allows maximum available resolution by default.
+            xs: 480,
+            sm: 720,
+            md: 1280,
+            lg: 1920,
+            xl: 3840,
+            "2xl": 7680
+        },
         container: {
             center: true,
             padding: "2rem",
@@ -46,6 +61,7 @@ module.exports = {
     darkMode: "class",
     plugins: [
         require("tailwindcss-animate"),
+        require("tailwindcss-unsplash"),
         nextui({
             themes: {
                 light: {

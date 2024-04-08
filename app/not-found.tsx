@@ -15,7 +15,6 @@ export default function NotFoundPage() {
                 alt='未找到页面'
                 width={[400, 300]}
                 originalSize={{ width: 584, height: 490 }}
-                darkModeBrightBackground
             />
             <Code color='primary' size='lg'>
                 404 Page Not Found

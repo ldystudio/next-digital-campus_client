@@ -1,5 +1,6 @@
 import { useMemo } from "react"
 
+import { capitalize } from "lodash"
 import toast from "react-hot-toast"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
@@ -73,7 +74,7 @@ export function UserCard({
             <PopoverTrigger>
                 <User
                     name={userName}
-                    description={userRole}
+                    description={capitalize(userRole)}
                     avatarProps={{
                         ...avatarProps,
                         src: avatarImage,

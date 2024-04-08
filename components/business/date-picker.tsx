@@ -3,7 +3,13 @@ import { useEffect, useState } from "react"
 import { format } from "date-fns"
 import { DayPicker } from "react-day-picker"
 import { Icon } from "@iconify/react"
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react"
+import {
+    Button,
+    ButtonProps,
+    Popover,
+    PopoverContent,
+    PopoverTrigger
+} from "@nextui-org/react"
 
 import "react-day-picker/dist/style.css"
 
@@ -11,9 +17,17 @@ interface DatePickerProps {
     dateStr: string
     column: string
     onDateChange: (key: string, value: string) => void
+    isDisabled?: boolean
+    variant?: ButtonProps["variant"]
 }
 
-export default function DatePicker({ dateStr, column, onDateChange }: DatePickerProps) {
+export default function DatePicker({
+    dateStr,
+    column,
+    variant = "bordered",
+    isDisabled,
+    onDateChange
+}: DatePickerProps) {
     const [date, setDate] = useState<Date>()
 
     useEffect(() => {
@@ -24,7 +38,7 @@ export default function DatePicker({ dateStr, column, onDateChange }: DatePicker
         <Popover>
             <PopoverTrigger>
                 <Button
-                    variant='bordered'
+                    variant={variant}
                     fullWidth
                     startContent={
                         <Icon
@@ -33,6 +47,7 @@ export default function DatePicker({ dateStr, column, onDateChange }: DatePicker
                             className='text-primary'
                         />
                     }
+                    isDisabled={isDisabled}
                 >
                     {date ? format(date, "PPP") : <span>Pick a date</span>}
                 </Button>

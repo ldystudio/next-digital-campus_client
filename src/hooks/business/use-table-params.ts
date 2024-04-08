@@ -123,11 +123,11 @@ export function useTableParams({
         })
     }
 
-    function getOneFn(id: number) {
+    function getOneFn(id: string) {
         return request.get<ApiPage.Detail>(`${url}${id}/`)
     }
 
-    function removeOneFn(id: number) {
+    function removeOneFn(id: string) {
         return request.delete<null>(`${url}${id}/`)
     }
 

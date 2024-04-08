@@ -6,7 +6,7 @@ import type {
 } from "axios"
 import axios from "axios"
 
-import { REFRESH_TOKEN_CODE } from "~/config"
+import { REFRESH_TOKEN_CODE, TEMPORARY_REFRESH_TOKEN_CODE } from "~/config"
 import {
     handleAxiosError,
     handleBackendError,
@@ -83,6 +83,13 @@ export default class CustomAxiosInstance {
                         return handleServiceResult(null, backend[dataKey])
                     }
 
+                    // 临时需要刷新token
+                    if (TEMPORARY_REFRESH_TOKEN_CODE.includes(backend[codeKey])) {
+                        const config = await handleRefreshToken(response.config)
+                        if (config) {
+                            return handleServiceResult(null, backend[dataKey])
+                        }
+                    }
                     // token失效, 刷新token
                     if (REFRESH_TOKEN_CODE.includes(backend[codeKey])) {
                         const config = await handleRefreshToken(response.config)

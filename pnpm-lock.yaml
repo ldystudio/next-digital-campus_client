@@ -235,6 +235,9 @@ devDependencies:
   tailwindcss:
     specifier: 3.4.0
     version: 3.4.0
+  tailwindcss-unsplash:
+    specifier: ^1.1.1
+    version: 1.1.1
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -7383,6 +7386,10 @@ packages:
     dependencies:
       tailwindcss: 3.4.0
     dev: false
+
+  /tailwindcss-unsplash@1.1.1:
+    resolution: {integrity: sha512-uly9LFbDW5ZR/Hkq0+pZoVwu2Hvv+9rXEZjtf9Qt3e6r0/tJFKhqVHQl6zI3i2jVpsDjyBflW+F6Cn/zPkFxSw==}
+    dev: true
 
   /tailwindcss@3.4.0:
     resolution: {integrity: sha512-VigzymniH77knD1dryXbyxR+ePHihHociZbXnLZHUyzf2MMs2ZVqlUrZ3FvpXP8pno9JzmILt1sZPD19M3IxtA==}

@@ -1,13 +1,17 @@
 import type { Metadata } from "next"
 
+import InformationCard from "@/components/business/information-card"
 import TableCard from "@/components/business/table-card"
 import { filterColumnsByArray } from "~/utils/common"
+import { getUserInfoFromServer } from "~/utils/cookies"
 
 export const metadata: Metadata = {
     title: "信息管理"
 }
 
-export default function StudentInformationPage() {
+export default async function StudentInformationPage() {
+    const userInfo = await getUserInfoFromServer()
+
     const columns = [
         { uid: "id", name: "学号", sortable: true },
         { uid: "real_name", name: "姓名" },
@@ -36,19 +40,34 @@ export default function StudentInformationPage() {
         "identification_number"
     ])
 
+    if (userInfo?.userRole === "admin") {
+        return (
+            <section className='lg:h-full'>
+                <TableCard
+                    ariaLabel='Student information Table'
+                    url='/student/information/'
+                    columns={columns}
+                    isAddDisabled
+                    isDelDisabled
+                    filterColumns={filterColumns}
+                    dateFields={dateFields}
+                    statusField='gender'
+                    statusOptions={statusOptions}
+                    initialInvisibleColumns={initialInvisibleColumns}
+                />
+            </section>
+        )
+    }
+
     return (
         <section className='lg:h-full'>
-            <TableCard
-                ariaLabel='Student information Table'
+            <InformationCard
                 url='/student/information/'
                 columns={columns}
-                filterColumns={filterColumns}
                 dateFields={dateFields}
                 statusField='gender'
-                isAddDisabled
-                isDelDisabled
                 statusOptions={statusOptions}
-                initialInvisibleColumns={initialInvisibleColumns}
+                disabledInput={["id"]}
             />
         </section>
     )

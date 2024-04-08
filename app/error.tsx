@@ -20,7 +20,6 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
                 alt='错误页面'
                 width={[400, 300]}
                 originalSize={{ width: 960, height: 960 }}
-                darkModeBrightBackground
             />
 
             <Code color='danger' size='lg' className='mx-5'>

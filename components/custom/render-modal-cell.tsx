@@ -59,6 +59,7 @@ export default function RenderModalCell({
                         dateStr={details[column.uid]}
                         column={column.uid}
                         onDateChange={modifiedAttribute}
+                        isDisabled={disabledInput?.includes(column.uid)}
                     />
                 </Col>
             )
