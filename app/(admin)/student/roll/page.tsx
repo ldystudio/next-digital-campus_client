@@ -1,14 +1,18 @@
 import type { Metadata } from "next"
 import { ChipProps } from "@nextui-org/react"
 
+import InformationCard from "@/components/business/information-card"
 import TableCard from "@/components/business/table-card"
 import { filterColumnsByArray } from "~/utils/common"
+import { getUserInfoFromServer } from "~/utils/cookies"
 
 export const metadata: Metadata = {
     title: "学籍管理"
 }
 
-export default function StudentRollPage() {
+export default async function StudentRollPage() {
+    const userInfo = await getUserInfoFromServer()
+
     const columns = [
         { uid: "id", name: "学籍号", sortable: true },
         { uid: "real_name", name: "姓名" },
@@ -43,19 +47,42 @@ export default function StudentRollPage() {
         "address"
     ])
 
+    if (userInfo?.userRole === "admin") {
+        return (
+            <section className='lg:h-full'>
+                <TableCard
+                    ariaLabel='Student roll Table'
+                    url='/student/enrollment/'
+                    columns={columns}
+                    filterColumns={filterColumns}
+                    isAddDisabled
+                    isDelDisabled
+                    dateFields={dateFields}
+                    statusField='enrollment_status'
+                    statusOptions={statusOptions}
+                    statusColorMap={statusColorMap}
+                />
+            </section>
+        )
+    }
+
     return (
         <section className='lg:h-full'>
-            <TableCard
-                ariaLabel='Student roll Table'
+            <InformationCard
+                title={`${metadata?.title}`}
                 url='/student/enrollment/'
                 columns={columns}
-                filterColumns={filterColumns}
-                isAddDisabled
-                isDelDisabled
                 dateFields={dateFields}
                 statusField='enrollment_status'
                 statusOptions={statusOptions}
-                statusColorMap={statusColorMap}
+                disabledInput={[
+                    "id",
+                    "class_name",
+                    "date_of_admission",
+                    "date_of_graduation",
+                    "disciplinary_records",
+                    "enrollment_status"
+                ]}
             />
         </section>
     )

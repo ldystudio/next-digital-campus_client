@@ -163,7 +163,7 @@ export default function TableCard({
     statusOptions,
     statusColorMap,
     disabledInput,
-    initialSortColumn = "id",
+    initialSortColumn = "-id",
     initialInvisibleColumns = [],
     groupField,
     groupFetchUrl

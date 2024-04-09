@@ -1,20 +1,26 @@
 import type { Metadata } from "next"
 import { ChipProps } from "@nextui-org/react"
 
+import AttendanceCard from "@/components/business/attendance-card"
+import AttendanceChartCard from "@/components/business/attendance-chart-card"
 import TableCard from "@/components/business/table-card"
 import { filterColumnsByArray } from "~/utils/common"
+import { getUserInfoFromServer } from "~/utils/cookies"
 
 export const metadata: Metadata = {
     title: "考勤管理"
 }
 
-export default function StudentAttendancePage() {
+export default async function StudentAttendancePage() {
+    const userInfo = await getUserInfoFromServer()
+
     const columns = [
         { uid: "id", name: "考勤号", sortable: true },
         { uid: "real_name", name: "姓名", sortable: true },
         { uid: "date", name: "记录日期", sortable: true },
         { uid: "attendance_status", name: "考勤状态", sortable: true },
         { uid: "check_in_time", name: "记录时间", sortable: true },
+        { uid: "ip_address", name: "IP地址" },
         { uid: "late_time", name: "迟到时间" },
         { uid: "early_leave_time", name: "早退时间" },
         { uid: "leave_start_time", name: "请假开始时间", sortable: true },
@@ -50,20 +56,32 @@ export default function StudentAttendancePage() {
         "leave_start_time"
     ])
 
+    if (userInfo?.userRole === "admin") {
+        return (
+            <section className='lg:h-full'>
+                <TableCard
+                    ariaLabel='Student Attendance Table'
+                    url='/student/attendance/'
+                    columns={columns}
+                    filterColumns={filterColumns}
+                    dateFields={dateFields}
+                    statusField='attendance_status'
+                    statusOptions={statusOptions}
+                    statusColorMap={statusColorMap}
+                    disabledInput={["real_name"]}
+                    initialInvisibleColumns={["id"]}
+                />
+            </section>
+        )
+    }
+
     return (
-        <section className='lg:h-full'>
-            <TableCard
-                ariaLabel='Student Attendance Table'
-                url='/student/attendance/'
-                columns={columns}
-                filterColumns={filterColumns}
-                dateFields={dateFields}
-                statusField='attendance_status'
-                statusOptions={statusOptions}
-                statusColorMap={statusColorMap}
-                disabledInput={["real_name"]}
-                initialInvisibleColumns={["id"]}
+        <section className='flex flex-col gap-3 *:rounded-3xl lg:h-full lg:flex-row lg:gap-5'>
+            <AttendanceCard
+                getUrl='/student/attendance-today/'
+                postUrl='/student/attendance/'
             />
+            <AttendanceChartCard />
         </section>
     )
 }

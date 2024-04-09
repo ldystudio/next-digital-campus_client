@@ -2,7 +2,6 @@
 
 import React from "react"
 
-import { capitalize } from "lodash"
 import toast from "react-hot-toast"
 import useSWR from "swr"
 import * as adventurer from "@dicebear/adventurer"
@@ -31,6 +30,7 @@ import { isString } from "~/utils/common"
 import { localStg } from "~/utils/storage"
 
 interface InformationCardProps {
+    title: string
     url: string
     columns: Columns
     statusField?: string
@@ -110,6 +110,7 @@ function RenderCell({
                     onValueChange={(value) => {
                         updateInformation(cid, Number(value))
                     }}
+                    isDisabled={disabledInput?.includes(cid)}
                     classNames={{ wrapper: "justify-center" }}
                     isRequired={column.isRequired}
                 >
@@ -124,6 +125,7 @@ function RenderCell({
         switch (column.uid) {
             case "actions":
             case "service_status":
+            case "notes":
                 return null
             case "classes":
                 return (
@@ -169,6 +171,7 @@ function RenderCell({
 const fetcher = (url: string) => request.get<Information>(url).then((res) => res.data)
 
 export default function InformationCard({
+    title,
     url,
     columns,
     statusField,
@@ -199,12 +202,12 @@ export default function InformationCard({
 
     return (
         // eslint-disable-next-line tailwindcss/classnames-order
-        <Card className='bg-unsplash-[9T8fywAF54I/lg] relative items-center justify-center rounded-3xl bg-cover bg-center bg-no-repeat lg:h-full'>
+        <Card className='items-center justify-center rounded-3xl bg-cover bg-center bg-no-repeat bg-unsplash-[9T8fywAF54I/lg] lg:h-full'>
             <Card className='max-w-xl p-2' shadow='none'>
                 <CardHeader
                     className={`${NotoSansSC.className} flex flex-col items-start px-4 pb-0 pt-4`}
                 >
-                    <p className='text-large'>信息管理</p>
+                    <p className='text-large'>{title}</p>
                     <div className='flex gap-4 py-4'>
                         <Badge
                             classNames={{
@@ -240,10 +243,10 @@ export default function InformationCard({
                         <div className='flex flex-col items-start justify-center'>
                             {data && <p className='font-medium'>{data.real_name}</p>}
                             <span
-                                className='text-small text-default-500'
+                                className='text-small capitalize text-default-500'
                                 suppressHydrationWarning
                             >
-                                {capitalize(userInfo.userRole)}
+                                {userInfo.userRole}
                             </span>
                         </div>
                     </div>

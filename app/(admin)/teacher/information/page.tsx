@@ -69,6 +69,7 @@ export default async function TeacherInformationPage() {
     return (
         <section className='lg:h-full'>
             <InformationCard
+                title={`${metadata?.title}`}
                 url='/teacher/information/'
                 columns={columns}
                 dateFields={dateFields}
