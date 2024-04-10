@@ -35,6 +35,7 @@ export default function RenderModalCell({
     groupField,
     groupFetchUrl = ""
 }: renderModalCellProps) {
+    console.log(details)
     return modelColumns.map((column) => {
         if (column.uid.includes("picture")) {
             return (
@@ -42,7 +43,11 @@ export default function RenderModalCell({
                     key={column.uid}
                     label={column.name}
                     fileField={column.uid}
-                    fileName={details[column.uid]?.split("/").pop()}
+                    fileName={
+                        details[column.uid]
+                            ? details[column.uid].split("/").pop()
+                            : undefined
+                    }
                     uploadUrl={url}
                     entityId={modifiedDetails.id}
                 />

@@ -17,6 +17,8 @@ export default async function CourseChoosePage() {
         { uid: "credit", name: "课程学分" },
         { uid: "start_time", name: "上课时间" },
         { uid: "end_time", name: "下课时间" },
+        { uid: "start_date", name: "开课时间" },
+        { uid: "end_date", name: "结课时间" },
         { uid: "choose_number", name: "已选人数" },
         { uid: "weekday", name: "上课星期" },
         { uid: "teacher", name: "教师" }

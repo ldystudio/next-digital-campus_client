@@ -12,11 +12,7 @@ export default function BannerCard({ className }: PageComponentProps) {
     return (
         <Card className={className}>
             <CardBody className='flex flex-col items-center justify-around gap-3 overflow-hidden lg:flex-row'>
-                <Col
-                    fullHeight
-                    justify='center'
-                    className={`${GoogleSans.className} lg:pl-10`}
-                >
+                <Col fullHeight justify='center' className={`${GoogleSans.className}`}>
                     <p className='text-3xl text-white lg:text-4xl'>Welcome back</p>
                     <p className='text-2xl font-medium text-white lg:text-3xl'>
                         {userName}

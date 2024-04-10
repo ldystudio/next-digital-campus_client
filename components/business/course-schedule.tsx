@@ -78,7 +78,7 @@ export default function CourseSchedule({ timePoints }: CourseScheduleProps) {
         }
         return false
     }
-
+    console.log(rows)
     return timePoints.map(
         (timePoint, index) =>
             index % 2 === 0 && (

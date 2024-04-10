@@ -1,5 +1,6 @@
 import React from "react"
 
+import { isWithinInterval, parseISO } from "date-fns"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import { Icon } from "@iconify/react"
@@ -27,6 +28,8 @@ export type CourseItem = {
     end_time: string
     choose_number: number
     weekday: number
+    start_date: string
+    end_date: string
     teacher: {
         id: string | number
         real_name: string
@@ -61,6 +64,8 @@ export default function CourseListItem({
     start_time,
     end_time,
     weekday,
+    start_date,
+    end_date,
     teacher,
     isLoading,
     removeWrapper,
@@ -71,6 +76,10 @@ export default function CourseListItem({
 }: CourseListItemProps) {
     const [isLiked, setIsLiked] = React.useState(false)
     const chineseNumbers: string[] = ["", "一", "二", "三", "四", "五", "六", "七"]
+    const isValid = isWithinInterval(new Date(), {
+        start: parseISO(start_date),
+        end: parseISO(end_date)
+    })
 
     return (
         <div
@@ -85,10 +94,14 @@ export default function CourseListItem({
         >
             <Button
                 isIconOnly
-                className='absolute right-3 top-3 z-20 bg-background/60 backdrop-blur-md backdrop-saturate-150 dark:bg-default-100/50'
+                className={cn(
+                    `absolute right-3 top-3 z-20 bg-background/60 backdrop-blur-md backdrop-saturate-150 dark:bg-default-100/50`,
+                    !isValid && "bg-danger dark:bg-danger"
+                )}
                 radius='full'
                 size='sm'
                 variant='flat'
+                isDisabled={!isValid}
                 onPress={async () => {
                     const { error } = await updateCourseChoose<CourseItem>(props.id)
                     if (error) {
@@ -106,7 +119,7 @@ export default function CourseListItem({
                 }}
             >
                 <Icon
-                    className={cn("text-default-900/50", {
+                    className={cn(isValid ? "text-default-900/50" : "text-default-50", {
                         "text-danger-400": isLiked
                     })}
                     icon='solar:star-bold'

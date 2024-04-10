@@ -1,34 +1,30 @@
 "use client"
 
 import { useResponsive } from "ahooks"
-import * as echarts from "echarts"
 import { EChartsOption } from "echarts"
 import EChartsReact from "echarts-for-react"
+import useSWR from "swr"
 import { Card } from "@nextui-org/react"
 
-export default function AttendanceChartCard() {
+import { request } from "~/service/request"
+
+interface AttendanceChartCardProps {
+    url: string
+}
+
+const fetcher = (url: string) =>
+    request.get<[string, number][]>(url).then((res) => res.data)
+
+export default function AttendanceChartCard({ url }: AttendanceChartCardProps) {
     const responsive = useResponsive()
     const toYear = `${new Date().getFullYear()}`
 
-    function getVirtualData(year: string) {
-        const date = +echarts.time.parse(year + "-01-01")
-        const end = +echarts.time.parse(+year + 1 + "-01-01")
-        const dayTime = 3600 * 24 * 1000
-        const data: [string, number][] = []
-        for (let time = date; time < end; time += dayTime) {
-            data.push([
-                echarts.time.format(time, "{yyyy}-{MM}-{dd}", false),
-                Math.floor(Math.random() * 10000)
-            ])
-        }
-        return data
-    }
-
-    const data = getVirtualData(toYear)
-    console.log("data: ", data)
+    const { data: fetchData } = useSWR(url, fetcher, { revalidateOnFocus: false })
+    const data = fetchData ?? []
 
     const orient = responsive?.md ? "horizontal" : "vertical"
     const color = "#fff"
+    const textBorderWidth = 3
     const textBorderColor = "#000"
 
     /** @type EChartsOption */
@@ -37,25 +33,25 @@ export default function AttendanceChartCard() {
             top: 30,
             text: toYear + "年度考勤数据",
             left: "center",
-            textStyle: { color, textBorderWidth: 4, textBorderColor }
+            textStyle: { color, textBorderWidth, textBorderColor }
         },
         tooltip: {
             trigger: "item"
         },
         visualMap: {
             min: 0,
-            max: 10000,
+            max: 5,
             type: "piecewise",
             orient: "horizontal",
             left: "center",
-            textStyle: { color, textBorderWidth: 4, textBorderColor },
+            textStyle: { color: "#000" },
             bottom: 40
         },
         legend: {
             top: "30",
             left: "100",
             data: ["每日", "Top 12"],
-            textStyle: { color, textBorderWidth: 4, textBorderColor }
+            textStyle: { color, textBorderWidth, textBorderColor }
         },
         calendar: [
             {
@@ -66,14 +62,14 @@ export default function AttendanceChartCard() {
                 dayLabel: {
                     firstDay: 1,
                     color,
-                    textBorderWidth: 4,
+                    textBorderWidth,
                     textBorderColor
                 },
-                monthLabel: { color, textBorderWidth: 4, textBorderColor },
+                monthLabel: { color, textBorderWidth, textBorderColor },
                 yearLabel: {
                     formatter: "{start}  1st",
                     color,
-                    textBorderWidth: 4,
+                    textBorderWidth,
                     textBorderColor
                 },
                 splitLine: {
@@ -85,7 +81,7 @@ export default function AttendanceChartCard() {
                     }
                 },
                 itemStyle: {
-                    color: "#3F3F46",
+                    color: "#52525b",
                     borderWidth: 1,
                     borderColor: color
                 }
@@ -98,14 +94,14 @@ export default function AttendanceChartCard() {
                 dayLabel: {
                     firstDay: 1,
                     color,
-                    textBorderWidth: 4,
+                    textBorderWidth,
                     textBorderColor
                 },
-                monthLabel: { color, textBorderWidth: 4, textBorderColor },
+                monthLabel: { color, textBorderWidth, textBorderColor },
                 yearLabel: {
                     formatter: "{start}  2nd",
                     color,
-                    textBorderWidth: 4,
+                    textBorderWidth,
                     textBorderColor
                 },
                 splitLine: {
@@ -117,7 +113,7 @@ export default function AttendanceChartCard() {
                     }
                 },
                 itemStyle: {
-                    color: "#3F3F46",
+                    color: "#52525b",
                     borderWidth: 1,
                     borderColor: color
                 }
@@ -148,7 +144,7 @@ export default function AttendanceChartCard() {
                     })
                     .slice(0, 12),
                 symbolSize: function (val) {
-                    return val[1] / 500
+                    return val[1]
                 },
                 showEffectOn: "render",
                 rippleEffect: {
@@ -170,7 +166,7 @@ export default function AttendanceChartCard() {
                     })
                     .slice(0, 12),
                 symbolSize: function (val) {
-                    return val[1] / 500
+                    return val[1]
                 },
                 showEffectOn: "render",
                 rippleEffect: {
@@ -187,7 +183,7 @@ export default function AttendanceChartCard() {
 
     return (
         <Card
-            className='hidden h-full items-center justify-center bg-cover bg-center bg-no-repeat bg-unsplash-[0l1zx7JYwFk/lg] lg:flex lg:w-full'
+            className='hidden h-full items-center justify-center lg:flex lg:w-full'
             shadow='none'
         >
             <EChartsReact

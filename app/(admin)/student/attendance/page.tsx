@@ -80,8 +80,9 @@ export default async function StudentAttendancePage() {
             <AttendanceCard
                 getUrl='/student/attendance-today/'
                 postUrl='/student/attendance/'
+                getAllUrl='/student/attendance-all/'
             />
-            <AttendanceChartCard />
+            <AttendanceChartCard url='/student/attendance-all/' />
         </section>
     )
 }

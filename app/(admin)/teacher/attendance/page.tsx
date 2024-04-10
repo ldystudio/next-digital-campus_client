@@ -1,14 +1,19 @@
 import type { Metadata } from "next"
 import { ChipProps } from "@nextui-org/react"
 
+import AttendanceCard from "@/components/business/attendance-card"
+import AttendanceChartCard from "@/components/business/attendance-chart-card"
 import TableCard from "@/components/business/table-card"
 import { filterColumnsByArray } from "~/utils/common"
+import { getUserInfoFromServer } from "~/utils/cookies"
 
 export const metadata: Metadata = {
     title: "考勤管理"
 }
 
-export default function TeacherAttendancePage() {
+export default async function TeacherAttendancePage() {
+    const userInfo = await getUserInfoFromServer()
+
     const columns = [
         { uid: "id", name: "考勤号", sortable: true },
         { uid: "real_name", name: "姓名", sortable: true },
@@ -50,20 +55,33 @@ export default function TeacherAttendancePage() {
         "leave_start_time"
     ])
 
+    if (userInfo?.userRole === "admin") {
+        return (
+            <section className='lg:h-full'>
+                <TableCard
+                    ariaLabel='Teacher Attendance Table'
+                    url='/teacher/attendance/'
+                    columns={columns}
+                    filterColumns={filterColumns}
+                    dateFields={dateFields}
+                    statusField='attendance_status'
+                    statusOptions={statusOptions}
+                    statusColorMap={statusColorMap}
+                    disabledInput={["real_name"]}
+                    initialInvisibleColumns={["id"]}
+                />
+            </section>
+        )
+    }
+
     return (
-        <section className='lg:h-full'>
-            <TableCard
-                ariaLabel='Teacher Attendance Table'
-                url='/teacher/attendance/'
-                columns={columns}
-                filterColumns={filterColumns}
-                dateFields={dateFields}
-                statusField='attendance_status'
-                statusOptions={statusOptions}
-                statusColorMap={statusColorMap}
-                disabledInput={['real_name']}
-                initialInvisibleColumns={["id"]}
+        <section className='flex flex-col gap-3 *:rounded-3xl lg:h-full lg:flex-row lg:gap-5'>
+            <AttendanceCard
+                getUrl='/teacher/attendance-today/'
+                postUrl='/teacher/attendance/'
+                getAllUrl='/teacher/attendance-all/'
             />
+            <AttendanceChartCard url='/teacher/attendance-all/' />
         </section>
     )
 }

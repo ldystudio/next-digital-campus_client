@@ -17,6 +17,7 @@ import { request } from "~/service/request"
 interface AttendanceCardProps {
     getUrl: string
     postUrl: string
+    getAllUrl: string
 }
 
 type StatusType = {
@@ -156,7 +157,11 @@ function AttendanceRecord({
     )
 }
 
-export default function AttendanceCard({ getUrl, postUrl }: AttendanceCardProps) {
+export default function AttendanceCard({
+    getUrl,
+    postUrl,
+    getAllUrl
+}: AttendanceCardProps) {
     const [recordList, setRecordList] = React.useState<RecordList[]>([])
     const { mutate } = useSWRConfig()
 
@@ -202,6 +207,7 @@ export default function AttendanceCard({ getUrl, postUrl }: AttendanceCardProps)
                             } else {
                                 toast.success("签到成功")
                                 mutate(getUrl)
+                                mutate(getAllUrl)
                             }
                         } else {
                             toast.error("你已消耗完今日签到次数")
