@@ -7,22 +7,6 @@ export const siteConfig = {
             href: "/index"
         },
         {
-            label: "博客",
-            href: "/blog"
-        },
-        {
-            label: "价格",
-            href: "/pricing"
-        },
-        {
-            label: "文章",
-            href: "/docs"
-        },
-        {
-            label: "测试",
-            href: "/test"
-        },
-        {
             label: "关于",
             href: "/about"
         }

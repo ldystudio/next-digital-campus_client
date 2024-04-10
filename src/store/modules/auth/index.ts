@@ -132,8 +132,12 @@ export function useAuthAction() {
 
         if (payload) {
             const { iat, exp, userInfo } = payload
-            const now = Math.floor(new Date().getTime() / 1000)
-            // const now = Math.floor(new Date().getTime() / 1000) + 10 // 加10s，防止时间误差
+            let now = Math.floor(new Date().getTime() / 1000)
+
+            if (process.env.NODE_ENV === "production") {
+                // 生产环境下，时间戳可能有10s的误差，这里加上10s
+                now += 10
+            }
 
             if (iat <= now && now < exp) {
                 // 成功后把用户信息存储到缓存中
