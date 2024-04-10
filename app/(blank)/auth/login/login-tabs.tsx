@@ -85,9 +85,24 @@ export default function LoginTabs() {
     }
 
     const otherLoginList = [
-        { id: 1, icon: "/images/icon/QQ.png", name: "QQ登录", link: "#" },
-        { id: 2, icon: "/images/icon/微信.png", name: "微信登录", link: "#" },
-        { id: 3, icon: "/images/icon/Github.svg", name: "Github登录", link: "#" }
+        {
+            id: 1,
+            icon: "/images/icon/SolarUserRoundedBoldDuotone.svg",
+            name: "管理员登录",
+            link: "#"
+        },
+        {
+            id: 2,
+            icon: "/images/icon/SolarUsersGroupRoundedBoldDuotone.svg",
+            name: "教师登录",
+            link: "#"
+        },
+        {
+            id: 3,
+            icon: "/images/icon/SolarUsersGroupTwoRoundedBoldDuotone.svg",
+            name: "学生登录",
+            link: "#"
+        }
     ]
 
     const { isLoading } = useAuthState()
@@ -300,7 +315,7 @@ export default function LoginTabs() {
                     </Button>
                 </Col>
             </Tab>
-            <Tab key='OtherLogin' title='第三方登录'>
+            <Tab key='OtherLogin' title='演示账号登录'>
                 <ListBoxWrapper>
                     <Listbox aria-label='OtherLogin Listbox' items={otherLoginList}>
                         {(item) => (
@@ -319,6 +334,37 @@ export default function LoginTabs() {
                                     />
                                 }
                                 textValue={item.name}
+                                onPress={() => {
+                                    switch (item.id) {
+                                        case 1:
+                                            login({
+                                                username: "Liudy",
+                                                password: "Liudy123456",
+                                                captcha: "xYs0",
+                                                traceId: "Testtesttest123"
+                                            })
+                                            break
+                                        case 2:
+                                            login({
+                                                username: "Teacher01",
+                                                password: "Liudy123456",
+                                                captcha: "xYs0",
+                                                traceId: "Testtesttest123"
+                                            })
+                                            break
+                                        case 3:
+                                            login({
+                                                username: "Student01",
+                                                password: "Liudy123456",
+                                                captcha: "xYs0",
+                                                traceId: "Testtesttest123"
+                                            })
+                                            break
+                                        default:
+                                            break
+                                    }
+                                    // Redis captcha HEX语法：\x80\x04\x95\x08\x00\x00\x00\x00\x00\x00\x00\x8c\x04xYs0\x94.
+                                }}
                             >
                                 <Row justify='center' className='text-lg font-bold'>
                                     {item.name}
