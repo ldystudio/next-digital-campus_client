@@ -105,7 +105,7 @@ export default function RegisterTabs() {
         roleType,
         avatar
     }
-    const { toRedirect } = useRouterPush()
+    const { toLogin } = useRouterPush()
 
     return (
         <>
@@ -413,7 +413,7 @@ export default function RegisterTabs() {
                                     }
                                     toast.success("注册成功")
                                     colorfulFlag()
-                                    toRedirect()
+                                    toLogin("/index")
                                 }}
                                 isLoading={isLoading}
                             >

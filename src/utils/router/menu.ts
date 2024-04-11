@@ -74,3 +74,16 @@ function addPartialProps(config: {
     }
     return item
 }
+
+export function isPathInAuthMenus(
+    path: AuthRoute.RoutePath,
+    menus: App.AdminMenu[]
+): boolean {
+    const set = new Set<string>(menus.map((item) => item.routePath))
+    return (
+        set.has(path) ||
+        menus.some(
+            (menu) => menu.children?.some((item) => isPathInAuthMenus(path, [item]))
+        )
+    )
+}

@@ -2,8 +2,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import NProgress from "nprogress"
 
-import { getRouteState } from "~/store"
+import { getAuthState, getRouteState } from "~/store"
 import { useRouteAction } from "~/store/modules/route"
+import { isPathInAuthMenus } from "~/utils/router/menu"
 
 /**
  * 自定义路由跳转
@@ -12,7 +13,7 @@ export function useRouterPush() {
     const router = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
-    const { previousRoutePath } = getRouteState()
+    const { previousRoutePath, authMenus } = getRouteState()
     const { setPreviousRoutePath } = useRouteAction()
 
     function isPushNewPage(path: AuthRoute.RoutePath) {
@@ -83,10 +84,15 @@ export function useRouterPush() {
     /**
      * 登录成功后跳转重定向的地址
      */
-    function toRedirect() {
+    function toRedirect(authMenus: App.AdminMenu[]) {
         const redirect = searchParams?.get("redirect") as AuthRoute.RoutePath
 
-        redirect ? routerPush(redirect) : toHome()
+        if (redirect && isPathInAuthMenus(redirect, authMenus)) {
+            routerPush(redirect)
+        } else {
+            toHome()
+        }
+
         NProgress.done()
     }
 

@@ -96,7 +96,7 @@ export function useAuthAction() {
             return
         }
 
-        const { isInitAuthRoute } = getRouteState()
+        const { isInitAuthRoute, authMenus } = getRouteState()
         const { userInfo } = getAuthState()
 
         // 登录成功弹出欢迎提示
@@ -108,7 +108,7 @@ export function useAuthAction() {
         }
 
         // 跳转登录后的地址
-        toRedirect()
+        toRedirect(authMenus)
     }
 
     /**
