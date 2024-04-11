@@ -2,7 +2,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import NProgress from "nprogress"
 
-import { getAuthState, getRouteState } from "~/store"
+import { getRouteState } from "~/store"
 import { useRouteAction } from "~/store/modules/route"
 import { isPathInAuthMenus } from "~/utils/router/menu"
 
@@ -13,7 +13,7 @@ export function useRouterPush() {
     const router = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
-    const { previousRoutePath, authMenus } = getRouteState()
+    const { previousRoutePath } = getRouteState()
     const { setPreviousRoutePath } = useRouteAction()
 
     function isPushNewPage(path: AuthRoute.RoutePath) {
