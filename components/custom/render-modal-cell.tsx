@@ -35,7 +35,6 @@ export default function RenderModalCell({
     groupField,
     groupFetchUrl = ""
 }: renderModalCellProps) {
-    console.log(details)
     return modelColumns.map((column) => {
         if (column.uid.includes("picture")) {
             return (

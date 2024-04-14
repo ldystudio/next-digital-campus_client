@@ -2,6 +2,7 @@
 
 import { Key, useCallback, useMemo, useState } from "react"
 
+import clsx from "clsx"
 import toast from "react-hot-toast"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
@@ -230,6 +231,11 @@ export default function TableCard({
     const renderCell = useCallback(
         (rows: Rows, columnKey: Key) => {
             const cellValue = rows[columnKey as keyof Rows]
+            if (["student", "entered_by"].includes(columnKey as string)) {
+                const { [columnKey as keyof Rows]: simpleUser, ...remainingRows } = rows
+                // @ts-expect-error cellValue is a SimpleUser
+                rows = { ...remainingRows, ...simpleUser }
+            }
 
             if (isString(statusField) && columnKey === statusField && statusColorMap) {
                 return (
@@ -244,7 +250,7 @@ export default function TableCard({
                 )
             }
 
-            if (groupField && columnKey === groupField) {
+            if (groupField && columnKey === groupField && groupField !== "student") {
                 const userGroup = rows[
                     groupField as keyof Rows
                 ] as unknown as ApiPage.Detail[]
@@ -287,6 +293,8 @@ export default function TableCard({
 
             switch (columnKey) {
                 case "real_name":
+                case "student":
+                case "entered_by":
                     return (
                         <User
                             avatarProps={{
@@ -296,7 +304,9 @@ export default function TableCard({
                                 }).toDataUriSync()
                             }}
                             description={rows.email}
-                            name={cellValue}
+                            name={
+                                columnKey === "real_name" ? cellValue : rows.real_name
+                            }
                         >
                             {rows.email}
                         </User>
@@ -305,6 +315,21 @@ export default function TableCard({
                     return cellValue === 1 ? "男" : "女"
                 case "birth_date":
                     return calculateYearDifference(cellValue as string)
+                case "exam_score":
+                    return (
+                        <span
+                            className={clsx(
+                                "font-bold",
+                                (cellValue as number) >= 60
+                                    ? (cellValue as number) >= 80
+                                        ? "text-success"
+                                        : "text-warning"
+                                    : "text-danger"
+                            )}
+                        >
+                            {cellValue}
+                        </span>
+                    )
                 case "leave_start_time":
                 case "leave_end_time":
                     return `${cellValue}`.replace("T", " ")

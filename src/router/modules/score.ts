@@ -10,13 +10,12 @@ const Score: AuthRoute.Route = {
     },
     children: [
         {
-            name: "score_enter",
-            path: "/score/enter",
+            name: "score_query",
+            path: "/score/query",
             component: "self",
             meta: {
-                permissions: ["admin", "teacher"],
-                title: "成绩录入",
-                icon: "solar:document-medicine-bold-duotone",
+                title: "成绩查询",
+                icon: "solar:minimalistic-magnifer-bold-duotone",
                 order: 51
             }
         },
@@ -28,16 +27,6 @@ const Score: AuthRoute.Route = {
                 title: "成绩统计",
                 icon: "solar:pie-chart-2-bold-duotone",
                 order: 52
-            }
-        },
-        {
-            name: "score_query",
-            path: "/score/query",
-            component: "self",
-            meta: {
-                title: "成绩查询",
-                icon: "solar:minimalistic-magnifer-bold-duotone",
-                order: 53
             }
         }
     ]

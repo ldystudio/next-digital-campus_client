@@ -22,7 +22,6 @@ function hasErrorMsg(error: Service.RequestError) {
 export function showErrorMsg(error: Service.RequestError) {
     if (!error.msg || NO_ERROR_MSG_CODE.includes(error.code) || hasErrorMsg(error))
         return
-    // console.log(error.code, error.msg);
     addErrorMsg(error)
     window.console.warn(error.code, error.msg)
     toast.error(error.msg, { duration: ERROR_MSG_DURATION })
