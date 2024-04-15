@@ -91,3 +91,8 @@ interface Classes {
     id: string
     class_name: string
 }
+
+interface Course {
+    id: string
+    course_name: string
+}

@@ -339,6 +339,9 @@ export default function TableCard({
                             {cls.class_name}
                         </p>
                     ))
+                case "course":
+                    // @ts-expect-error cellValue is a Object
+                    return cellValue.course_name
                 case "actions":
                     return (
                         <Action
@@ -694,7 +697,9 @@ export default function TableCard({
                                     dateFields={dateFields}
                                     statusOptions={statusOptions}
                                     disabledInput={
-                                        modifiedDetails.id ? disabledInput : []
+                                        modifiedDetails.id
+                                            ? disabledInput
+                                            : ["entered_by"]
                                     }
                                     groupField={groupField}
                                     groupFetchUrl={groupFetchUrl}

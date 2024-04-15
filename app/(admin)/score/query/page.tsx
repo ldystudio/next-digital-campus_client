@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function ScoreQueryPage() {
     const columns: Columns = [
         { uid: "id", name: "分数ID", sortable: true },
-        { uid: "course_name", name: "课程名称", isRequired: true },
+        { uid: "course", name: "课程名称", isRequired: true },
         { uid: "student", name: "学生", isRequired: true },
         { uid: "exam_type", name: "考试类型", sortable: true, isRequired: true },
         { uid: "exam_date", name: "考试日期", sortable: true, isRequired: true },
@@ -44,8 +44,8 @@ export default function ScoreQueryPage() {
     return (
         <section className='lg:h-full'>
             <TableCard
-                ariaLabel='Score information Table'
-                url='/score/information/'
+                ariaLabel='Score query Table'
+                url='/score/query/'
                 columns={columns}
                 filterColumns={filterColumns}
                 dateFields={dateFields}
@@ -54,8 +54,6 @@ export default function ScoreQueryPage() {
                 statusColorMap={statusColorMap}
                 disabledInput={["entered_by"]}
                 initialInvisibleColumns={["id"]}
-                groupField='student'
-                groupFetchUrl='/student/simple/'
             />
         </section>
     )

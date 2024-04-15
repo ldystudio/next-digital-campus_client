@@ -54,18 +54,21 @@ export default function RenderModalCell({
         }
         if (dateFields.includes(column.uid)) {
             return (
-                <Col key={column.uid} items='start'>
-                    <p className='text-foreground-500'>
-                        {column.name}
-                        {column.isRequired && <span className='text-danger'> *</span>}
-                    </p>
-                    <DatePicker
-                        dateStr={details[column.uid]}
-                        column={column.uid}
-                        onDateChange={modifiedAttribute}
-                        isDisabled={disabledInput?.includes(column.uid)}
-                    />
-                </Col>
+                !disabledInput?.includes(column.uid) && (
+                    <Col key={column.uid} items='start'>
+                        <p className='text-foreground-500'>
+                            {column.name}
+                            {column.isRequired && (
+                                <span className='text-danger'> *</span>
+                            )}
+                        </p>
+                        <DatePicker
+                            dateStr={details[column.uid]}
+                            column={column.uid}
+                            onDateChange={modifiedAttribute}
+                        />
+                    </Col>
+                )
             )
         }
         if (isString(statusField) && statusField === column.uid && statusOptions) {
@@ -149,18 +152,19 @@ export default function RenderModalCell({
         }
         if (isIncludeSubstring(column.uid, ["description", "notes"])) {
             return (
-                <Textarea
-                    key={column.uid}
-                    label={column.name}
-                    labelPlacement='outside'
-                    variant='bordered'
-                    defaultValue={details[column.uid]}
-                    onValueChange={(value) => {
-                        modifiedAttribute(column.uid, value)
-                    }}
-                    isRequired={column.isRequired}
-                    isDisabled={disabledInput?.includes(column.uid)}
-                />
+                !disabledInput?.includes(column.uid) && (
+                    <Textarea
+                        key={column.uid}
+                        label={column.name}
+                        labelPlacement='outside'
+                        variant='bordered'
+                        defaultValue={details[column.uid]}
+                        onValueChange={(value) => {
+                            modifiedAttribute(column.uid, value)
+                        }}
+                        isRequired={column.isRequired}
+                    />
+                )
             )
         }
         switch (column.uid) {
@@ -184,44 +188,49 @@ export default function RenderModalCell({
                     </RadioGroup>
                 )
             case "class_name":
-                return (
-                    <MultipleSelect
-                        key={column.uid}
-                        column={column}
-                        details={details}
-                        groupField='class_name'
-                        groupFetchUrl='/classes/information/'
-                        modifiedAttribute={modifiedAttribute}
-                    />
-                )
             case "classes":
                 return (
                     <MultipleSelect
                         key={column.uid}
                         column={column}
                         details={details}
-                        groupField='classes'
+                        groupField={column.uid}
                         groupFetchUrl='/classes/information/'
+                        modifiedAttribute={modifiedAttribute}
+                    />
+                )
+            case "course":
+            case "student":
+                return (
+                    <MultipleSelect
+                        key={column.uid}
+                        column={column}
+                        details={details}
+                        groupField={column.uid}
+                        groupFetchUrl={`/${column.uid}/simple/`}
                         modifiedAttribute={modifiedAttribute}
                     />
                 )
             default:
                 return (
-                    <Input
-                        key={column.uid}
-                        label={column.name}
-                        labelPlacement='outside'
-                        type={
-                            typeof details[column.uid] === "number" ? "number" : "text"
-                        }
-                        variant='bordered'
-                        defaultValue={details[column.uid]}
-                        onValueChange={(value) => {
-                            modifiedAttribute(column.uid, value)
-                        }}
-                        isRequired={column.isRequired}
-                        isDisabled={disabledInput?.includes(column.uid)}
-                    />
+                    !disabledInput?.includes(column.uid) && (
+                        <Input
+                            key={column.uid}
+                            label={column.name}
+                            labelPlacement='outside'
+                            type={
+                                typeof details[column.uid] === "number"
+                                    ? "number"
+                                    : "text"
+                            }
+                            variant='bordered'
+                            defaultValue={details[column.uid]}
+                            onValueChange={(value) => {
+                                modifiedAttribute(column.uid, value)
+                            }}
+                            isRequired={column.isRequired}
+                        />
+                    )
                 )
         }
     })

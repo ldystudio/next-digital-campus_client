@@ -33,7 +33,7 @@ export function convertToDetail(input: Columns, groupField?: string) {
     for (const item of input) {
         if (groupField && groupField === item.uid) {
             output[item.uid] = []
-        } else if (item.uid === "classes") {
+        } else if (["classes", "course", "student"].includes(item.uid)) {
             output[item.uid] = []
         } else {
             output[item.uid] = undefined

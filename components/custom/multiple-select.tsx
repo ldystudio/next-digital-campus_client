@@ -14,6 +14,7 @@ import {
 import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll"
 
 import { useGroupList } from "~/hooks/business/use-group-list"
+import { isObject } from "~/utils/common"
 
 interface MultipleSelectProps {
     column: Columns[0]
@@ -84,6 +85,30 @@ export default function MultipleSelect({
     modifiedAttribute
 }: MultipleSelectProps) {
     switch (groupField) {
+        case "course":
+        case "student":
+            return (
+                <GroupSelect
+                    column={column}
+                    initItems={
+                        isObject(details[groupField]) ? [details[groupField]] : []
+                    }
+                    groupFetchUrl={groupFetchUrl}
+                    selectionMode='single'
+                    defaultSelectedKeys={[details[groupField].id]}
+                    onSelectionChange={(value) => {
+                        modifiedAttribute(groupField, [...value][0])
+                    }}
+                >
+                    {(item: any) => (
+                        <SelectItem key={item.id} value={item.id}>
+                            {groupField === "course"
+                                ? item.course_name
+                                : item.real_name}
+                        </SelectItem>
+                    )}
+                </GroupSelect>
+            )
         case "class_name":
             return (
                 <GroupSelect
