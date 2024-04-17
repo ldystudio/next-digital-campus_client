@@ -18,7 +18,7 @@ import {
     useDisclosure
 } from "@nextui-org/react"
 
-import { SearchIcon } from "@/components/common"
+import { SearchIcon } from "@/components/common/icons"
 import OverlayScrollbar from "@/components/common/overlay-scrollbar"
 import SingleSelection from "@/components/custom/single-selection"
 import { useTableParams } from "~/hooks/business"

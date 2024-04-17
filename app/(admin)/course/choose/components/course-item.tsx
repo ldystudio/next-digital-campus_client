@@ -13,7 +13,8 @@ import {
     Tooltip
 } from "@nextui-org/react"
 
-import { notice, Row } from "@/components/common"
+import { Row } from "@/components/common/dimension"
+import { notice } from "@/components/common/notice"
 import { updateCourseChoose } from "~/service/api"
 import { cn } from "~/utils"
 

@@ -4,7 +4,7 @@ import { useState } from "react"
 
 import { Input, InputProps } from "@nextui-org/react"
 
-import { EyeFilledIcon, EyeSlashFilledIcon } from "@/components/common"
+import { EyeFilledIcon, EyeSlashFilledIcon } from "@/components/common/icons"
 
 export function PasswordInput(props: InputProps) {
     const [isVisible, setIsVisible] = useState(false)

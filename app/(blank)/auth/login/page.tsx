@@ -1,6 +1,9 @@
 import { Card, CardBody } from "@nextui-org/react"
 
-import { Col, Image, Link, ThemeSwitch } from "@/components/common"
+import { Col } from "@/components/common/dimension"
+import { LocalImage } from "@/components/common/image"
+import { Link } from "@/components/common/link"
+import { ThemeSwitch } from "@/components/common/theme-switch"
 import LoginTabs from "./login-tabs"
 
 export default async function LoginPage() {
@@ -9,7 +12,7 @@ export default async function LoginPage() {
             <ThemeSwitch className='absolute left-5 top-5 z-10' />
             <CardBody className='flex flex-row items-center justify-between overflow-y-hidden bg-circuit-board'>
                 <Col className='w-0 lg:w-1/2'>
-                    <Image
+                    <LocalImage
                         src='/images/log-in-girl.svg'
                         alt='log-in-girl'
                         width={600}
@@ -19,7 +22,7 @@ export default async function LoginPage() {
                 </Col>
                 <Col space={3} className='h-[600px] w-full lg:w-1/2'>
                     <Link href='/index' color='foreground'>
-                        <Image
+                        <LocalImage
                             src='/logo.png'
                             alt='login'
                             width={75}

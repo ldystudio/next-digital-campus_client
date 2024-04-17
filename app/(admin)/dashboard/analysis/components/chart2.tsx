@@ -3,7 +3,7 @@
 import * as echarts from "echarts"
 import { EChartsOption } from "echarts"
 
-import { ChartCard } from "@/components/business"
+import { ChartCard } from "@/components/business/chart-card"
 
 export default function Chart2({ className }: PageComponentProps) {
     /** @type EChartsOption */

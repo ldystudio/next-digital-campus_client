@@ -15,7 +15,7 @@ import {
     Input
 } from "@nextui-org/react"
 
-import { Row } from "@/components/common"
+import { Row } from "@/components/common/dimension"
 import { isArray } from "~/utils/common"
 
 interface SearchCardProps {

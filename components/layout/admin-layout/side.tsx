@@ -1,6 +1,9 @@
 import { Card } from "@nextui-org/react"
 
-import { Col, Link, Logo, Row, ThemeSwitch } from "@/components/common"
+import { Col, Row } from "@/components/common/dimension"
+import { Logo } from "@/components/common/icons"
+import { Link } from "@/components/common/link"
+import { ThemeSwitch } from "@/components/common/theme-switch"
 import Logout from "./logout"
 import AdminMenu from "./menu"
 import Message from "./message"

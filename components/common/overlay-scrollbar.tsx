@@ -2,7 +2,7 @@
 
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react"
 
-import { Col } from "@/components/common"
+import { Col } from "@/components/common/dimension"
 import { cn } from "~/utils"
 
 import "overlayscrollbars/overlayscrollbars.css"

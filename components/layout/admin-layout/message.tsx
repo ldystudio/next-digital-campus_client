@@ -19,7 +19,8 @@ import {
     DropdownTrigger
 } from "@nextui-org/react"
 
-import { Iconify, Image } from "@/components/common"
+import { Iconify } from "@/components/common/iconify"
+import { LocalImage } from "@/components/common/image"
 import { useEffectOnce } from "~/hooks/common"
 
 const initMessages = [
@@ -114,7 +115,7 @@ export default function Message() {
                                 textValue='action'
                                 className='text-center'
                             >
-                                <Image
+                                <LocalImage
                                     src='/images/working-vacation.svg'
                                     alt='暂无通知'
                                     width={232}

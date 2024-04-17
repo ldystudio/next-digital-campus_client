@@ -21,7 +21,7 @@ import {
 } from "@nextui-org/react"
 import { useQuery } from "@tanstack/react-query"
 
-import { Col, Row } from "@/components/common"
+import { Col, Row } from "@/components/common/dimension"
 import { fetchLogout, fetchUserInfo } from "~/service/api"
 import { useAuthAction, useAuthState } from "~/store/modules/auth"
 import { useRouteAction } from "~/store/modules/route"

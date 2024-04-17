@@ -2,7 +2,8 @@
 
 import { Button, Code } from "@nextui-org/react"
 
-import { Col, Image, Row } from "@/components/common"
+import { Col, Row } from "@/components/common/dimension"
+import { LocalImage } from "@/components/common/image"
 import { useRouterPush } from "~/utils/router"
 
 interface ErrorProps {
@@ -15,7 +16,7 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
 
     return (
         <Col fullWidth justify='center' className='h-screen gap-4'>
-            <Image
+            <LocalImage
                 src='/images/crashed-error.svg'
                 alt='错误页面'
                 width={[400, 300]}

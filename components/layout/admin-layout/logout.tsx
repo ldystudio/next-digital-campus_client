@@ -3,7 +3,7 @@
 import { toast } from "react-toastify"
 import { Button } from "@nextui-org/react"
 
-import { Iconify } from "@/components/common"
+import { Iconify } from "@/components/common/iconify"
 import { fetchLogout } from "~/service/api"
 import { useAuthAction } from "~/store/modules/auth"
 import { useRouteAction } from "~/store/modules/route"

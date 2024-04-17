@@ -2,7 +2,8 @@
 
 import { Accordion, AccordionItem, ScrollShadow, Skeleton } from "@nextui-org/react"
 
-import { Col, Iconify } from "@/components/common"
+import { Col } from "@/components/common/dimension"
+import { Iconify } from "@/components/common/iconify"
 import { useClientServerCheck } from "~/hooks/common"
 import { useMenuItemAction, useMenuItemState } from "~/store/modules/menuItem"
 import { getAuthMenus } from "~/store/modules/route/helpers"

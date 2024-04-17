@@ -6,12 +6,13 @@ import { format } from "date-fns"
 import toast from "react-hot-toast"
 import Clock from "react-live-clock"
 import useSWR, { useSWRConfig } from "swr"
-import { Icon } from "@iconify/react/dist/iconify.js"
+import { Icon } from "@iconify/react"
 import { Button, Card, CardBody, CardFooter, CardHeader, Chip } from "@nextui-org/react"
 import { useQuery } from "@tanstack/react-query"
 
 import RecordCard from "@/components/business/record-card"
-import { Col, Image } from "@/components/common"
+import { Col } from "@/components/common/dimension"
+import { LocalImage } from "@/components/common/image"
 import { request } from "~/service/request"
 
 interface AttendanceCardProps {
@@ -146,7 +147,7 @@ function AttendanceRecord({
         ))
     ) : (
         <Col>
-            <Image
+            <LocalImage
                 src='/images/working-vacation.svg'
                 alt='暂无通知'
                 width={232}

@@ -39,14 +39,14 @@ import {
     User
 } from "@nextui-org/react"
 
+import { Col } from "@/components/common/dimension"
 import {
     ChevronDownIcon,
-    Col,
-    notice,
     PlusIcon,
     SearchIcon,
     VerticalDotsIcon
-} from "@/components/common"
+} from "@/components/common/icons"
+import { notice } from "@/components/common/notice"
 import RenderModalCell from "@/components/custom/render-modal-cell"
 import SingleSelection from "@/components/custom/single-selection"
 import { useTableParams } from "~/hooks/business"

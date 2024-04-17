@@ -1,6 +1,6 @@
 import { Card, CardBody, CardHeader, CircularProgress } from "@nextui-org/react"
 
-import { Iconify } from "@/components/common"
+import { Iconify } from "@/components/common/iconify"
 import { cn } from "~/utils"
 
 interface CircularProgressCardProps {

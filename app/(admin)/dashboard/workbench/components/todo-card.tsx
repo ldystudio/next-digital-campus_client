@@ -3,7 +3,7 @@
 import { useState } from "react"
 
 import { motion } from "framer-motion"
-import { Icon } from "@iconify/react/dist/iconify.js"
+import { Icon } from "@iconify/react"
 import {
     Button,
     Card,
@@ -17,7 +17,7 @@ import {
     PopoverTrigger
 } from "@nextui-org/react"
 
-import { Row } from "@/components/common"
+import { Row } from "@/components/common/dimension"
 
 function TodoSubCard({ content }: { content: string }) {
     return (

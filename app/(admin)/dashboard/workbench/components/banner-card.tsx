@@ -2,7 +2,7 @@
 
 import { Card, CardBody } from "@nextui-org/react"
 
-import { Col } from "@/components/common"
+import { Col } from "@/components/common/dimension"
 import { GoogleSans } from "~/config"
 import { useAuthState } from "~/store/modules/auth"
 

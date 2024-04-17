@@ -4,7 +4,7 @@ import { useState } from "react"
 
 import { Input, Kbd } from "@nextui-org/react"
 
-import { SearchIcon } from "@/components/common"
+import { SearchIcon } from "@/components/common/icons"
 
 export default function SearchInput() {
     const [value, setValue] = useState("")

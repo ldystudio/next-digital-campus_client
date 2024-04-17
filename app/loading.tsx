@@ -1,6 +1,6 @@
 import { Spinner } from "@nextui-org/react"
 
-import { Col } from "@/components/common"
+import { Col } from "@/components/common/dimension"
 
 export default function LoadingPage() {
     return (

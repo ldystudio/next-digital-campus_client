@@ -10,7 +10,9 @@ import {
     Navbar as NextUINavbar
 } from "@nextui-org/react"
 
-import { GithubIcon, Link, Logo, ThemeSwitch } from "@/components/common"
+import { GithubIcon, Logo } from "@/components/common/icons"
+import { Link } from "@/components/common/link"
+import { ThemeSwitch } from "@/components/common/theme-switch"
 import { siteConfig } from "~/config"
 import AuthNavbarItem from "./auth-button"
 import SearchInput from "./search-input"

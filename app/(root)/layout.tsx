@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-import { Link } from "@/components/common"
+import { Link } from "@/components/common/link"
 import OverlayScrollbar from "@/components/common/overlay-scrollbar"
 import { Navbar, PageTransitionEffect } from "@/components/layout"
 import config from "@/package.json"

@@ -7,7 +7,8 @@ import * as echarts from "echarts"
 import EChartsReact from "echarts-for-react"
 import { Avatar, Button, Card } from "@nextui-org/react"
 
-import { Col, Iconify, Row } from "@/components/common"
+import { Col, Row } from "@/components/common/dimension"
+import { Iconify } from "@/components/common/iconify"
 import { cn } from "~/utils"
 
 function SubChart({ className }: PageComponentProps) {

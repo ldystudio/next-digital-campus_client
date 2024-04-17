@@ -3,8 +3,8 @@
 import { useResponsive } from "ahooks"
 import { Button, NavbarItem, Skeleton } from "@nextui-org/react"
 
-import { UserCard } from "@/components/business"
-import { Col, Row } from "@/components/common"
+import { UserCard } from "@/components/business/user-card"
+import { Col, Row } from "@/components/common/dimension"
 import { useClientServerCheck } from "~/hooks/common"
 import { useAuthAction } from "~/store/modules/auth"
 import { useRouterPush } from "~/utils/router"

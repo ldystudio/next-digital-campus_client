@@ -13,12 +13,12 @@ export default function CalendarCard({ className }: PageComponentProps) {
     return (
         <Card className={className}>
             <CardBody>
-                <Calendar
+                {/* <Calendar
                     mode='single'
                     selected={date}
                     onSelect={setDate}
                     className='flex justify-center rounded-3xl border shadow'
-                />
+                /> */}
                 <TodoCard />
             </CardBody>
         </Card>

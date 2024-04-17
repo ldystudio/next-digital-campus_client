@@ -17,14 +17,11 @@ import {
     Tooltip
 } from "@nextui-org/react"
 
-import {
-    Col,
-    Iconify,
-    Link,
-    ListBoxWrapper,
-    PasswordInput,
-    Row
-} from "@/components/common"
+import { Col, Row } from "@/components/common/dimension"
+import { Iconify } from "@/components/common/iconify"
+import { Link } from "@/components/common/link"
+import { ListBoxWrapper } from "@/components/common/listbox-wrapper"
+import { PasswordInput } from "@/components/common/password-input"
 import { useAuthForm, useEmailCaptchaCountdown } from "~/hooks/business"
 import { fetchSmtpCode } from "~/service/api"
 import { useAuthAction, useAuthState } from "~/store/modules/auth"

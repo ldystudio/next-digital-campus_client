@@ -3,12 +3,16 @@ import { ChipProps } from "@nextui-org/react"
 
 import TableCard from "@/components/business/table-card"
 import { filterColumnsByArray } from "~/utils/common"
+import { getUserInfoFromServer } from "~/utils/cookies"
+import ScoreCard from "./components/score-card"
 
 export const metadata: Metadata = {
     title: "成绩查询"
 }
 
-export default function ScoreQueryPage() {
+export default async function ScoreQueryPage() {
+    const userInfo = await getUserInfoFromServer()
+
     const columns: Columns = [
         { uid: "id", name: "分数ID", sortable: true },
         { uid: "course", name: "课程名称", isRequired: true },
@@ -41,20 +45,28 @@ export default function ScoreQueryPage() {
         "entered_by"
     ])
 
+    if (userInfo?.userRole !== "student") {
+        return (
+            <section className='lg:h-full'>
+                <TableCard
+                    ariaLabel='Score query Table'
+                    url='/score/query/'
+                    columns={columns}
+                    filterColumns={filterColumns}
+                    dateFields={dateFields}
+                    statusField='exam_type'
+                    statusOptions={statusOptions}
+                    statusColorMap={statusColorMap}
+                    disabledInput={["entered_by"]}
+                    initialInvisibleColumns={["id"]}
+                />
+            </section>
+        )
+    }
+
     return (
         <section className='lg:h-full'>
-            <TableCard
-                ariaLabel='Score query Table'
-                url='/score/query/'
-                columns={columns}
-                filterColumns={filterColumns}
-                dateFields={dateFields}
-                statusField='exam_type'
-                statusOptions={statusOptions}
-                statusColorMap={statusColorMap}
-                disabledInput={["entered_by"]}
-                initialInvisibleColumns={["id"]}
-            />
+            <ScoreCard />
         </section>
     )
 }

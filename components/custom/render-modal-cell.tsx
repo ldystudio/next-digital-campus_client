@@ -3,7 +3,7 @@ import React from "react"
 import { Input, Radio, RadioGroup, Textarea } from "@nextui-org/react"
 
 import DatePicker from "@/components/business/date-picker"
-import { Col } from "@/components/common"
+import { Col } from "@/components/common/dimension"
 import UploadBox from "@/components/common/upload-box"
 import MultipleSelect from "@/components/custom/multiple-select"
 import { isIncludeSubstring, isString } from "~/utils/common"

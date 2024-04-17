@@ -1,7 +1,7 @@
 import { setCookie } from "cookies-next"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-import { notice } from "@/components/common"
+import { notice } from "@/components/common/notice"
 import { useAppDispatch, useAppSelector } from "~/hooks/common"
 import { fetchEmailLogin, fetchLogin, fetchRegister } from "~/service/api"
 import { getAuthState, getRouteState } from "~/store"

@@ -1,6 +1,6 @@
 import { Card, CardBody, CircularProgress } from "@nextui-org/react"
 
-import { Row } from "@/components/common"
+import { Row } from "@/components/common/dimension"
 
 export default function GoalCard({ className }: PageComponentProps) {
     return (

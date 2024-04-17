@@ -23,7 +23,7 @@ interface ImageProps extends NextImagePropsMixin {
     noInvert?: boolean
 }
 
-export function Image({
+export function LocalImage({
     width,
     originalSize,
     noInvert,

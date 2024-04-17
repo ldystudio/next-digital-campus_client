@@ -1,6 +1,6 @@
 import { Card, CardBody, Progress } from "@nextui-org/react"
 
-import { Row } from "@/components/common"
+import { Row } from "@/components/common/dimension"
 
 interface LabelProgressProps {
     label: string

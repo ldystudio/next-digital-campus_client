@@ -6,7 +6,7 @@ import {
     DropdownTrigger
 } from "@nextui-org/react"
 
-import { ChevronDownIcon } from "@/components/common"
+import { ChevronDownIcon } from "@/components/common/icons"
 
 interface SingleSelectionProps {
     columns: Columns

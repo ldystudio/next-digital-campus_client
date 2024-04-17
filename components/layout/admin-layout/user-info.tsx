@@ -2,8 +2,8 @@
 
 import { Skeleton } from "@nextui-org/react"
 
-import { UserCard } from "@/components/business"
-import { Col } from "@/components/common"
+import { UserCard } from "@/components/business/user-card"
+import { Col } from "@/components/common/dimension"
 import { useClientServerCheck } from "~/hooks/common"
 
 export default function UserInfo() {

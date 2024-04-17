@@ -1,6 +1,10 @@
 import { button as buttonStyles, Card, CardBody, CardHeader } from "@nextui-org/react"
 
-import { GithubIcon, Iconify, Image, Link, Row } from "@/components/common"
+import { Row } from "@/components/common/dimension"
+import { Iconify } from "@/components/common/iconify"
+import { GithubIcon } from "@/components/common/icons"
+import { LocalImage } from "@/components/common/image"
+import { Link } from "@/components/common/link"
 import { subtitle, title } from "@/components/custom"
 import { NotoSansSC, siteConfig } from "~/config"
 import EnterButton from "./enter-button"
@@ -64,13 +68,13 @@ export default function HomePage() {
                         </Link>
                     </Row>
                 </div>
-                <Image
+                <LocalImage
                     src='/images/Meeting.svg'
                     alt='meeting'
                     width={500}
                     originalSize={{ width: 1026, height: 691 }}
                     priority
-                ></Image>
+                ></LocalImage>
             </section>
             <section
                 className={`grid grid-cols-2 gap-4 lg:grid-cols-3 ${NotoSansSC.className}`}

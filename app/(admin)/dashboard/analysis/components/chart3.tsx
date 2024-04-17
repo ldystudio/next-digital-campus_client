@@ -2,7 +2,7 @@
 
 import { EChartsOption } from "echarts"
 
-import { ChartCard } from "@/components/business"
+import { ChartCard } from "@/components/business/chart-card"
 
 export default function Chart3({ className }: PageComponentProps) {
     /** @type EChartsOption */
@@ -48,7 +48,7 @@ export default function Chart3({ className }: PageComponentProps) {
         option,
         imgPath: "/images/icon/004-fire.jpg",
         title: "各年级人数比例",
-        describe: "The proportion of students in each grade",
+        describe: "The proportion of students",
         heightArr: [300, 150] as [number, number],
         className
     }

@@ -21,7 +21,7 @@ import {
 } from "@nextui-org/react"
 
 import DatePicker from "@/components/business/date-picker"
-import { Col } from "@/components/common"
+import { Col } from "@/components/common/dimension"
 import { NotoSansSC } from "~/config"
 import { request } from "~/service/request"
 import { getAuthState } from "~/store"

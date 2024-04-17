@@ -1,9 +1,9 @@
 "use client"
 
 // import { useState } from "react"
-import { Button } from "@nextui-org/react"
+// import { Button } from "@nextui-org/react"
 
-// import { notice, Row } from "@/components/common"
+// import { Col, Row } from "@/components/common/dimension"
 
 // import { useAuthAction, useAuthState } from "~/store/modules/auth"
 // import { useRouteAction, useRouteState } from "~/store/modules/route"

@@ -11,7 +11,7 @@ import {
     Breadcrumbs as NextUiBreadcrumbs
 } from "@nextui-org/react"
 
-import { Iconify } from "@/components/common"
+import { Iconify } from "@/components/common/iconify"
 import { useMenuItemState } from "~/store/modules/menuItem"
 import { useRouterPush } from "~/utils/router"
 

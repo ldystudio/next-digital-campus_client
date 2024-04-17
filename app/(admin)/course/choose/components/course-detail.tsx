@@ -4,7 +4,7 @@ import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import { Avatar, AvatarGroup, Image, Tooltip } from "@nextui-org/react"
 
-import { Col } from "@/components/common"
+import { Col } from "@/components/common/dimension"
 import { NotoSansSC } from "~/config"
 import CellValue from "./cell-value"
 import { CourseItem } from "./course-item"

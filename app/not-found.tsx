@@ -2,7 +2,8 @@
 
 import { Button, Code } from "@nextui-org/react"
 
-import { Col, Image, Row } from "@/components/common"
+import { Col, Row } from "@/components/common/dimension"
+import { LocalImage } from "@/components/common/image"
 import { useRouterPush } from "~/utils/router"
 
 export default function NotFoundPage() {
@@ -10,7 +11,7 @@ export default function NotFoundPage() {
 
     return (
         <Col fullWidth justify='center' className='h-screen gap-4 px-5'>
-            <Image
+            <LocalImage
                 src='/images/falling.svg'
                 alt='未找到页面'
                 width={[400, 300]}

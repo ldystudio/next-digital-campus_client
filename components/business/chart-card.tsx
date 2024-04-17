@@ -3,14 +3,15 @@ import { EChartsOption } from "echarts"
 import EChartsReact from "echarts-for-react"
 import { Avatar, Button, Card } from "@nextui-org/react"
 
-import { Col, Iconify, Row } from "@/components/common"
+import { Col, Row } from "@/components/common/dimension"
+import { Iconify } from "@/components/common/iconify"
 import { cn } from "~/utils"
 
 interface ChartCardProps {
     option: EChartsOption
     imgPath: string
     title: string
-    describe: string
+    describe?: string
     number?: number
     floating?: string
     subDescribe?: string
@@ -33,8 +34,8 @@ export function ChartCard({
     const height = responsive?.md ? heightArr?.[0] || 150 : heightArr?.[1] || 75
 
     return (
-        <Card className={cn("min-h-64 justify-between p-6 lg:p-12", className)}>
-            <Row className='' items='start' justify='between'>
+        <Card className={cn("min-h-64 justify-between p-6", className)}>
+            <Row fullWidth className='grow' justify='between'>
                 <Avatar
                     isBordered
                     radius='sm'
@@ -42,11 +43,9 @@ export function ChartCard({
                     size={responsive?.md ? "md" : "sm"}
                     className='ml-1 mt-1'
                 />
-                <Col items='center'>
+                <Col items='center' className='text-nowrap'>
                     <p className='text-2xl font-bold lg:text-3xl'>{title}</p>
-                    <p className='text-small text-default-400 lg:text-medium'>
-                        {describe}
-                    </p>
+                    <p className='text-sm text-default-400 lg:text-base'>{describe}</p>
                 </Col>
                 <Button isIconOnly variant='light'>
                     <Iconify icon='solar:menu-dots-bold-duotone' />

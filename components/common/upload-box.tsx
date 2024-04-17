@@ -7,10 +7,10 @@ import {
     UploadRequestOption
 } from "rc-upload/lib/interface"
 import toast from "react-hot-toast"
-import { Icon } from "@iconify/react/dist/iconify.js"
+import { Icon } from "@iconify/react"
 import { Snippet } from "@nextui-org/react"
 
-import { Iconify } from "@/components/common"
+import { Iconify } from "@/components/common/iconify"
 import { request } from "~/service/request"
 
 interface UploadBoxProps {

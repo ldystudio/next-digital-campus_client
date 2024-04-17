@@ -1,6 +1,7 @@
 import { Card, CardBody, CardFooter } from "@nextui-org/react"
 
-import { Col, Image } from "@/components/common"
+import { Col } from "@/components/common/dimension"
+import { LocalImage } from "@/components/common/image"
 
 export function PageUnderConstruction({
     pageTitle
@@ -14,7 +15,7 @@ export function PageUnderConstruction({
         >
             <Card shadow='none'>
                 <CardBody className='py-5'>
-                    <Image
+                    <LocalImage
                         src='/images/page-under-construction.svg'
                         width={[450, 300]}
                         originalSize={{ width: 960, height: 960 }}
