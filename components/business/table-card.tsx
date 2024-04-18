@@ -593,7 +593,7 @@ export default function TableCard({
 
     return (
         <Card className='rounded-3xl lg:h-full'>
-            <CardBody className='no-scrollbar'>
+            <CardBody className='scrollbar-hide'>
                 <Table
                     aria-label={ariaLabel}
                     // isStriped

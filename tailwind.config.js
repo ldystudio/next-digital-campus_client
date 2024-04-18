@@ -60,6 +60,7 @@ module.exports = {
     plugins: [
         require("tailwindcss-animate"),
         require("tailwindcss-unsplash"),
+        require("tailwind-scrollbar-hide"),
         nextui({
             themes: {
                 light: {

@@ -10,34 +10,34 @@
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-    @apply animate-none mix-blend-hue
+    @apply animate-none mix-blend-hue;
 }
 
 .dark::view-transition-new(root),
 ::view-transition-new(root) {
-    @apply z-[9999]
+    @apply z-[9999];
 }
 
 .dark::view-transition-old(root),
 ::view-transition-old(root) {
-    @apply z-[1]
+    @apply z-[1];
 }
 
 /*去除浏览器密码框默认出现的小眼睛，与本项目的style不符~*/
 input[type="password"]::-webkit-credentials-cramble-button {
-    @apply appearance-none
+    @apply appearance-none;
 }
 
 input[type="password"]::-ms-reveal {
-    @apply hidden
+    @apply hidden;
 }
 
 input[type="password"]::-ms-clear {
-    @apply hidden
+    @apply hidden;
 }
 
 input[type="password"]::-o-clear {
-    @apply hidden
+    @apply hidden;
 }
 
 input[type="password"] {
@@ -54,17 +54,4 @@ input[type="password"] {
     --toastify-color-success: #17c964;
     --toastify-color-warning: #f5a524;
     --toastify-color-error: #f31260;
-}
-
-.no-scrollbar {
-    /* 隐藏默认的滚动条样式 */
-    /* Firefox */
-    scrollbar-width: none;
-    /* IE and Edge */
-    -ms-overflow-style: none;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-    /* Chrome, Safari, and Opera */
-    @apply hidden
 }

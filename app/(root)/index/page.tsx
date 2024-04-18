@@ -2,11 +2,19 @@ import { button as buttonStyles, Card, CardBody, CardHeader } from "@nextui-org/
 
 import { Row } from "@/components/common/dimension"
 import { Iconify } from "@/components/common/iconify"
-import { GithubIcon } from "@/components/common/icons"
+import {
+    FramerMotionIcon,
+    GithubIcon,
+    NextjsIcon,
+    NextUiIcon,
+    ReactIcon,
+    TailwindIcon
+} from "@/components/common/icons"
 import { LocalImage } from "@/components/common/image"
 import { Link } from "@/components/common/link"
 import { subtitle, title } from "@/components/custom"
-import { NotoSansSC, siteConfig } from "~/config"
+import { JosefinSans, NotoSansSC, siteConfig } from "~/config"
+import { twx } from "~/utils"
 import EnterButton from "./enter-button"
 
 const introduce = [
@@ -39,6 +47,31 @@ const introduce = [
         icon: "solar:chat-round-line-bold-duotone",
         title: "在线沟通",
         desc: "提供在线聊天和讨论功能，通过系统内部的消息系统进行交流和协作，方便快捷地解决问题和分享信息。"
+    }
+]
+
+const LogoCaptionWrapper = twx.div`mr-4 flex items-center space-x-2`
+
+const logoCaption = [
+    {
+        logo: <NextjsIcon />,
+        caption: "Next.js"
+    },
+    {
+        logo: <ReactIcon />,
+        caption: "React"
+    },
+    {
+        logo: <TailwindIcon />,
+        caption: "TailwindCSS"
+    },
+    {
+        logo: <FramerMotionIcon />,
+        caption: "Framer Motion"
+    },
+    {
+        logo: <NextUiIcon />,
+        caption: "NextUI"
     }
 ]
 
@@ -96,6 +129,21 @@ export default function HomePage() {
                         </CardBody>
                     </Card>
                 ))}
+            </section>
+            <section className='flex w-full flex-col items-center justify-center gap-4 pt-4 text-neutral-500'>
+                <p className={JosefinSans.className}>Built by</p>
+                <div className='flex flex-wrap items-center justify-center overflow-x-auto scrollbar-hide'>
+                    {logoCaption.map((item) => (
+                        <LogoCaptionWrapper key={`logoCaption - ${item.caption}`}>
+                            <span className='h-6 w-6 shrink-0 md:h-10 md:w-10 *:md:h-10 *:md:w-10'>
+                                {item.logo}
+                            </span>
+                            <span className='shrink-0 text-sm font-semibold'>
+                                {item.caption}
+                            </span>
+                        </LogoCaptionWrapper>
+                    ))}
+                </div>
             </section>
         </>
     )

@@ -67,7 +67,7 @@ const RecordCard = React.forwardRef<HTMLDivElement, ActionCardProps>(
                 shadow='sm'
                 {...props}
             >
-                <CardBody className='no-scrollbar flex h-full flex-row items-center justify-between p-4'>
+                <CardBody className='flex h-full flex-row items-center justify-between p-4 scrollbar-hide'>
                     <div className='flex flex-row gap-3'>
                         <div
                             className={cn(

@@ -57,7 +57,7 @@ export default function SearchCard({ inputItems }: SearchCardProps) {
     return (
         <Card className='order-1 lg:row-span-2'>
             <CardHeader className='pb-0'>搜索</CardHeader>
-            <CardBody className='no-scrollbar grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4'>
+            <CardBody className='grid grid-cols-2 gap-3 scrollbar-hide md:grid-cols-3 lg:grid-cols-4'>
                 {searchItems.map((items) =>
                     isArray(items.alternativeValues) ? (
                         <Autocomplete

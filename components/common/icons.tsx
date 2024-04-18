@@ -3,6 +3,129 @@ import * as React from "react"
 
 import type { IconSvgProps } from "~/types"
 
+export const NextUiIcon: React.FC<IconSvgProps> = ({
+    size = 24,
+    width,
+    height,
+    ...props
+}) => {
+    return (
+        <svg
+            width={width ?? size}
+            height={height ?? size}
+            viewBox='0 0 43 43'
+            stroke='currentColor'
+            fill='currentColor'
+            strokeWidth='1'
+            {...props}
+        >
+            <path d='M32 43H11a10.928 10.928 0 01-7.778-3.222A10.928 10.928 0 010 32V11a10.928 10.928 0 013.222-7.778A10.928 10.928 0 0111 0h21a10.929 10.929 0 017.779 3.222A10.927 10.927 0 0143 11v21a10.927 10.927 0 01-3.222 7.778A10.929 10.929 0 0132 43zM11.314 12.293v12.033a6.35 6.35 0 00.87 3.31 6.243 6.243 0 002.422 2.3 7.458 7.458 0 003.595.843 7.474 7.474 0 003.6-.839 6.2 6.2 0 002.418-2.3 6.381 6.381 0 00.869-3.315V12.292h-1.659V24.21a5.149 5.149 0 01-.643 2.578 4.6 4.6 0 01-1.824 1.779 5.668 5.668 0 01-2.759.648 5.646 5.646 0 01-2.756-.648 4.64 4.64 0 01-1.823-1.779 5.116 5.116 0 01-.648-2.578V12.292zm18.6 0v18.175h1.66V12.293z'></path>
+        </svg>
+    )
+}
+
+export const FramerMotionIcon: React.FC<IconSvgProps> = ({
+    size = 24,
+    width,
+    height,
+    ...props
+}) => {
+    return (
+        <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width={width ?? size}
+            height={height ?? size}
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='1'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            {...props}
+        >
+            <path d='M12 12l-8 -8v16l16 -16v16l-4 -4'></path>
+            <path d='M20 12l-8 8l-4 -4'></path>
+        </svg>
+    )
+}
+
+export const TailwindIcon: React.FC<IconSvgProps> = ({
+    size = 24,
+    width,
+    height,
+    ...props
+}) => {
+    return (
+        <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width={width ?? size}
+            height={height ?? size}
+            stroke='currentColor'
+            fill='currentColor'
+            strokeWidth='1'
+            viewBox='0 0 24 24'
+            {...props}
+        >
+            <path d='M18.5 9.51a4.22 4.22 0 0 1-1.91-1.34A5.77 5.77 0 0 0 12 6a4.72 4.72 0 0 0-5 4 3.23 3.23 0 0 1 3.5-1.49 4.32 4.32 0 0 1 1.91 1.35A5.77 5.77 0 0 0 17 12a4.72 4.72 0 0 0 5-4 3.2 3.2 0 0 1-3.5 1.51zm-13 4.98a4.22 4.22 0 0 1 1.91 1.34A5.77 5.77 0 0 0 12 18a4.72 4.72 0 0 0 5-4 3.23 3.23 0 0 1-3.5 1.49 4.32 4.32 0 0 1-1.91-1.35A5.8 5.8 0 0 0 7 12a4.72 4.72 0 0 0-5 4 3.2 3.2 0 0 1 3.5-1.51z'></path>
+        </svg>
+    )
+}
+
+export const ReactIcon: React.FC<IconSvgProps> = ({
+    size = 24,
+    width,
+    height,
+    ...props
+}) => {
+    return (
+        <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width={width ?? size}
+            height={height ?? size}
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='1'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            {...props}
+        >
+            <path d='M6.306 8.711c-2.602 .723 -4.306 1.926 -4.306 3.289c0 2.21 4.477 4 10 4c.773 0 1.526 -.035 2.248 -.102'></path>
+            <path d='M17.692 15.289c2.603 -.722 4.308 -1.926 4.308 -3.289c0 -2.21 -4.477 -4 -10 -4c-.773 0 -1.526 .035 -2.25 .102'></path>
+            <path d='M6.305 15.287c-.676 2.615 -.485 4.693 .695 5.373c1.913 1.105 5.703 -1.877 8.464 -6.66c.387 -.67 .733 -1.339 1.036 -2'></path>
+            <path d='M17.694 8.716c.677 -2.616 .487 -4.696 -.694 -5.376c-1.913 -1.105 -5.703 1.877 -8.464 6.66c-.387 .67 -.733 1.34 -1.037 2'></path>
+            <path d='M12 5.424c-1.925 -1.892 -3.82 -2.766 -5 -2.084c-1.913 1.104 -1.226 5.877 1.536 10.66c.386 .67 .793 1.304 1.212 1.896'></path>
+            <path d='M12 18.574c1.926 1.893 3.821 2.768 5 2.086c1.913 -1.104 1.226 -5.877 -1.536 -10.66c-.375 -.65 -.78 -1.283 -1.212 -1.897'></path>
+            <path d='M11.5 12.866a1 1 0 1 0 1 -1.732a1 1 0 0 0 -1 1.732z'></path>
+        </svg>
+    )
+}
+
+export const NextjsIcon: React.FC<IconSvgProps> = ({
+    size = 24,
+    width,
+    height,
+    ...props
+}) => {
+    return (
+        <svg
+            xmlns='http://www.w3.org/2000/svg'
+            height={height ?? size}
+            viewBox='0 0 24 24'
+            width={width ?? size}
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='1'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            {...props}
+        >
+            <path d='M9 15v-6l7.745 10.65a9 9 0 1 1 2.255 -1.993'></path>
+            <path d='M15 12v-3'></path>
+        </svg>
+    )
+}
+
 export const DiscordIcon: React.FC<IconSvgProps> = ({
     size = 24,
     width,
@@ -11,9 +134,9 @@ export const DiscordIcon: React.FC<IconSvgProps> = ({
 }) => {
     return (
         <svg
-            height={size || height}
+            height={height ?? size}
             viewBox='0 0 24 24'
-            width={size || width}
+            width={width ?? size}
             {...props}
         >
             <path
@@ -32,9 +155,9 @@ export const TwitterIcon: React.FC<IconSvgProps> = ({
 }) => {
     return (
         <svg
-            height={size || height}
+            height={height ?? size}
             viewBox='0 0 24 24'
-            width={size || width}
+            width={width ?? size}
             {...props}
         >
             <path
@@ -53,9 +176,9 @@ export const GithubIcon: React.FC<IconSvgProps> = ({
 }) => {
     return (
         <svg
-            height={size || height}
+            height={height ?? size}
             viewBox='0 0 24 24'
-            width={size || width}
+            width={width ?? size}
             {...props}
         >
             <path
@@ -69,7 +192,7 @@ export const GithubIcon: React.FC<IconSvgProps> = ({
 }
 
 export const LoadingIcon = ({ size = 24, width, height, ...props }: IconSvgProps) => (
-    <svg height={size || height} viewBox='0 0 24 24' width={size || width} {...props}>
+    <svg height={height ?? size} viewBox='0 0 24 24' width={width ?? size} {...props}>
         <path
             fill='currentColor'
             d='M12,23a9.63,9.63,0,0,1-8-9.5,9.51,9.51,0,0,1,6.79-9.1A1.66,1.66,0,0,0,12,2.81h0a1.67,1.67,0,0,0-1.94-1.64A11,11,0,0,0,12,23Z'
@@ -94,10 +217,10 @@ export const MoonFilledIcon = ({
     <svg
         aria-hidden='true'
         focusable='false'
-        height={size || height}
+        height={height ?? size}
         role='presentation'
         viewBox='0 0 24 24'
-        width={size || width}
+        width={width ?? size}
         {...props}
     >
         <path
@@ -111,10 +234,10 @@ export const SunFilledIcon = ({ size = 24, width, height, ...props }: IconSvgPro
     <svg
         aria-hidden='true'
         focusable='false'
-        height={size || height}
+        height={height ?? size}
         role='presentation'
         viewBox='0 0 24 24'
-        width={size || width}
+        width={width ?? size}
         {...props}
     >
         <g fill='currentColor'>
@@ -133,10 +256,10 @@ export const HeartFilledIcon = ({
     <svg
         aria-hidden='true'
         focusable='false'
-        height={size || height}
+        height={height ?? size}
         role='presentation'
         viewBox='0 0 24 24'
-        width={size || width}
+        width={width ?? size}
         {...props}
     >
         <path
@@ -211,9 +334,9 @@ export const Error403Logo = ({ size = 180, width, height, ...props }: IconSvgPro
         viewBox='0 0 36 36'
         aria-hidden='true'
         focusable='false'
-        height={size || height}
+        height={height ?? size}
         role='presentation'
-        width={size || width}
+        width={width ?? size}
         {...props}
     >
         <path
@@ -237,9 +360,9 @@ export const Error404Logo = ({ size = 180, width, height, ...props }: IconSvgPro
         viewBox='0 0 36 36'
         aria-hidden='true'
         focusable='false'
-        height={size || height}
+        height={height ?? size}
         role='presentation'
-        width={size || width}
+        width={width ?? size}
         {...props}
     >
         <circle fill='#FFCB4C' cx='18' cy='17.018' r='17' />
@@ -266,9 +389,9 @@ export const Error500Logo = ({ size = 180, width, height, ...props }: IconSvgPro
         viewBox='0 0 36 36'
         aria-hidden='true'
         focusable='false'
-        height={size || height}
+        height={height ?? size}
         role='presentation'
-        width={size || width}
+        width={width ?? size}
         {...props}
     >
         <path
@@ -344,10 +467,10 @@ export const PlusIcon = ({ size = 24, width, height, ...props }: IconSvgProps) =
         aria-hidden='true'
         fill='none'
         focusable='false'
-        height={size || height}
+        height={height ?? size}
         role='presentation'
         viewBox='0 0 24 24'
-        width={size || width}
+        width={width ?? size}
         {...props}
     >
         <g
@@ -373,10 +496,10 @@ export const VerticalDotsIcon = ({
         aria-hidden='true'
         fill='none'
         focusable='false'
-        height={size || height}
+        height={height ?? size}
         role='presentation'
         viewBox='0 0 24 24'
-        width={size || width}
+        width={width ?? size}
         {...props}
     >
         <path
@@ -413,7 +536,7 @@ export const Logo: React.FC<IconSvgProps> = ({ size = 36, height }) => (
         version='1.0'
         xmlns='http://www.w3.org/2000/svg'
         width={size * 2.5 || height}
-        height={size || height}
+        height={height ?? size}
         viewBox='0 0 515.000000 210.000000'
         preserveAspectRatio='xMidYMid meet'
         fill='none'

@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { ThemeProviderProps } from "next-themes/dist/types"
 import { Provider as ReduxProvider } from "react-redux"
-import { CalendarDate, GregorianCalendar } from "@internationalized/date"
-import { NextUIProvider, SupportedCalendars } from "@nextui-org/react"
+import { CalendarDate } from "@internationalized/date"
+import { NextUIProvider } from "@nextui-org/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
@@ -34,15 +34,6 @@ function getQueryClient() {
     return (browserQueryClient ??= makeQueryClient())
 }
 
-function createCalendar(identifier: SupportedCalendars) {
-    switch (identifier) {
-        case "gregory":
-            return new GregorianCalendar()
-        default:
-            throw new Error(`Unsupported calendar ${identifier}`)
-    }
-}
-
 export function Providers({ children, themeProps }: ProvidersProps) {
     const router = useRouter()
     const queryClient = getQueryClient()
@@ -50,11 +41,11 @@ export function Providers({ children, themeProps }: ProvidersProps) {
     return (
         <NextUIProvider
             navigate={router.push}
+            locale='zh-CN-u-ca-chinese'
             defaultDates={{
                 minDate: new CalendarDate(1980, 1, 1),
                 maxDate: new CalendarDate(2099, 12, 31)
             }}
-            createCalendar={createCalendar}
         >
             <NextThemesProvider {...themeProps}>
                 <QueryClientProvider client={queryClient}>

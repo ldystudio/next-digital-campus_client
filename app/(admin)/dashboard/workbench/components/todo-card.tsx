@@ -37,8 +37,8 @@ export default function TodoCard() {
 
     return (
         <Card className='m-4 mb-0 h-full' shadow='none'>
-            <CardHeader className='pt-0 text-center font-bold'>代办</CardHeader>
-            <CardBody className='no-scrollbar max-h-[220px] min-h-[70px] gap-3 bg-default-50 lg:min-h-[370px]'>
+            <CardHeader className='justify-center pt-0 font-bold'>代办</CardHeader>
+            <CardBody className='max-h-[220px] min-h-[70px] gap-3 bg-default-50 scrollbar-hide lg:min-h-[370px]'>
                 {todo.map((item, index) => (
                     <motion.div
                         key={index}

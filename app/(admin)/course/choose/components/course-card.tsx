@@ -99,7 +99,7 @@ export default function CourseListCard({
             <CardBody>
                 {/* <OverlayScrollbar> */}
                 <Card
-                    className='no-scrollbar grid h-full grid-cols-2 gap-5 overflow-y-auto p-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'
+                    className='grid h-full grid-cols-2 gap-5 overflow-y-auto p-4 scrollbar-hide sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'
                     shadow='none'
                 >
                     {(rows as unknown as CourseItem[])?.map((course) => (

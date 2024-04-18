@@ -22,52 +22,52 @@ function CircularProgressCard({
 }: CircularProgressCardProps) {
     const circularProgressClassNames = {
         primary: {
-            svg: "w-32 h-32 drop-shadow-md",
+            svg: "w-28 h-28 drop-shadow-md",
             indicator: "stroke-primary",
             track: "stroke-primary/10",
-            value: "text-3xl font-semibold text-primary"
+            value: "text-2xl font-semibold text-primary"
         },
         secondary: {
-            svg: "w-32 h-32 drop-shadow-md",
+            svg: "w-28 h-28 drop-shadow-md",
             indicator: "stroke-secondary",
             track: "stroke-secondary/10",
-            value: "text-3xl font-semibold text-secondary"
+            value: "text-2xl font-semibold text-secondary"
         },
         success: {
-            svg: "w-32 h-32 drop-shadow-md",
+            svg: "w-28 h-28 drop-shadow-md",
             indicator: "stroke-success",
             track: "stroke-success/10",
-            value: "text-3xl font-semibold text-success"
+            value: "text-2xl font-semibold text-success"
         },
         warning: {
-            svg: "w-32 h-32 drop-shadow-md",
+            svg: "w-28 h-28 drop-shadow-md",
             indicator: "stroke-warning",
             track: "stroke-warning/10",
-            value: "text-3xl font-semibold text-warning"
+            value: "text-2xl font-semibold text-warning"
         },
         danger: {
-            svg: "w-32 h-32 drop-shadow-md",
+            svg: "w-28 h-28 drop-shadow-md",
             indicator: "stroke-danger",
             track: "stroke-danger/10",
-            value: "text-3xl font-semibold text-danger"
+            value: "text-2xl font-semibold text-danger"
         },
         default: {
-            svg: "w-32 h-32 drop-shadow-md",
+            svg: "w-28 h-28 drop-shadow-md",
             indicator: "stroke-default",
             track: "stroke-default/10",
-            value: "text-3xl font-semibold text-default"
+            value: "text-2xl font-semibold text-default"
         }
     }
 
     return (
         <Card className='justify-center'>
-            <CardHeader className='flex-col justify-center'>
+            <CardHeader className='flex-col justify-center text-nowrap'>
                 <Iconify icon={icon} color={color} className='mb-1' />
                 <p>{title}</p>
                 <p className='text-2xl font-bold'>{describe}</p>
             </CardHeader>
             {showCircleRing && (
-                <CardBody className='items-center justify-end pt-0'>
+                <CardBody className='items-center justify-end pt-0 scrollbar-hide'>
                     <CircularProgress
                         aria-label={`Circular Progress - ${title}`}
                         classNames={
