@@ -7,15 +7,15 @@ import useSWR from "swr"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import { Icon } from "@iconify/react"
+import { parseDate } from "@internationalized/date"
 import { Avatar } from "@nextui-org/avatar"
 import { Badge } from "@nextui-org/badge"
 import { Button } from "@nextui-org/button"
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
+import { DatePicker } from "@nextui-org/date-picker"
 import { Input } from "@nextui-org/input"
 import { Radio, RadioGroup } from "@nextui-org/radio"
 
-import DatePicker from "@/components/business/date-picker"
-import { Col } from "@/components/common/dimension"
 import { NotoSansSC } from "~/config"
 import { request } from "~/service/request"
 import { getAuthState } from "~/store"
@@ -78,19 +78,20 @@ function RenderCell({
         const cid = column.uid as keyof Information
         if (dateFields.includes(cid)) {
             return (
-                <Col key={cid} items='start' space={1}>
-                    <p className='text-sm'>
-                        {column.name}
-                        {column.isRequired && <span className='text-danger'> *</span>}
-                    </p>
-                    <DatePicker
-                        dateStr={data[cid] ?? ""}
-                        column={cid}
-                        variant='flat'
-                        onDateChange={updateInformation}
-                        isDisabled={disabledInput?.includes(cid)}
-                    />
-                </Col>
+                <DatePicker
+                    key={cid}
+                    label={column.name}
+                    labelPlacement='outside'
+                    variant='flat'
+                    defaultValue={
+                        data[cid] ? parseDate(data[cid] as string) : undefined
+                    }
+                    showMonthAndYearPickers
+                    isRequired={column.isRequired}
+                    onChange={(date) => {
+                        updateInformation(cid, date.toString())
+                    }}
+                />
             )
         }
         if (isString(statusField) && statusField === cid && statusOptions) {

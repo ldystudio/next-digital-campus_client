@@ -1,10 +1,11 @@
 import React from "react"
 
+import { parseDate } from "@internationalized/date"
+import { DatePicker } from "@nextui-org/date-picker"
 import { Input, Textarea } from "@nextui-org/input"
 import { Radio, RadioGroup } from "@nextui-org/radio"
+import { Select, SelectItem } from "@nextui-org/select"
 
-import DatePicker from "@/components/business/date-picker"
-import { Col } from "@/components/common/dimension"
 import UploadBox from "@/components/common/upload-box"
 import MultipleSelect from "@/components/custom/multiple-select"
 import { isIncludeSubstring, isString } from "~/utils/common"
@@ -36,6 +37,29 @@ export default function RenderModalCell({
     groupField,
     groupFetchUrl = ""
 }: renderModalCellProps) {
+    const timeList = {
+        startTimeList: [
+            { value: "08:00:00", label: "08:00" },
+            { value: "08:55:00", label: "08:55" },
+            { value: "09:50:00", label: "09:50" },
+            { value: "10:45:00", label: "10:45" },
+            { value: "13:30:00", label: "13:30" },
+            { value: "14:25:00", label: "14:25" },
+            { value: "15:20:00", label: "15:20" },
+            { value: "16:15:00", label: "16:15" }
+        ],
+        endTimeList: [
+            { value: "08:45:00", label: "08:45" },
+            { value: "09:40:00", label: "09:40" },
+            { value: "10:35:00", label: "10:35" },
+            { value: "11:30:00", label: "11:30" },
+            { value: "14:15:00", label: "14:15" },
+            { value: "15:10:00", label: "15:10" },
+            { value: "16:05:00", label: "16:05" },
+            { value: "17:00:00", label: "17:00" }
+        ]
+    }
+
     return modelColumns.map((column) => {
         if (column.uid.includes("picture")) {
             return (
@@ -56,19 +80,22 @@ export default function RenderModalCell({
         if (dateFields.includes(column.uid)) {
             return (
                 !disabledInput?.includes(column.uid) && (
-                    <Col key={column.uid} items='start'>
-                        <p className='text-foreground-500'>
-                            {column.name}
-                            {column.isRequired && (
-                                <span className='text-danger'> *</span>
-                            )}
-                        </p>
-                        <DatePicker
-                            dateStr={details[column.uid]}
-                            column={column.uid}
-                            onDateChange={modifiedAttribute}
-                        />
-                    </Col>
+                    <DatePicker
+                        key={column.uid}
+                        label={column.name}
+                        labelPlacement='outside'
+                        variant='bordered'
+                        defaultValue={
+                            details[column.uid]
+                                ? parseDate(details[column.uid])
+                                : undefined
+                        }
+                        showMonthAndYearPickers
+                        isRequired={column.isRequired}
+                        onChange={(date) => {
+                            modifiedAttribute(column.uid, date.toString())
+                        }}
+                    />
                 )
             )
         }
@@ -96,47 +123,33 @@ export default function RenderModalCell({
         }
         if (column.uid.includes("time")) {
             return (
-                <>
-                    <Input
+                !disabledInput?.includes(column.uid) && (
+                    <Select
                         key={column.uid}
-                        type='time'
-                        label={column.name}
-                        labelPlacement='outside'
-                        variant='bordered'
-                        defaultValue={details[column.uid]}
-                        onValueChange={(value) => {
-                            modifiedAttribute(column.uid, value)
-                        }}
-                        isRequired={column.isRequired}
-                        list={
+                        items={
                             column.uid === "start_time"
-                                ? "startTimeList"
+                                ? timeList.startTimeList
                                 : column.uid === "end_time"
-                                  ? "endTimeList"
+                                  ? timeList.endTimeList
                                   : undefined
                         }
-                    />
-                    <datalist key={`startTimeList - ${column.uid}`} id='startTimeList'>
-                        <option value='08:00' />
-                        <option value='08:55' />
-                        <option value='09:50' />
-                        <option value='10:45' />
-                        <option value='13:30' />
-                        <option value='14:25' />
-                        <option value='15:20' />
-                        <option value='16:15' />
-                    </datalist>
-                    <datalist key={`endTimeList - ${column.uid}`} id='endTimeList'>
-                        <option value='08:45' />
-                        <option value='09:40' />
-                        <option value='10:35' />
-                        <option value='11:30' />
-                        <option value='14:15' />
-                        <option value='15:10' />
-                        <option value='16:05' />
-                        <option value='17:00' />
-                    </datalist>
-                </>
+                        label={column.name}
+                        labelPlacement='outside'
+                        placeholder='请选择时间'
+                        variant='bordered'
+                        defaultSelectedKeys={
+                            details[column.uid] ? [details[column.uid]] : undefined
+                        }
+                        onSelectionChange={(value) => {
+                            modifiedAttribute(column.uid, [...value][0])
+                        }}
+                        isRequired={column.isRequired}
+                    >
+                        {(time) => (
+                            <SelectItem key={time.value}>{time.label}</SelectItem>
+                        )}
+                    </Select>
+                )
             )
         }
         if (groupField && groupField === column.uid) {
@@ -219,6 +232,7 @@ export default function RenderModalCell({
                             key={column.uid}
                             label={column.name}
                             labelPlacement='outside'
+                            placeholder={`请输入${column.name}`}
                             type={
                                 typeof details[column.uid] === "number"
                                     ? "number"

@@ -131,7 +131,7 @@ export default function HomePage() {
                     </Card>
                 ))}
             </section>
-            <section className='flex w-full flex-col items-center justify-center gap-4 pt-4 text-neutral-500'>
+            <section className='flex w-full flex-col items-center justify-center gap-2 pt-8 text-neutral-500'>
                 <p className={JosefinSans.className}>Built by</p>
                 <div className='flex flex-wrap items-center justify-center overflow-x-auto scrollbar-hide'>
                     {logoCaption.map((item) => (

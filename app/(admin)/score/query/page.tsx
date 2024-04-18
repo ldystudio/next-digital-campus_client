@@ -4,7 +4,8 @@ import { ChipProps } from "@nextui-org/chip"
 import TableCard from "@/components/business/table-card"
 import { filterColumnsByArray } from "~/utils/common"
 import { getUserInfoFromServer } from "~/utils/cookies"
-import ScoreCard from "./components/score-card"
+import ScoreChart from "./components/score-chart"
+import ScoreRecord from "./components/score-record"
 
 export const metadata: Metadata = {
     title: "成绩查询"
@@ -65,8 +66,9 @@ export default async function ScoreQueryPage() {
     }
 
     return (
-        <section className='lg:h-full'>
-            <ScoreCard />
+        <section className='flex flex-col gap-3 *:rounded-3xl lg:h-full lg:flex-row lg:gap-5'>
+            <ScoreRecord />
+            <ScoreChart />
         </section>
     )
 }

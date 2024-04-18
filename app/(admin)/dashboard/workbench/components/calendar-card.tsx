@@ -15,7 +15,6 @@ export default function CalendarCard({ className }: PageComponentProps) {
                     aria-label='Date (Uncontrolled)'
                     defaultValue={today(getLocalTimeZone())}
                     weekdayStyle='short'
-                    // calendarWidth={300}
                     showShadow
                 />
             </CardHeader>

@@ -26,7 +26,7 @@ interface GroupSelectProps {
     groupFetchUrl: string
     selectionMode: "multiple" | "single"
     renderValue?: (items: SelectedItems<any>) => ReactNode
-    defaultSelectedKeys: string[]
+    defaultSelectedKeys?: string[]
     onSelectionChange: (keys: Selection) => any
     children: (item: any) => JSX.Element
 }
@@ -58,7 +58,7 @@ function GroupSelect({
             key={column.uid}
             label={column.name}
             labelPlacement='outside'
-            placeholder='请选择'
+            placeholder={`请选择${column.name}`}
             selectionMode={selectionMode}
             variant='bordered'
             scrollRef={scrollerRef}
@@ -91,7 +91,11 @@ export default function MultipleSelect({
                     }
                     groupFetchUrl={groupFetchUrl}
                     selectionMode='single'
-                    defaultSelectedKeys={[details[groupField].id]}
+                    defaultSelectedKeys={
+                        isObject(details[groupField])
+                            ? [details[groupField].id]
+                            : undefined
+                    }
                     onSelectionChange={(value) => {
                         modifiedAttribute(groupField, [...value][0])
                     }}

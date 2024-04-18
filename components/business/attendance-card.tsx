@@ -169,7 +169,10 @@ export default function AttendanceCard({
     const { mutate } = useSWRConfig()
 
     return (
-        <Card className='h-full items-center justify-center lg:w-1/3' shadow='none'>
+        <Card
+            className='h-full items-center justify-center lg:w-1/3 lg:min-w-80'
+            shadow='none'
+        >
             <CardHeader className='flex-col gap-2'>
                 <p className='text-lg font-medium'>
                     {format(new Date(), "yyyy-MM-dd")}

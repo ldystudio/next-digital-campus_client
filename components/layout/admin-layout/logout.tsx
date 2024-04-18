@@ -1,9 +1,9 @@
 "use client"
 
-import { toast } from "react-toastify"
 import { Button } from "@nextui-org/button"
 
 import { Iconify } from "@/components/common/iconify"
+import { notice } from "@/components/common/notice"
 import { fetchLogout } from "~/service/api"
 import { useAuthAction } from "~/store/modules/auth"
 import { useRouteAction } from "~/store/modules/route"
@@ -23,7 +23,7 @@ export default function Logout() {
 
         await resetRouteStore()
         await resetAuthStore()
-        toast.success("退出成功")
+        notice.success({ title: "Success", description: "您已退出登录" })
     }
 
     return (

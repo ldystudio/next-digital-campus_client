@@ -3,6 +3,7 @@
 import { Key, useCallback, useMemo, useState } from "react"
 
 import clsx from "clsx"
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react"
 import toast from "react-hot-toast"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
@@ -57,6 +58,8 @@ import {
     isIncludeSubstring,
     isString
 } from "~/utils/common"
+
+import "overlayscrollbars/overlayscrollbars.css"
 
 interface TableCardProps {
     ariaLabel: string
@@ -687,25 +690,35 @@ export default function TableCard({
                             <ModalHeader className='flex flex-col gap-1'>
                                 {modifiedDetails.id ? "修改资料" : "新增资料"}
                             </ModalHeader>
-                            <ModalBody>
-                                <RenderModalCell
-                                    modelColumns={modelColumns}
-                                    details={details}
-                                    modifiedDetails={modifiedDetails}
-                                    modifiedAttribute={modifiedAttribute}
-                                    url={url}
-                                    statusField={statusField}
-                                    dateFields={dateFields}
-                                    statusOptions={statusOptions}
-                                    disabledInput={
-                                        modifiedDetails.id
-                                            ? disabledInput
-                                            : ["entered_by"]
+                            <OverlayScrollbarsComponent
+                                defer
+                                options={{
+                                    scrollbars: {
+                                        autoHide: "scroll",
+                                        autoHideDelay: 500
                                     }
-                                    groupField={groupField}
-                                    groupFetchUrl={groupFetchUrl}
-                                />
-                            </ModalBody>
+                                }}
+                            >
+                                <ModalBody>
+                                    <RenderModalCell
+                                        modelColumns={modelColumns}
+                                        details={details}
+                                        modifiedDetails={modifiedDetails}
+                                        modifiedAttribute={modifiedAttribute}
+                                        url={url}
+                                        statusField={statusField}
+                                        dateFields={dateFields}
+                                        statusOptions={statusOptions}
+                                        disabledInput={
+                                            modifiedDetails.id
+                                                ? disabledInput
+                                                : ["entered_by"]
+                                        }
+                                        groupField={groupField}
+                                        groupFetchUrl={groupFetchUrl}
+                                    />
+                                </ModalBody>
+                            </OverlayScrollbarsComponent>
                             <ModalFooter>
                                 <Button
                                     color='danger'
