@@ -5,17 +5,13 @@ import { usePathname, useSearchParams } from "next/navigation"
 
 import NProgress from "nprogress"
 import toast from "react-hot-toast"
-import {
-    Avatar,
-    Button,
-    Checkbox,
-    Input,
-    Listbox,
-    ListboxItem,
-    Tab,
-    Tabs,
-    Tooltip
-} from "@nextui-org/react"
+import { Avatar } from "@nextui-org/avatar"
+import { Button } from "@nextui-org/button"
+import { Checkbox } from "@nextui-org/checkbox"
+import { Input } from "@nextui-org/input"
+import { Listbox, ListboxItem } from "@nextui-org/listbox"
+import { Tab, Tabs } from "@nextui-org/tabs"
+import { Tooltip } from "@nextui-org/tooltip"
 
 import { Col, Row } from "@/components/common/dimension"
 import { Iconify } from "@/components/common/iconify"

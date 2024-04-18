@@ -3,14 +3,10 @@ import { ReactNode, useState } from "react"
 import _unionWith from "lodash/unionWith"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
-import {
-    Avatar,
-    Chip,
-    Select,
-    SelectedItems,
-    Selection,
-    SelectItem
-} from "@nextui-org/react"
+import { Avatar } from "@nextui-org/avatar"
+import { Chip } from "@nextui-org/chip"
+import { Select, SelectedItems, SelectItem } from "@nextui-org/select"
+import { Selection } from "@nextui-org/table"
 import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll"
 
 import { useGroupList } from "~/hooks/business/use-group-list"

@@ -8,15 +8,12 @@ import {
     parseDate,
     today
 } from "@internationalized/date"
+import { Button, ButtonProps } from "@nextui-org/button"
 import {
-    Button,
-    ButtonProps,
     DatePicker as NextUiDatePicker,
-    DatePickerProps as NextUiDatePickerProps,
-    Popover,
-    PopoverContent,
-    PopoverTrigger
-} from "@nextui-org/react"
+    DatePickerProps as NextUiDatePickerProps
+} from "@nextui-org/date-picker"
+import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover"
 
 // import { DayPicker } from "react-day-picker"
 // import "react-day-picker/dist/style.css"

@@ -1,5 +1,5 @@
 const { fontFamily } = require("tailwindcss/defaultTheme")
-const { nextui } = require("@nextui-org/react")
+const { nextui } = require("@nextui-org/theme")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

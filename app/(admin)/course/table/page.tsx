@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import clsx from "clsx"
-import { Card } from "@nextui-org/react"
+import { Card } from "@nextui-org/card"
 
 import CourseSchedule from "@/components/business/course-schedule"
 import { getFormattedWeekDates } from "~/utils/common/date"

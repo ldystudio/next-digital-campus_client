@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { button as buttonStyles } from "@nextui-org/react"
+import { button as buttonStyles } from "@nextui-org/theme"
 
 import { Link } from "@/components/common/link"
 import { title } from "@/components/custom"

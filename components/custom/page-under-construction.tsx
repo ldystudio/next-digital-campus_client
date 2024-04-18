@@ -1,4 +1,4 @@
-import { Card, CardBody, CardFooter } from "@nextui-org/react"
+import { Card, CardBody, CardFooter } from "@nextui-org/card"
 
 import { Col } from "@/components/common/dimension"
 import { LocalImage } from "@/components/common/image"

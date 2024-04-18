@@ -2,7 +2,7 @@ import { ChangeEvent, useCallback, useMemo, useState } from "react"
 
 import _differenceBy from "lodash/differenceBy"
 import useSWR, { useSWRConfig } from "swr"
-import { Selection, SortDescriptor } from "@nextui-org/react"
+import { Selection, SortDescriptor } from "@nextui-org/table"
 
 import { request } from "~/service/request"
 

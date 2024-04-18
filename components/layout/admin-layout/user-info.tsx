@@ -1,6 +1,6 @@
 "use client"
 
-import { Skeleton } from "@nextui-org/react"
+import { Skeleton } from "@nextui-org/skeleton"
 
 import { UserCard } from "@/components/business/user-card"
 import { Col } from "@/components/common/dimension"

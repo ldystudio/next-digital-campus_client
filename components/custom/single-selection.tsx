@@ -1,10 +1,10 @@
+import { Button } from "@nextui-org/button"
 import {
-    Button,
     Dropdown,
     DropdownItem,
     DropdownMenu,
     DropdownTrigger
-} from "@nextui-org/react"
+} from "@nextui-org/dropdown"
 
 import { ChevronDownIcon } from "@/components/common/icons"
 

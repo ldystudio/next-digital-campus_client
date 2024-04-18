@@ -2,13 +2,9 @@
 
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
 
-import {
-    Image,
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-    Skeleton
-} from "@nextui-org/react"
+import { Image } from "@nextui-org/image"
+import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover"
+import { Skeleton } from "@nextui-org/skeleton"
 
 interface ImageCaptchaProps {
     generateTraceId: () => string

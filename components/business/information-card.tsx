@@ -7,18 +7,12 @@ import useSWR from "swr"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import { Icon } from "@iconify/react"
-import {
-    Avatar,
-    Badge,
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    Input,
-    Radio,
-    RadioGroup
-} from "@nextui-org/react"
+import { Avatar } from "@nextui-org/avatar"
+import { Badge } from "@nextui-org/badge"
+import { Button } from "@nextui-org/button"
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
+import { Input } from "@nextui-org/input"
+import { Radio, RadioGroup } from "@nextui-org/radio"
 
 import DatePicker from "@/components/business/date-picker"
 import { Col } from "@/components/common/dimension"

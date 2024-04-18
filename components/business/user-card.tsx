@@ -4,21 +4,16 @@ import { capitalize } from "lodash"
 import toast from "react-hot-toast"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
+import { Avatar, AvatarProps } from "@nextui-org/avatar"
+import { Button } from "@nextui-org/button"
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
 import {
-    Avatar,
-    AvatarProps,
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
     Popover,
     PopoverContent,
     PopoverProps,
-    PopoverTrigger,
-    User,
-    UserProps
-} from "@nextui-org/react"
+    PopoverTrigger
+} from "@nextui-org/popover"
+import { User, UserProps } from "@nextui-org/user"
 import { useQuery } from "@tanstack/react-query"
 
 import { Col, Row } from "@/components/common/dimension"

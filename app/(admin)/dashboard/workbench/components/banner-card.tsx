@@ -1,6 +1,6 @@
 "use client"
 
-import { Card, CardBody } from "@nextui-org/react"
+import { Card, CardBody } from "@nextui-org/card"
 
 import { Col } from "@/components/common/dimension"
 import { GoogleSans } from "~/config"

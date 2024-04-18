@@ -4,7 +4,7 @@ import { useResponsive } from "ahooks"
 import { EChartsOption } from "echarts"
 import EChartsReact from "echarts-for-react"
 import useSWR from "swr"
-import { Card } from "@nextui-org/react"
+import { Card } from "@nextui-org/card"
 
 import { request } from "~/service/request"
 

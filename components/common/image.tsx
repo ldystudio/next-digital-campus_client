@@ -4,7 +4,7 @@ import NextImage, { ImageProps as NextImageProps } from "next/image"
 
 import { useResponsive } from "ahooks"
 import { useTheme } from "next-themes"
-import { Image as NextUiImage, ImageProps as NextUiImageProps } from "@nextui-org/react"
+import { Image as NextUiImage, ImageProps as NextUiImageProps } from "@nextui-org/image"
 
 import { cn } from "~/utils"
 import { isNumber } from "~/utils/common"

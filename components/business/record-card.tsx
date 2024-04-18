@@ -2,9 +2,8 @@
 
 import React from "react"
 
-import type { CardProps } from "@nextui-org/react"
 import { Icon } from "@iconify/react"
-import { Card, CardBody } from "@nextui-org/react"
+import { Card, CardBody, CardProps } from "@nextui-org/card"
 
 import { cn } from "~/utils"
 

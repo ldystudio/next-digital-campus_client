@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { ChipProps } from "@nextui-org/react"
+import { ChipProps } from "@nextui-org/chip"
 
 import InformationCard from "@/components/business/information-card"
 import TableCard from "@/components/business/table-card"

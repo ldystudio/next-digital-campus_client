@@ -1,6 +1,5 @@
 import clsx from "clsx"
 import {
-    link as linkStyles,
     NavbarBrand,
     NavbarContent,
     NavbarItem,
@@ -8,7 +7,8 @@ import {
     NavbarMenuItem,
     NavbarMenuToggle,
     Navbar as NextUINavbar
-} from "@nextui-org/react"
+} from "@nextui-org/navbar"
+import { link as linkStyles } from "@nextui-org/theme"
 
 import { GithubIcon, Logo } from "@/components/common/icons"
 import { Link } from "@/components/common/link"
@@ -36,9 +36,8 @@ export default function Navbar() {
                             <Link
                                 className={clsx(
                                     linkStyles({ color: "foreground" }),
-                                    "data-[active=true]:font-medium data-[active=true]:text-primary"
+                                    "active:font-medium active:text-primary"
                                 )}
-                                color='primary'
                                 // @ts-expect-error: link not in AuthRoute.RoutePath
                                 href={item.href}
                             >

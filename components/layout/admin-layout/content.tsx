@@ -1,12 +1,10 @@
+import { Card, CardBody, CardHeader } from "@nextui-org/card"
 import {
-    Card,
-    CardBody,
-    CardHeader,
     NavbarContent,
     NavbarMenu,
     NavbarMenuToggle,
     Navbar as NextUiNavbar
-} from "@nextui-org/react"
+} from "@nextui-org/navbar"
 
 import { PageTransitionEffect } from "@/components/layout"
 import AuthNavbarItem from "@/components/layout/root-layout/auth-button"

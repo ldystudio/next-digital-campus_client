@@ -1,9 +1,10 @@
 "use client"
 
-import { Button, Code } from "@nextui-org/react"
+import { Code } from "@nextui-org/code"
 
 import { Col, Row } from "@/components/common/dimension"
 import { LocalImage } from "@/components/common/image"
+import { Button } from "@/components/ui"
 import { useRouterPush } from "~/utils/router"
 
 export default function NotFoundPage() {

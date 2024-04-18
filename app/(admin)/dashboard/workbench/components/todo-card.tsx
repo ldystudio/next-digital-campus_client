@@ -4,18 +4,11 @@ import { useState } from "react"
 
 import { motion } from "framer-motion"
 import { Icon } from "@iconify/react"
-import {
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    Checkbox,
-    Input,
-    Popover,
-    PopoverContent,
-    PopoverTrigger
-} from "@nextui-org/react"
+import { Button } from "@nextui-org/button"
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
+import { Checkbox } from "@nextui-org/checkbox"
+import { Input } from "@nextui-org/input"
+import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover"
 
 import { Row } from "@/components/common/dimension"
 

@@ -2,21 +2,18 @@
 
 import React from "react"
 
+import { Button } from "@nextui-org/button"
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
+import { Input } from "@nextui-org/input"
 import {
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    Input,
     Modal,
     ModalBody,
     ModalContent,
     ModalFooter,
     ModalHeader,
-    Pagination,
     useDisclosure
-} from "@nextui-org/react"
+} from "@nextui-org/modal"
+import { Pagination } from "@nextui-org/pagination"
 
 import { SearchIcon } from "@/components/common/icons"
 import OverlayScrollbar from "@/components/common/overlay-scrollbar"

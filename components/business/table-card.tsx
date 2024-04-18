@@ -7,37 +7,38 @@ import toast from "react-hot-toast"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import { Icon } from "@iconify/react"
+import { Avatar, AvatarGroup } from "@nextui-org/avatar"
+import { Button } from "@nextui-org/button"
+import { Card, CardBody } from "@nextui-org/card"
+import { Chip, ChipProps } from "@nextui-org/chip"
 import {
-    Avatar,
-    AvatarGroup,
-    Button,
-    Card,
-    CardBody,
-    Chip,
-    ChipProps,
     Dropdown,
     DropdownItem,
     DropdownMenu,
-    DropdownTrigger,
-    Image,
-    Input,
+    DropdownTrigger
+} from "@nextui-org/dropdown"
+import { Image } from "@nextui-org/image"
+import { Input } from "@nextui-org/input"
+import {
     Modal,
     ModalBody,
     ModalContent,
     ModalFooter,
-    ModalHeader,
-    Pagination,
-    Spinner,
+    ModalHeader
+} from "@nextui-org/modal"
+import { Pagination } from "@nextui-org/pagination"
+import { Spinner } from "@nextui-org/spinner"
+import {
     Table,
     TableBody,
     TableCell,
     TableColumn,
     TableHeader,
-    TableRow,
-    Tooltip,
-    useDisclosure,
-    User
-} from "@nextui-org/react"
+    TableRow
+} from "@nextui-org/table"
+import { Tooltip } from "@nextui-org/tooltip"
+import { useDisclosure } from "@nextui-org/use-disclosure"
+import { User } from "@nextui-org/user"
 
 import { Col } from "@/components/common/dimension"
 import {

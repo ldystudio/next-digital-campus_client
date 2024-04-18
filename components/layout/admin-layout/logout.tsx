@@ -1,7 +1,7 @@
 "use client"
 
 import { toast } from "react-toastify"
-import { Button } from "@nextui-org/react"
+import { Button } from "@nextui-org/button"
 
 import { Iconify } from "@/components/common/iconify"
 import { fetchLogout } from "~/service/api"

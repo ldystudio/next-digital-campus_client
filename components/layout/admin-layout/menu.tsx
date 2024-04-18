@@ -1,6 +1,8 @@
 "use client"
 
-import { Accordion, AccordionItem, ScrollShadow, Skeleton } from "@nextui-org/react"
+import { Accordion, AccordionItem } from "@nextui-org/accordion"
+import { ScrollShadow } from "@nextui-org/scroll-shadow"
+import { Skeleton } from "@nextui-org/skeleton"
 
 import { Col } from "@/components/common/dimension"
 import { Iconify } from "@/components/common/iconify"

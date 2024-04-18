@@ -1,4 +1,5 @@
-import { button as buttonStyles, Card, CardBody, CardHeader } from "@nextui-org/react"
+import { Card, CardBody, CardHeader } from "@nextui-org/card"
+import { button as buttonStyles } from "@nextui-org/theme"
 
 import { Row } from "@/components/common/dimension"
 import { Iconify } from "@/components/common/iconify"

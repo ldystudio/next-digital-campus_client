@@ -1,6 +1,7 @@
 import React from "react"
 
-import { Input, Radio, RadioGroup, Textarea } from "@nextui-org/react"
+import { Input, Textarea } from "@nextui-org/input"
+import { Radio, RadioGroup } from "@nextui-org/radio"
 
 import DatePicker from "@/components/business/date-picker"
 import { Col } from "@/components/common/dimension"
