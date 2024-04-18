@@ -41,7 +41,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
     return (
         <NextUIProvider
             navigate={router.push}
-            locale='zh-CN-u-ca-chinese'
+            locale='zh-CN'
             defaultDates={{
                 minDate: new CalendarDate(1980, 1, 1),
                 maxDate: new CalendarDate(2099, 12, 31)

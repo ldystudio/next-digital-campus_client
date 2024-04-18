@@ -2,7 +2,6 @@
 
 import { getLocalTimeZone, today } from "@internationalized/date"
 import { Calendar, Card, CardBody, CardHeader } from "@nextui-org/react"
-import { I18nProvider } from "@react-aria/i18n"
 
 import TodoCard from "./todo-card"
 
@@ -11,15 +10,13 @@ export default function CalendarCard({ className }: PageComponentProps) {
         <Card className={className}>
             <CardHeader className='flex-col'>
                 <p className='pb-3 font-bold'>日历</p>
-                <I18nProvider locale='zh-CN-u-ca-chinese'>
-                    <Calendar
-                        aria-label='Date (Uncontrolled)'
-                        defaultValue={today(getLocalTimeZone())}
-                        weekdayStyle='short'
-                        // calendarWidth={300}
-                        showShadow
-                    />
-                </I18nProvider>
+                <Calendar
+                    aria-label='Date (Uncontrolled)'
+                    defaultValue={today(getLocalTimeZone())}
+                    weekdayStyle='short'
+                    // calendarWidth={300}
+                    showShadow
+                />
             </CardHeader>
             <CardBody>
                 <TodoCard />
