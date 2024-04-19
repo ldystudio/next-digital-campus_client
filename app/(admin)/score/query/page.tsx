@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { ChipProps } from "@nextui-org/chip"
+import { ChipProps } from "@nextui-org/react"
 
 import TableCard from "@/components/business/table-card"
 import { filterColumnsByArray } from "~/utils/common"

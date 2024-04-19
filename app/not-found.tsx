@@ -1,7 +1,6 @@
 "use client"
 
-import { Button } from "@nextui-org/button"
-import { Code } from "@nextui-org/code"
+import { Button, Code } from "@nextui-org/react"
 
 import { Col, Row } from "@/components/common/dimension"
 import { LocalImage } from "@/components/common/image"

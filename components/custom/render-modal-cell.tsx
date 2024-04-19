@@ -1,10 +1,15 @@
 import React from "react"
 
 import { parseDate } from "@internationalized/date"
-import { DatePicker } from "@nextui-org/date-picker"
-import { Input, Textarea } from "@nextui-org/input"
-import { Radio, RadioGroup } from "@nextui-org/radio"
-import { Select, SelectItem } from "@nextui-org/select"
+import {
+    DatePicker,
+    Input,
+    Radio,
+    RadioGroup,
+    Select,
+    SelectItem,
+    Textarea
+} from "@nextui-org/react"
 
 import UploadBox from "@/components/common/upload-box"
 import MultipleSelect from "@/components/custom/multiple-select"

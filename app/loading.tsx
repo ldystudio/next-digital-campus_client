@@ -1,4 +1,4 @@
-import { Spinner } from "@nextui-org/spinner"
+import { Spinner } from "@nextui-org/react"
 
 import { Col } from "@/components/common/dimension"
 

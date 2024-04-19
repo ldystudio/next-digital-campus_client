@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@nextui-org/button"
+import { Button } from "@nextui-org/react"
 
 import { Iconify } from "@/components/common/iconify"
 import { notice } from "@/components/common/notice"

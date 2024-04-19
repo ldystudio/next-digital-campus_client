@@ -8,7 +8,7 @@ import { JosefinSans } from "~/config"
 
 export default function RootLayout({ children }: LayoutProps) {
     return (
-        <OverlayScrollbar className='min-h-screen'>
+        <OverlayScrollbar className='min-h-screen bg-dot-black/[0.2] dark:bg-dot-white/[0.2]'>
             <Navbar />
             <main className='container max-w-7xl grow overflow-x-hidden px-6'>
                 <PageTransitionEffect>{children}</PageTransitionEffect>

@@ -1,7 +1,7 @@
 "use client"
 
 import { useTheme } from "next-themes"
-import { Spinner } from "@nextui-org/spinner"
+import { Spinner } from "@nextui-org/react"
 import { Expand } from "@theme-toggles/react"
 
 import "@theme-toggles/react/css/Expand.css"

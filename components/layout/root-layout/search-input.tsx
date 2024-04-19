@@ -2,8 +2,7 @@
 
 import { useState } from "react"
 
-import { Input } from "@nextui-org/input"
-import { Kbd } from "@nextui-org/kbd"
+import { Input, Kbd } from "@nextui-org/react"
 
 import { SearchIcon } from "@/components/common/icons"
 

@@ -4,11 +4,14 @@ import { isWithinInterval, parseISO } from "date-fns"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import { Icon } from "@iconify/react"
-import { Avatar, AvatarGroup } from "@nextui-org/avatar"
-import { Button } from "@nextui-org/button"
-import { Image } from "@nextui-org/image"
-import { Skeleton } from "@nextui-org/skeleton"
-import { Tooltip } from "@nextui-org/tooltip"
+import {
+    Avatar,
+    AvatarGroup,
+    Button,
+    Image,
+    Skeleton,
+    Tooltip
+} from "@nextui-org/react"
 
 import { Row } from "@/components/common/dimension"
 import { notice } from "@/components/common/notice"
@@ -131,7 +134,6 @@ export default function CourseListItem({
                 className='aspect-square w-full hover:scale-110'
                 isLoading={isLoading}
                 src={course_picture}
-                fallbackSrc='https://via.placeholder.com/300x300'
                 onClick={() => {
                     setSelectedCourseId(props.id)
                     onOpen()

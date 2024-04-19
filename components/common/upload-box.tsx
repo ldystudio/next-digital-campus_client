@@ -8,7 +8,7 @@ import {
 } from "rc-upload/lib/interface"
 import toast from "react-hot-toast"
 import { Icon } from "@iconify/react"
-import { Snippet } from "@nextui-org/snippet"
+import { Snippet } from "@nextui-org/react"
 
 import { Iconify } from "@/components/common/iconify"
 import { request } from "~/service/request"

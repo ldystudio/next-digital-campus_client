@@ -8,15 +8,16 @@ import { format } from "date-fns"
 import _sample from "lodash/sample"
 import _sortBy from "lodash/sortBy"
 import { v4 as uuidv4 } from "uuid"
-import { Badge } from "@nextui-org/badge"
-import { Button, ButtonGroup } from "@nextui-org/button"
 import {
+    Badge,
+    Button,
+    ButtonGroup,
     Dropdown,
     DropdownItem,
     DropdownMenu,
     DropdownSection,
     DropdownTrigger
-} from "@nextui-org/dropdown"
+} from "@nextui-org/react"
 
 import { Iconify } from "@/components/common/iconify"
 import { LocalImage } from "@/components/common/image"

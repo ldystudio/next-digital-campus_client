@@ -2,21 +2,23 @@
 
 import React from "react"
 
-import { Button } from "@nextui-org/button"
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
-import { Input } from "@nextui-org/input"
 import {
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+    Input,
     Modal,
     ModalBody,
     ModalContent,
     ModalFooter,
     ModalHeader,
+    Pagination,
     useDisclosure
-} from "@nextui-org/modal"
-import { Pagination } from "@nextui-org/pagination"
+} from "@nextui-org/react"
 
 import { SearchIcon } from "@/components/common/icons"
-import OverlayScrollbar from "@/components/common/overlay-scrollbar"
 import SingleSelection from "@/components/custom/single-selection"
 import { useTableParams } from "~/hooks/business"
 import { useEffectOnce } from "~/hooks/common"
@@ -92,9 +94,7 @@ export default function CourseListCard({
                     />
                 </div>
             </CardHeader>
-
             <CardBody>
-                {/* <OverlayScrollbar> */}
                 <Card
                     className='grid h-full grid-cols-2 gap-5 overflow-y-auto p-4 scrollbar-hide sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'
                     shadow='none'
@@ -109,9 +109,7 @@ export default function CourseListCard({
                         />
                     ))}
                 </Card>
-                {/* </OverlayScrollbar> */}
             </CardBody>
-
             <CardFooter className='flex items-center justify-between'>
                 <span className='hidden w-[30%] text-small text-default-400 md:block'>
                     共{pageData?.count}条可选课程

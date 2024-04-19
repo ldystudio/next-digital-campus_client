@@ -1,8 +1,7 @@
 "use client"
 
 import { getLocalTimeZone, today } from "@internationalized/date"
-import { Calendar } from "@nextui-org/calendar"
-import { Card, CardBody, CardHeader } from "@nextui-org/card"
+import { Calendar, Card, CardBody, CardHeader } from "@nextui-org/react"
 
 import TodoCard from "./todo-card"
 

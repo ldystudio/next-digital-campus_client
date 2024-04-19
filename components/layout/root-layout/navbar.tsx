@@ -1,5 +1,6 @@
 import clsx from "clsx"
 import {
+    link as linkStyles,
     NavbarBrand,
     NavbarContent,
     NavbarItem,
@@ -7,8 +8,7 @@ import {
     NavbarMenuItem,
     NavbarMenuToggle,
     Navbar as NextUINavbar
-} from "@nextui-org/navbar"
-import { link as linkStyles } from "@nextui-org/theme"
+} from "@nextui-org/react"
 
 import { GithubIcon, Logo } from "@/components/common/icons"
 import { Link } from "@/components/common/link"
@@ -53,13 +53,6 @@ export default function Navbar() {
                 justify='end'
             >
                 <NavbarItem className='hidden gap-2 sm:flex'>
-                    <Link
-                        isExternal
-                        // @ts-expect-error: link not in AuthRoute.RoutePath
-                        href={siteConfig.links.github}
-                    >
-                        <GithubIcon className='text-default-500' />
-                    </Link>
                     <ThemeSwitch />
                 </NavbarItem>
                 <NavbarItem className='hidden lg:flex'>

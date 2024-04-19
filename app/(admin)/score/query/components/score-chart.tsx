@@ -1,4 +1,4 @@
-import { Card } from "@nextui-org/card"
+import { Card } from "@nextui-org/react"
 
 export default function ScoreChart(props: any) {
     return (

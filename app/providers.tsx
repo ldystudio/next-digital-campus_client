@@ -6,7 +6,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { ThemeProviderProps } from "next-themes/dist/types"
 import { Provider as ReduxProvider } from "react-redux"
 import { CalendarDate } from "@internationalized/date"
-import { NextUIProvider } from "@nextui-org/system"
+import { NextUIProvider } from "@nextui-org/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 

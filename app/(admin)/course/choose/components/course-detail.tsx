@@ -2,9 +2,7 @@ import React from "react"
 
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
-import { Avatar, AvatarGroup } from "@nextui-org/avatar"
-import { Image } from "@nextui-org/image"
-import { Tooltip } from "@nextui-org/tooltip"
+import { Avatar, AvatarGroup, Image, Tooltip } from "@nextui-org/react"
 
 import { Col } from "@/components/common/dimension"
 import { NotoSansSC } from "~/config"

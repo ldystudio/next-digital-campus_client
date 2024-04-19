@@ -1,6 +1,6 @@
 import NextLink, { LinkProps as NextLinkProps } from "next/link"
 
-import { Link as NextUiLink, LinkProps as NextUiLinkProps } from "@nextui-org/link"
+import { Link as NextUiLink, LinkProps as NextUiLinkProps } from "@nextui-org/react"
 
 type NextLinkPropsMixin = NextLinkProps & NextUiLinkProps
 type HttpString = `http://${string}` | `https://${string}`

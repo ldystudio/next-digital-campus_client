@@ -8,13 +8,19 @@ import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import { Icon } from "@iconify/react"
 import { parseDate } from "@internationalized/date"
-import { Avatar } from "@nextui-org/avatar"
-import { Badge } from "@nextui-org/badge"
-import { Button } from "@nextui-org/button"
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
-import { DatePicker } from "@nextui-org/date-picker"
-import { Input } from "@nextui-org/input"
-import { Radio, RadioGroup } from "@nextui-org/radio"
+import {
+    Avatar,
+    Badge,
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+    DatePicker,
+    Input,
+    Radio,
+    RadioGroup
+} from "@nextui-org/react"
 
 import { NotoSansSC } from "~/config"
 import { request } from "~/service/request"

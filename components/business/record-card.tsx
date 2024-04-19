@@ -3,7 +3,7 @@
 import React from "react"
 
 import { Icon } from "@iconify/react"
-import { Card, CardBody, CardProps } from "@nextui-org/card"
+import { Card, CardBody, CardProps } from "@nextui-org/react"
 
 import { cn } from "~/utils"
 

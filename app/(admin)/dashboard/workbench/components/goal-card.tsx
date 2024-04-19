@@ -1,5 +1,4 @@
-import { Card, CardBody } from "@nextui-org/card"
-import { CircularProgress } from "@nextui-org/progress"
+import { Card, CardBody, CircularProgress } from "@nextui-org/react"
 
 import { Row } from "@/components/common/dimension"
 

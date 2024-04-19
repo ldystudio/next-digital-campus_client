@@ -2,7 +2,7 @@
 
 import { isWithinInterval, parseISO } from "date-fns"
 import useSWR from "swr"
-import { Card } from "@nextui-org/card"
+import { Card } from "@nextui-org/react"
 
 import { request } from "~/service/request"
 import { cn } from "~/utils"

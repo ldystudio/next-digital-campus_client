@@ -1,9 +1,7 @@
 "use client"
 
 import { useResponsive } from "ahooks"
-import { Button } from "@nextui-org/button"
-import { NavbarItem } from "@nextui-org/navbar"
-import { Skeleton } from "@nextui-org/skeleton"
+import { Button, NavbarItem, Skeleton } from "@nextui-org/react"
 
 import { UserCard } from "@/components/business/user-card"
 import { Col, Row } from "@/components/common/dimension"

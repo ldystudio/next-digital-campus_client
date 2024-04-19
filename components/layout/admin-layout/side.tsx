@@ -1,4 +1,4 @@
-import { Card } from "@nextui-org/card"
+import { Card } from "@nextui-org/react"
 
 import { Col, Row } from "@/components/common/dimension"
 import { Logo } from "@/components/common/icons"

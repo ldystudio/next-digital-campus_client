@@ -3,15 +3,13 @@
 import {
     BreadcrumbItem,
     BreadcrumbsProps,
-    Breadcrumbs as NextUiBreadcrumbs
-} from "@nextui-org/breadcrumbs"
-import { Button } from "@nextui-org/button"
-import {
+    Button,
     Dropdown,
     DropdownItem,
     DropdownMenu,
-    DropdownTrigger
-} from "@nextui-org/dropdown"
+    DropdownTrigger,
+    Breadcrumbs as NextUiBreadcrumbs
+} from "@nextui-org/react"
 
 import { Iconify } from "@/components/common/iconify"
 import { useMenuItemState } from "~/store/modules/menuItem"

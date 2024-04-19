@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import { Avatar } from "@nextui-org/avatar"
+import { Avatar } from "@nextui-org/react"
 
 export type UserPostProps = React.HTMLAttributes<HTMLDivElement> & {
     avatar: string

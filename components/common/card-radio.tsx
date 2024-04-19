@@ -1,7 +1,6 @@
 import { ReactNode } from "react"
 
-import { Card, CardFooter, CardProps } from "@nextui-org/card"
-import { Radio, RadioProps } from "@nextui-org/radio"
+import { Card, CardFooter, CardProps, Radio, RadioProps } from "@nextui-org/react"
 
 import { cn } from "~/utils"
 

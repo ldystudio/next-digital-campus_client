@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-import { Input, InputProps } from "@nextui-org/input"
+import { Input, InputProps } from "@nextui-org/react"
 
 import { EyeFilledIcon, EyeSlashFilledIcon } from "@/components/common/icons"
 
