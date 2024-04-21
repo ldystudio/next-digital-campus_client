@@ -182,10 +182,7 @@ export default function AttendanceChartCard({ url }: AttendanceChartCardProps) {
     }
 
     return (
-        <Card
-            className='hidden h-full items-center justify-center lg:flex lg:w-full'
-            shadow='none'
-        >
+        <Card className='hidden h-full items-center justify-center lg:flex lg:w-full'>
             <EChartsReact
                 option={option}
                 style={{

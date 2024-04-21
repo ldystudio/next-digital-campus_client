@@ -1,4 +1,4 @@
-import { toast, ToastContent } from "react-toastify"
+import { toast } from "sonner"
 
 interface ContentProps {
     title?: string
@@ -7,16 +7,24 @@ interface ContentProps {
 
 function createNotice() {
     function info(message: ContentProps) {
-        toast.info(createContent(message))
+        toast.info(message.title, {
+            description: message.description
+        })
     }
     function success(message: ContentProps) {
-        toast.success(createContent(message))
+        toast.success(message.title, {
+            description: message.description
+        })
     }
     function warning(message: ContentProps) {
-        toast.warning(createContent(message))
+        toast.warning(message.title, {
+            description: message.description
+        })
     }
     function error(message: ContentProps) {
-        toast.error(createContent(message))
+        toast.error(message.title, {
+            description: message.description
+        })
     }
     return {
         info,
@@ -24,15 +32,6 @@ function createNotice() {
         warning,
         error
     }
-}
-
-const createContent = (message: ContentProps): ToastContent => {
-    return (
-        <>
-            {message.title && <p className='font-bold'>{message.title}</p>}
-            <p>{message.description}</p>
-        </>
-    )
 }
 
 export const notice = createNotice()

@@ -48,10 +48,3 @@ input[type="password"] {
 .theme-toggle__expand {
     @apply h-6 w-6;
 }
-
-:root {
-    --toastify-color-info: #006fee;
-    --toastify-color-success: #17c964;
-    --toastify-color-warning: #f5a524;
-    --toastify-color-error: #f31260;
-}

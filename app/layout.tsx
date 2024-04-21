@@ -2,13 +2,12 @@ import { Metadata, Viewport } from "next"
 
 import NextTopLoader from "nextjs-toploader"
 import { Toaster } from "react-hot-toast"
-import { ToastContainer as Notice, Slide } from "react-toastify"
+import { Toaster as Notice } from "sonner"
 
 import { siteConfig } from "~/config"
 import { fontSans } from "~/config/fonts"
 import { Providers } from "./providers"
 
-import "react-toastify/dist/ReactToastify.css"
 import "~/styles/globals.css"
 
 export const metadata: Metadata = {
@@ -52,12 +51,7 @@ export default function Layout({ children }: LayoutProps) {
                     <NextTopLoader color='#006FEE' zIndex={9999} showSpinner={false} />
                     <Toaster />
                     {children}
-                    <Notice
-                        autoClose={3000}
-                        transition={Slide}
-                        limit={3}
-                        pauseOnFocusLoss={false}
-                    />
+                    <Notice richColors position='top-right' duration={3000} />
                 </Providers>
             </body>
         </html>

@@ -69,10 +69,7 @@ export default function ScoreRecord() {
     const scoreData = useScoreData(year)
 
     return (
-        <Card
-            className='h-full items-center justify-center lg:w-1/3 lg:min-w-96'
-            shadow='none'
-        >
+        <Card className='h-full items-center justify-center lg:w-1/3 lg:min-w-96'>
             <CardHeader className='flex h-[100px] flex-col justify-end overflow-visible bg-gradient-to-r from-violet-200 to-pink-200'>
                 {studentDetail && (
                     <Avatar
