@@ -356,7 +356,7 @@ export default function RegisterTabs() {
                             onValueChange={setAvatar}
                         >
                             <div className='grid grid-cols-3 md:grid-cols-4 md:gap-2'>
-                                <AnimatePresence mode='wait'>
+                                <AnimatePresence mode='sync'>
                                     {avatarListKeys.map((avatarKey) => (
                                         <motion.div
                                             key={avatarKey}

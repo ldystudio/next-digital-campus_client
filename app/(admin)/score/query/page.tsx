@@ -51,7 +51,7 @@ export default async function ScoreQueryPage() {
             <section className='lg:h-full'>
                 <TableCard
                     ariaLabel='Score query Table'
-                    url='/score/query/'
+                    url='/score/information/'
                     columns={columns}
                     filterColumns={filterColumns}
                     dateFields={dateFields}

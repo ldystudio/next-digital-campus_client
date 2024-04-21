@@ -18,7 +18,12 @@ function SkeletonMeteors({ text, className }: SkeletonProps) {
     return (
         <div className='relative flex h-full min-h-[10rem] w-full flex-col items-center justify-center overflow-hidden rounded-3xl bg-slate-900'>
             <Meteors number={30} />
-            <h1 className={cn("text-3xl font-bold text-white md:text-4xl", className)}>
+            <h1
+                className={cn(
+                    "z-20 text-3xl font-bold text-white md:text-4xl",
+                    className
+                )}
+            >
                 {text}
             </h1>
         </div>

@@ -2,14 +2,28 @@
 
 import React from "react"
 
-import { OverlayScrollbarsComponent } from "overlayscrollbars-react"
 import useSWR from "swr"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
-import { Avatar, Card, CardBody, CardHeader, Chip, Tab, Tabs } from "@nextui-org/react"
+import {
+    Avatar,
+    Card,
+    CardBody,
+    CardHeader,
+    Chip,
+    Select,
+    SelectItem,
+    Tab,
+    Tabs
+} from "@nextui-org/react"
 
+import Scrollbar from "@/components/common/scrollbar"
 import { request } from "~/service/request"
-import UserPost from "./user-post"
+import {
+    generateSchoolYears,
+    getCurrentAndFutureSchoolYears
+} from "~/utils/common/date"
+import ScoreCard, { ScoreQuery } from "./score-post"
 
 type StudentDetail = {
     id: string
@@ -19,17 +33,40 @@ type StudentDetail = {
     real_name: string
     email: string
     avatar: string
+    signature: string | null
 }
 
-const fetcher = (url: string) =>
+const studentDetailFetcher = (url: string) =>
     request.get<StudentDetail[]>(url).then((res) => res.data)
+const scoreFetcher = (url: string) =>
+    request.get<ApiPage.Query<ScoreQuery>>(url).then((res) => res.data)
 
-export default function ScoreRecord() {
-    const { data } = useSWR("/student/simple-detail/", fetcher, {
+function useStudentDetail() {
+    const { data } = useSWR("/student/simple-detail/", studentDetailFetcher, {
         revalidateOnFocus: false
     })
+    return data?.[0]
+}
 
-    const studentDetail = data?.[0]
+function useScoreData(year: string | number) {
+    const { data } = useSWR(`/score/query/?year=${year}`, scoreFetcher, {
+        revalidateOnFocus: false
+    })
+    return data?.results
+}
+
+export default function ScoreRecord() {
+    const [year, setYear] = React.useState<string | number>(new Date().getFullYear())
+
+    const studentDetail = useStudentDetail()
+    const schoolYears = generateSchoolYears(
+        studentDetail?.date_of_admission.split("-")[0],
+        4
+    )
+    const [currentSchoolYear, futureSchoolYears] =
+        getCurrentAndFutureSchoolYears(schoolYears)
+
+    const scoreData = useScoreData(year)
 
     return (
         <Card
@@ -48,16 +85,7 @@ export default function ScoreRecord() {
                     />
                 )}
             </CardHeader>
-            <OverlayScrollbarsComponent
-                defer
-                options={{
-                    scrollbars: {
-                        autoHide: "scroll",
-                        autoHideDelay: 500
-                    }
-                }}
-                className='h-full overflow-y-auto'
-            >
+            <Scrollbar className='h-full w-full overflow-y-auto'>
                 <CardBody>
                     <p className='text-large font-medium'>{studentDetail?.real_name}</p>
                     <p className='max-w-[90%] text-small text-default-400'>
@@ -67,85 +95,79 @@ export default function ScoreRecord() {
                         <Chip variant='flat'>
                             {studentDetail?.date_of_admission.split("-")[0]}级
                         </Chip>
-                        <Chip variant='flat'>{studentDetail?.class_name}</Chip>
+                        <Chip variant='flat'>
+                            {studentDetail?.class_name ?? "未知班级"}
+                        </Chip>
                         <Chip variant='flat'>{studentDetail?.enrollment_status}</Chip>
                     </div>
                     <p className='py-2 text-small text-foreground'>
-                        Creator of Radify Icons Set. 500+ icons in 6 styles, SVG and
-                        Figma files, and more.
+                        {studentDetail?.signature ?? "写段签名介绍自己吧"}
                     </p>
-                    <div className='flex gap-2'>
-                        <p>
-                            <span className='text-small font-medium text-default-500'>
-                                13
-                            </span>
-                            &nbsp;
-                            <span className='text-small text-default-400'>
-                                Following
-                            </span>
-                        </p>
-                        <p>
-                            <span className='text-small font-medium text-default-500'>
-                                2500
-                            </span>
-                            &nbsp;
-                            <span className='text-small text-default-400'>
-                                Followers
-                            </span>
-                        </p>
-                    </div>
+                    {studentDetail && (
+                        <div>
+                            <Select
+                                aria-label='学年'
+                                items={schoolYears}
+                                placeholder='选择学年'
+                                defaultSelectedKeys={currentSchoolYear}
+                                disabledKeys={futureSchoolYears}
+                                onSelectionChange={(year) => setYear([...year].join())}
+                            >
+                                {(year) => (
+                                    <SelectItem key={year.value}>
+                                        {year.label}
+                                    </SelectItem>
+                                )}
+                            </Select>
+                        </div>
+                    )}
                     <Tabs
                         fullWidth
-                        classNames={{
-                            panel: "mt-2"
-                        }}
-                        className='mt-2'
+                        className='mt-3'
+                        classNames={{ panel: "px-0 flex flex-col gap-3" }}
                     >
-                        <Tab key='regular grades' title='平时成绩'>
-                            {Array.from({ length: 6 }).map((_, i) => (
-                                <UserPost
-                                    key={i}
-                                    avatar='https://i.pravatar.cc/150?u=a04258114e29026708c'
-                                    comments={12}
-                                    date='2021-08-01'
-                                    likes={123}
-                                    name='Tony Reichert'
-                                    text='Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ipsum et dui rhoncus auctor.'
-                                    username='@tony.reichert'
-                                />
-                            ))}
+                        <Tab key='1' title='平时成绩'>
+                            {scoreData
+                                ?.filter((score) => score.exam_type === 1)
+                                .map((score, index) => (
+                                    <ScoreCard
+                                        key={index}
+                                        icon='solar:book-2-line-duotone'
+                                        course_name={score.course_name}
+                                        exam_date={score.exam_date}
+                                        exam_score={score.exam_score}
+                                    />
+                                ))}
                         </Tab>
-                        <Tab key='mid-term grades' title='期中成绩'>
-                            {Array.from({ length: 2 }).map((_, i) => (
-                                <UserPost
-                                    key={i}
-                                    avatar='https://i.pravatar.cc/150?u=a04258114e29026708c'
-                                    comments={12}
-                                    date='2021-08-01'
-                                    likes={123}
-                                    name='Tony Reichert'
-                                    text='Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ipsum et dui rhoncus auctor.'
-                                    username='@tony.reichert'
-                                />
-                            ))}
+                        <Tab key='2' title='期中成绩'>
+                            {scoreData
+                                ?.filter((score) => score.exam_type === 2)
+                                .map((score, index) => (
+                                    <ScoreCard
+                                        key={index}
+                                        icon='solar:book-2-line-duotone'
+                                        course_name={score.course_name}
+                                        exam_date={score.exam_date}
+                                        exam_score={score.exam_score}
+                                    />
+                                ))}
                         </Tab>
-                        <Tab key='final grades' title='期末成绩'>
-                            {Array.from({ length: 1 }).map((_, i) => (
-                                <UserPost
-                                    key={i}
-                                    avatar='https://i.pravatar.cc/150?u=a04258114e29026708c'
-                                    comments={12}
-                                    date='2021-08-01'
-                                    likes={123}
-                                    name='Tony Reichert'
-                                    text='Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ipsum et dui rhoncus auctor.'
-                                    username='@tony.reichert'
-                                />
-                            ))}
+                        <Tab key='3' title='期末成绩'>
+                            {scoreData
+                                ?.filter((score) => score.exam_type === 3)
+                                .map((score, index) => (
+                                    <ScoreCard
+                                        key={index}
+                                        icon='solar:book-2-line-duotone'
+                                        course_name={score.course_name}
+                                        exam_date={score.exam_date}
+                                        exam_score={score.exam_score}
+                                    />
+                                ))}
                         </Tab>
                     </Tabs>
                 </CardBody>
-            </OverlayScrollbarsComponent>
+            </Scrollbar>
         </Card>
     )
 }

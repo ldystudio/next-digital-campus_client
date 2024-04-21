@@ -1,23 +1,14 @@
-"use client"
-
-import { OverlayScrollbarsComponent } from "overlayscrollbars-react"
-
 import { Col } from "@/components/common/dimension"
+import Scrollbar from "@/components/common/scrollbar"
 import { cn } from "~/utils"
-
-import "overlayscrollbars/overlayscrollbars.css"
 
 export default function OverlayScrollbar({
     children,
     className
 }: LayoutProps & { className?: string }) {
     return (
-        <OverlayScrollbarsComponent
-            defer
-            className='h-screen'
-            options={{ scrollbars: { autoHide: "scroll", autoHideDelay: 500 } }}
-        >
+        <Scrollbar className='h-screen'>
             <Col className={cn("grow", className)}>{children}</Col>
-        </OverlayScrollbarsComponent>
+        </Scrollbar>
     )
 }

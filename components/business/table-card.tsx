@@ -3,7 +3,6 @@
 import { Key, useCallback, useMemo, useState } from "react"
 
 import clsx from "clsx"
-import { OverlayScrollbarsComponent } from "overlayscrollbars-react"
 import toast from "react-hot-toast"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
@@ -48,6 +47,7 @@ import {
     VerticalDotsIcon
 } from "@/components/common/icons"
 import { notice } from "@/components/common/notice"
+import Scrollbar from "@/components/common/scrollbar"
 import RenderModalCell from "@/components/custom/render-modal-cell"
 import SingleSelection from "@/components/custom/single-selection"
 import { useTableParams } from "~/hooks/business"
@@ -57,8 +57,6 @@ import {
     isIncludeSubstring,
     isString
 } from "~/utils/common"
-
-import "overlayscrollbars/overlayscrollbars.css"
 
 interface TableCardProps {
     ariaLabel: string
@@ -689,15 +687,7 @@ export default function TableCard({
                             <ModalHeader className='flex flex-col gap-1'>
                                 {modifiedDetails.id ? "修改资料" : "新增资料"}
                             </ModalHeader>
-                            <OverlayScrollbarsComponent
-                                defer
-                                options={{
-                                    scrollbars: {
-                                        autoHide: "scroll",
-                                        autoHideDelay: 500
-                                    }
-                                }}
-                            >
+                            <Scrollbar>
                                 <ModalBody>
                                     <RenderModalCell
                                         modelColumns={modelColumns}
@@ -717,7 +707,7 @@ export default function TableCard({
                                         groupFetchUrl={groupFetchUrl}
                                     />
                                 </ModalBody>
-                            </OverlayScrollbarsComponent>
+                            </Scrollbar>
                             <ModalFooter>
                                 <Button
                                     color='danger'

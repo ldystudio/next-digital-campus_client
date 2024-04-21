@@ -36,5 +36,5 @@ export const TextGenerateEffect = ({ text, className }: TextGenerateEffectProps)
         )
     }
 
-    return <p className={className}>{renderWords()}</p>
+    return <div className={className}>{renderWords()}</div>
 }
