@@ -51,16 +51,16 @@ export function ChartCard({
                     <Iconify icon='solar:menu-dots-bold-duotone' />
                 </Button>
             </Row>
-            <div className='flex flex-col lg:flex-row lg:items-center'>
+            <div className='flex flex-col lg:multi-["flex-row;items-center"]'>
                 {number && (
-                    <div className='flex items-center justify-around lg:flex-col lg:items-start'>
+                    <div className='flex items-center justify-around lg:multi-["flex-col;items-start"]'>
                         <p className='flex items-center'>
                             <span className='text-3xl font-bold lg:text-4xl'>
                                 {number}
                             </span>
                             <span className='ml-3 text-success-500'>{floating}</span>
                         </p>
-                        <p className='text-small text-default-400 lg:mt-2 lg:text-medium '>
+                        <p className='text-small text-default-400 lg:multi-["mt-2;text-medium"]'>
                             {subDescribe}
                         </p>
                     </div>

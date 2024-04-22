@@ -19,7 +19,7 @@ export default function AuthNavbarItem() {
         return (
             <Row fullWidth space={3} className='max-w-[300px]'>
                 <div>
-                    <Skeleton className='flex h-10 w-10 rounded-full lg:h-12 lg:w-12' />
+                    <Skeleton className='flex h-10 w-10 rounded-full lg:multi-["h-12;w-12"]' />
                 </div>
                 <Col fullWidth items='start' space={2}>
                     <Skeleton className='h-3 w-14 rounded-lg lg:w-20' />

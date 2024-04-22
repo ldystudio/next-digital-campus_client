@@ -12,7 +12,7 @@ import { twx } from "~/utils"
 
 const CardWrapper = twx(
     Card
-)`hidden h-1/2 items-center justify-center lg:flex lg:w-full`
+)`hidden h-1/2 items-center justify-center lg:multi-["flex;w-full"]`
 
 const fetcher = (url: string) => request.get<any>(url).then((res) => res.data)
 function useScoreData(year: number | string) {

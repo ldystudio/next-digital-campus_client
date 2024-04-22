@@ -75,7 +75,7 @@ export default async function TeacherAttendancePage() {
     }
 
     return (
-        <section className='flex flex-col gap-3 *:rounded-3xl lg:h-full lg:flex-row lg:gap-5'>
+        <section className='flex flex-col gap-3 *:rounded-3xl lg:multi-["h-full;flex-row;gap-5"]'>
             <AttendanceCard
                 getUrl='/teacher/attendance-today/'
                 postUrl='/teacher/attendance/'

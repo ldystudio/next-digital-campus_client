@@ -12,7 +12,7 @@ export default function UserInfo() {
     if (isServer) {
         return (
             <Col fullWidth space={3} className='max-w-[300px]'>
-                <Skeleton className='flex h-10 w-10 rounded-full lg:h-12 lg:w-12' />
+                <Skeleton className='flex h-10 w-10 rounded-full lg:multi-["h-12;w-12"]' />
                 <Skeleton className='h-3 w-14 rounded-lg lg:w-20' />
                 <Skeleton className='h-3 w-10 rounded-lg lg:w-12' />
             </Col>

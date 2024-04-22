@@ -86,7 +86,7 @@ export default function CourseSchedule({ timePoints }: CourseScheduleProps) {
                     key={timePoint.uid}
                     className='col-span-8 row-span-2 grid grid-cols-8 gap-3 lg:gap-5'
                 >
-                    <Card className='col-span-1 grid grid-rows-2 place-items-center gap-3 rounded-lg text-center lg:gap-5 lg:rounded-3xl'>
+                    <Card className='col-span-1 grid grid-rows-2 place-items-center gap-3 rounded-lg text-center lg:multi-["gap-5;rounded-3xl"]'>
                         <div>
                             <p className='font-bold italic'>{index + 1}</p>
                             <p className='text-default-500'>{timePoint.start_time}</p>
@@ -102,7 +102,7 @@ export default function CourseSchedule({ timePoints }: CourseScheduleProps) {
                             </p>
                         </div>
                     </Card>
-                    <Card className='col-span-7 grid grid-flow-col grid-cols-7 gap-3 rounded-lg text-center lg:gap-5 lg:rounded-3xl'>
+                    <Card className='col-span-7 grid grid-flow-col grid-cols-7 gap-3 rounded-lg text-center lg:multi-["gap-5;rounded-3xl"]'>
                         {rows.map(
                             (row) =>
                                 isWithinInterval(new Date(), {
@@ -117,7 +117,7 @@ export default function CourseSchedule({ timePoints }: CourseScheduleProps) {
                                     <div
                                         key={row.id}
                                         className={cn(
-                                            "col-span-1 m-1 flex min-w-8 flex-col items-center justify-center rounded-lg bg-default-500 text-background lg:m-2 lg:rounded-3xl",
+                                            'col-span-1 m-1 flex min-w-8 flex-col items-center justify-center rounded-lg bg-default-500 text-background lg:multi-["m-2;rounded-3xl"]',
                                             row.color,
                                             row.weekday === 1
                                                 ? "col-start-1"

@@ -88,6 +88,7 @@
         "tailwind-variants": "^0.1.18",
         "tailwindcss": "3.4.3",
         "tailwindcss-animate": "^1.0.7",
+        "tailwindcss-multi": "^0.3.34",
         "tailwindcss-unsplash": "^1.1.1",
         "typescript": "^5.3.3"
     },

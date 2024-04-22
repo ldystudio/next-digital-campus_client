@@ -86,11 +86,11 @@ export default async function CourseTablePage() {
     const toWeekDates = getFormattedWeekDates()
 
     return (
-        <section className='grid grid-flow-row-dense grid-cols-8 grid-rows-9 gap-3 text-xs *:h-full *:w-full lg:h-full lg:gap-5 lg:text-base'>
+        <section className='grid grid-flow-row-dense grid-cols-8 grid-rows-9 gap-3 text-xs *:multi-["h-full;w-full"] lg:multi-["h-full;gap-5;text-base"]'>
             <Card className='col-span-1 row-span-1 flex items-center justify-center rounded-lg lg:rounded-3xl'>
                 <p>课程表</p>
             </Card>
-            <Card className='col-span-7 row-span-1 grid grid-cols-7 place-items-center gap-1 rounded-lg text-center lg:gap-5 lg:rounded-3xl'>
+            <Card className='col-span-7 row-span-1 grid grid-cols-7 place-items-center gap-1 rounded-lg text-center lg:multi-["gap-5;rounded-3xl"]'>
                 {columns.map((column, index) => (
                     <div key={column.uid} className='col-span-1'>
                         <p

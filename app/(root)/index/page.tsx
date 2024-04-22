@@ -79,7 +79,7 @@ const words = [
 export default function HomePage() {
     return (
         <>
-            <section className='flex w-full flex-col items-center justify-between gap-4 py-8 lg:flex-row lg:py-10'>
+            <section className='flex w-full flex-col items-center justify-between gap-4 py-8 lg:multi-["flex-row;py-10"]'>
                 <div>
                     <p className={title({ color: "blue" })}>Next数字校园</p>
                     <TextGenerateEffect
@@ -123,7 +123,7 @@ export default function HomePage() {
                 <div className='flex flex-wrap items-center justify-center overflow-x-auto scrollbar-hide'>
                     {logoCaption.map((item) => (
                         <LogoCaptionWrapper key={`logoCaption - ${item.caption}`}>
-                            <span className='h-6 w-6 shrink-0 md:h-10 md:w-10 *:md:h-10 *:md:w-10'>
+                            <span className='h-6 w-6 shrink-0 md:multi-["h-10;w-10"] *:md:multi-["h-10;w-10"]'>
                                 {item.logo}
                             </span>
                             <span className='shrink-0 text-sm font-semibold'>

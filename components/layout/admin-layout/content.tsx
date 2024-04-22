@@ -44,11 +44,11 @@ export default function Content({ children }: ContentProps) {
                 </NavbarMenu>
             </NextUiNavbar>
 
-            <CardHeader className='hidden lg:flex lg:pl-0'>
+            <CardHeader className='hidden lg:multi-["flex;pl-0"]'>
                 <Breadcrumbs size='lg' />
             </CardHeader>
-            <CardBody className='overflow-x-hidden px-3 pb-3 pt-0 lg:pb-5 lg:pl-0 lg:pr-5 lg:pt-0'>
-                <div className='w-full rounded-3xl bg-default-100 p-3 lg:min-h-full lg:p-5'>
+            <CardBody className='overflow-x-hidden px-3 pb-3 pt-0 lg:multi-["pb-5;pl-0;pr-5;pt-0"]'>
+                <div className='w-full rounded-3xl bg-default-100 p-3 lg:multi-["min-h-full;p-5"]'>
                     <PageTransitionEffect className='h-full'>
                         {children}
                     </PageTransitionEffect>

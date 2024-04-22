@@ -70,7 +70,7 @@ function SubChart({ className }: PageComponentProps) {
     return (
         <div
             className={cn(
-                "items-center justify-between pt-10 lg:w-1/2 lg:pt-0",
+                'items-center justify-between pt-10 lg:multi-["w-1/2;pt-0"]',
                 className
             )}
         >

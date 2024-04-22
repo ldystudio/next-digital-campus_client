@@ -20,7 +20,7 @@ export default function CourseDetail({ columns, course }: CourseDetailProps) {
     return (
         course && (
             <div
-                className={`${NotoSansSC.className} flex w-full flex-col items-center justify-between gap-3 lg:flex-row lg:gap-5`}
+                className={`${NotoSansSC.className} flex w-full flex-col items-center justify-between gap-3 lg:multi-["flex-row;gap-5"]`}
             >
                 <Col justify='center' className='lg:w-1/2'>
                     <Image

@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 
 export default function DashboardWorkbenchPage() {
     return (
-        <section className='grid grid-flow-row-dense grid-cols-1 gap-3 *:rounded-3xl lg:h-full lg:grid-cols-6 lg:grid-rows-8 lg:gap-5 xl:grid-cols-8'>
-            <BannerCard className='order-1 grow bg-primary-400 lg:col-span-3 lg:row-span-4' />
-            <WelcomeCard className='order-2 grow lg:col-span-3 lg:row-span-4' />
-            <CalendarCard className='order-3 grow lg:col-span-2 lg:row-span-8 lg:hidden xl:flex' />
-            <GoalCard className='order-4 grow lg:col-span-4 lg:row-span-4' />
-            <ProgressCard className='order-5 grow lg:col-span-2 lg:row-span-4' />
+        <section className='grid grid-flow-row-dense grid-cols-1 gap-3 *:rounded-3xl lg:multi-["h-full;grid-cols-6;grid-rows-8;gap-5"] xl:grid-cols-8'>
+            <BannerCard className='order-1 grow bg-primary-400 lg:multi-["col-span-3;row-span-4"]' />
+            <WelcomeCard className='order-2 grow lg:multi-["col-span-3;row-span-4"]' />
+            <CalendarCard className='order-3 grow lg:multi-["col-span-2;row-span-8;hidden"] xl:flex' />
+            <GoalCard className='order-4 grow lg:multi-["col-span-4;row-span-4"]' />
+            <ProgressCard className='order-5 grow lg:multi-["col-span-2;row-span-4"]' />
         </section>
     )
 }
