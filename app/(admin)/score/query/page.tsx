@@ -1,3 +1,5 @@
+import React from "react"
+
 import type { Metadata } from "next"
 import { ChipProps } from "@nextui-org/react"
 
@@ -6,6 +8,7 @@ import { filterColumnsByArray } from "~/utils/common"
 import { getUserInfoFromServer } from "~/utils/cookies"
 import ScoreChart from "./components/score-chart"
 import ScoreRecord from "./components/score-record"
+import { YearProvider } from "./components/year-provider"
 
 export const metadata: Metadata = {
     title: "成绩查询"
@@ -67,8 +70,10 @@ export default async function ScoreQueryPage() {
 
     return (
         <section className='flex flex-col gap-3 *:rounded-3xl lg:multi-["h-full;flex-row;gap-5"]'>
-            <ScoreRecord />
-            <ScoreChart />
+            <YearProvider initialYear={new Date().getFullYear()}>
+                <ScoreRecord />
+                <ScoreChart />
+            </YearProvider>
         </section>
     )
 }

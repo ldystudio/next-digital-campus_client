@@ -109,7 +109,7 @@ function Action({
                 </DropdownTrigger>
                 <DropdownMenu
                     variant='faded'
-                    aria-label={`${rows.id} - DropdownMenu`}
+                    aria-label={`DropdownMenu - ${rows?.id}`}
                     disabledKeys={isDelDisabled ? ["delete"] : []}
                 >
                     <DropdownItem
@@ -219,7 +219,10 @@ export default function TableCard({
 
     type Rows = (typeof rows)[0]
 
-    const isInformationPage = url.includes("information")
+    const isInformationPage = [
+        "/student/information/",
+        "/teacher/information/"
+    ].includes(url)
     const modelColumns = isInformationPage
         ? headerColumns.concat([
               { uid: "email", name: "邮箱" },
@@ -406,6 +409,7 @@ export default function TableCard({
                         <Input
                             isClearable
                             fullWidth
+                            type={selectedFilterKeys.has("id") ? "number" : "text"}
                             placeholder={`按${selectedValue}搜索...`}
                             startContent={<SearchIcon />}
                             value={filterValue}
@@ -640,7 +644,7 @@ export default function TableCard({
                         items={rows}
                     >
                         {(item) => (
-                            <TableRow key={item.id}>
+                            <TableRow key={`TableRow - ${item?.id}`}>
                                 {(columnKey) => (
                                     <TableCell>{renderCell(item, columnKey)}</TableCell>
                                 )}

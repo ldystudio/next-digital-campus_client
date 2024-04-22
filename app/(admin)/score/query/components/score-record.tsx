@@ -2,6 +2,7 @@
 
 import React from "react"
 
+import _sortBy from "lodash/sortBy"
 import useSWR from "swr"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
@@ -24,6 +25,7 @@ import {
     getCurrentAndFutureSchoolYears
 } from "~/utils/common/date"
 import ScoreCard, { ScoreQuery } from "./score-post"
+import { useSetYear, useYear } from "./year-provider"
 
 type StudentDetail = {
     id: string
@@ -56,7 +58,9 @@ function useScoreData(year: string | number) {
 }
 
 export default function ScoreRecord() {
-    const [year, setYear] = React.useState<string | number>(new Date().getFullYear())
+    // const [year, setYear] = React.useState<string | number>(new Date().getFullYear())
+    const year = useYear()
+    const setYear = useSetYear()
 
     const studentDetail = useStudentDetail()
     const schoolYears = generateSchoolYears(
@@ -66,7 +70,7 @@ export default function ScoreRecord() {
     const [currentSchoolYear, futureSchoolYears] =
         getCurrentAndFutureSchoolYears(schoolYears)
 
-    const scoreData = useScoreData(year)
+    const scoreData = _sortBy(useScoreData(year), ["-exam_date"])
 
     return (
         <Card className='h-full items-center justify-center lg:multi-["w-1/3;min-w-96"]'>
@@ -108,7 +112,9 @@ export default function ScoreRecord() {
                                 placeholder='选择学年'
                                 defaultSelectedKeys={currentSchoolYear}
                                 disabledKeys={futureSchoolYears}
-                                onSelectionChange={(year) => setYear([...year].join())}
+                                onSelectionChange={(year) => {
+                                    setYear([...year].join())
+                                }}
                             >
                                 {(year) => (
                                     <SelectItem key={year.value}>
