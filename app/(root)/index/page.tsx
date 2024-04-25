@@ -46,25 +46,7 @@ const LogoCaptionWrapper = twx.div`mr-4 flex items-center space-x-2`
 
 const words = [
     {
-        text: "基于"
-    },
-    {
-        text: "React"
-    },
-    {
-        text: "+"
-    },
-    {
-        text: "Redux"
-    },
-    {
-        text: "+"
-    },
-    {
-        text: "Next.js"
-    },
-    {
-        text: "+"
+        text: "基于React + Redux + Next.js + "
     },
     {
         text: "NextUI",

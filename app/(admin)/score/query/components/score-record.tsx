@@ -86,48 +86,46 @@ export default function ScoreRecord() {
                     />
                 )}
             </CardHeader>
-            <Scrollbar className='h-full w-full overflow-y-auto'>
-                <CardBody>
-                    <p className='text-large font-medium'>{studentDetail?.real_name}</p>
-                    <p className='max-w-[90%] text-small text-default-400'>
-                        {studentDetail?.email}
-                    </p>
-                    <div className='flex gap-2 pb-1 pt-2'>
-                        <Chip variant='flat'>
-                            {studentDetail?.date_of_admission.split("-")[0]}级
-                        </Chip>
-                        <Chip variant='flat'>
-                            {studentDetail?.class_name ?? "未知班级"}
-                        </Chip>
-                        <Chip variant='flat'>{studentDetail?.enrollment_status}</Chip>
+            <CardBody>
+                <p className='text-large font-medium'>{studentDetail?.real_name}</p>
+                <p className='max-w-[90%] text-small text-default-400'>
+                    {studentDetail?.email}
+                </p>
+                <div className='flex gap-2 pb-1 pt-2'>
+                    <Chip variant='flat'>
+                        {studentDetail?.date_of_admission.split("-")[0]}级
+                    </Chip>
+                    <Chip variant='flat'>
+                        {studentDetail?.class_name ?? "未知班级"}
+                    </Chip>
+                    <Chip variant='flat'>{studentDetail?.enrollment_status}</Chip>
+                </div>
+                <p className='py-2 text-small text-foreground'>
+                    {studentDetail?.signature ?? "写段签名介绍自己吧"}
+                </p>
+                {studentDetail && (
+                    <div>
+                        <Select
+                            aria-label='学年'
+                            items={schoolYears}
+                            placeholder='选择学年'
+                            defaultSelectedKeys={currentSchoolYear}
+                            disabledKeys={futureSchoolYears}
+                            onSelectionChange={(year) => {
+                                setYear([...year].join())
+                            }}
+                        >
+                            {(year) => (
+                                <SelectItem key={year.value}>{year.label}</SelectItem>
+                            )}
+                        </Select>
                     </div>
-                    <p className='py-2 text-small text-foreground'>
-                        {studentDetail?.signature ?? "写段签名介绍自己吧"}
-                    </p>
-                    {studentDetail && (
-                        <div>
-                            <Select
-                                aria-label='学年'
-                                items={schoolYears}
-                                placeholder='选择学年'
-                                defaultSelectedKeys={currentSchoolYear}
-                                disabledKeys={futureSchoolYears}
-                                onSelectionChange={(year) => {
-                                    setYear([...year].join())
-                                }}
-                            >
-                                {(year) => (
-                                    <SelectItem key={year.value}>
-                                        {year.label}
-                                    </SelectItem>
-                                )}
-                            </Select>
-                        </div>
-                    )}
+                )}
+                <Scrollbar className='h-full w-full overflow-y-auto'>
                     <Tabs
                         fullWidth
                         className='mt-3'
-                        classNames={{ panel: "px-0 flex flex-col gap-3" }}
+                        classNames={{ panel: "flex flex-col gap-3" }}
                     >
                         <Tab key='1' title='平时成绩'>
                             {scoreData
@@ -169,8 +167,8 @@ export default function ScoreRecord() {
                                 ))}
                         </Tab>
                     </Tabs>
-                </CardBody>
-            </Scrollbar>
+                </Scrollbar>
+            </CardBody>
         </Card>
     )
 }
