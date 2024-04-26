@@ -82,9 +82,6 @@ type dataType = {
     avatar: string
 }
 
-const fetcher = (url: string) =>
-    request.get<ApiPage.Query<dataType>>(url).then((res) => res.data)
-
 function EnglishChineseQuotation() {
     const { isPending, data: yhylData } = useQuery({
         queryKey: ["English-Chinese quotation"],
@@ -111,7 +108,7 @@ function AttendanceRecord({
     recordList: RecordList[]
     setRecordList: (value: React.SetStateAction<RecordList[]>) => void
 }) {
-    useSWR(getUrl, fetcher, {
+    useSWR<ApiPage.Query<dataType>>(getUrl, {
         onSuccess: (data) => {
             if (data) {
                 setRecordList(
@@ -127,8 +124,7 @@ function AttendanceRecord({
                     }))
                 )
             }
-        },
-        revalidateOnFocus: false
+        }
     })
 
     return recordList && recordList.length > 0 ? (

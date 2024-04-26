@@ -57,6 +57,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
                                 errorRetryCount: 5,
                                 fetcher: (url: string) =>
                                     request.get(url).then((res) => res.data),
+                                revalidateOnFocus: false,
                                 provider: () => new Map()
                             }}
                         >

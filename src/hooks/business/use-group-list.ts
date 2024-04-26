@@ -2,22 +2,18 @@ import { useEffect, useState } from "react"
 
 import useSWR from "swr"
 
-import { request } from "~/service/request"
-
 export type UseUserListProps = {
     groupFetchUrl: string
 }
-
-const fetcher = (url: string) =>
-    request.get<ApiPage.Query<any>>(url).then((res) => res.data)
 
 export function useGroupList({ groupFetchUrl }: UseUserListProps) {
     const [items, setItems] = useState<any[]>([])
     const [page, setPage] = useState(1)
 
-    const { data, error, isValidating } = useSWR(
-        `${groupFetchUrl}?page=${page}&size=20`,
-        fetcher
+    const { data, error, isValidating } = useSWR<ApiPage.Query<any>>(
+        `${groupFetchUrl}?page=${page}&size=20`,{
+            revalidateOnFocus: true
+        }
     )
 
     useEffect(() => {

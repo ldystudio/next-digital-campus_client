@@ -169,8 +169,6 @@ function RenderCell({
     })
 }
 
-const fetcher = (url: string) => request.get<Information>(url).then((res) => res.data)
-
 export default function InformationCard({
     title,
     url,
@@ -193,8 +191,7 @@ export default function InformationCard({
         })
     }
 
-    const { data, mutate } = useSWR(url, fetcher, {
-        revalidateOnFocus: false,
+    const { data, mutate } = useSWR<Information>(url, {
         onSuccess: (data) => {
             updateInformation("id", data?.id)
             setAvatar(data?.avatar ?? "")

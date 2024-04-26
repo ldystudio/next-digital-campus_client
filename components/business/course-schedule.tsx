@@ -4,7 +4,6 @@ import { isWithinInterval, parseISO } from "date-fns"
 import useSWR from "swr"
 import { Card } from "@nextui-org/react"
 
-import { request } from "~/service/request"
 import { cn } from "~/utils"
 import { createCircularIterator } from "~/utils/common/date"
 
@@ -38,9 +37,6 @@ type Course = {
     notes: string | null
 }
 
-const fetcher = (url: string) =>
-    request.get<ApiPage.Query<any>>(url).then((res) => res.data)
-
 export default function CourseSchedule({ timePoints }: CourseScheduleProps) {
     const colorArray = [
         "bg-default-500",
@@ -55,13 +51,7 @@ export default function CourseSchedule({ timePoints }: CourseScheduleProps) {
     ]
     const nextColor = createCircularIterator(colorArray)
 
-    const { data: courseData } = useSWR<ApiPage.Query<Course> | null>(
-        `/course/schedule/`,
-        fetcher,
-        {
-            revalidateOnFocus: false
-        }
-    )
+    const { data: courseData } = useSWR<ApiPage.Query<Course>>("/course/schedule/")
     const rows = courseData?.results
         ? courseData?.results.map((course) => ({ ...course, color: nextColor() }))
         : []

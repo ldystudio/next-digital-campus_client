@@ -73,7 +73,7 @@ export function UserCard({
         <Popover showArrow placement={placement}>
             <PopoverTrigger>
                 <User
-                    name={userName}
+                    name={data?.real_name ?? userName}
                     description={capitalize(userRole)}
                     avatarProps={{
                         ...avatarProps,

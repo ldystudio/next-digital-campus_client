@@ -16,9 +16,6 @@ interface useTableParamsProps {
     initialInvisibleColumns?: string[]
 }
 
-const getListFetcher = (url: string) =>
-    request.get<ApiPage.Query>(url).then((res) => res.data)
-
 export function useTableParams({
     columns,
     url,
@@ -59,8 +56,9 @@ export function useTableParams({
     }${sortDescriptor.column}&${statusField}=${
         statusFilter === "all" ? "" : Array.from(statusFilter).join(",")
     }`
-    const { data: pageData, isLoading } = useSWR(finalUrl, getListFetcher, {
-        keepPreviousData: true
+    const { data: pageData, isLoading } = useSWR<ApiPage.Query>(finalUrl, {
+        keepPreviousData: true,
+        revalidateOnFocus: true
     })
 
     const pages = useMemo(() => {

@@ -160,8 +160,8 @@ function SkeletonHover({ text, className }: SkeletonProps) {
                     randomString={randomString}
                 />
                 <div className='relative z-10 flex items-center justify-center'>
-                    <div className='relative flex size-36 items-center justify-center rounded-full text-4xl font-bold text-white md:size-44'>
-                        <div className='absolute h-full w-full rounded-full bg-white/[0.8] blur-sm dark:bg-black/[0.8]' />
+                    <div className='relative flex size-36 items-center justify-center rounded-full text-4xl font-bold text-white md:size-40'>
+                        <div className='absolute h-full w-full rounded-full bg-background/80 blur-sm' />
                         <span className='z-20 text-3xl text-foreground md:text-4xl'>
                             {text}
                         </span>

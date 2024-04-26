@@ -6,20 +6,15 @@ import EChartsReact from "echarts-for-react"
 import useSWR from "swr"
 import { Card } from "@nextui-org/react"
 
-import { request } from "~/service/request"
-
 interface AttendanceChartCardProps {
     url: string
 }
-
-const fetcher = (url: string) =>
-    request.get<[string, number][]>(url).then((res) => res.data)
 
 export default function AttendanceChartCard({ url }: AttendanceChartCardProps) {
     const responsive = useResponsive()
     const toYear = `${new Date().getFullYear()}`
 
-    const { data: fetchData } = useSWR(url, fetcher, { revalidateOnFocus: false })
+    const { data: fetchData } = useSWR<[string, number][]>(url)
     const data = fetchData ?? []
 
     const orient = responsive?.md ? "horizontal" : "vertical"

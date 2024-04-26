@@ -2,6 +2,7 @@
 
 import React from "react"
 
+import { useResponsive } from "ahooks"
 import { Icon } from "@iconify/react"
 import { Avatar, Badge, Button, Skeleton } from "@nextui-org/react"
 
@@ -14,7 +15,7 @@ export type MessageCardProps = React.HTMLAttributes<HTMLDivElement> & {
     message: React.ReactNode
     showFeedback?: boolean
     status?: "success" | "failed"
-    isLoading?: boolean
+    isLoading: boolean
     className?: string
     messageClassName?: string
     onFeedback?: (feedback: "like" | "dislike") => void
@@ -34,11 +35,14 @@ export default function MessageCard({
     ...props
 }: MessageCardProps) {
     const [feedback, setFeedback] = React.useState<"like" | "dislike">()
+    const responsive = useResponsive()
 
-    const failedMessageClassName =
-        status === "failed"
-            ? "bg-danger-100/50 border border-danger-100 text-foreground"
-            : ""
+    const hasFailed = !isLoading && status === "failed"
+
+    const failedMessageClassName = hasFailed
+        ? "bg-danger-100/50 border border-danger-100 text-foreground"
+        : ""
+
     const failedMessage = (
         <p>
             Something went wrong, if the issue persists please contact us through our
@@ -48,8 +52,6 @@ export default function MessageCard({
             </Link>
         </p>
     )
-
-    const hasFailed = status === "failed"
 
     const handleFeedback = React.useCallback(
         (liked: boolean) => {
@@ -94,13 +96,18 @@ export default function MessageCard({
                             ))}
                         </Col>
                     ) : (
-                        <div className='pr-20'>
+                        <div className='pb-8 lg:multi-["pb-0;pr-20"]'>
                             {hasFailed ? failedMessage : message}
                         </div>
                     )}
 
                     {!isLoading && showFeedback && !hasFailed && (
-                        <div className='absolute right-2 top-2 flex rounded-full bg-content2 shadow-small'>
+                        <div
+                            className={cn(
+                                "absolute right-2 flex rounded-full bg-content2 shadow-small",
+                                responsive?.md ? "top-2" : "bottom-2"
+                            )}
+                        >
                             <Button
                                 isIconOnly
                                 radius='full'

@@ -16,18 +16,14 @@ import MessageCard from "./message-card"
 import { useYear } from "./year-provider"
 
 // prettier-ignore
-const CardWrapper = twx(Card)`hidden h-1/2 items-center justify-center lg:multi-["flex;w-full"]`
+const CardWrapper = twx(Card)`w-full h-1/2 items-center justify-center`
 
 function useScoreData(year: number | string) {
-    return useSWR(`/score/peacetime/?year=${year}`, {
-        revalidateOnFocus: false
-    }).data
+    return useSWR(`/score/peacetime/?year=${year}`).data
 }
 
 function useAIAdviseData(year: number | string) {
-    return useSWR(`/score/ai-advise/?year=${year}`, {
-        revalidateOnFocus: false
-    })
+    return useSWR(`/score/ai-advise/?year=${year}`)
 }
 
 export default function ScoreChart() {
@@ -74,7 +70,7 @@ export default function ScoreChart() {
 
     return (
         <Col fullWidth space={5}>
-            <CardWrapper>
+            <CardWrapper className='hidden lg:flex'>
                 <EChartsReact
                     option={option}
                     style={{

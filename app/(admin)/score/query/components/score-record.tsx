@@ -19,7 +19,6 @@ import {
 } from "@nextui-org/react"
 
 import Scrollbar from "@/components/common/scrollbar"
-import { request } from "~/service/request"
 import {
     generateSchoolYears,
     getCurrentAndFutureSchoolYears
@@ -38,22 +37,13 @@ type StudentDetail = {
     signature: string | null
 }
 
-const studentDetailFetcher = (url: string) =>
-    request.get<StudentDetail[]>(url).then((res) => res.data)
-const scoreFetcher = (url: string) =>
-    request.get<ApiPage.Query<ScoreQuery>>(url).then((res) => res.data)
-
 function useStudentDetail() {
-    const { data } = useSWR("/student/simple-detail/", studentDetailFetcher, {
-        revalidateOnFocus: false
-    })
+    const { data } = useSWR<StudentDetail[]>("/student/simple-detail/")
     return data?.[0]
 }
 
 function useScoreData(year: string | number) {
-    const { data } = useSWR(`/score/query/?year=${year}`, scoreFetcher, {
-        revalidateOnFocus: false
-    })
+    const { data } = useSWR<ApiPage.Query<ScoreQuery>>(`/score/query/?year=${year}`)
     return data?.results
 }
 
