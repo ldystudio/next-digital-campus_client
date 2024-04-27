@@ -1,5 +1,3 @@
-import toast from "react-hot-toast"
-
 import { ERROR_MSG_DURATION, NO_ERROR_MSG_CODE } from "~/config"
 
 /** 错误消息栈，防止同一错误同时出现 */
@@ -23,8 +21,8 @@ export function showErrorMsg(error: Service.RequestError) {
     if (!error.msg || NO_ERROR_MSG_CODE.includes(error.code) || hasErrorMsg(error))
         return
     addErrorMsg(error)
-    window.console.warn(error.code, error.msg)
-    toast.error(error.msg, { duration: ERROR_MSG_DURATION })
+    window.console.error(error.code, error.msg)
+    // toast.error(error.msg, { duration: ERROR_MSG_DURATION })
     setTimeout(() => {
         removeErrorMsg(error)
     }, ERROR_MSG_DURATION)

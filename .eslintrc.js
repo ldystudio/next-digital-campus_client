@@ -6,13 +6,12 @@ module.exports = {
         browser: true,
         es2021: true
     },
-    plugins: ["tailwindcss"],
+    plugins: ["tailwindcss", "@tanstack/query"],
     extends: [
         "eslint:recommended",
         "next/core-web-vitals",
         "prettier",
         "plugin:@typescript-eslint/recommended",
-        "plugin:@tanstack/eslint-plugin-query/recommended",
         "plugin:tailwindcss/recommended",
         "plugin:react/recommended"
     ],

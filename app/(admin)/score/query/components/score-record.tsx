@@ -1,9 +1,6 @@
 "use client"
 
-import React from "react"
-
 import _sortBy from "lodash/sortBy"
-import useSWR from "swr"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import {
@@ -17,6 +14,7 @@ import {
     Tab,
     Tabs
 } from "@nextui-org/react"
+import { useQuery } from "@tanstack/react-query"
 
 import Scrollbar from "@/components/common/scrollbar"
 import {
@@ -38,17 +36,18 @@ type StudentDetail = {
 }
 
 function useStudentDetail() {
-    const { data } = useSWR<StudentDetail[]>("/student/simple-detail/")
-    return data?.[0]
+    return useQuery<StudentDetail[]>({
+        queryKey: ["/student/simple-detail/"]
+    }).data?.[0]
 }
 
 function useScoreData(year: string | number) {
-    const { data } = useSWR<ApiPage.Query<ScoreQuery>>(`/score/query/?year=${year}`)
-    return data?.results
+    return useQuery<ApiPage.Query<ScoreQuery>>({
+        queryKey: [`/score/query/?year=${year}`]
+    }).data?.results
 }
 
 export default function ScoreRecord() {
-    // const [year, setYear] = React.useState<string | number>(new Date().getFullYear())
     const year = useYear()
     const setYear = useSetYear()
 
@@ -65,16 +64,17 @@ export default function ScoreRecord() {
     return (
         <Card className='h-full items-center justify-center lg:multi-["w-1/3;min-w-96"]'>
             <CardHeader className='flex h-[100px] flex-col justify-end overflow-visible bg-gradient-to-r from-violet-200 to-pink-200'>
-                {studentDetail && (
-                    <Avatar
-                        className='h-20 w-20 translate-y-12'
-                        isBordered
-                        src={createAvatar(adventurer, {
+                <Avatar
+                    className='h-20 w-20 translate-y-12'
+                    isBordered
+                    src={
+                        studentDetail?.avatar &&
+                        createAvatar(adventurer, {
                             seed: studentDetail.avatar
-                        }).toDataUriSync()}
-                        name={studentDetail.real_name}
-                    />
-                )}
+                        }).toDataUriSync()
+                    }
+                    name={studentDetail?.real_name}
+                />
             </CardHeader>
             <CardBody>
                 <p className='text-large font-medium'>{studentDetail?.real_name}</p>

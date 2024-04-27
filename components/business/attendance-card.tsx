@@ -3,29 +3,42 @@
 import React from "react"
 
 import { format } from "date-fns"
-import toast from "react-hot-toast"
 import Clock from "react-live-clock"
-import useSWR, { useSWRConfig } from "swr"
 import { Icon } from "@iconify/react"
 import { Button, Card, CardBody, CardFooter, CardHeader, Chip } from "@nextui-org/react"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 import RecordCard from "@/components/business/record-card"
 import { Col } from "@/components/common/dimension"
 import { LocalImage } from "@/components/common/image"
-import { request } from "~/service/request"
-
-interface AttendanceCardProps {
-    getUrl: string
-    postUrl: string
-    getAllUrl: string
-}
+import { useMutation } from "~/hooks/common"
 
 type StatusType = {
     id: number
     name: string
     color: "primary" | "secondary" | "success" | "warning" | "danger"
     icon: string
+}
+
+type RecordList = {
+    type: 1 | 2 | 3 | 4 | 5
+    time: string
+    ip: string
+}
+
+type dataType = {
+    id: string
+    date: string
+    attendance_status: 1 | 2 | 3 | 4 | 5
+    check_in_time: string
+    ip_address: string
+    leave_start_time: string | null
+    leave_end_time: string | null
+    leave_reason: string | null
+    notes: string | null
+    real_name: string | null
+    email: string
+    avatar: string
 }
 
 const status: StatusType[] = [
@@ -61,27 +74,6 @@ const status: StatusType[] = [
     }
 ]
 
-type RecordList = {
-    type: 1 | 2 | 3 | 4 | 5
-    time: string
-    ip: string
-}
-
-type dataType = {
-    id: string
-    date: string
-    attendance_status: 1 | 2 | 3 | 4 | 5
-    check_in_time: string
-    ip_address: string
-    leave_start_time: string | null
-    leave_end_time: string | null
-    leave_reason: string | null
-    notes: string | null
-    real_name: string | null
-    email: string
-    avatar: string
-}
-
 function EnglishChineseQuotation() {
     const { isPending, data: yhylData } = useQuery({
         queryKey: ["English-Chinese quotation"],
@@ -99,33 +91,34 @@ function EnglishChineseQuotation() {
     )
 }
 
+interface AttendanceRecordProps {
+    getUrl: string
+    recordList: RecordList[]
+    setRecordList: (value: React.SetStateAction<RecordList[]>) => void
+}
+
 function AttendanceRecord({
     getUrl,
     recordList,
     setRecordList
-}: {
-    getUrl: string
-    recordList: RecordList[]
-    setRecordList: (value: React.SetStateAction<RecordList[]>) => void
-}) {
-    useSWR<ApiPage.Query<dataType>>(getUrl, {
-        onSuccess: (data) => {
-            if (data) {
-                setRecordList(
-                    data.results.map((item: dataType) => ({
-                        type: item.attendance_status,
-                        time: item.check_in_time.includes(".")
-                            ? item.check_in_time.slice(
-                                  0,
-                                  item.check_in_time.indexOf(".")
-                              )
-                            : item.check_in_time,
-                        ip: item.ip_address
-                    }))
-                )
-            }
-        }
+}: AttendanceRecordProps) {
+    const { data } = useQuery<ApiPage.Query<dataType>>({
+        queryKey: [getUrl]
     })
+
+    React.useEffect(() => {
+        if (data) {
+            setRecordList(
+                data.results.map((item: dataType) => ({
+                    type: item.attendance_status,
+                    time: item.check_in_time.includes(".")
+                        ? item.check_in_time.slice(0, item.check_in_time.indexOf("."))
+                        : item.check_in_time,
+                    ip: item.ip_address
+                }))
+            )
+        }
+    }, [data, setRecordList])
 
     return recordList && recordList.length > 0 ? (
         recordList.map((record, index) => (
@@ -154,13 +147,32 @@ function AttendanceRecord({
     )
 }
 
+interface AttendanceCardProps {
+    getUrl: string
+    postUrl: string
+    getAllUrl: string
+}
+
 export default function AttendanceCard({
     getUrl,
     postUrl,
     getAllUrl
 }: AttendanceCardProps) {
     const [recordList, setRecordList] = React.useState<RecordList[]>([])
-    const { mutate } = useSWRConfig()
+    const { mutate } = useMutation({
+        url: postUrl,
+        headMsg: "签到",
+        onMutate: () => {
+            if (recordList.length >= 4) {
+                throw new Error("你已消耗完今日签到次数")
+            }
+        },
+        onSuccessAfter: () => {
+            queryClient.invalidateQueries({ queryKey: [getUrl] })
+            queryClient.invalidateQueries({ queryKey: [getAllUrl] })
+        }
+    })
+    const queryClient = useQueryClient()
 
     return (
         <Card className='h-full items-center justify-center lg:multi-["w-1/3;min-w-80"]'>
@@ -195,21 +207,7 @@ export default function AttendanceCard({
                             className='text-center text-lg font-medium'
                         />
                     }
-                    onClick={async () => {
-                        if (recordList.length < 4) {
-                            const { error } = await request.post<dataType>(postUrl)
-
-                            if (error) {
-                                toast.error(`签到失败，请稍后再试：${error.msg}`)
-                            } else {
-                                toast.success("签到成功")
-                                mutate(getUrl)
-                                mutate(getAllUrl)
-                            }
-                        } else {
-                            toast.error("你已消耗完今日签到次数")
-                        }
-                    }}
+                    onClick={() => mutate()}
                 >
                     签到
                 </Button>

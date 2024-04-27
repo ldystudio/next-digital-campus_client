@@ -2,8 +2,7 @@
 
 import React from "react"
 
-import toast from "react-hot-toast"
-import useSWR from "swr"
+import { Lumiflex } from "uvcanvas"
 import * as adventurer from "@dicebear/adventurer"
 import { createAvatar } from "@dicebear/core"
 import { Icon } from "@iconify/react"
@@ -21,9 +20,10 @@ import {
     Radio,
     RadioGroup
 } from "@nextui-org/react"
+import { useQuery } from "@tanstack/react-query"
 
 import { NotoSansSC } from "~/config"
-import { request } from "~/service/request"
+import { useMutation } from "~/hooks/common"
 import { getAuthState } from "~/store"
 import { useAuthAction } from "~/store/modules/auth"
 import { isString } from "~/utils/common"
@@ -184,6 +184,39 @@ export default function InformationCard({
     const [information, setInformation] = React.useState<Information>(initInformation)
     const [avatar, setAvatar] = React.useState<string>("")
 
+    const { data, refetch } = useQuery<Information>({ queryKey: [url] })
+    const { mutate } = useMutation({
+        url: `${url}${information.id}/`,
+        method: "patch",
+        data: information,
+        headMsg: "修改",
+        onSuccessAfter: () => {
+            refetch()
+            if (userInfo.avatar !== avatar) {
+                const newUserInfo = {
+                    ...userInfo,
+                    avatar: avatar
+                }
+                setUserInfo(newUserInfo)
+                localStg.set("userInfo", newUserInfo)
+            }
+        },
+        onSettledAfter: () => {
+            setInformation({ id: information.id })
+        }
+    })
+
+    React.useEffect(() => {
+        if (data) {
+            setInformation({
+                ...information,
+                id: data.id
+            })
+            setAvatar(data?.avatar ?? "")
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data])
+
     function updateInformation(key: string, value: any) {
         setInformation({
             ...information,
@@ -191,113 +224,88 @@ export default function InformationCard({
         })
     }
 
-    const { data, mutate } = useSWR<Information>(url, {
-        onSuccess: (data) => {
-            updateInformation("id", data?.id)
-            setAvatar(data?.avatar ?? "")
-        }
-    })
-
     return (
-        // eslint-disable-next-line tailwindcss/classnames-order
-        <Card className='items-center justify-center rounded-3xl bg-cover bg-center bg-no-repeat bg-unsplash-[9T8fywAF54I/lg] lg:h-full'>
-            <Card className='max-w-xl p-2' shadow='none'>
-                <CardHeader
-                    className={`${NotoSansSC.className} flex flex-col items-start px-4 pb-0 pt-4`}
-                >
-                    <p className='text-large'>{title}</p>
-                    <div className='flex gap-4 py-4'>
-                        <Badge
-                            classNames={{
-                                badge: "w-5 h-5"
-                            }}
-                            color='primary'
-                            content={
-                                <Button
-                                    isIconOnly
-                                    className='p-0 text-primary-foreground'
-                                    radius='full'
-                                    size='sm'
-                                    variant='light'
-                                    onPress={() => {
-                                        const str = Math.random().toString(36).slice(-8)
-                                        setAvatar(str)
-                                        updateInformation("avatar", str)
-                                    }}
-                                >
-                                    <Icon icon='solar:refresh-bold-duotone' />
-                                </Button>
-                            }
-                            placement='bottom-right'
-                            shape='circle'
-                        >
-                            <Avatar
-                                className='h-14 w-14'
-                                src={createAvatar(adventurer, {
-                                    seed: avatar
-                                }).toDataUriSync()}
-                            />
-                        </Badge>
-                        <div className='flex flex-col items-start justify-center'>
-                            {data && <p className='font-medium'>{data.real_name}</p>}
-                            <span
-                                className='text-small capitalize text-default-500'
-                                suppressHydrationWarning
-                            >
-                                {userInfo.userRole}
-                            </span>
-                        </div>
-                    </div>
-                    <p className='text-small text-default-400'>
-                        该照片将用于您的个人资料，并对平台的其他用户可见。
-                    </p>
-                    <p className='text-small text-danger-200'>
-                        不能修改的部分请联系管理员修改
-                    </p>
-                </CardHeader>
-                <CardBody className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-                    {data && (
-                        <RenderCell
-                            data={data}
-                            columns={columns}
-                            updateInformation={updateInformation}
-                            disabledInput={disabledInput}
-                            dateFields={dateFields}
-                            statusField={statusField}
-                            statusOptions={statusOptions}
-                        />
-                    )}
-                </CardBody>
-                <CardFooter className='mt-4 justify-end gap-2'>
-                    <Button
-                        color='primary'
-                        radius='full'
-                        onPress={async () => {
-                            const { error } = await request.patch<Information>(
-                                `${url}${information.id}/`,
-                                information
-                            )
-                            if (error) {
-                                toast.error(`修改失败，请稍后再试：${error.msg}`)
-                            } else {
-                                toast.success("修改成功")
-                                mutate({ ...data, ...information })
-                                if (userInfo.avatar !== avatar) {
-                                    const newUserInfo = {
-                                        ...userInfo,
-                                        avatar: avatar
-                                    }
-                                    setUserInfo(newUserInfo)
-                                    localStg.set("userInfo", newUserInfo)
-                                }
-                            }
-                            setInformation(initInformation)
-                        }}
+        <Card className='rounded-3xl lg:h-full'>
+            {/* @ts-expect-error 类型“IntrinsicAttributes & LumiflexProps”上不存在属性“children”*/}
+            <Lumiflex className='flex items-center justify-center'>
+                <Card className='absolute z-10 max-w-xl p-2'>
+                    <CardHeader
+                        className={`${NotoSansSC.className} flex flex-col items-start px-4 pb-0 pt-4`}
                     >
-                        修改
-                    </Button>
-                </CardFooter>
-            </Card>
+                        <p className='text-large'>{title}</p>
+                        <div className='flex gap-4 py-4'>
+                            <Badge
+                                classNames={{
+                                    badge: "w-5 h-5"
+                                }}
+                                color='primary'
+                                content={
+                                    <Button
+                                        isIconOnly
+                                        className='p-0 text-primary-foreground'
+                                        radius='full'
+                                        size='sm'
+                                        variant='light'
+                                        onPress={() => {
+                                            const str = Math.random()
+                                                .toString(36)
+                                                .slice(-8)
+                                            setAvatar(str)
+                                            updateInformation("avatar", str)
+                                        }}
+                                    >
+                                        <Icon icon='solar:refresh-bold-duotone' />
+                                    </Button>
+                                }
+                                placement='bottom-right'
+                                shape='circle'
+                            >
+                                <Avatar
+                                    className='h-14 w-14'
+                                    src={createAvatar(adventurer, {
+                                        seed: avatar
+                                    }).toDataUriSync()}
+                                />
+                            </Badge>
+                            <div className='flex flex-col items-start justify-center'>
+                                {data && (
+                                    <p className='font-medium'>{data.real_name}</p>
+                                )}
+                                <span
+                                    className='text-small capitalize text-default-500'
+                                    suppressHydrationWarning
+                                >
+                                    {userInfo.userRole}
+                                </span>
+                            </div>
+                        </div>
+                        <p className='text-small text-default-400'>
+                            该照片将用于您的个人资料，并对平台的其他用户可见。
+                        </p>
+                        <p className='text-small text-danger-200'>
+                            不能修改的部分请联系管理员修改
+                        </p>
+                    </CardHeader>
+                    <CardBody className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+                        {data && (
+                            <RenderCell
+                                data={data}
+                                columns={columns}
+                                updateInformation={updateInformation}
+                                disabledInput={disabledInput}
+                                dateFields={dateFields}
+                                statusField={statusField}
+                                statusOptions={statusOptions}
+                            />
+                        )}
+                    </CardBody>
+                    <CardFooter className='mt-4 justify-end gap-2'>
+                        <Button color='primary' radius='full' onPress={() => mutate()}>
+                            修改
+                        </Button>
+                    </CardFooter>
+                </Card>
+            </Lumiflex>
         </Card>
     )
 }

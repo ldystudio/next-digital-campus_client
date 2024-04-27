@@ -1,7 +1,7 @@
 "use client"
 
 import constate from "constate"
-import useSWR from "swr"
+import { useQuery } from "@tanstack/react-query"
 
 export type StatisticsData = {
     max: number
@@ -11,7 +11,9 @@ export type StatisticsData = {
 }
 
 function useDataState() {
-    const { data: statisticsData } = useSWR<StatisticsData>("/score/statistics/")
+    const { data: statisticsData } = useQuery<StatisticsData>({
+        queryKey: ["/score/statistics/"]
+    })
     return { statisticsData }
 }
 

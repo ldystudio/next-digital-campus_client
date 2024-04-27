@@ -27,11 +27,11 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1(react-redux@9.0.0(@types/react-dom@18.2.17)(@types/react@18.2.41)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(redux@5.0.0))(react@18.2.0)
       '@tanstack/react-query':
-        specifier: ^5.14.1
-        version: 5.14.1(react@18.2.0)
+        specifier: ^5.32.0
+        version: 5.32.0(react@18.2.0)
       '@tanstack/react-query-devtools':
-        specifier: ^5.14.1
-        version: 5.14.1(@tanstack/react-query@5.14.1(react@18.2.0))(react@18.2.0)
+        specifier: ^5.32.0
+        version: 5.32.0(@tanstack/react-query@5.32.0(react@18.2.0))(react@18.2.0)
       '@theme-toggles/react':
         specifier: ^4.1.0
         version: 4.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -131,15 +131,15 @@ importers:
       swiper:
         specifier: ^11.0.5
         version: 11.0.5
-      swr:
-        specifier: ^2.2.5
-        version: 2.2.5(react@18.2.0)
       usehooks-ts:
         specifier: ^3.0.2
         version: 3.0.2(react@18.2.0)
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
+      uvcanvas:
+        specifier: ^0.2.1
+        version: 0.2.1(@types/react@18.2.41)(immer@10.0.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
     optionalDependencies:
       '@next/swc-win32-x64-msvc':
         specifier: ^14.2.2
@@ -1577,20 +1577,20 @@ packages:
     peerDependencies:
       eslint: ^8.0.0
 
-  '@tanstack/query-core@5.14.1':
-    resolution: {integrity: sha512-TlZarySCVEiap4K7BCvrsYZnX7jBbEkR55YMrk8ELcRbuAx6ydL+qoxqUt8Fq8VMvQyGt52icn6T7eJL1Q35KQ==}
+  '@tanstack/query-core@5.32.0':
+    resolution: {integrity: sha512-Z3flEgCat55DRXU5UMwYU1U+DgFZKA3iufyOKs+II7iRAo0uXkeU7PH5e6sOH1CGEag0IpKmZxlUFpCg6roSKw==}
 
-  '@tanstack/query-devtools@5.13.5':
-    resolution: {integrity: sha512-effSYz9AWcZ6sNd+c8LCBYFIuDZApoCTXEpRlEYChBZpMz9QUUVMLToThwCyUY49+T5pANL3XxgZf3HV7hwJlg==}
+  '@tanstack/query-devtools@5.28.10':
+    resolution: {integrity: sha512-5UN629fKa5/1K/2Pd26gaU7epxRrYiT1gy+V+pW5K6hnf1DeUKK3pANSb2eHKlecjIKIhTwyF7k9XdyE2gREvQ==}
 
-  '@tanstack/react-query-devtools@5.14.1':
-    resolution: {integrity: sha512-8fuQs0AMQk8D66JUYqdYA33fOObevuWwm1atOnPbtV8PvIscaU0i/cNTqCl1Y10rgbR/QsqxQSJGBZ5TxxBrlA==}
+  '@tanstack/react-query-devtools@5.32.0':
+    resolution: {integrity: sha512-KWrzLoUjs9JtDSH3H2qbm5MjjykyAT8DkvP8tukw3gBG4ziu5WaWHciBjMsYSe1JB79AOxxGovzjW/Cd9+ofVw==}
     peerDependencies:
-      '@tanstack/react-query': ^5.14.1
+      '@tanstack/react-query': ^5.32.0
       react: ^18.0.0
 
-  '@tanstack/react-query@5.14.1':
-    resolution: {integrity: sha512-v7jhe/3jhChiR0XJbGHaG5WNPd/cURwzDGBCr4rzpUTeudPzxrtVRKsF1xJRLcJK3qH/0gIwTYHIPZ3gj+01Yw==}
+  '@tanstack/react-query@5.32.0':
+    resolution: {integrity: sha512-+E3UudQtarnx9A6xhpgMZapyF+aJfNBGFMgI459FnduEZqT/9KhOWnMOneZahLRt52yzskSA0AuOyLkXHK0yBA==}
     peerDependencies:
       react: ^18.0.0
 
@@ -3346,6 +3346,9 @@ packages:
     resolution: {integrity: sha512-aU6xnDFYT3x17e/f0IiiwlGPTy2jzMySGfUB4fq6z7CV8l85CWHDk5ErhyhpfDHhrOMwGFhSQkhMGHaIotA6Ng==}
     engines: {node: '>= 0.4'}
 
+  ogl@1.0.6:
+    resolution: {integrity: sha512-ephp/AP2qR2JV/BLoFEoeMSs6JofFZIx3nB6iLKfom88Q3GFjFLXwFjW0ZQObHJaWHhmNGPcMi1n1nxUm+30TA==}
+
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
 
@@ -3978,11 +3981,6 @@ packages:
     resolution: {integrity: sha512-rhCwupqSyRnWrtNzWzemnBLMoyYuoDgGgspAm/8iBD3jCvAWycPLH4Z3TB0O5520DHLzMx94yUMH/B9Efpa48w==}
     engines: {node: '>= 4.7.0'}
 
-  swr@2.2.5:
-    resolution: {integrity: sha512-QtxqyclFeAsxEUeZIYmsaQ0UjimSq1RZ9Un7I68/0ClKK/U3LoyQunwkQfJZr2fc22DfIXLNDc2wFyTEikCUpg==}
-    peerDependencies:
-      react: ^16.11.0 || ^17.0.0 || ^18.0.0
-
   synckit@0.9.0:
     resolution: {integrity: sha512-7RnqIMq572L8PeEzKeBINYEJDDxpcH8JEgLwUqBd3TkofhFRbkq4QLR0u+36avGAhCRbk2nnmjcW9SE531hPDg==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -4214,6 +4212,12 @@ packages:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
 
+  uvcanvas@0.2.1:
+    resolution: {integrity: sha512-JqhmyYGjHdZ32PgBlu99QVORutO0Avf2tvWfimyCwqG8gnU/IUkwiAexwlMqvD0Wr+C6DHy0vkkCj/KGd8UP9w==}
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
+
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
 
@@ -4267,6 +4271,21 @@ packages:
 
   zrender@5.5.0:
     resolution: {integrity: sha512-O3MilSi/9mwoovx77m6ROZM7sXShR/O/JIanvzTwjN3FORfLSr81PsUGd7jlaYOeds9d8tw82oP44+3YucVo+w==}
+
+  zustand@4.5.2:
+    resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      immer: '>=9.0.6'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
 
 snapshots:
 
@@ -6500,19 +6519,19 @@ snapshots:
       - supports-color
       - typescript
 
-  '@tanstack/query-core@5.14.1': {}
+  '@tanstack/query-core@5.32.0': {}
 
-  '@tanstack/query-devtools@5.13.5': {}
+  '@tanstack/query-devtools@5.28.10': {}
 
-  '@tanstack/react-query-devtools@5.14.1(@tanstack/react-query@5.14.1(react@18.2.0))(react@18.2.0)':
+  '@tanstack/react-query-devtools@5.32.0(@tanstack/react-query@5.32.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@tanstack/query-devtools': 5.13.5
-      '@tanstack/react-query': 5.14.1(react@18.2.0)
+      '@tanstack/query-devtools': 5.28.10
+      '@tanstack/react-query': 5.32.0(react@18.2.0)
       react: 18.2.0
 
-  '@tanstack/react-query@5.14.1(react@18.2.0)':
+  '@tanstack/react-query@5.32.0(react@18.2.0)':
     dependencies:
-      '@tanstack/query-core': 5.14.1
+      '@tanstack/query-core': 5.32.0
       react: 18.2.0
 
   '@theme-toggles/react@4.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
@@ -8626,6 +8645,8 @@ snapshots:
       define-properties: 1.2.1
       es-abstract: 1.22.3
 
+  ogl@1.0.6: {}
+
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
@@ -9233,12 +9254,6 @@ snapshots:
 
   swiper@11.0.5: {}
 
-  swr@2.2.5(react@18.2.0):
-    dependencies:
-      client-only: 0.0.1
-      react: 18.2.0
-      use-sync-external-store: 1.2.0(react@18.2.0)
-
   synckit@0.9.0:
     dependencies:
       '@pkgr/core': 0.1.1
@@ -9502,6 +9517,16 @@ snapshots:
 
   uuid@9.0.1: {}
 
+  uvcanvas@0.2.1(@types/react@18.2.41)(immer@10.0.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+    dependencies:
+      ogl: 1.0.6
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      zustand: 4.5.2(@types/react@18.2.41)(immer@10.0.3)(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - immer
+
   validate-npm-package-license@3.0.4:
     dependencies:
       spdx-correct: 3.2.0
@@ -9582,3 +9607,11 @@ snapshots:
   zrender@5.5.0:
     dependencies:
       tslib: 2.3.0
+
+  zustand@4.5.2(@types/react@18.2.41)(immer@10.0.3)(react@18.2.0):
+    dependencies:
+      use-sync-external-store: 1.2.0(react@18.2.0)
+    optionalDependencies:
+      '@types/react': 18.2.41
+      immer: 10.0.3
+      react: 18.2.0

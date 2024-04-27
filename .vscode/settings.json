@@ -9,5 +9,14 @@
         ["twx\\.[^`]+\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
         ["twx\\(.*?\\).*?\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
     ],
-    "css.lint.unknownAtRules": "ignore"
+    "css.lint.unknownAtRules": "ignore",
+    "workbench.editor.customLabels.patterns": {
+        "**/app/**/page.tsx": "${dirname} - Page",
+        "**/app/**/index.tsx": "${dirname} - Index",
+        "**/app/**/layout.tsx": "${dirname} - Layout",
+        "**/app/**/template.tsx": "${dirname} - Template",
+        "**/components/**/**.tsx": "${filename} - Component",
+        "**/src/**/**.tsx": "${filename} - ${dirname} - ${dirname(1)}",
+        "**/src/**/**.ts": "${filename} - ${dirname} - ${dirname(1)}"
+    }
 }

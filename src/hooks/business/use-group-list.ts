@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-import useSWR from "swr"
+import { useQuery } from "@tanstack/react-query"
 
 export type UseUserListProps = {
     groupFetchUrl: string
@@ -10,14 +10,13 @@ export function useGroupList({ groupFetchUrl }: UseUserListProps) {
     const [items, setItems] = useState<any[]>([])
     const [page, setPage] = useState(1)
 
-    const { data, error, isValidating } = useSWR<ApiPage.Query<any>>(
-        `${groupFetchUrl}?page=${page}&size=20`,{
-            revalidateOnFocus: true
-        }
-    )
+    const { data, error, isPending } = useQuery<ApiPage.Query<any>>({
+        queryKey: [`${groupFetchUrl}?page=${page}&size=20`],
+        refetchOnWindowFocus: true
+    })
 
     useEffect(() => {
-        if (data) setItems((prevData) => [...prevData, ...(data.results || [])])
+        if (data) setItems((prevData) => [...prevData, ...(data.results ?? [])])
     }, [data])
 
     const hasMore = data?.next !== null
@@ -32,7 +31,7 @@ export function useGroupList({ groupFetchUrl }: UseUserListProps) {
     return {
         items,
         hasMore,
-        isLoading: isValidating || isLoading,
+        isLoading: isPending || isLoading,
         onLoadMore
     }
 }

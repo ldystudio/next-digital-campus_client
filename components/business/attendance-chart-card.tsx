@@ -3,8 +3,8 @@
 import { useResponsive } from "ahooks"
 import { EChartsOption } from "echarts"
 import EChartsReact from "echarts-for-react"
-import useSWR from "swr"
 import { Card } from "@nextui-org/react"
+import { useQuery } from "@tanstack/react-query"
 
 interface AttendanceChartCardProps {
     url: string
@@ -14,8 +14,7 @@ export default function AttendanceChartCard({ url }: AttendanceChartCardProps) {
     const responsive = useResponsive()
     const toYear = `${new Date().getFullYear()}`
 
-    const { data: fetchData } = useSWR<[string, number][]>(url)
-    const data = fetchData ?? []
+    const { data } = useQuery<[string, number][]>({ queryKey: [url] })
 
     const orient = responsive?.md ? "horizontal" : "vertical"
     const color = "#fff"
@@ -134,7 +133,7 @@ export default function AttendanceChartCard({ url }: AttendanceChartCardProps) {
                 coordinateSystem: "calendar",
                 calendarIndex: 1,
                 data: data
-                    .sort(function (a, b) {
+                    ?.sort(function (a, b) {
                         return b[1] - a[1]
                     })
                     .slice(0, 12),
@@ -156,7 +155,7 @@ export default function AttendanceChartCard({ url }: AttendanceChartCardProps) {
                 type: "effectScatter",
                 coordinateSystem: "calendar",
                 data: data
-                    .sort(function (a, b) {
+                    ?.sort(function (a, b) {
                         return b[1] - a[1]
                     })
                     .slice(0, 12),

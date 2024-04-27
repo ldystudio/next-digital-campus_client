@@ -82,8 +82,7 @@ interface ActionProps {
     setDetails: (value: any) => void
     setModifiedDetails: (value: any) => void
     isDelDisabled: boolean
-    mutate: (url: string) => void
-    finalUrl: string
+    refetch: () => void
     getOneFn: (id: string) => Promise<Service.RequestResult<ApiPage.Detail>>
     removeOneFn: (id: string) => Promise<Service.RequestResult<null>>
 }
@@ -94,8 +93,7 @@ function Action({
     setDetails,
     setModifiedDetails,
     isDelDisabled,
-    mutate,
-    finalUrl,
+    refetch,
     getOneFn,
     removeOneFn
 }: ActionProps) {
@@ -141,7 +139,7 @@ function Action({
                         }
                         onPress={async () => {
                             const { error } = await removeOneFn(rows.id)
-                            mutate(finalUrl)
+                            refetch()
                             error ? toast.error(error.msg) : toast.success("删除成功")
                         }}
                     >
@@ -195,8 +193,7 @@ export default function TableCard({
         pages,
         isLoading,
         findStatusName,
-        mutate,
-        finalUrl,
+        refetch,
         onNextPage,
         onPreviousPage,
         onRowsPerPageChange,
@@ -356,8 +353,7 @@ export default function TableCard({
                             isDelDisabled={isDelDisabled}
                             getOneFn={getOneFn}
                             removeOneFn={removeOneFn}
-                            mutate={mutate}
-                            finalUrl={finalUrl}
+                            refetch={refetch}
                         />
                     )
                 default:
@@ -365,11 +361,10 @@ export default function TableCard({
             }
         },
         [
-            finalUrl,
             findStatusName,
             getOneFn,
             isDelDisabled,
-            mutate,
+            refetch,
             onOpen,
             removeOneFn,
             setDetails,
@@ -682,7 +677,7 @@ export default function TableCard({
                 }}
                 onClose={() => {
                     setModifiedDetails({})
-                    mutate(finalUrl)
+                    refetch()
                 }}
             >
                 <ModalContent>

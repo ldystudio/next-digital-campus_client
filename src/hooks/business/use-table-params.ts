@@ -1,8 +1,8 @@
 import { ChangeEvent, useCallback, useMemo, useState } from "react"
 
 import _differenceBy from "lodash/differenceBy"
-import useSWR, { useSWRConfig } from "swr"
 import { Selection, SortDescriptor } from "@nextui-org/react"
+import { useQuery } from "@tanstack/react-query"
 
 import { request } from "~/service/request"
 
@@ -46,8 +46,6 @@ export function useTableParams({
     const [modifiedDetails, setModifiedDetails] = useState<any>({})
     const [modelType, setModelType] = useState<"add" | "edit">("add")
 
-    const { mutate } = useSWRConfig()
-
     const [page, setPage] = useState(1)
     const finalUrl = `${url}?page=${page}&size=${rowsPerPage}&${Array.from(
         selectedFilterKeys
@@ -56,9 +54,13 @@ export function useTableParams({
     }${sortDescriptor.column}&${statusField}=${
         statusFilter === "all" ? "" : Array.from(statusFilter).join(",")
     }`
-    const { data: pageData, isLoading } = useSWR<ApiPage.Query>(finalUrl, {
-        keepPreviousData: true,
-        revalidateOnFocus: true
+    const {
+        data: pageData,
+        isPending: isLoading,
+        refetch
+    } = useQuery<ApiPage.Query>({
+        queryKey: [finalUrl],
+        refetchOnWindowFocus: true
     })
 
     const pages = useMemo(() => {
@@ -164,8 +166,7 @@ export function useTableParams({
         pages,
         isLoading,
         findStatusName,
-        mutate,
-        finalUrl,
+        refetch,
         onNextPage,
         onPreviousPage,
         onRowsPerPageChange,

@@ -1,8 +1,8 @@
 "use client"
 
 import { isWithinInterval, parseISO } from "date-fns"
-import useSWR from "swr"
 import { Card } from "@nextui-org/react"
+import { useQuery } from "@tanstack/react-query"
 
 import { cn } from "~/utils"
 import { createCircularIterator } from "~/utils/common/date"
@@ -51,7 +51,9 @@ export default function CourseSchedule({ timePoints }: CourseScheduleProps) {
     ]
     const nextColor = createCircularIterator(colorArray)
 
-    const { data: courseData } = useSWR<ApiPage.Query<Course>>("/course/schedule/")
+    const { data: courseData } = useQuery<ApiPage.Query<Course>>({
+        queryKey: ["/course/schedule/"]
+    })
     const rows = courseData?.results
         ? courseData?.results.map((course) => ({ ...course, color: nextColor() }))
         : []

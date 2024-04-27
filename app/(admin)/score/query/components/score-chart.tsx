@@ -5,8 +5,8 @@ import React from "react"
 import { EChartsOption } from "echarts"
 import EChartsReact from "echarts-for-react"
 import _ from "lodash"
-import useSWR from "swr"
 import { Card, CardHeader } from "@nextui-org/react"
+import { useQuery } from "@tanstack/react-query"
 
 import { Col } from "@/components/common/dimension"
 import Scrollbar from "@/components/common/scrollbar"
@@ -18,18 +18,20 @@ import { useYear } from "./year-provider"
 // prettier-ignore
 const CardWrapper = twx(Card)`w-full h-1/2 items-center justify-center`
 
+type ScoreData = { [courseName: string]: [string, number][] }
+
 function useScoreData(year: number | string) {
-    return useSWR(`/score/peacetime/?year=${year}`).data
+    return useQuery<ScoreData>({ queryKey: [`/score/peacetime/?year=${year}`] }).data
 }
 
 function useAIAdviseData(year: number | string) {
-    return useSWR(`/score/ai-advise/?year=${year}`)
+    return useQuery<string>({ queryKey: [`/score/ai-advise/?year=${year}`] })
 }
 
 export default function ScoreChart() {
     const year = useYear()
     const scoreData = useScoreData(year)
-    const { data: adviseData, isLoading } = useAIAdviseData(year)
+    const { data: adviseData, isPending, error } = useAIAdviseData(year)
 
     const dateList = _.sortBy(
         _.uniq(_.flatMap(scoreData, (dates) => _.map(dates, (date) => date[0]))),
@@ -41,7 +43,7 @@ export default function ScoreChart() {
         type: "line",
         smooth: true,
         showSymbol: false,
-        data: scoreData[key]
+        data: scoreData?.[key]
     }))
 
     /** @type EChartsOption */
@@ -85,12 +87,14 @@ export default function ScoreChart() {
                 <Scrollbar className='h-full w-full p-3 bg-dot-black/[0.2] dark:bg-dot-white/[0.2]'>
                     <MessageCard
                         avatar='/images/icon/zhipuai.png'
-                        status={adviseData ? "success" : "failed"}
-                        isLoading={isLoading}
+                        status={adviseData && !error ? "success" : "failed"}
+                        isLoading={isPending}
                         showFeedback
                         messageClassName={`${NotoSansSC.className} text-base`}
                         message={
-                            <div dangerouslySetInnerHTML={{ __html: adviseData }} />
+                            <div
+                                dangerouslySetInnerHTML={{ __html: adviseData ?? "" }}
+                            />
                         }
                     />
                 </Scrollbar>
