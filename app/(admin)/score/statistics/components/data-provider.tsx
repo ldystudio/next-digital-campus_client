@@ -7,12 +7,16 @@ export type StatisticsData = {
     max: number
     avg: number
     min: number
+    class_rank: string
+    best_course: string
+    worst_course: string
     pie_chart: { name: string; value: number }[]
     bar_chart: {
         years: number[]
         names: string[]
-        values: { [name: string]: [null | number][] }
+        values: { [key: string]: [null | number][] }
     }
+    word_cloud: { name: string; value: number }[]
 }
 
 function useDataState() {

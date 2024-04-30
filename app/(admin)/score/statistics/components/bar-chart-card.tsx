@@ -9,93 +9,29 @@ import { primary } from "~/config"
 import { useIsPending, useStatisticsData } from "./data-provider"
 
 export default function BarChartCard({ className }: PageComponentProps) {
-    // const responsive = useResponsive()
+    const responsive = useResponsive()
     // const fontSize = responsive?.lg ? 28 : responsive?.md ? 24 : 20
     const data = useStatisticsData()?.bar_chart
     const isPending = useIsPending()
-
-    const app: any = {}
-    const posList = [
-        "left",
-        "right",
-        "top",
-        "bottom",
-        "inside",
-        "insideTop",
-        "insideLeft",
-        "insideRight",
-        "insideBottom",
-        "insideTopLeft",
-        "insideTopRight",
-        "insideBottomLeft",
-        "insideBottomRight"
-    ] as const
-
-    app.configParameters = {
-        rotate: {
-            min: -90,
-            max: 90
-        },
-        align: {
-            options: {
-                left: "left",
-                center: "center",
-                right: "right"
-            }
-        },
-        verticalAlign: {
-            options: {
-                top: "top",
-                middle: "middle",
-                bottom: "bottom"
-            }
-        },
-        position: {
-            options: posList.reduce(
-                function (map, pos) {
-                    map[pos] = pos
-                    return map
-                },
-                {} as Record<string, string>
-            )
-        },
-        distance: {
-            min: 0,
-            max: 100
-        }
-    }
-
-    app.config = {
-        rotate: 90,
-        align: "left",
-        verticalAlign: "middle",
-        position: "insideBottom",
-        distance: 15
-    }
-    console.log("app: ", app)
-
-    type BarLabelOption = NonNullable<echarts.BarSeriesOption["label"]>
-
-    const labelOption: BarLabelOption = {
-        show: true,
-        position: app.config.position as BarLabelOption["position"],
-        distance: app.config.distance as BarLabelOption["distance"],
-        align: app.config.align as BarLabelOption["align"],
-        verticalAlign: app.config.verticalAlign as BarLabelOption["verticalAlign"],
-        rotate: app.config.rotate as BarLabelOption["rotate"],
-        formatter: "{c}  {name|{a}}",
-        fontSize: 16,
-        rich: {
-            name: {}
-        }
-    }
 
     const series: EChartsOption["series"] = Object.keys(data?.values ?? {}).map(
         (key) => ({
             name: key,
             type: "bar",
             barGap: 0,
-            label: labelOption,
+            label: {
+                show: true,
+                rotate: 90,
+                align: "left",
+                verticalAlign: "middle",
+                position: "insideBottom",
+                distance: 15,
+                fontSize: 16,
+                formatter: "{c}  {name|{a}}",
+                rich: {
+                    name: {}
+                }
+            },
             emphasis: {
                 focus: "series"
             },
@@ -104,8 +40,13 @@ export default function BarChartCard({ className }: PageComponentProps) {
     )
 
     const option: EChartsOption = {
+        title: {
+            left: "center",
+            top: "3%",
+            text: "每学年期末成绩统计"
+        },
         tooltip: {
-            trigger: "axis",
+            trigger: "item",
             axisPointer: {
                 type: "shadow"
             }
@@ -122,22 +63,23 @@ export default function BarChartCard({ className }: PageComponentProps) {
             top: "center",
             feature: {
                 mark: { show: true },
-                magicType: { show: true, type: ["bar", "stack"] },
+                dataZoom: { show: true },
+                magicType: {
+                    show: true,
+                    type: ["stack"],
+                    option: { stack: { labelLayout: { hideOverlap: true } } }
+                },
                 saveAsImage: { show: true }
             }
         },
-        xAxis: [
-            {
-                type: "category",
-                axisTick: { show: false },
-                data: data?.years
-            }
-        ],
-        yAxis: [
-            {
-                type: "value"
-            }
-        ],
+        xAxis: {
+            type: "category",
+            axisTick: { show: false },
+            data: data?.years
+        },
+        yAxis: {
+            type: "value"
+        },
         series
     }
 
@@ -153,7 +95,8 @@ export default function BarChartCard({ className }: PageComponentProps) {
                 option={option}
                 style={{
                     width: "100%",
-                    height: "100%"
+                    height: "100%",
+                    rotate: responsive?.md ? undefined : "90deg"
                 }}
                 opts={{ renderer: "svg" }}
                 showLoading={isPending}
