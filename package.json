@@ -54,6 +54,7 @@
         "react-twc": "^1.4.1",
         "sonner": "^1.4.41",
         "swiper": "^11.0.5",
+        "swr": "^2.2.5",
         "usehooks-ts": "^3.0.2",
         "uuid": "^9.0.1",
         "uvcanvas": "^0.2.1"

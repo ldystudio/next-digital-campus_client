@@ -1,8 +1,8 @@
 import { ChangeEvent, useCallback, useMemo, useState } from "react"
 
 import _differenceBy from "lodash/differenceBy"
+import useSWR from "swr"
 import { Selection, SortDescriptor } from "@nextui-org/react"
-import { useQuery } from "@tanstack/react-query"
 
 import { request } from "~/service/request"
 
@@ -15,6 +15,9 @@ interface useTableParamsProps {
     initialSortColumn?: string
     initialInvisibleColumns?: string[]
 }
+
+const getListFetcher = (url: string) =>
+    request.get<ApiPage.Query>(url).then((res) => res.data)
 
 export function useTableParams({
     columns,
@@ -56,12 +59,9 @@ export function useTableParams({
     }`
     const {
         data: pageData,
-        isPending: isLoading,
-        refetch
-    } = useQuery<ApiPage.Query>({
-        queryKey: [finalUrl],
-        refetchOnWindowFocus: true
-    })
+        isLoading,
+        mutate: refetch
+    } = useSWR(finalUrl, getListFetcher, { keepPreviousData: true })
 
     const pages = useMemo(() => {
         return pageData?.count ? Math.ceil(pageData.count / rowsPerPage) : 1

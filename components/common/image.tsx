@@ -10,9 +10,10 @@ import { cn } from "~/utils"
 import { isNumber } from "~/utils/common"
 
 type NextImagePropsMixin = Omit<NextImageProps, "src" | "width"> &
-    Omit<NextUiImageProps, "width">
+    Omit<NextUiImageProps, "src" | "width">
 
 interface ImageProps extends NextImagePropsMixin {
+    src: `/images/${string}`
     // 统一宽度 | 在电脑上的宽度、在手机上的宽度
     width: number | [number, number]
     // 图片原始尺寸，用于保持比例
@@ -24,6 +25,7 @@ interface ImageProps extends NextImagePropsMixin {
 }
 
 export function LocalImage({
+    src,
     width,
     originalSize,
     noInvert,
@@ -40,6 +42,7 @@ export function LocalImage({
     return (
         <NextUiImage
             as={NextImage}
+            src={src}
             width={imgWidth}
             height={imgHeight}
             draggable='false'

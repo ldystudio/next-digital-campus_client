@@ -102,7 +102,10 @@ export function useRouteAction() {
         const { userInfo } = getAuthState()
         const staticRoutes = previousQueryData ?? (await refetch()).data
 
-        if (!staticRoutes) return false
+        if (!staticRoutes) {
+            console.error("[AuthRoute]: Failed to fetch static routes")
+            return false
+        }
 
         const routes = filterAuthRoutesByUserPermission(staticRoutes, userInfo.userRole)
         await handleAuthRoute(routes)

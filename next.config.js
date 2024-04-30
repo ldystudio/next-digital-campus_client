@@ -1,10 +1,11 @@
-/** @type {import('next').NextConfig} */
 const isDev = process.env.NODE_ENV === "development"
+
+/** @type {import('next').NextConfig} */
 module.exports = {
     reactStrictMode: true,
     poweredByHeader: isDev,
     env: {
-        SERVER_URL: isDev
+        BACKEND_URL: isDev
             ? "http://192.168.1.215:8000/api/v1"
             : "http://203.195.168.162:8000/api/v1",
         ROUTE_HOME_PATH: "/",
@@ -16,4 +17,10 @@ module.exports = {
             fullUrl: true
         }
     }
+    // eslint: {
+    //     ignoreDuringBuilds: true
+    // },
+    // typescript: {
+    //     ignoreBuildErrors: true
+    // }
 }

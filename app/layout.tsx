@@ -40,14 +40,7 @@ export default function Layout({ children }: LayoutProps) {
             <body
                 className={`min-h-screen min-w-[350px] bg-background font-sans antialiased ${fontSans.variable}`}
             >
-                <Providers
-                    themeProps={{
-                        attribute: "class",
-                        defaultTheme: "system",
-                        enableSystem: true,
-                        disableTransitionOnChange: true
-                    }}
-                >
+                <Providers>
                     <NextTopLoader color='#006FEE' zIndex={9999} showSpinner={false} />
                     <Toaster />
                     {children}

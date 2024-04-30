@@ -30,7 +30,7 @@ function makeQueryClient() {
                 retry: 5,
                 refetchOnWindowFocus: false,
                 queryFn: async ({ queryKey }) =>
-                    await request.get(`${queryKey[0]}`).then((res) => res.data)
+                    await request.get(queryKey.join("")).then((res) => res.data)
             }
         }
     })
@@ -42,7 +42,7 @@ function getQueryClient() {
     return (browserQueryClient ??= makeQueryClient())
 }
 
-export function Providers({ children, themeProps }: ProvidersProps) {
+export function Providers({ children }: ProvidersProps) {
     const router = useRouter()
     const queryClient = getQueryClient()
 
@@ -55,7 +55,11 @@ export function Providers({ children, themeProps }: ProvidersProps) {
                 maxDate: new CalendarDate(2099, 12, 31)
             }}
         >
-            <NextThemesProvider {...themeProps}>
+            <NextThemesProvider
+                attribute='class'
+                defaultTheme='system'
+                enableSystem={true}
+            >
                 <ReduxProvider store={store}>
                     <ReactQueryProvider client={queryClient}>
                         {children}

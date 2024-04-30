@@ -8,16 +8,22 @@ export type StatisticsData = {
     avg: number
     min: number
     pie_chart: { name: string; value: number }[]
+    bar_chart: {
+        years: number[]
+        names: string[]
+        values: { [name: string]: [null | number][] }
+    }
 }
 
 function useDataState() {
-    const { data: statisticsData } = useQuery<StatisticsData>({
+    const { data: statisticsData, isPending } = useQuery<StatisticsData>({
         queryKey: ["/score/statistics/"]
     })
-    return { statisticsData }
+    return { statisticsData, isPending }
 }
 
-export const [DataProvider, useStatisticsData] = constate(
+export const [DataProvider, useStatisticsData, useIsPending] = constate(
     useDataState,
-    (value) => value.statisticsData
+    (value) => value.statisticsData,
+    (value) => value.isPending
 )

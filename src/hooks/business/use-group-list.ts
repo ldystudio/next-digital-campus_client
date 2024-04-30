@@ -11,7 +11,7 @@ export function useGroupList({ groupFetchUrl }: UseUserListProps) {
     const [page, setPage] = useState(1)
 
     const { data, error, isPending } = useQuery<ApiPage.Query<any>>({
-        queryKey: [`${groupFetchUrl}?page=${page}&size=20`],
+        queryKey: [`${groupFetchUrl}?size=20&page=`, page],
         refetchOnWindowFocus: true
     })
 

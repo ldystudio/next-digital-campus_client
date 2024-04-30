@@ -5,13 +5,15 @@ import { EChartsOption } from "echarts"
 import EChartsReact from "echarts-for-react"
 import { Card } from "@nextui-org/react"
 
-import { useStatisticsData } from "./data-provider"
+import { useIsPending, useStatisticsData } from "./data-provider"
+import { primary } from "~/config"
 
-export default function DistributionCard({ className }: PageComponentProps) {
+export default function PieChartCard({ className }: PageComponentProps) {
     const responsive = useResponsive()
     const fontSize = responsive?.lg ? 28 : responsive?.md ? 24 : 20
 
     const data = useStatisticsData()
+    const isPending = useIsPending()
 
     const option: EChartsOption = {
         title: {
@@ -60,6 +62,12 @@ export default function DistributionCard({ className }: PageComponentProps) {
         ]
     }
 
+    const loadingOption = {
+        lineWidth: 2,
+        color: primary,
+        text: "正在加载..."
+    }
+
     return (
         <Card className={className}>
             <EChartsReact
@@ -69,6 +77,8 @@ export default function DistributionCard({ className }: PageComponentProps) {
                     height: "100%"
                 }}
                 opts={{ renderer: "svg" }}
+                showLoading={isPending}
+                loadingOption={loadingOption}
             />
         </Card>
     )

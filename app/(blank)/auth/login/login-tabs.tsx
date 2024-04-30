@@ -61,7 +61,7 @@ export default function LoginTabs() {
 
     const generateTraceId = () => `${Math.random().toString(36).slice(-8)}${Date.now()}`
     const [traceId, setTraceId] = useState(generateTraceId())
-    const captchaURL = `${process.env.SERVER_URL}/auth/image_captcha/?traceId=${traceId}`
+    const captchaURL = `${process.env.BACKEND_URL}/auth/image_captcha/?traceId=${traceId}`
 
     async function handleCountdownButtonClick() {
         if (!email) {

@@ -737,7 +737,8 @@ export default function TableCard({
 
                                         if (error) {
                                             notice.error({
-                                                description: `${actionType}失败，请稍后再试`
+                                                title: `${actionType}失败`,
+                                                description: error.msg
                                             })
                                             return
                                         }

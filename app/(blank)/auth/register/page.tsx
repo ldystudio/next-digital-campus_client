@@ -23,7 +23,7 @@ export default function RegisterPage() {
                 <Col space={3} fullWidth className='h-[640px] lg:w-1/2'>
                     <Link href='/index' color='foreground'>
                         <LocalImage
-                            src='/logo.png'
+                            src='/images/icon/logo.png'
                             alt='login'
                             width={75}
                             originalSize={{ width: 143, height: 149 }}

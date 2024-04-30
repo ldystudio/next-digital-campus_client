@@ -131,6 +131,9 @@ importers:
       swiper:
         specifier: ^11.0.5
         version: 11.0.5
+      swr:
+        specifier: ^2.2.5
+        version: 2.2.5(react@18.2.0)
       usehooks-ts:
         specifier: ^3.0.2
         version: 3.0.2(react@18.2.0)
@@ -3980,6 +3983,11 @@ packages:
   swiper@11.0.5:
     resolution: {integrity: sha512-rhCwupqSyRnWrtNzWzemnBLMoyYuoDgGgspAm/8iBD3jCvAWycPLH4Z3TB0O5520DHLzMx94yUMH/B9Efpa48w==}
     engines: {node: '>= 4.7.0'}
+
+  swr@2.2.5:
+    resolution: {integrity: sha512-QtxqyclFeAsxEUeZIYmsaQ0UjimSq1RZ9Un7I68/0ClKK/U3LoyQunwkQfJZr2fc22DfIXLNDc2wFyTEikCUpg==}
+    peerDependencies:
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0
 
   synckit@0.9.0:
     resolution: {integrity: sha512-7RnqIMq572L8PeEzKeBINYEJDDxpcH8JEgLwUqBd3TkofhFRbkq4QLR0u+36avGAhCRbk2nnmjcW9SE531hPDg==}
@@ -9253,6 +9261,12 @@ snapshots:
   supports-preserve-symlinks-flag@1.0.0: {}
 
   swiper@11.0.5: {}
+
+  swr@2.2.5(react@18.2.0):
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+      use-sync-external-store: 1.2.0(react@18.2.0)
 
   synckit@0.9.0:
     dependencies:

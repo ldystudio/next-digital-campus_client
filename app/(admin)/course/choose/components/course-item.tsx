@@ -48,14 +48,6 @@ type CourseListItemProps = {
     setSelectedCourseId: (id: string) => void
 } & CourseItem
 
-// function useCourseList() {
-//     const { isPending, data } = useQuery({
-//         queryKey: ["courseChoose"],
-//         queryFn: async () => (await fetchCourseList<CourseItem>()).data
-//     })
-//     return { data, isPending }
-// }
-
 export default function CourseListItem({
     course_name,
     course_picture,

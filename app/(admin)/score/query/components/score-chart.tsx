@@ -21,11 +21,11 @@ const CardWrapper = twx(Card)`w-full h-1/2 items-center justify-center`
 type ScoreData = { [courseName: string]: [string, number][] }
 
 function useScoreData(year: number | string) {
-    return useQuery<ScoreData>({ queryKey: [`/score/peacetime/?year=${year}`] }).data
+    return useQuery<ScoreData>({ queryKey: ["/score/peacetime/?year=", year] }).data
 }
 
 function useAIAdviseData(year: number | string) {
-    return useQuery<string>({ queryKey: [`/score/ai-advise/?year=${year}`] })
+    return useQuery<string>({ queryKey: ["/score/ai-advise/?year=", year] })
 }
 
 export default function ScoreChart() {
@@ -54,7 +54,13 @@ export default function ScoreChart() {
             text: "平时成绩走势图"
         },
         tooltip: {
-            trigger: "axis"
+            trigger: "axis",
+            axisPointer: {
+                type: "cross",
+                crossStyle: {
+                    color: "#999"
+                }
+            }
         },
         legend: {
             bottom: "3%",

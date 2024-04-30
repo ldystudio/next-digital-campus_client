@@ -23,7 +23,7 @@ export default async function LoginPage() {
                 <Col space={3} className='h-[600px] w-full lg:w-1/2'>
                     <Link href='/index' color='foreground'>
                         <LocalImage
-                            src='/logo.png'
+                            src='/images/icon/logo.png'
                             alt='login'
                             width={75}
                             originalSize={{ width: 143, height: 149 }}

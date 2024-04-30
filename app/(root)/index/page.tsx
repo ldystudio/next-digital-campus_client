@@ -95,7 +95,7 @@ export default function HomePage() {
                     width={500}
                     originalSize={{ width: 1026, height: 691 }}
                     priority
-                ></LocalImage>
+                />
             </section>
             <section>
                 <IntroduceBentoGrid />

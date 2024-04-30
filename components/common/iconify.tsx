@@ -3,6 +3,8 @@
 import { useTheme } from "next-themes"
 import { Icon, IconProps } from "@iconify/react"
 
+import { colorMap } from "~/config"
+
 interface IconifyProps extends Omit<IconProps, "color"> {
     color?:
         | "primary"
@@ -18,15 +20,6 @@ interface IconifyProps extends Omit<IconProps, "color"> {
 
 export function Iconify({ color, height = "auto", ...otherProps }: IconifyProps) {
     const { theme } = useTheme()
-    const colorMap = {
-        primary: "#006FEE",
-        secondary: "#11181C",
-        success: "#17c964",
-        warning: "#f5a524",
-        danger: "#f31260",
-        light: "#FAFAFA",
-        dark: "#18181b"
-    }
 
     return (
         <Icon

@@ -34,12 +34,15 @@ export function createCircularIterator(array: string[]) {
     }
 }
 
-export function generateSchoolYears(startYear: string | number | undefined, numYears: number) {
+export function generateSchoolYears(
+    startYear: string | number | undefined,
+    numYears: number
+) {
     const schoolYears: SchoolYear[] = []
     if (startYear) {
         if (isString(startYear)) startYear = parseInt(startYear)
 
-        for (let i = 0; i < numYears; i++) {
+        for (let i = 0; i <= numYears; i++) {
             const currentYear = startYear + i
             const nextYear = currentYear + 1
             schoolYears.push({

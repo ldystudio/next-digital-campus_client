@@ -4,10 +4,10 @@ import { useTheme } from "next-themes"
 import { Spinner } from "@nextui-org/react"
 import { Expand } from "@theme-toggles/react"
 
-import "@theme-toggles/react/css/Expand.css"
-
 import { useClientServerCheck } from "~/hooks/common"
 import { cn } from "~/utils"
+
+import "@theme-toggles/react/css/Expand.css"
 
 /**
  * Switches the theme between light and dark.
@@ -51,11 +51,11 @@ export function ThemeSwitch({ className }: { className?: string }) {
             ]
             document.documentElement.animate(
                 {
-                    clipPath: theme === "light" ? clipPath : [...clipPath].reverse()
+                    clipPath: theme === "light" ? clipPath : clipPath.slice().reverse()
                 },
                 {
-                    duration: 500,
-                    easing: "ease-in",
+                    duration: 800,
+                    easing: "ease-in-out",
                     fill: "forwards",
                     pseudoElement:
                         theme === "light"
@@ -65,13 +65,14 @@ export function ThemeSwitch({ className }: { className?: string }) {
             )
         })
     }
+
     return (
         // Render the theme switch button
         <div
             className={cn("flex cursor-pointer items-center justify-center", className)}
-            onClick={(e) => handleSwitch(e)}
+            onClick={handleSwitch}
         >
-            <Expand duration={750} toggled={resolvedTheme === "light"} />
+            <Expand duration={1000} toggled={resolvedTheme === "light"} />
         </div>
     )
 }
