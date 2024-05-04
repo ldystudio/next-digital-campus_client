@@ -4,8 +4,12 @@ import * as echarts from "echarts"
 import { EChartsOption } from "echarts"
 
 import { ChartCard } from "@/components/business/chart-card"
+import { useChartData, useIsPending } from "./data-provider"
 
 export default function Chart2({ className }: PageComponentProps) {
+    const data = useChartData()?.chart2
+    const isPending = useIsPending()
+
     /** @type EChartsOption */
     const option: EChartsOption = {
         grid: { top: 8, right: 8, bottom: 8, left: 8 },
@@ -20,9 +24,7 @@ export default function Chart2({ className }: PageComponentProps) {
         },
         series: [
             {
-                data: Array.from({ length: 7 }, () =>
-                    Math.round(Math.random() * (130 - 80) + 80)
-                ),
+                data: data?.data ?? [],
                 type: "line",
                 smooth: true,
                 showSymbol: false,
@@ -47,11 +49,12 @@ export default function Chart2({ className }: PageComponentProps) {
     const chartCardProps = {
         option,
         imgPath: "/images/icon/004-fire.jpg",
-        title: "活动参与度统计",
-        describe: "Teacher attendance statistics",
-        number: 75,
-        floating: "+2.1%",
-        subDescribe: "出勤人数",
+        title: data?.title,
+        describe: data?.describe,
+        number: data?.number,
+        floating: data?.floating,
+        subDescribe: data?.subDescribe,
+        isLoading: isPending,
         className
     }
 

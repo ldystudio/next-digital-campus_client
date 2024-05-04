@@ -4,9 +4,11 @@ import { Col } from "@/components/common/dimension"
 import { LocalImage } from "@/components/common/image"
 
 export function PageUnderConstruction({
-    pageTitle
+    pageTitle,
+    description = "页面开发中..."
 }: {
-    pageTitle: string | undefined
+    pageTitle?: string
+    description?: string
 }) {
     return (
         <Col
@@ -25,7 +27,7 @@ export function PageUnderConstruction({
                 <CardFooter className='flex justify-center'>
                     <p className='text-xl font-bold'>
                         <span className='text-primary'>{pageTitle} </span>
-                        页面开发中...
+                        {description}
                     </p>
                 </CardFooter>
             </Card>

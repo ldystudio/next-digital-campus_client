@@ -7,5 +7,10 @@ export const metadata: Metadata = {
 }
 
 export default function NoticePersonPage() {
-    return <PageUnderConstruction pageTitle={metadata.title?.toString()} />
+    return (
+        <PageUnderConstruction
+            pageTitle={metadata.title?.toString()}
+            description='无内容'
+        />
+    )
 }

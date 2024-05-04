@@ -3,8 +3,12 @@
 import { EChartsOption } from "echarts"
 
 import { ChartCard } from "@/components/business/chart-card"
+import { useChartData, useIsPending } from "./data-provider"
 
 export default function Chart3({ className }: PageComponentProps) {
+    const data = useChartData()?.chart3
+    const isPending = useIsPending()
+
     /** @type EChartsOption */
     const option: EChartsOption = {
         tooltip: {
@@ -34,12 +38,7 @@ export default function Chart3({ className }: PageComponentProps) {
                 labelLine: {
                     show: false
                 },
-                data: [
-                    { value: 1048, name: "大一" },
-                    { value: 735, name: "大二" },
-                    { value: 580, name: "大三" },
-                    { value: 484, name: "大四" }
-                ]
+                data: data?.data ?? []
             }
         ]
     }
@@ -47,9 +46,10 @@ export default function Chart3({ className }: PageComponentProps) {
     const chartCardProps = {
         option,
         imgPath: "/images/icon/004-fire.jpg",
-        title: "各年级人数比例",
-        describe: "The proportion of students",
+        title: data?.title,
+        describe: data?.describe,
         heightArr: [300, 150] as [number, number],
+        isLoading: isPending,
         className
     }
 

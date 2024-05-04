@@ -10,9 +10,22 @@ import { Avatar, Button, Card } from "@nextui-org/react"
 import { Col, Row } from "@/components/common/dimension"
 import { Iconify } from "@/components/common/iconify"
 import { cn } from "~/utils"
+import { useChartData, useIsPending } from "./data-provider"
 
-function SubChart({ className }: PageComponentProps) {
-    function topChartOption(color: string) {
+type SubChartData = {
+    title: string
+    data: number[]
+}
+function SubChart({
+    className,
+    data1,
+    data2
+}: {
+    className: string
+    data1?: SubChartData
+    data2?: SubChartData
+}) {
+    function topChartOption(color: string, data?: number[]) {
         /** @type EChartsOption */
         return {
             grid: { top: 8, right: 8, bottom: 8, left: 8 },
@@ -42,9 +55,7 @@ function SubChart({ className }: PageComponentProps) {
             },
             series: [
                 {
-                    data: Array.from({ length: 14 }, () =>
-                        Math.round(Math.random() * (130 - 80) + 80)
-                    ),
+                    data: data,
                     type: "line",
                     smooth: true,
                     showSymbol: false,
@@ -76,19 +87,19 @@ function SubChart({ className }: PageComponentProps) {
         >
             <Row>
                 <EChartsReact
-                    option={topChartOption("#66aaf9")}
+                    option={topChartOption("#66aaf9", data1?.data)}
                     style={{ width: 200, height: 75 }}
                     opts={{ renderer: "svg" }}
                 />
-                <p className='text-lg font-bold lg:text-xl'>电脑</p>
+                <p className='text-lg font-bold lg:text-xl'>{data1?.title}</p>
             </Row>
             <Row>
                 <EChartsReact
-                    option={topChartOption("#ae7ede")}
+                    option={topChartOption("#ae7ede", data2?.data)}
                     style={{ width: 200, height: 75 }}
                     opts={{ renderer: "svg" }}
                 />
-                <p className='text-lg font-bold lg:text-xl'>手机</p>
+                <p className='text-lg font-bold lg:text-xl'>{data2?.title}</p>
             </Row>
         </div>
     )
@@ -100,6 +111,9 @@ export default function Chart3({ className }: PageComponentProps) {
     const today = new Date()
     const height = responsive?.md ? 380 : 250
     const width = responsive?.md ? 3 : 2
+
+    const data = useChartData()?.large_chart
+    const isPending = useIsPending()
 
     const option: EChartsOption = {
         xAxis: {
@@ -149,10 +163,8 @@ export default function Chart3({ className }: PageComponentProps) {
         },
         series: [
             {
-                name: "学生",
-                data: Array.from({ length: 10 }, () =>
-                    Math.round(Math.random() * (7 - 2) + 2)
-                ),
+                name: data?.chart3?.series1?.name,
+                data: data?.chart3?.series1?.data,
                 type: "line",
                 smooth: true,
                 showSymbol: false,
@@ -169,10 +181,8 @@ export default function Chart3({ className }: PageComponentProps) {
                 ])
             },
             {
-                name: "教师",
-                data: Array.from({ length: 10 }, () =>
-                    Math.round(Math.random() * (8 - 2) + 2)
-                ),
+                name: data?.chart3?.series2?.name,
+                data: data?.chart3?.series2?.data,
                 type: "line",
                 smooth: true,
                 showSymbol: false,
@@ -210,13 +220,29 @@ export default function Chart3({ className }: PageComponentProps) {
                         Everyday everytime
                     </p>
                 </Col>
-                {responsive?.md && <SubChart className='flex' />}
+                {responsive?.md && (
+                    <SubChart
+                        className='flex'
+                        data1={data?.chart1}
+                        data2={data?.chart2}
+                    />
+                )}
                 <Button isIconOnly variant='light'>
                     <Iconify icon='solar:menu-dots-bold-duotone' />
                 </Button>
             </Row>
-            {!responsive?.md && <SubChart className='flex flex-col' />}
-            <EChartsReact option={option} style={{ width: "100%", height }} />
+            {!responsive?.md && (
+                <SubChart
+                    className='flex flex-col'
+                    data1={data?.chart1}
+                    data2={data?.chart2}
+                />
+            )}
+            <EChartsReact
+                option={option}
+                style={{ width: "100%", height }}
+                showLoading={isPending}
+            />
         </Card>
     )
 }

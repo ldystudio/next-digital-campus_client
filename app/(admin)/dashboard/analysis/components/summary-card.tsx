@@ -1,11 +1,14 @@
+"use client"
+
 import { Card, CardBody, CardHeader, CircularProgress } from "@nextui-org/react"
 
 import { Iconify } from "@/components/common/iconify"
 import { cn } from "~/utils"
+import { useAnalyticsData } from "./data-provider"
 
 interface CircularProgressCardProps {
-    title: string
-    describe: string
+    title?: string
+    describe?: string
     icon: string
     numValue?: number
     showCircleRing?: boolean
@@ -88,33 +91,35 @@ function CircularProgressCard({
 }
 
 export default function SummaryCard({ className }: PageComponentProps) {
+    const data = useAnalyticsData()
+
     return (
         <div className={cn("grid grid-cols-2 gap-3 *:rounded-3xl lg:gap-5", className)}>
             <CircularProgressCard
-                title='注册学生人数'
-                describe='5678'
-                icon='solar:users-group-two-rounded-bold-duotone'
-                numValue={28}
+                title={data?.first?.title}
+                describe={data?.first?.describe}
+                icon={data?.first?.icon ?? ""}
+                numValue={data?.first?.numValue}
                 color='primary'
             />
             <CircularProgressCard
-                title='注册教师人数'
-                describe='345'
-                icon='solar:users-group-rounded-bold'
-                numValue={2}
+                title={data?.second?.title}
+                describe={data?.second?.describe}
+                icon={data?.second?.icon ?? ""}
+                numValue={data?.second?.numValue}
                 color='secondary'
             />
             <CircularProgressCard
-                title='在线用户人数'
-                describe={`${Math.round(Math.random() * (3000 - 1000) + 1000)}`}
-                icon='solar:user-check-bold-duotone'
+                title={data?.third?.title}
+                describe={data?.third?.describe}
+                icon={data?.third?.icon ?? ""}
                 color='success'
                 showCircleRing={false}
             />
             <CircularProgressCard
-                title='平均响应时间'
-                describe={`${Math.round(Math.random() * (200 - 10) + 10)} ms`}
-                icon='solar:stopwatch-bold-duotone'
+                title={data?.fourth?.title}
+                describe={data?.fourth?.describe}
+                icon={data?.fourth?.icon ?? ""}
                 color='warning'
                 showCircleRing={false}
             />

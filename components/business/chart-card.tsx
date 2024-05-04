@@ -10,12 +10,13 @@ import { cn } from "~/utils"
 interface ChartCardProps {
     option: EChartsOption
     imgPath: string
-    title: string
+    title?: string
     describe?: string
     number?: number
     floating?: string
     subDescribe?: string
     heightArr?: [number, number]
+    isLoading?: boolean
     className?: string
 }
 
@@ -28,6 +29,7 @@ export function ChartCard({
     number,
     floating,
     subDescribe,
+    isLoading,
     className
 }: ChartCardProps) {
     const responsive = useResponsive()
@@ -69,6 +71,7 @@ export function ChartCard({
                     option={option}
                     style={{ width: "100%", height }}
                     opts={{ renderer: "svg" }}
+                    showLoading={isLoading}
                 />
             </div>
         </Card>
