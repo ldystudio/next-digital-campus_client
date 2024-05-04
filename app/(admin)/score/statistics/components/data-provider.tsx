@@ -3,6 +3,8 @@
 import constate from "constate"
 import { useQuery } from "@tanstack/react-query"
 
+import { getAuthState } from "~/store"
+
 export type StatisticsData = {
     max: number
     avg: number
@@ -23,11 +25,13 @@ function useDataState() {
     const { data: statisticsData, isPending } = useQuery<StatisticsData>({
         queryKey: ["/score/statistics/"]
     })
-    return { statisticsData, isPending }
+    const userInfo = getAuthState().userInfo
+    return { statisticsData, isPending, userInfo }
 }
 
-export const [DataProvider, useStatisticsData, useIsPending] = constate(
+export const [DataProvider, useStatisticsData, useIsPending, useUserInfo] = constate(
     useDataState,
     (value) => value.statisticsData,
-    (value) => value.isPending
+    (value) => value.isPending,
+    (value) => value.userInfo
 )

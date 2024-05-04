@@ -2,10 +2,12 @@
 
 import { EChartsOption } from "echarts"
 import EChartsReact from "echarts-for-react"
+import toast from "react-hot-toast"
 import { Card } from "@nextui-org/react"
 
 import { dark, primary } from "~/config"
-import { useIsPending, useStatisticsData } from "./data-provider"
+import { useEffectOnce } from "~/hooks/common"
+import { useIsPending, useStatisticsData, useUserInfo } from "./data-provider"
 
 export default function RadarChartCard({ className }: PageComponentProps) {
     const data = useStatisticsData()
@@ -13,6 +15,13 @@ export default function RadarChartCard({ className }: PageComponentProps) {
         .map((year) => `${year}`)
 
     const isPending = useIsPending()
+    const userInfo = useUserInfo()
+
+    useEffectOnce(() => {
+        if (userInfo?.userRole === "admin") {
+            toast.error("管理员无此页面的数据")
+        }
+    })
 
     function generateRandomArray(length: number): number[] {
         const array: number[] = []
@@ -22,11 +31,26 @@ export default function RadarChartCard({ className }: PageComponentProps) {
         return array
     }
 
+    const title =
+        userInfo?.userRole !== "student"
+            ? [
+                  {
+                      left: "center",
+                      text: "综合能力雷达图"
+                  },
+                  {
+                      left: "center",
+                      top: "center",
+                      text: "暂无数据"
+                  }
+              ]
+            : {
+                  left: "center",
+                  text: "综合能力雷达图"
+              }
+
     const option: EChartsOption = {
-        title: {
-            left: "center",
-            text: "综合能力雷达图"
-        },
+        title,
         legend: {
             left: "center",
             bottom: 0,
@@ -81,7 +105,10 @@ export default function RadarChartCard({ className }: PageComponentProps) {
             data: [
                 {
                     name: year,
-                    value: generateRandomArray(6)
+                    value:
+                        userInfo?.userRole !== "student"
+                            ? undefined
+                            : generateRandomArray(6)
                 }
             ]
         }))

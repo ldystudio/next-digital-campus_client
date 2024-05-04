@@ -49,7 +49,7 @@ export default function Chart1({ className }: PageComponentProps) {
         imgPath: "/images/icon/004-fire.jpg",
         title: "学生签到率统计",
         describe: "Student attendance statistics",
-        number: 5467,
+        number: Math.round(Math.random() * 1000),
         floating: "+4.5%",
         subDescribe: "签到人数",
         className

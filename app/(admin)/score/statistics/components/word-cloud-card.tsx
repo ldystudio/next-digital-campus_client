@@ -7,19 +7,22 @@ import { Card, Spinner } from "@nextui-org/react"
 
 import { primary } from "~/config"
 import { cn } from "~/utils"
-import { useIsPending, useStatisticsData } from "./data-provider"
+import { useIsPending, useStatisticsData, useUserInfo } from "./data-provider"
 
 export default function WordCloudCard({ className }: PageComponentProps) {
     const [wordCloudInitialized, setWordCloudInitialized] = React.useState(false)
 
     const data = useStatisticsData()?.word_cloud
     const isPending = useIsPending()
+    const userInfo = useUserInfo()
 
     React.useEffect(() => {
         if (!wordCloudInitialized) {
             import("echarts-wordcloud").then(() => setWordCloudInitialized(true))
         }
     }, [wordCloudInitialized])
+
+    const sizeRange = userInfo?.userRole !== "student" ? [10, 40] : [20, 70]
 
     const option = {
         title: {
@@ -32,7 +35,7 @@ export default function WordCloudCard({ className }: PageComponentProps) {
                 type: "wordCloud",
                 shape: "circle",
                 keepAspect: true,
-                sizeRange: [20, 70],
+                sizeRange,
                 rotationStep: 30,
                 drawOutOfBound: true,
                 shrinkToFit: true,
