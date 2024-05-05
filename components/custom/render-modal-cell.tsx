@@ -1,6 +1,6 @@
 import React from "react"
 
-import { parseDate } from "@internationalized/date"
+import { parseDate, parseTime } from "@internationalized/date"
 import {
     DatePicker,
     Input,
@@ -8,7 +8,8 @@ import {
     RadioGroup,
     Select,
     SelectItem,
-    Textarea
+    Textarea,
+    TimeInput
 } from "@nextui-org/react"
 
 import UploadBox from "@/components/common/upload-box"
@@ -83,6 +84,7 @@ export default function RenderModalCell({
             )
         }
         if (dateFields.includes(column.uid)) {
+            const date = details[column.uid]?.split("T")[0]
             return (
                 !disabledInput?.includes(column.uid) && (
                     <DatePicker
@@ -90,11 +92,7 @@ export default function RenderModalCell({
                         label={column.name}
                         labelPlacement='outside'
                         variant='bordered'
-                        defaultValue={
-                            details[column.uid]
-                                ? parseDate(details[column.uid])
-                                : undefined
-                        }
+                        defaultValue={date ? parseDate(date) : undefined}
                         showMonthAndYearPickers
                         isRequired={column.isRequired}
                         onChange={(date) => {
@@ -126,7 +124,7 @@ export default function RenderModalCell({
                 </RadioGroup>
             )
         }
-        if (column.uid.includes("time")) {
+        if (isIncludeSubstring(column.uid, ["start_time", "end_time"])) {
             return (
                 !disabledInput?.includes(column.uid) && (
                     <Select
@@ -136,7 +134,7 @@ export default function RenderModalCell({
                                 ? timeList.startTimeList
                                 : column.uid === "end_time"
                                   ? timeList.endTimeList
-                                  : undefined
+                                  : []
                         }
                         label={column.name}
                         labelPlacement='outside'
@@ -155,6 +153,26 @@ export default function RenderModalCell({
                         )}
                     </Select>
                 )
+            )
+        }
+        if (column.uid.includes("time")) {
+            return (
+                <TimeInput
+                    key={column.uid}
+                    label={column.name}
+                    labelPlacement='outside'
+                    placeholder='请输入时间'
+                    variant='bordered'
+                    hourCycle={24}
+                    granularity='second'
+                    isRequired={column.isRequired}
+                    defaultValue={
+                        details[column.uid] ? parseTime(details[column.uid]) : undefined
+                    }
+                    onChange={(value) => {
+                        modifiedAttribute(column.uid, value.toString())
+                    }}
+                />
             )
         }
         if (groupField && groupField === column.uid) {

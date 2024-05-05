@@ -21,8 +21,6 @@ export default async function StudentAttendancePage() {
         { uid: "attendance_status", name: "考勤状态", sortable: true },
         { uid: "check_in_time", name: "记录时间", sortable: true },
         { uid: "ip_address", name: "IP地址" },
-        { uid: "late_time", name: "迟到时间" },
-        { uid: "early_leave_time", name: "早退时间" },
         { uid: "leave_start_time", name: "请假开始时间", sortable: true },
         { uid: "leave_end_time", name: "请假结束时间" },
         { uid: "leave_reason", name: "请假理由" },
