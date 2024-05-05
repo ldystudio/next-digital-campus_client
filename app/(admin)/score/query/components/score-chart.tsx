@@ -10,7 +10,6 @@ import { useQuery } from "@tanstack/react-query"
 
 import { Col } from "@/components/common/dimension"
 import Scrollbar from "@/components/common/scrollbar"
-import { NotoSansSC } from "~/config"
 import { twx } from "~/utils"
 import MessageCard from "./message-card"
 import { useYear } from "./year-provider"
@@ -96,7 +95,7 @@ export default function ScoreChart() {
                         status={adviseData && !error ? "success" : "failed"}
                         isLoading={isPending}
                         showFeedback
-                        messageClassName={`${NotoSansSC.className} text-base`}
+                        messageClassName='text-base'
                         message={
                             <div
                                 dangerouslySetInnerHTML={{ __html: adviseData ?? "" }}

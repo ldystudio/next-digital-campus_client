@@ -22,7 +22,6 @@ import {
 } from "@nextui-org/react"
 import { useQuery } from "@tanstack/react-query"
 
-import { NotoSansSC } from "~/config"
 import { useMutation } from "~/hooks/common"
 import { getAuthState } from "~/store"
 import { useAuthAction } from "~/store/modules/auth"
@@ -229,9 +228,7 @@ export default function InformationCard({
             {/* @ts-expect-error 类型“IntrinsicAttributes & LumiflexProps”上不存在属性“children”*/}
             <Lumiflex className='flex items-center justify-center'>
                 <Card className='absolute z-10 max-w-xl p-2'>
-                    <CardHeader
-                        className={`${NotoSansSC.className} flex flex-col items-start px-4 pb-0 pt-4`}
-                    >
+                    <CardHeader className='flex flex-col items-start px-4 pb-0 pt-4'>
                         <p className='text-large'>{title}</p>
                         <div className='flex gap-4 py-4'>
                             <Badge

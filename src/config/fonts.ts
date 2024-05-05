@@ -61,23 +61,18 @@ const JosefinSans = localFont({
 const NotoSansSC = localFont({
     src: [
         {
-            path: "../../public/font/NotoSansSC/NotoSansSC-Light.ttf",
+            path: "../../public/font/NotoSansSC/仓耳渔阳体W01.ttf",
+            weight: "100",
+            style: "normal"
+        },
+        {
+            path: "../../public/font/NotoSansSC/仓耳渔阳体W02.ttf",
+            weight: "200",
+            style: "normal"
+        },
+        {
+            path: "../../public/font/NotoSansSC/仓耳渔阳体W03.ttf",
             weight: "300",
-            style: "normal"
-        },
-        {
-            path: "../../public/font/NotoSansSC/NotoSansSC-Regular.ttf",
-            weight: "400",
-            style: "normal"
-        },
-        {
-            path: "../../public/font/NotoSansSC/NotoSansSC-Medium.ttf",
-            weight: "500",
-            style: "normal"
-        },
-        {
-            path: "../../public/font/NotoSansSC/NotoSansSC-SemiBold.ttf",
-            weight: "600",
             style: "normal"
         }
     ],
