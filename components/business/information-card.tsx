@@ -224,85 +224,80 @@ export default function InformationCard({
     }
 
     return (
-        <Card className='rounded-3xl lg:h-full'>
-            {/* @ts-expect-error 类型“IntrinsicAttributes & LumiflexProps”上不存在属性“children”*/}
-            <Lumiflex className='flex items-center justify-center'>
-                <Card className='absolute z-10 max-w-xl p-2'>
-                    <CardHeader className='flex flex-col items-start px-4 pb-0 pt-4'>
-                        <p className='text-large'>{title}</p>
-                        <div className='flex gap-4 py-4'>
-                            <Badge
-                                classNames={{
-                                    badge: "w-5 h-5"
-                                }}
-                                color='primary'
-                                content={
-                                    <Button
-                                        isIconOnly
-                                        className='p-0 text-primary-foreground'
-                                        radius='full'
-                                        size='sm'
-                                        variant='light'
-                                        onPress={() => {
-                                            const str = Math.random()
-                                                .toString(36)
-                                                .slice(-8)
-                                            setAvatar(str)
-                                            updateInformation("avatar", str)
-                                        }}
-                                    >
-                                        <Icon icon='solar:refresh-bold-duotone' />
-                                    </Button>
-                                }
-                                placement='bottom-right'
-                                shape='circle'
-                            >
-                                <Avatar
-                                    className='h-14 w-14'
-                                    src={createAvatar(adventurer, {
-                                        seed: avatar
-                                    }).toDataUriSync()}
-                                />
-                            </Badge>
-                            <div className='flex flex-col items-start justify-center'>
-                                {data && (
-                                    <p className='font-medium'>{data.real_name}</p>
-                                )}
-                                <span
-                                    className='text-small capitalize text-default-500'
-                                    suppressHydrationWarning
+        <Card className='flex items-center justify-center rounded-3xl lg:h-full'>
+            {/* @ts-expect-error 类型“IntrinsicAttributes & LumiflexProps”上不存在属性“className” */}
+            <Lumiflex className='hidden md:block' />
+            <Card className='max-w-xl p-2 md:multi-["absolute;z-10"]'>
+                <CardHeader className='flex flex-col items-start px-4 pb-0 pt-4'>
+                    <p className='text-large'>{title}</p>
+                    <div className='flex gap-4 py-4'>
+                        <Badge
+                            classNames={{
+                                badge: "w-5 h-5"
+                            }}
+                            color='primary'
+                            content={
+                                <Button
+                                    isIconOnly
+                                    className='p-0 text-primary-foreground'
+                                    radius='full'
+                                    size='sm'
+                                    variant='light'
+                                    onPress={() => {
+                                        const str = Math.random().toString(36).slice(-8)
+                                        setAvatar(str)
+                                        updateInformation("avatar", str)
+                                    }}
                                 >
-                                    {userInfo.userRole}
-                                </span>
-                            </div>
-                        </div>
-                        <p className='text-small text-default-400'>
-                            该照片将用于您的个人资料，并对平台的其他用户可见。
-                        </p>
-                        <p className='text-small text-danger-200'>
-                            不能修改的部分请联系管理员修改
-                        </p>
-                    </CardHeader>
-                    <CardBody className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-                        {data && (
-                            <RenderCell
-                                data={data}
-                                columns={columns}
-                                updateInformation={updateInformation}
-                                disabledInput={disabledInput}
-                                dateFields={dateFields}
-                                statusField={statusField}
-                                statusOptions={statusOptions}
+                                    <Icon icon='solar:refresh-bold-duotone' />
+                                </Button>
+                            }
+                            placement='bottom-right'
+                            shape='circle'
+                        >
+                            <Avatar
+                                className='h-14 w-14'
+                                src={createAvatar(adventurer, {
+                                    seed: avatar
+                                }).toDataUriSync()}
                             />
-                        )}
-                    </CardBody>
-                    <CardFooter className='mt-4 justify-end gap-2'>
-                        <Button color='primary' radius='full' onPress={() => mutate()}>
-                            修改
-                        </Button>
-                    </CardFooter>
-                </Card>
-            </Lumiflex>
+                        </Badge>
+                        <div className='flex flex-col items-start justify-center'>
+                            {data && <p className='font-medium'>{data.real_name}</p>}
+                            <span
+                                className='text-small capitalize text-default-500'
+                                suppressHydrationWarning
+                            >
+                                {userInfo.userRole}
+                            </span>
+                        </div>
+                    </div>
+                    <p className='text-small text-default-400'>
+                        该照片将用于您的个人资料，并对平台的其他用户可见。
+                    </p>
+                    <p className='text-small text-danger-200'>
+                        不能修改的部分请联系管理员修改
+                    </p>
+                </CardHeader>
+                <CardBody className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+                    {data && (
+                        <RenderCell
+                            data={data}
+                            columns={columns}
+                            updateInformation={updateInformation}
+                            disabledInput={disabledInput}
+                            dateFields={dateFields}
+                            statusField={statusField}
+                            statusOptions={statusOptions}
+                        />
+                    )}
+                </CardBody>
+                <CardFooter className='mt-4 justify-end gap-2'>
+                    <Button color='primary' radius='full' onPress={() => mutate()}>
+                        修改
+                    </Button>
+                </CardFooter>
+            </Card>
         </Card>
     )
 }
