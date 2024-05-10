@@ -74,7 +74,7 @@ export default function CourseListCard({
     )
 
     return (
-        <Card className='my-auto h-full rounded-3xl'>
+        <Card className='my-auto h-[calc(100dvh-100px)] rounded-3xl lg:h-full'>
             <CardHeader>
                 <div className='flex gap-3'>
                     <SingleSelection
@@ -110,7 +110,7 @@ export default function CourseListCard({
                     ))}
                 </Card>
             </CardBody>
-            <CardFooter className='flex items-center justify-between'>
+            <CardFooter className='mb-3 flex items-center justify-between'>
                 <span className='hidden w-[30%] text-small text-default-400 md:block'>
                     共{pageData?.count}条可选课程
                 </span>

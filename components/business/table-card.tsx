@@ -592,7 +592,7 @@ export default function TableCard({
     ])
 
     return (
-        <Card className='rounded-3xl lg:h-full'>
+        <Card className='h-[calc(100dvh-100px)] rounded-3xl lg:h-full'>
             <CardBody className='scrollbar-hide'>
                 <Table
                     aria-label={ariaLabel}

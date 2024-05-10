@@ -175,7 +175,7 @@ export default function AttendanceCard({
     const queryClient = useQueryClient()
 
     return (
-        <Card className='h-full items-center justify-center lg:multi-["w-1/3;min-w-80"]'>
+        <Card className='h-[calc(100dvh-100px)] items-center justify-center lg:multi-["h-full;w-1/3;min-w-80"]'>
             <CardHeader className='flex-col gap-2'>
                 <p className='text-lg font-medium'>
                     {format(new Date(), "yyyy-MM-dd")}
@@ -192,11 +192,11 @@ export default function AttendanceCard({
                 />
             </CardBody>
 
-            <CardFooter className='flex min-h-[21rem] flex-col items-center justify-center'>
+            <CardFooter className='flex min-h-[12rem] flex-col items-center justify-center pt-0 lg:min-h-[21rem]'>
                 <Button
                     color='primary'
                     variant='shadow'
-                    className='flex h-44 w-44 flex-col rounded-full text-lg font-bold'
+                    className='flex h-36 w-36 flex-col rounded-full text-lg font-bold lg:multi-["h-44;w-44"]'
                     startContent={
                         <Icon icon='solar:camera-line-duotone' height='auto' />
                     }

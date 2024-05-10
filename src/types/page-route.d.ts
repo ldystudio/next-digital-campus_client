@@ -75,6 +75,7 @@ declare namespace PageRoute {
         | "notice_person"
         | "setting"
         | "about"
+        | "chat"
 
     /**
      * last degree route key, which has the page file
@@ -129,5 +130,6 @@ declare namespace PageRoute {
         | "notice_person"
         | "setting"
         | "about"
+        | "chat"
     >
 }

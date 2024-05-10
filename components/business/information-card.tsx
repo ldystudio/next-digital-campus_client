@@ -224,7 +224,7 @@ export default function InformationCard({
     }
 
     return (
-        <Card className='flex items-center justify-center rounded-3xl lg:h-full'>
+        <Card className='flex h-[calc(100dvh-100px)] items-center justify-center rounded-3xl lg:h-full'>
             {/* @ts-expect-error 类型“IntrinsicAttributes & LumiflexProps”上不存在属性“className” */}
             <Lumiflex className='hidden md:block' />
             <Card className='max-w-xl p-2 md:multi-["absolute;z-10"]'>

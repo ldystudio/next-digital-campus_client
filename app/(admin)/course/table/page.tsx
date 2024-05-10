@@ -86,7 +86,7 @@ export default async function CourseTablePage() {
     const toWeekDates = getFormattedWeekDates()
 
     return (
-        <section className='grid grid-flow-row-dense grid-cols-8 grid-rows-9 gap-3 text-xs *:multi-["h-full;w-full"] lg:multi-["h-full;gap-5;text-base"]'>
+        <section className='grid h-[calc(100dvh-100px)] grid-flow-row-dense grid-cols-8 grid-rows-9 gap-3 text-xs *:multi-["h-full;w-full"] lg:multi-["h-full;gap-5;text-base"]'>
             <Card className='col-span-1 row-span-1 flex items-center justify-center rounded-lg lg:rounded-3xl'>
                 <p>课程表</p>
             </Card>

@@ -13,18 +13,13 @@ interface ScrollbarProps {
     scrollbarProps?: OverlayScrollbarsComponentProps
 }
 
-export default function Scrollbar({
-    className,
-    children,
-    scrollbarProps
-}: ScrollbarProps) {
+export default function Scrollbar({ children, ...scrollbarProps }: ScrollbarProps) {
     return (
         <OverlayScrollbarsComponent
             defer
             options={{
                 scrollbars: { autoHide: "scroll", autoHideDelay: 500 }
             }}
-            className={className}
             {...scrollbarProps}
         >
             {children}
