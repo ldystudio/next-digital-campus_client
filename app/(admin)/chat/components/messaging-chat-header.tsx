@@ -7,24 +7,25 @@ import { Button, Chip } from "@nextui-org/react"
 
 import { cn } from "~/utils"
 
-export interface MessagingChatHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+interface MessagingChatHeaderProps {
     page?: number
     onOpen?: () => void
     paginate?: (direction: number) => void
+    className?: string
 }
 
-const MessagingChatHeader = React.forwardRef<
-    HTMLInputElement,
-    MessagingChatHeaderProps
->(({ page, paginate, onOpen, className, ...props }, ref) => {
+export default function MessagingChatHeader({
+    page,
+    paginate,
+    onOpen,
+    className
+}: MessagingChatHeaderProps) {
     return (
         <header
             className={cn(
                 "flex w-full items-center justify-between p-3 sm:px-6",
                 className
             )}
-            {...props}
-            ref={ref}
         >
             {page === 0 ? (
                 <Button
@@ -84,8 +85,4 @@ const MessagingChatHeader = React.forwardRef<
             </Button>
         </header>
     )
-})
-
-MessagingChatHeader.displayName = "MessagingChatHeader"
-
-export default MessagingChatHeader
+}

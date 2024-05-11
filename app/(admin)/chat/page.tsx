@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function ChatPage() {
     return (
-        <section className='grid h-full grid-cols-12 gap-0 lg:h-full'>
+        <section className='grid h-full grid-cols-12 gap-5'>
             <ChatApp />
         </section>
     )

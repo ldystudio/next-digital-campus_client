@@ -11,7 +11,6 @@ import {
     Input,
     Listbox,
     ListboxItem,
-    ScrollShadow,
     Tab,
     Tabs
 } from "@nextui-org/react"
@@ -74,6 +73,7 @@ export default function MessageChatInbox({
                     </div>
                 </div>
             </CardHeader>
+
             <CardBody>
                 <Scrollbar className='px-3'>
                     <Listbox

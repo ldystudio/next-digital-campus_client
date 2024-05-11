@@ -6,7 +6,7 @@ import { Avatar, Image } from "@nextui-org/react"
 
 import { cn } from "~/utils"
 
-export type MessagingChatMessageProps = React.HTMLAttributes<HTMLDivElement> & {
+export interface MessagingChatMessageProps {
     avatar: string
     name: string
     time: string
@@ -16,10 +16,15 @@ export type MessagingChatMessageProps = React.HTMLAttributes<HTMLDivElement> & {
     className?: string
 }
 
-const MessagingChatMessage = React.forwardRef<
-    HTMLDivElement,
-    MessagingChatMessageProps
->(({ avatar, name, time, message, isRTL, imageUrl, className, ...props }, ref) => {
+export default function MessagingChatMessage({
+    avatar,
+    name,
+    time,
+    message,
+    isRTL,
+    imageUrl,
+    className
+}: MessagingChatMessageProps) {
     const messageRef = React.useRef<HTMLDivElement>(null)
 
     const MessageAvatar = useCallback(
@@ -38,7 +43,9 @@ const MessagingChatMessage = React.forwardRef<
                     <div className='w-full text-small font-semibold text-default-foreground'>
                         {name}
                     </div>
-                    <div className='flex-end text-small text-default-400'>{time}</div>
+                    <div className='justify-end text-small text-default-400'>
+                        {time}
+                    </div>
                 </div>
                 <div ref={messageRef} className='mt-2 text-small text-default-900'>
                     {message}
@@ -57,17 +64,9 @@ const MessagingChatMessage = React.forwardRef<
     )
 
     return (
-        <div
-            {...props}
-            ref={ref}
-            className={cn("flex gap-3", { "flex-row-reverse": isRTL }, className)}
-        >
+        <div className={cn("flex gap-3", { "flex-row-reverse": isRTL }, className)}>
             <MessageAvatar />
             <Message />
         </div>
     )
-})
-
-MessagingChatMessage.displayName = "MessagingChatMessage"
-
-export default MessagingChatMessage
+}
