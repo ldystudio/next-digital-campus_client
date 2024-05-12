@@ -1,10 +1,7 @@
 "use client"
 
 import _sortBy from "lodash/sortBy"
-import * as adventurer from "@dicebear/adventurer"
-import { createAvatar } from "@dicebear/core"
 import {
-    Avatar,
     Card,
     CardBody,
     CardHeader,
@@ -16,6 +13,7 @@ import {
 } from "@nextui-org/react"
 import { useQuery } from "@tanstack/react-query"
 
+import DicebearAvatar from "@/components/common/avatar"
 import Scrollbar from "@/components/common/scrollbar"
 import {
     generateSchoolYears,
@@ -64,15 +62,10 @@ export default function ScoreRecord() {
     return (
         <Card className='h-full items-center justify-center lg:multi-["w-1/3;min-w-96"]'>
             <CardHeader className='flex h-[100px] flex-col justify-end overflow-visible bg-gradient-to-r from-violet-200 to-pink-200'>
-                <Avatar
+                <DicebearAvatar
                     className='h-20 w-20 translate-y-12'
                     isBordered
-                    src={
-                        studentDetail?.avatar &&
-                        createAvatar(adventurer, {
-                            seed: studentDetail.avatar
-                        }).toDataUriSync()
-                    }
+                    avatar={studentDetail?.avatar ?? ""}
                     name={studentDetail?.real_name}
                 />
             </CardHeader>

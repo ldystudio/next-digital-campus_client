@@ -1,24 +1,24 @@
 import React from "react"
 
 import type { MessagingChatListProps } from "./messaging-chat-list"
-import { Icon } from "@iconify/react"
 import {
     Avatar,
     Badge,
     Card,
     CardBody,
     CardHeader,
-    Input,
     Listbox,
     ListboxItem,
     Tab,
     Tabs
 } from "@nextui-org/react"
 
+import { Col } from "@/components/common/dimension"
 import Scrollbar from "@/components/common/scrollbar"
 import { cn } from "~/utils"
 import MessagingChatHeader from "./messaging-chat-header"
 import messagingChatList from "./messaging-chat-list"
+import MessagingChatSearch from "./messaging-chat-search"
 
 interface MessageChatInboxProps {
     page?: number
@@ -31,6 +31,8 @@ export default function MessageChatInbox({
     paginate,
     className
 }: MessageChatInboxProps) {
+    const [selectedKey, setSelectedKey] = React.useState<string | number>("private")
+
     return (
         <Card
             className={cn("h-full max-h-[calc(100dvh-100px)] rounded-3xl", className)}
@@ -41,42 +43,26 @@ export default function MessageChatInbox({
                     page={page}
                     paginate={paginate}
                 />
-                <div className='flex w-full flex-col gap-4 px-3 sm:px-6 '>
-                    <div>
-                        <div className='mb-4 lg:mb-4'>
-                            <Input
-                                aria-label='Search'
-                                labelPlacement='outside'
-                                placeholder='Search...'
-                                radius='md'
-                                startContent={
-                                    <Icon
-                                        className='text-default-500 [&>g]:stroke-[2px]'
-                                        icon='solar:magnifer-linear'
-                                        width={18}
-                                    />
-                                }
-                                variant='bordered'
-                            />
-                        </div>
-                        <div className='mt-4'>
-                            <Tabs
-                                fullWidth
-                                classNames={{
-                                    cursor: "group-data-[selected=true]:bg-content1"
-                                }}
-                            >
-                                <Tab key='inbox' title='Inbox' />
-                                <Tab key='unread' title='Unread' />
-                            </Tabs>
-                        </div>
-                    </div>
-                </div>
+                <Col className='px-3 sm:px-6' space={4} fullWidth>
+                    <MessagingChatSearch selectedKey={selectedKey} />
+                    <Tabs
+                        fullWidth
+                        classNames={{
+                            cursor: "group-data-[selected=true]:bg-content1"
+                        }}
+                        selectedKey={selectedKey}
+                        onSelectionChange={setSelectedKey}
+                    >
+                        <Tab key='private' title='私聊' />
+                        <Tab key='group' title='群聊' />
+                    </Tabs>
+                </Col>
             </CardHeader>
 
             <CardBody>
                 <Scrollbar className='px-3'>
                     <Listbox
+                        aria-label='ChatList'
                         classNames={{
                             base: "p-0"
                         }}

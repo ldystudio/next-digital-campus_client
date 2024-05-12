@@ -3,12 +3,9 @@
 import React from "react"
 
 import { Lumiflex } from "uvcanvas"
-import * as adventurer from "@dicebear/adventurer"
-import { createAvatar } from "@dicebear/core"
 import { Icon } from "@iconify/react"
 import { parseDate } from "@internationalized/date"
 import {
-    Avatar,
     Badge,
     Button,
     Card,
@@ -22,6 +19,7 @@ import {
 } from "@nextui-org/react"
 import { useQuery } from "@tanstack/react-query"
 
+import DicebearAvatar from "@/components/common/avatar"
 import { useMutation } from "~/hooks/common"
 import { getAuthState } from "~/store"
 import { useAuthAction } from "~/store/modules/auth"
@@ -255,12 +253,7 @@ export default function InformationCard({
                             placement='bottom-right'
                             shape='circle'
                         >
-                            <Avatar
-                                className='h-14 w-14'
-                                src={createAvatar(adventurer, {
-                                    seed: avatar
-                                }).toDataUriSync()}
-                            />
+                            <DicebearAvatar className='h-14 w-14' avatar={avatar} />
                         </Badge>
                         <div className='flex flex-col items-start justify-center'>
                             {data && <p className='font-medium'>{data.real_name}</p>}

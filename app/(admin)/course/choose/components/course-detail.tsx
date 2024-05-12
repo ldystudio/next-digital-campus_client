@@ -1,9 +1,8 @@
 import React from "react"
 
-import * as adventurer from "@dicebear/adventurer"
-import { createAvatar } from "@dicebear/core"
-import { Avatar, AvatarGroup, Image, Tooltip } from "@nextui-org/react"
+import { AvatarGroup, Image, Tooltip } from "@nextui-org/react"
 
+import DicebearAvatar from "@/components/common/avatar"
 import { Col } from "@/components/common/dimension"
 import { NotoSansSC } from "~/config"
 import CellValue from "./cell-value"
@@ -70,10 +69,8 @@ export default function CourseDetail({ columns, course }: CourseDetailProps) {
                                                         </div>
                                                     }
                                                 >
-                                                    <Avatar
-                                                        src={createAvatar(adventurer, {
-                                                            seed: row.avatar
-                                                        }).toDataUriSync()}
+                                                    <DicebearAvatar
+                                                        avatar={row.avatar}
                                                     />
                                                 </Tooltip>
                                             ))}

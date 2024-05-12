@@ -59,7 +59,7 @@ export default function MessagingChatHeader({
                     }
                 )}
             >
-                <h2 className='text-large font-bold text-foreground'>Chats</h2>
+                <h2 className='text-large font-bold text-foreground'>在线聊天</h2>
                 <Chip
                     classNames={{
                         base: "h-[18px] ml-2 bg-default-100",

@@ -1,18 +1,10 @@
 import React from "react"
 
 import { isWithinInterval, parseISO } from "date-fns"
-import * as adventurer from "@dicebear/adventurer"
-import { createAvatar } from "@dicebear/core"
 import { Icon } from "@iconify/react"
-import {
-    Avatar,
-    AvatarGroup,
-    Button,
-    Image,
-    Skeleton,
-    Tooltip
-} from "@nextui-org/react"
+import { AvatarGroup, Button, Image, Skeleton, Tooltip } from "@nextui-org/react"
 
+import DicebearAvatar from "@/components/common/avatar"
 import { Row } from "@/components/common/dimension"
 import { notice } from "@/components/common/notice"
 import { updateCourseChoose } from "~/service/api"
@@ -184,11 +176,7 @@ export default function CourseListItem({
                                                 </div>
                                             }
                                         >
-                                            <Avatar
-                                                src={createAvatar(adventurer, {
-                                                    seed: row.avatar
-                                                }).toDataUriSync()}
-                                            />
+                                            <DicebearAvatar avatar={row.avatar} />
                                         </Tooltip>
                                     ))}
                                 </AvatarGroup>

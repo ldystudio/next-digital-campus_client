@@ -1,18 +1,10 @@
 import { ReactNode, useState } from "react"
 
 import _unionWith from "lodash/unionWith"
-import * as adventurer from "@dicebear/adventurer"
-import { createAvatar } from "@dicebear/core"
-import {
-    Avatar,
-    Chip,
-    Select,
-    SelectedItems,
-    Selection,
-    SelectItem
-} from "@nextui-org/react"
+import { Chip, Select, SelectedItems, Selection, SelectItem } from "@nextui-org/react"
 import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll"
 
+import DicebearAvatar from "@/components/common/avatar"
 import { useGroupList } from "~/hooks/business/use-group-list"
 import { isObject } from "~/utils/common"
 
@@ -181,13 +173,11 @@ export default function MultipleSelect({
                     {(user: SimpleUser) => (
                         <SelectItem key={user.id} textValue={user.real_name}>
                             <div className='flex items-center gap-2'>
-                                <Avatar
+                                <DicebearAvatar
                                     alt={user.real_name}
                                     className='shrink-0'
                                     size='sm'
-                                    src={createAvatar(adventurer, {
-                                        seed: user.avatar
-                                    }).toDataUriSync()}
+                                    avatar={user.avatar}
                                 />
                                 <div className='flex flex-col'>
                                     <span className='text-small'>{user.real_name}</span>
