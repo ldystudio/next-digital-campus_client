@@ -1,4 +1,12 @@
-import { eachDayOfInterval, endOfWeek, format, isToday, startOfWeek } from "date-fns"
+import {
+    eachDayOfInterval,
+    endOfWeek,
+    format,
+    isSameDay,
+    isSameYear,
+    isToday,
+    startOfWeek
+} from "date-fns"
 
 import { isString } from "~/utils/common"
 
@@ -73,4 +81,18 @@ export function getCurrentAndFutureSchoolYears(schoolYears: SchoolYear[]) {
         .map((year) => year.value)
 
     return [[currentSchoolYear.value], futureSchoolYears]
+}
+
+export function getMessageDateTime(now: Date, date: Date) {
+    if (isSameDay(date, new Date(0))) {
+        return null
+    }
+    
+    if (isSameDay(now, date)) {
+        return format(date, "HH:mm")
+    } else if (isSameYear(now, date)) {
+        return format(date, "MM/dd")
+    } else {
+        return format(date, "yyyy/MM/dd")
+    }
 }

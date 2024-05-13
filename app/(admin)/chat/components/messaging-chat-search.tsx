@@ -3,6 +3,7 @@ import React from "react"
 import { Icon } from "@iconify/react"
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react"
 import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll"
+import { useQueryClient } from "@tanstack/react-query"
 
 import DicebearAvatar from "@/components/common/avatar"
 import { useGroupList } from "~/hooks/business/use-group-list"
@@ -27,6 +28,8 @@ export default function MessagingChatSearch({ selectedKey }: MessagingChatSearch
         onLoadMore
     })
 
+    const queryClient = useQueryClient()
+
     return (
         <Autocomplete
             isLoading={isLoading}
@@ -50,11 +53,13 @@ export default function MessagingChatSearch({ selectedKey }: MessagingChatSearch
             onInputChange={setFilterText}
             onOpenChange={setIsOpen}
             onSelectionChange={async (id) => {
-                const { data } = await request.post("/chat/room/", {
+                const { error } = await request.post("/chat/room/", {
                     user_id: id,
                     type: selectedKey === "private" ? 1 : 2
                 })
-                console.log("data: ", data)
+                if (!error) {
+                    queryClient.invalidateQueries({ queryKey: ["/chat/room/"] })
+                }
             }}
         >
             {(user) => (

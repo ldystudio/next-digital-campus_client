@@ -32,9 +32,7 @@ export default function MessagingChatWindow({
     className
 }: MessagingChatWindowProps) {
     return (
-        <Card
-            className={cn("h-full max-h-[calc(100dvh-100px)] rounded-3xl", className)}
-        >
+        <Card className={cn("h-[calc(100dvh-100px)] rounded-3xl lg:h-full", className)}>
             <CardHeader className='flex flex-col'>
                 <MessagingChatHeader className='flex lg:hidden' paginate={paginate} />
                 <div className='flex h-16 w-full items-center gap-2 border-y-small border-default-200 p-3 sm:p-4 lg:border-t-0'>

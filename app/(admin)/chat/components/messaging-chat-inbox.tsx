@@ -1,8 +1,6 @@
 import React from "react"
 
-import type { MessagingChatListProps } from "./messaging-chat-list"
 import {
-    Avatar,
     Badge,
     Card,
     CardBody,
@@ -13,11 +11,12 @@ import {
     Tabs
 } from "@nextui-org/react"
 
+import DicebearAvatar from "@/components/common/avatar"
 import { Col } from "@/components/common/dimension"
 import Scrollbar from "@/components/common/scrollbar"
 import { cn } from "~/utils"
+import { useMessagingChatList } from "./data-provider"
 import MessagingChatHeader from "./messaging-chat-header"
-import messagingChatList from "./messaging-chat-list"
 import MessagingChatSearch from "./messaging-chat-search"
 
 interface MessageChatInboxProps {
@@ -33,16 +32,12 @@ export default function MessageChatInbox({
 }: MessageChatInboxProps) {
     const [selectedKey, setSelectedKey] = React.useState<string | number>("private")
 
+    const messagingChatList = useMessagingChatList()
+
     return (
-        <Card
-            className={cn("h-full max-h-[calc(100dvh-100px)] rounded-3xl", className)}
-        >
+        <Card className={cn("h-[calc(100dvh-100px)] rounded-3xl lg:h-full", className)}>
             <CardHeader className='flex flex-col gap-2'>
-                <MessagingChatHeader
-                    // className='hidden sm:flex'
-                    page={page}
-                    paginate={paginate}
-                />
+                <MessagingChatHeader page={page} paginate={paginate} />
                 <Col className='px-3 sm:px-6' space={4} fullWidth>
                     <MessagingChatSearch selectedKey={selectedKey} />
                     <Tabs
@@ -66,15 +61,16 @@ export default function MessageChatInbox({
                         classNames={{
                             base: "p-0"
                         }}
-                        items={messagingChatList}
+                        items={messagingChatList ?? []}
                         variant='flat'
+                        onAction={(e) => {
+                            console.log("e: ", e)
+                        }}
                     >
-                        {(item: MessagingChatListProps) => (
+                        {(item) => (
                             <ListboxItem
                                 key={item.id}
-                                className={cn("mb-2 px-4", {
-                                    "bg-default-100": item.active
-                                })}
+                                className='mb-2 px-4 data-[focus=true]:bg-default-100'
                                 endContent={
                                     <div className='text-small text-default-400'>
                                         {item.time}
@@ -83,21 +79,19 @@ export default function MessageChatInbox({
                                 textValue={item.name}
                                 onPress={() => paginate?.(1)}
                             >
-                                <div className='flex items-center gap-2 py-1'>
+                                <div className='flex items-center gap-2 py-2'>
                                     {item.count == 0 ? (
-                                        <Avatar
+                                        <DicebearAvatar
                                             alt={item.name}
                                             className='shrink-0'
-                                            size='sm'
-                                            src={item.avatar}
+                                            avatar={item.avatar}
                                         />
                                     ) : (
                                         <Badge color='danger' content={item.count}>
-                                            <Avatar
+                                            <DicebearAvatar
                                                 alt={item.name}
                                                 className='shrink-0'
-                                                size='sm'
-                                                src={item.avatar}
+                                                avatar={item.avatar}
                                             />
                                         </Badge>
                                     )}

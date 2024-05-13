@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import ChatApp from "./components/chat-app"
+import { DataProvider } from "./components/data-provider"
 
 export const metadata: Metadata = {
     title: "在线聊天"
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
 export default function ChatPage() {
     return (
         <section className='grid h-full grid-cols-12 gap-5'>
-            <ChatApp />
+            <DataProvider>
+                <ChatApp />
+            </DataProvider>
         </section>
     )
 }
