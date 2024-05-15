@@ -4,9 +4,16 @@ import React from "react"
 
 import { Icon } from "@iconify/react"
 import { Button, Input, Tooltip } from "@nextui-org/react"
+import { useQueryClient } from "@tanstack/react-query"
+
+import { request } from "~/service/request"
+import { useRoomID } from "./data-provider"
 
 export default function MessagingChatInput() {
     const [message, setMessage] = React.useState<string>("")
+    const roomID = useRoomID()
+
+    const queryClient = useQueryClient()
 
     return (
         <Input
@@ -36,6 +43,23 @@ export default function MessagingChatInput() {
                                 isIconOnly
                                 className='h-[30px] w-[30px] min-w-[30px] bg-foreground leading-[30px]'
                                 radius='lg'
+                                onPress={async () => {
+                                    const { error } = await request.post(
+                                        "/chat/message/",
+                                        {
+                                            room_id: roomID,
+                                            text: message
+                                        }
+                                    )
+                                    if (!error) {
+                                        setMessage("")
+                                        queryClient.refetchQueries({
+                                            queryKey: ["/chat/room/", roomID, "/"],
+                                            type: "active",
+                                            exact: true
+                                        })
+                                    }
+                                }}
                             >
                                 <Icon
                                     className='cursor-pointer text-default-50 [&>path]:stroke-[2px]'

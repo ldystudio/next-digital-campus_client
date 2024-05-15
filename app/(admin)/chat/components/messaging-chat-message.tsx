@@ -2,17 +2,13 @@
 
 import React, { useCallback } from "react"
 
-import { Avatar, Image } from "@nextui-org/react"
+import { Image } from "@nextui-org/react"
 
+import DicebearAvatar from "@/components/common/avatar"
 import { cn } from "~/utils"
+import { MessagingChatMessages } from "./data-provider"
 
-export interface MessagingChatMessageProps {
-    avatar: string
-    name: string
-    time: string
-    message: string
-    isRTL?: boolean
-    imageUrl?: string
+export interface MessagingChatMessageProps extends MessagingChatMessages {
     className?: string
 }
 
@@ -30,7 +26,7 @@ export default function MessagingChatMessage({
     const MessageAvatar = useCallback(
         () => (
             <div className='relative flex-none'>
-                <Avatar src={avatar} />
+                <DicebearAvatar avatar={avatar} />
             </div>
         ),
         [avatar]

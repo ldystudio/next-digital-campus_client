@@ -15,7 +15,7 @@ import {
 } from "@nextui-org/react"
 
 import { cn } from "~/utils"
-import messagingChatConversations from "./messaging-chat-conversations"
+import { useMessagingChatConversations } from "./data-provider"
 import MessagingChatHeader from "./messaging-chat-header"
 import MessagingChatInput from "./messaging-chat-input"
 import MessagingChatMessage from "./messaging-chat-message"
@@ -31,6 +31,22 @@ export default function MessagingChatWindow({
     toggleMessagingProfileSidebar,
     className
 }: MessagingChatWindowProps) {
+    const { messages, other_members } = useMessagingChatConversations() ?? {
+        messages: [],
+        other_members: {
+            real_name: "",
+            user_role: ""
+        }
+    }
+
+    const scrollBarRef = React.useRef<HTMLDivElement>(null)
+
+    React.useEffect(() => {
+        if (scrollBarRef.current) {
+            scrollBarRef.current.scrollTop = scrollBarRef.current.scrollHeight
+        }
+    }, [messages])
+
     return (
         <Card className={cn("h-[calc(100dvh-100px)] rounded-3xl lg:h-full", className)}>
             <CardHeader className='flex flex-col'>
@@ -38,9 +54,11 @@ export default function MessagingChatWindow({
                 <div className='flex h-16 w-full items-center gap-2 border-y-small border-default-200 p-3 sm:p-4 lg:border-t-0'>
                     <div className='w-full'>
                         <div className='text-small font-semibold'>
-                            Application for launch promotion
+                            {other_members.real_name}
                         </div>
-                        <div className='mt-1 text-small text-default-500'>Via Web</div>
+                        <div className='mt-1 text-small text-default-500'>
+                            {other_members.user_role}
+                        </div>
                     </div>
                     <div className='flex cursor-pointer justify-end'>
                         <Dropdown placement='bottom-end'>
@@ -81,17 +99,16 @@ export default function MessagingChatWindow({
 
             <CardBody>
                 <ScrollShadow
+                    ref={scrollBarRef}
                     className='flex max-h-[calc(100vh-220px)] flex-col gap-6 px-6 py-4 lg:max-h-[calc(100vh-162px)]'
                     hideScrollBar
                 >
-                    {messagingChatConversations.map(
-                        (messagingChatConversation, idx) => (
-                            <MessagingChatMessage
-                                key={idx}
-                                {...messagingChatConversation}
-                            />
-                        )
-                    )}
+                    {messages.map((messagingChatConversation, idx) => (
+                        <MessagingChatMessage
+                            key={idx}
+                            {...messagingChatConversation}
+                        />
+                    ))}
                 </ScrollShadow>
             </CardBody>
 

@@ -15,7 +15,7 @@ import DicebearAvatar from "@/components/common/avatar"
 import { Col } from "@/components/common/dimension"
 import Scrollbar from "@/components/common/scrollbar"
 import { cn } from "~/utils"
-import { useMessagingChatList } from "./data-provider"
+import { useMessagingChatList, useSetRoomID } from "./data-provider"
 import MessagingChatHeader from "./messaging-chat-header"
 import MessagingChatSearch from "./messaging-chat-search"
 
@@ -33,6 +33,7 @@ export default function MessageChatInbox({
     const [selectedKey, setSelectedKey] = React.useState<string | number>("private")
 
     const messagingChatList = useMessagingChatList()
+    const setRoomID = useSetRoomID()
 
     return (
         <Card className={cn("h-[calc(100dvh-100px)] rounded-3xl lg:h-full", className)}>
@@ -63,9 +64,7 @@ export default function MessageChatInbox({
                         }}
                         items={messagingChatList ?? []}
                         variant='flat'
-                        onAction={(e) => {
-                            console.log("e: ", e)
-                        }}
+                        onAction={setRoomID}
                     >
                         {(item) => (
                             <ListboxItem

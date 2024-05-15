@@ -8,6 +8,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import DicebearAvatar from "@/components/common/avatar"
 import { useGroupList } from "~/hooks/business/use-group-list"
 import { request } from "~/service/request"
+import { useSetRoomID } from "./data-provider"
 
 interface MessagingChatSearchProps {
     selectedKey: string | number
@@ -29,6 +30,7 @@ export default function MessagingChatSearch({ selectedKey }: MessagingChatSearch
     })
 
     const queryClient = useQueryClient()
+    const setRoomID = useSetRoomID()
 
     return (
         <Autocomplete
@@ -53,12 +55,20 @@ export default function MessagingChatSearch({ selectedKey }: MessagingChatSearch
             onInputChange={setFilterText}
             onOpenChange={setIsOpen}
             onSelectionChange={async (id) => {
-                const { error } = await request.post("/chat/room/", {
-                    user_id: id,
-                    type: selectedKey === "private" ? 1 : 2
-                })
+                const { data, error } = await request.post<{ id: string }>(
+                    "/chat/room/",
+                    {
+                        user_id: id,
+                        type: selectedKey === "private" ? 1 : 2
+                    }
+                )
                 if (!error) {
-                    queryClient.invalidateQueries({ queryKey: ["/chat/room/"] })
+                    queryClient.refetchQueries({
+                        queryKey: ["/chat/room/"],
+                        type: "active",
+                        exact: true
+                    })
+                    setRoomID(data.id)
                 }
             }}
         >
