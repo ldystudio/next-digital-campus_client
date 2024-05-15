@@ -15,7 +15,12 @@ import {
 } from "@nextui-org/react"
 
 import { cn } from "~/utils"
-import { useMessagingChatConversations } from "./data-provider"
+import {
+    useMessagingChatMessageList,
+    useMessagingChatUser,
+    useRoomID,
+    useSendActionMessage
+} from "./data-provider"
 import MessagingChatHeader from "./messaging-chat-header"
 import MessagingChatInput from "./messaging-chat-input"
 import MessagingChatMessage from "./messaging-chat-message"
@@ -31,16 +36,23 @@ export default function MessagingChatWindow({
     toggleMessagingProfileSidebar,
     className
 }: MessagingChatWindowProps) {
-    const { messages, other_members } = useMessagingChatConversations() ?? {
-        messages: [],
-        other_members: {
-            real_name: "",
-            user_role: ""
+    const roomID = useRoomID()
+    const sendActionMessage = useSendActionMessage()
+
+    const messages = useMessagingChatMessageList()
+    const other_members = useMessagingChatUser()
+
+    React.useEffect(() => {
+        if (roomID) {
+            sendActionMessage({ action: "join_room" })
+            sendActionMessage({ action: "retrieve" })
+            sendActionMessage({ action: "subscribe_to_messages_in_room" })
+            sendActionMessage({ action: "subscribe_instance" })
         }
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [roomID])
 
     const scrollBarRef = React.useRef<HTMLDivElement>(null)
-
     React.useEffect(() => {
         if (scrollBarRef.current) {
             scrollBarRef.current.scrollTop = scrollBarRef.current.scrollHeight

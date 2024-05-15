@@ -1,4 +1,5 @@
 import { setCookie } from "cookies-next"
+import { v4 as uuidv4 } from "uuid"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { notice } from "@/components/common/notice"
@@ -9,7 +10,13 @@ import { useRouteAction } from "~/store/modules/route"
 import { verifyAndParseJwtPayload } from "~/utils/common"
 import { useRouterPush } from "~/utils/router"
 import { localStg } from "~/utils/storage"
-import { clearAuthStorage, emptyInfo, getToken, getUserInfo } from "./helpers"
+import {
+    clearAuthStorage,
+    emptyInfo,
+    getRequestId,
+    getToken,
+    getUserInfo
+} from "./helpers"
 
 interface AuthState {
     /** 用户信息 */
@@ -18,12 +25,15 @@ interface AuthState {
     token: string
     /** 登录的加载状态 */
     isLoading: boolean
+    /** websocket请求id */
+    requestId: string
 }
 
 const initialState: AuthState = {
     userInfo: getUserInfo(),
     token: getToken(),
-    isLoading: false
+    isLoading: false,
+    requestId: getRequestId()
 }
 
 const authSlice = createSlice({
@@ -45,6 +55,9 @@ const authSlice = createSlice({
         },
         setToken(state, action: PayloadAction<string>) {
             return { ...state, token: action.payload }
+        },
+        setRequestId(state, action: PayloadAction<string>) {
+            return { ...state, requestId: action.payload }
         }
     }
 })
@@ -73,6 +86,9 @@ export function useAuthAction() {
     }
     function setToken(token: string) {
         dispatch(authSlice.actions.setToken(token))
+    }
+    function setRequestId(requestId: string) {
+        dispatch(authSlice.actions.setRequestId(requestId))
     }
 
     /** 是否登录 */
@@ -135,17 +151,20 @@ export function useAuthAction() {
             let now = Math.floor(new Date().getTime() / 1000)
 
             if (process.env.NODE_ENV === "production") {
-                // 生产环境下，时间戳可能有10s的误差，这里加上10s
+                // 生产环境下，时间戳可能有10s的误差
                 now += 10
             }
 
             if (iat <= now && now < exp) {
+                const requestId = uuidv4()
                 // 成功后把用户信息存储到缓存中
                 localStg.set("userInfo", userInfo)
+                localStg.set("requestId", requestId)
 
                 // 更新状态
                 setUserInfo(userInfo)
                 setToken(accessToken)
+                setRequestId(requestId)
 
                 successFlag = true
             }
@@ -190,6 +209,7 @@ export function useAuthAction() {
         setIsLoading,
         setUserInfo,
         setToken,
+        setRequestId,
         login,
         emailLogin,
         isLogin,

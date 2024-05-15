@@ -6,9 +6,9 @@ import { Image } from "@nextui-org/react"
 
 import DicebearAvatar from "@/components/common/avatar"
 import { cn } from "~/utils"
-import { MessagingChatMessages } from "./data-provider"
+import { MessagingChatMessageList } from "./data-provider"
 
-export interface MessagingChatMessageProps extends MessagingChatMessages {
+export interface MessagingChatMessageProps extends MessagingChatMessageList {
     className?: string
 }
 
@@ -33,7 +33,7 @@ export default function MessagingChatMessage({
     )
 
     const Message = () => (
-        <div className='flex w-full flex-col gap-4'>
+        <div className='flex w-full flex-col gap-4 lg:w-3/4'>
             <div className='relative w-full rounded-medium bg-content2 px-4 py-3 text-default-600'>
                 <div className='flex'>
                     <div className='w-full text-small font-semibold text-default-foreground'>

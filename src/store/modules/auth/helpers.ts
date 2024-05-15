@@ -20,10 +20,16 @@ export function getUserInfo() {
     return localStg.get("userInfo") || emptyInfo
 }
 
+/** 获取WebSocket请求ID */
+export function getRequestId() {
+    return localStg.get("requestId") || ""
+}
+
 /** 去除用户相关缓存 */
 export async function clearAuthStorage() {
     // localStg.remove("token")
     deleteCookie("accessToken")
     localStg.remove("refreshToken")
     localStg.remove("userInfo")
+    localStg.remove("requestId")
 }

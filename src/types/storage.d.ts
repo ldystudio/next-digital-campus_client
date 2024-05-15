@@ -12,6 +12,8 @@ declare namespace StorageInterface {
         refreshToken: string
         /** 用户信息 */
         userInfo: Auth.UserInfo
+        /** WebSocket请求ID */
+        requestId: string
         /** 本地语言缓存 */
         lang: I18nType.langType
         /** 管理页菜单 */
