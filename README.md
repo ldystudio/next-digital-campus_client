@@ -1,4 +1,4 @@
-# Next数字校园——前端~~暂未开发完毕
+# Next数字校园——前端
 
 Next数字校园系统是一套基于现代化信息技术的全新型校园管理系统
 
@@ -52,6 +52,10 @@ Next数字校园系统是一套基于现代化信息技术的全新型校园管�
     ```
 
 浏览器打开：http://localhost:3000/
+
+## 部署
+
+检查``.env.production``和``next.config.js``的env变量，输入``docker-compose up -d``一键部署！
 
 ## License
 
