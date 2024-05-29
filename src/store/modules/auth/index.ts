@@ -151,8 +151,9 @@ export function useAuthAction() {
             let now = Math.floor(new Date().getTime() / 1000)
 
             if (process.env.NODE_ENV === "production") {
-                // 生产环境下，时间戳可能有10s的误差
-                now += 10
+                // 生产环境下，容器间的时间戳可能有误差
+                now += 30
+                console.log(`[Token]: iat: ${iat} , now: ${now} , exp: ${exp}`)
             }
 
             if (iat <= now && now < exp) {
